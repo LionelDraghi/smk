@@ -72,14 +72,7 @@ unknow_makefile:
 	${TR} assert true /usr/bin/sdiff "-sbB err_unknow_makefile.txt expected_unknow_makefile.txt" 
 
 	${TR} end
-
-<<<<<<< HEAD
-clean:
-	- ${RM} -rf dir? dir?? err*.txt expected_err*.txt expected_help.txt expected_version.txt src.adb rules.txt version1.txt help?.txt template.ac 
-	${TR} clean
-
-=======
->>>>>>> Minor fixes
+	
 doc:
 	- grep '\[Successful\]'  testrec.md > Successful.lst
 	- grep '\[Failed\]'      testrec.md > Failed.lst
@@ -116,11 +109,8 @@ doc:
 	mv tests_status.md ../docs/tests
 
 	cp testrec.md ../docs/tests/
-<<<<<<< HEAD
-=======
 
 clean:
 	- ${RM} -rf dir? dir?? err*.txt expected_err*.txt expected_help.txt expected_version.txt version1.txt help?.txt tests_count.txt .smk_ 
 	${TR} clean
 
->>>>>>> Minor fixes
