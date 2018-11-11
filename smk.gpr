@@ -1,0 +1,88 @@
+-- -----------------------------------------------------------------------------
+-- Copyright 2018 Lionel Draghi
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--     http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- -----------------------------------------------------------------------------
+-- This file is part of the smk project
+-- available at https://github.com/LionelDraghi/smk
+-- -----------------------------------------------------------------------------
+
+project smk is
+
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
+   for Main use ("smk-main.adb");
+   for Exec_Dir use ".";
+
+   package Ide is
+      for Documentation_Dir use "docs";
+      for Vcs_Kind use "Git";
+   end Ide;
+
+   package Builder is
+      for Executable ("smk-main.adb") use "smk";
+      for Default_Switches ("ada") use ("-g");
+   end Builder;
+
+   package Compiler is
+      Common_Switches := ("-gnat2012");
+      Common_Debug_Switches := Common_Switches &
+      ("-g", "-O0",  "-gnatQ", "-gnatf",
+       "-gnato", "-fstack-check", "-gnata",
+       "-gnateE", "-gnatVa", "-gnatwae", "-gnatyaefhiklnprtxM80");
+      -- -gnatQ   : Don't quit
+      -- -gnatf   : Full errors
+      -- -gnato   : Intermediate overflows to be handled in strict mode.
+      -- -fstack-check : stack checking
+      -- -gnata   : assertions
+      -- -gnateE  : extra infos in exception messages
+      -- -gnatVa  : all validity checks
+      -- -gnatwae : activate most optional warning messages, and treat warnings as errors
+      --
+      -- Style checking :
+      -- a : Check attribute casing
+      -- removed b : Blanks not allowed at statement end
+      --         (Because of Markdown processing for comments : double
+      --          final blank is used in MD to force a newline)
+      -- e : Check end/exit labels
+      -- f : No form feeds or vertical tabs
+      -- h : No horizontal tabs
+      -- i : Check if-then layout
+      -- k : Check keyword casing
+      -- l : Check layout
+      -- n : Check casing of entities in Standard
+      -- p : Check pragma casing
+      -- r : Check references
+      -- t : Check token spacing
+      -- M : Set maximum line length
+      -- x : Check extra parentheses.
+
+     for Switches ("ada") use Common_Debug_Switches & "--coverage";
+      -- --coverage = -fprofile-arcs and -ftest-coverage
+
+   end Compiler;
+
+   package Binder is
+      for Default_Switches ("ada") use ("-Es");
+      -- -Es : store symbolic tracebacks
+   end Binder;
+
+   package Linker is
+      for Default_Switches ("ada") use ("-g", "-lgcov", "-fprofile-arcs");
+   end Linker;
+
+   package Pretty_Printer is
+      for Switches ("ada") use ("-M100", "-l2", "-A1", "-A2", "-A3", "-A4");
+   end Pretty_Printer;
+
+end smk;

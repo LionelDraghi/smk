@@ -1,0 +1,81 @@
+#-- -----------------------------------------------------------------------------
+#-- smk, the smart make
+#-- Copyright 2018 Lionel Draghi
+#-- -----------------------------------------------------------------------------
+#-- Licensed under the Apache License, Version 2.0 (the "License");
+#-- you may not use this file except in compliance with the License.
+#-- You may obtain a copy of the License at
+#-- http://www.apache.org/licenses/LICENSE-2.0
+#-- Unless required by applicable law or agreed to in writing, software
+#-- distributed under the License is distributed on an "AS IS" BASIS,
+#-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#-- See the License for the specific language governing permissions and
+#-- limitations under the License.
+#-- -----------------------------------------------------------------------------
+
+site_name: smk
+
+site_url: http://lionel.draghi.free.fr/smk/index.html
+repo_url: https://github.com/LionelDraghi/smk
+site_description: 'The ultimate smart make'
+site_author: 'Lionel Draghi'
+
+use_directory_urls: true
+
+pages:
+- Quick start: index.md
+
+- Documentation:
+#  - why.md
+#  - rules.md
+#  - rules_quick_ref.md
+  - cmd_line.md
+#  - building.md
+#  - download.md
+  
+- Current Status:
+  - dashboard.md
+  - tests/tests_status.md
+  ## - fixme.md
+#  - todo.md
+#   - Limitations and bugs: limitations.md
+#  - changelog.md
+# - Tests:
+#   - tests/testsrec.md
+  
+- About: 
+#  - about.md
+#  - contributing.md
+  - License: LICENSE-2.0.md
+
+## - Tools:
+##   - mdtags.md
+
+# ------------------------------------------------------------------------------
+# Les autres tags sont ici:
+# http://www.mkdocs.org/user-guide/configuration/
+
+repo_url: https://github.com/LionelDraghi/smk
+repo_name: GitHub
+
+
+extra_css:
+  - 'lcov/gcov.css'
+
+# extra_javascript:
+  
+# ------------------------------------------------------------------------------
+theme: 'bootstrap'
+# amelia, cerulean, cosmo, cyborg, flatly, journal, readable, simplex, slate, spacelab, united, yeti, bootstrap, mkdocs, readthedocs
+
+###  theme_dir: '/usr/local/lib/python2.7/dist-packages/mkdocs_windmill'
+
+# plugins : http://www.mkdocs.org/user-guide/plugins/
+# plugins:
+#   - search:
+#     lang: en
+        
+# Extensions : https://pythonhosted.org/Markdown/extensions/index.html
+
+markdown_extensions:
+    #~ - pymdownx.tasklist
