@@ -156,6 +156,6 @@ doc: dashboard cmd_line.md
 clean:
 	echo --- clean:
 	- gnat clean -q -P smk.gpr
-	- ${RM} -rf obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out
+	- ${RM} -rf obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out .smk_
 	- $(MAKE) --directory=tests clean
 	echo OK

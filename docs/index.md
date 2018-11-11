@@ -1,7 +1,11 @@
-smk (SmartMake)
-===============
+[smk (SmartMake)](http://lionel.draghi.free.fr/smk/index.html)
+==============================================================
 
 `smk` is an attempt to realize the smartest possible make.
+
+**Please note that this work is in progress, and is not yet functionnal.**
+
+**Wait for the 0.1.0 version before downloading.**
 
 ------------------------------------------------------------------------
 
