@@ -39,7 +39,7 @@ project smk is
       Common_Debug_Switches := Common_Switches &
       ("-g", "-O0",  "-gnatQ", "-gnatf",
        "-gnato", "-fstack-check", "-gnata",
-       "-gnateE", "-gnatVa", "-gnatwae", "-gnatyaefhiklnprtxM80");
+       "-gnateE", "-gnatVa", "-gnatwae", "-gnatyaefhiklnprtx");
       -- -gnatQ   : Don't quit
       -- -gnatf   : Full errors
       -- -gnato   : Intermediate overflows to be handled in strict mode.
@@ -49,7 +49,7 @@ project smk is
       -- -gnatVa  : all validity checks
       -- -gnatwae : activate most optional warning messages, and treat warnings as errors
       --
-      -- Style checking :
+      -- Style checking (-gnaty):
       -- a : Check attribute casing
       -- removed b : Blanks not allowed at statement end
       --         (Because of Markdown processing for comments : double
@@ -64,11 +64,16 @@ project smk is
       -- p : Check pragma casing
       -- r : Check references
       -- t : Check token spacing
-      -- M : Set maximum line length
       -- x : Check extra parentheses.
 
-     for Switches ("ada") use Common_Debug_Switches & "--coverage";
+      for Switches ("ada")
+      use Common_Debug_Switches & "--coverage" & "-gnatyM80";
       -- --coverage = -fprofile-arcs and -ftest-coverage
+      -- Style checking (-gnaty):
+      -- M : Set maximum line length
+
+      for Switches ("smk-main-put_help.adb")
+      use Common_Debug_Switches & "--coverage" & "-gnatyM100";
 
    end Compiler;
 

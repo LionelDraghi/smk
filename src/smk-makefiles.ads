@@ -14,10 +14,11 @@
 -- -----------------------------------------------------------------------------
 
 -- -----------------------------------------------------------------------------
--- Package: smk.Run_File specification
+-- Package: Smk.Makefiles specification
 --
 -- Purpose:
---   This package manages global settings, hard coded or from cmd line.
+--   This package manages the Makefile data structure, and provided related
+--   analysis and dump services.
 --
 -- Effects:
 --
@@ -25,30 +26,41 @@
 --
 -- -----------------------------------------------------------------------------
 
-private package Smk.Run_File is
+with Ada.Calendar;
+with Ada.Containers.Doubly_Linked_Lists;
+with Ada.Strings.Unbounded;              use Ada.Strings.Unbounded;
+
+with Smk.Run_Files;                      use Smk.Run_Files;
+
+private package Smk.Makefiles is
 
    -- --------------------------------------------------------------------------
-   procedure Initialize;
+   type Makefile_Entry is record
+      Line        : Positive;
+      Section     : Section_Names := Default_Section;
+      Command     : Command_Lines := Command_Lines (Null_Unbounded_String);
+      Already_Run : Boolean       := False;
+      -- used to avoid running the same command for a different reason
+      -- during the analysis.
+   end record;
+   package Makefile_Entry_Lists is
+     new Ada.Containers.Doubly_Linked_Lists (Makefile_Entry, "=");
 
    -- --------------------------------------------------------------------------
-   -- Function: First_Run
-   -- Purpose:
-   --   Return True if there is no previous run file
-   -- --------------------------------------------------------------------------
-   function First_Run return Boolean;
+   type Makefile is record
+      Name     : File_Name;
+      Time_Tag : Ada.Calendar.Time;
+      Entries  : Makefile_Entry_Lists.List;
+   end record;
 
    -- --------------------------------------------------------------------------
-   -- Function: Run_All
-   -- Purpose:
-   --   Run all command in Makefile
-   -- --------------------------------------------------------------------------
-   procedure Run_All;
+   procedure Analyze (Makefile_Name : in     String;
+                      Line_List     :    out Makefile);
+   -- Analyze the Makefile provided on command line.
 
    -- --------------------------------------------------------------------------
-   -- Function: Run_All
-   -- Purpose:
-   --   Replace the previous run file with the current one.
-   -- --------------------------------------------------------------------------
-   procedure Update_Run_File;
+   procedure Dump (The_Make_File : in Makefile);
+   -- Dump Smk undestanding of a Makefile, only the useful part of the
+   -- Current Makefile, that is without any comment or blank line.
 
-end Smk.Run_File;
+end Smk.Makefiles;

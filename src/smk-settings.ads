@@ -27,11 +27,29 @@
 
 private package Smk.Settings is
 
-   Smk_Version : constant String := "0.0.1";
+   Smk_Version : constant String := "0.0.2";
 
+   Always_Make        : Boolean := False;
+   Explain            : Boolean := False;
+   Dry_Run            : Boolean := False;
+   Ignore_Errors      : Boolean := False;
+   List_Makefile      : Boolean := False;
+   List_Saved_Run     : Boolean := False;
+   List_Targets       : Boolean := False;
    Recursive          : Boolean := False;
    Warnings_As_Errors : Boolean := False;
    Create_Template    : Boolean := False;
+   Clean_Smk_Files    : Boolean := False;
+
+   -- -------------------------------------------------------------------------
+   Smk_File_Prefix       : constant String := ".smk."; -- used for all Smk files
+   Strace_Outfile_Suffix : constant String := "strace_output";
+   Strace_Cmd            : constant String := "/usr/bin/strace";
+   Strace_Opt            : constant String := "-y -q -qq -f -e trace=%file -o ";
+   -- -y  : print paths associated with file descriptor arguments (between <>)
+   -- -q  : suppress messages about attaching, detaching, etc.
+   -- -qq : suppress messages about process exit status.
+   -- -f  : follow forks
 
    -- -------------------------------------------------------------------------
    type Print_Out_Level is (Debug, Verbose, Normal, Quiet);
@@ -56,6 +74,9 @@ private package Smk.Settings is
    -- -------------------------------------------------------------------------
    -- Function: Makefile_Name
    -- -------------------------------------------------------------------------
-   function Makefile_Name return String;
+   function Makefile_Name          return String;
+   function Previous_Run_File_Name return String;
+   function Run_Dir_Name           return String;
+   function Strace_Outfile_Name    return String;
 
 end Smk.Settings;

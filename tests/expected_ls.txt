@@ -1,0 +1,20 @@
+ [hello] gcc -o hello hello.o main.o
+  Sources:
+  - :/home/lionel/Proj/smk/tests/hello.c/hello.o
+  - :/home/lionel/Proj/smk/tests/hello.c/main.o
+  Targets:
+  - :/home/lionel/Proj/smk/tests/hello.c/hello
+
+ [hello.o] gcc -o hello.o -c hello.c
+  Sources:
+  - :/home/lionel/Proj/smk/tests/hello.c/hello.c
+  Targets:
+  - :/home/lionel/Proj/smk/tests/hello.c/hello.o
+
+ [main.o] gcc -o main.o -c main.c
+  Sources:
+  - :/home/lionel/Proj/smk/tests/hello.c/hello.h
+  - :/home/lionel/Proj/smk/tests/hello.c/main.c
+  Targets:
+  - :/home/lionel/Proj/smk/tests/hello.c/main.o
+

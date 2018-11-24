@@ -24,11 +24,27 @@ begin
    Put_Line ("Usage : smk [Options] make_file");
    New_Line;
    Put_Line ("Options :");
+   Put_Line ("   -a  | --always-make    : unconditionally make all targets");
+   Put_Line ("   -e  | --explain        : explain why each target is made");
+   Put_Line ("   -n  | --dry-run        : print the commands that would"
+             & " be executed, but do not execute them");
+   Put_Line ("   -i  | --ignore-errors  : ignore all errors in commands"
+             & " executed to remake files");
+   New_Line;
+   Put_Line ("   -lm | --list_makefile  : dump Smk understanding of the"
+             & " Makefile");
+   New_Line;
+   Put_Line ("   -ls | --list_saved_run : dump what Smk stored of the previous"
+             & " run of this Makefile");
+   New_Line;
+   Put_Line ("         --clean          : remove all local Smk files"
+             & " (equivalent to rm .smk.*)");
+   New_Line;
    Put_Line ("   -We | --Warnings=error : treat warnings as errors");
    Put_Line ("   -v  | --verbose");
    Put_Line ("   -q  | --quiet          : no message unless error.");
    Put_Line ("                            Warning are also ignored.");
-   Put_Line ("         --version        : smk version");
+   Put_Line ("         --version        : Smk version");
    Put_Line ("   -h  | --help           : this message");
    New_Line;
    Put_Line ("https://github.com/LionelDraghi/smk");

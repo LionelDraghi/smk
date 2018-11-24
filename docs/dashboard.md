@@ -6,23 +6,19 @@ Version
 > smk --version
 
 ```
-0.0.1
+0.0.2
 ```
 
 > date -r ./smk --iso-8601=seconds
 
 ```
-<<<<<<< HEAD
-2018-11-11T02:30:27+01:00
-=======
-2018-11-11T04:31:53+01:00
->>>>>>> Minor fixes
+2018-11-24T23:15:50+01:00
 ```
 
 Test results
 ------------
 ```
-Successful  3
+Successful  11
 Failed      0
 Empty       0
 ```
@@ -32,13 +28,8 @@ Coverage
 --------
 
 ```
-<<<<<<< HEAD
-  lines......: 87.8% (224 of 255 lines)
-  functions..: 81.8% (27 of 33 functions)
-=======
-  lines......: 90.2% (230 of 255 lines)
-  functions..: 87.9% (29 of 33 functions)
->>>>>>> Minor fixes
+  lines......: 46.8% (1157 of 2472 lines)
+  functions..: 48.3% (286 of 592 functions)
 ```
 
 [**Coverage details in the sources**](http://lionel.draghi.free.fr/smk/lcov/home/lionel/Proj/smk/src/index-sort-f.html)

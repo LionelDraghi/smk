@@ -19,7 +19,7 @@
 
 .SILENT:
 
-all: build check
+all: build check doc
 
 build:
 	echo --- build:
@@ -149,13 +149,20 @@ cmd_line.md:
 
 doc: dashboard cmd_line.md
 	echo Make Doc
+	echo 'Fixme in current version:'		>  docs/fixme.md
+	echo '-------------------------'		>> docs/fixme.md
+	echo                            		>> docs/fixme.md
+	echo 'Location | Text'             		>> docs/fixme.md
+	echo '---------|-----'             		>> docs/fixme.md
+	rgrep -ni "Fixme" src/* |sed "s/:/|/2"	>> docs/fixme.md
+
 	mkdocs build --clean
 	@ - chmod --silent +x ./site/smk
 
 .PHONY : clean
 clean:
 	echo --- clean:
-	- gnat clean -q -P smk.gpr
 	- ${RM} -rf obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out .smk_
 	- $(MAKE) --directory=tests clean
+	- gnat clean -q -P smk.gpr
 	echo OK

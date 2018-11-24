@@ -32,17 +32,17 @@ pages:
   - cmd_line.md
 #  - building.md
 #  - download.md
-  
+  - compare_with_make.md
+  - tests/testrec.md
+
 - Current Status:
   - dashboard.md
   - tests/tests_status.md
-  ## - fixme.md
+  - fixme.md
 #  - todo.md
-#   - Limitations and bugs: limitations.md
-#  - changelog.md
-# - Tests:
-#   - tests/testsrec.md
-  
+  - Limitations and bugs: limitations.md
+  - changelog.md
+
 - About: 
 #  - about.md
 #  - contributing.md

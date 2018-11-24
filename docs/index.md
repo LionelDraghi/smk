@@ -3,9 +3,7 @@
 
 `smk` is an attempt to realize the smartest possible make.
 
-**Please note that this work is in progress, and is not yet functionnal.**
-
-**Wait for the 0.1.0 version before downloading.**
+**Please note that the current 0.0.2 version is the first MVP of smk**
 
 ------------------------------------------------------------------------
 
@@ -49,19 +47,32 @@ gcc -o hello hello.o main.o
 
 that is, with **no more rules, dependencies, target, etc.**
 
+This would require a tool able to observes the execution of the various command lines, and smart enough to understand for example that the first command is reading `hello.c`, and thus depending on this file, and producing `hello.o`, and to understand that if both `hello.c` and `hello.o` didn't change since last run, it don't have to re-run this command.
 
-This would require a tool able to observes the execution of the various command lines, and smart enough to understand for example that the first command is reading `hello.c`, and thus depending on this file, and producing `hello.o`, and to understand that if both `hello.c` and `hello.o` didn't change since last run, it don't have to re-run this command. 
-
-This is what `smk` proposes, by using Linux kernel monitoring capabilities, and more specifically [strace](https://en.wikipedia.org/wiki/Strace).
 
 ## Usage
 
-TBW
+Create a `MyBuild` file with your favorite editor containing just your commands:
+```
+gcc -o hello.o -c hello.c
+gcc -o main.o -c main.c
+gcc -o hello hello.o main.o
+etc.
+```
+
+I want to | Command
+----------|--------
+Check what `smk` undestand from my file | `smk -lm MyBuild`
+Run it | `smk MyBuild`
+Run it with explanations | `smk -e MyBuild`
+Check what would be run wihtout running it | `smk -n MyBuild`
+See what has understud `smk` regarding sources and targets from last run | `smk -ls MyBuild`
+What else? | `smk -h`
+
 
 ## About
 
 This package was created by Lionel Draghi, and is released under [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-
 
 
 ## Building

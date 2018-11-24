@@ -49,16 +49,9 @@ procedure Analyze_Cmd_Line is
    -- Procedure: Put_Version
    -- --------------------------------------------------------------------------
    procedure Put_Version is
-      use Smk.IO;
    begin
-      Put_Line (Settings.Smk_Version);
+      IO.Put_Line (Settings.Smk_Version);
    end Put_Version;
-
-
-   -- --------------------------------------------------------------------------
-   -- Procedure: Analyze_Cmd_Line
-   -- --------------------------------------------------------------------------
-   use Smk.IO;
 
 begin
    if Ada.Command_Line.Argument_Count < 1 then
@@ -69,17 +62,38 @@ begin
    while Arg_Counter <= Ada.Command_Line.Argument_Count loop
       declare
          Opt : constant String := Ada.Command_Line.Argument (Arg_Counter);
+
       begin
-         if Opt = "--version" then
-            Put_Version;
+         if Opt = "-a" or Opt = "--always-make" then
+            Settings.Always_Make := True;
             Next_Arg;
 
-         elsif Opt = "-h" or Opt = "--help" then
-            Put_Help;
+         elsif Opt = "-e" or Opt = "--explain" then
+            Settings.Explain := True;
             Next_Arg;
 
-         elsif Opt = "-q" or Opt = "--quiet" then
-            Settings.Verbosity := Quiet;
+         elsif Opt = "-n" or Opt = "--dry-run" then
+            Settings.Dry_Run := True;
+            Next_Arg;
+
+         elsif Opt = "-i" or Opt = "--ignore-errors" then
+            Settings.Ignore_Errors := True;
+            Next_Arg;
+
+         elsif Opt = "-lm" or Opt = "--list_makefile" then
+            Settings.List_Makefile := True;
+            Next_Arg;
+
+         elsif Opt = "-ls" or Opt = "--list_saved_run" then
+            Settings.List_Saved_Run := True;
+            Next_Arg;
+
+         elsif Opt = "-lt" or Opt = "--list_targets" then
+            Settings.List_Targets := True;
+            Next_Arg;
+
+         elsif Opt = "--clean" then
+            Settings.Clean_Smk_Files := True;
             Next_Arg;
 
          elsif Opt = "-We" or Opt = "--Warnings=error" then
@@ -88,6 +102,18 @@ begin
 
          elsif Opt = "-v" or Opt = "--verbose" then
             Settings.Verbosity := Verbose;
+            Next_Arg;
+
+         elsif Opt = "-q" or Opt = "--quiet" then
+            Settings.Verbosity := Quiet;
+            Next_Arg;
+
+         elsif Opt = "--version" then
+            Put_Version;
+            Next_Arg;
+
+         elsif Opt = "-h" or Opt = "--help" then
+            Put_Help;
             Next_Arg;
 
          elsif Opt = "-d" then
@@ -106,7 +132,7 @@ begin
 
          end if;
 
-         if Some_Error then return; end if;
+         if IO.Some_Error then return; end if;
          -- No need to further analyze command line, or to do
          -- Options_Coherency_Tests.
       end;
