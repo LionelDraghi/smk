@@ -12,7 +12,7 @@ Version
 > date -r ./smk --iso-8601=seconds
 
 ```
-2018-11-27T00:28:04+01:00
+2018-11-27T23:17:02+01:00
 ```
 
 Test results

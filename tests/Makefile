@@ -1,7 +1,7 @@
 all: check doc
 
 TR=Tools/testrec
-SMK=./smk
+SMK=../smk
 
 .PHONY : clean
 
