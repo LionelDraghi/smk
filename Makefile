@@ -162,7 +162,7 @@ doc: dashboard cmd_line.md
 .PHONY : clean
 clean:
 	echo --- clean:
-	- ${RM} -rf obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out .smk_
 	- $(MAKE) --directory=tests clean
+	- ${RM} -rf obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out .smk.*
 	- gnat clean -q -P smk.gpr
 	echo OK

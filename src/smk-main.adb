@@ -180,6 +180,11 @@ begin
             --              & Boolean'Image (E.Already_Run));
             if not E.Already_Run then
                Run_Command (E, The_Run_List);
+
+               if IO.Some_Error and not Ignore_Errors then
+                  exit Outer;
+               end if;
+
                A_Cmd_Was_Run := E.Already_Run;
             end if;
          end loop Inner;

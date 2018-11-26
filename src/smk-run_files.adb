@@ -56,7 +56,11 @@ package body Smk.Run_Files is
               (Name (1 .. 4) /= "/usr"
                and Name (1 .. 4) /= "/lib"
                and Name (1 .. 4) /= "/opt"
-               and Name (1 .. 4) /= "/etc")
+               and Name (1 .. 4) /= "/etc"
+               and Name (1 .. 5) /= "/proc"
+               and Name (1 .. 4) /= "/sys")
+                -- Fixme: filter processing to complete, and filtered
+                -- directories should moved to Settings
             then
                IO.Put_Line ("  - " & IO.Image (TT) & ":" & Name);
             end if;
@@ -102,19 +106,26 @@ package body Smk.Run_Files is
    procedure Dump (Run_List           : in Run_Lists.Map;
                    Filter_Sytem_Files : in Boolean) is
       use Run_Lists;
+      use Ada.Containers;
    begin
       for L in Run_List.Iterate loop
-         IO.Put_Line (IO.Image (Element (L).Run_Time)
-                      & " [" & (+Element (L).Section) & "] " & (+Key (L)));
+         declare
+            Run      : constant Run_Files.Run := Element (L);
+            RT_Image : constant String := IO.Image (Run.Run_Time);
+            Section  : constant String := " [" & (+Run.Section) & "] ";
+            SC       : constant String := Count_Type'Image (Run.Sources.Length);
+            TC       : constant String := Count_Type'Image (Run.Targets.Length);
+         begin
+            IO.Put_Line (RT_Image &  Section & (+Key (L)));
 
-         IO.Put_Line ("  Sources:");
-         Dump (Element (L).Sources, Filter_Sytem_Files);
+            IO.Put_Line ("  Sources (" & SC (2 .. SC'Last) & ") :");
+            Dump (Run.Sources, Filter_Sytem_Files);
 
-         IO.Put_Line ("  Targets:");
-         Dump (Element (L).Targets, Filter_Sytem_Files);
+            IO.Put_Line ("  Targets (" & TC (2 .. TC'Last) & ") :");
+            Dump (Run.Targets, Filter_Sytem_Files);
 
-         IO.Put_Line ("");
-
+            IO.Put_Line ("");
+         end;
       end loop;
    end Dump;
 

@@ -46,7 +46,7 @@ package body Smk.Makefiles is
    use Ada.Strings.Maps.Constants;
    Whitespace_Set : constant Ada.Strings.Maps.Character_Set
      := Ada.Strings.Maps.To_Set
-       (Ada.Characters.Latin_1.HT & Ada.Characters.Latin_1.Space);
+       (Ada.Characters.Latin_1.HT & Ada.Characters.Latin_1.Space & "@");
    Identifier_Set : constant Ada.Strings.Maps.Character_Set
      := Alphanumeric_Set or To_Set (".-_");
 
@@ -104,7 +104,17 @@ package body Smk.Makefiles is
 
       Analysis : while not End_Of_File (Make_Fl) loop
          declare
-            Line : constant String := Trim (Get_Line (Make_Fl), Side => Both);
+            --Line : constant String := Trim (Get_Line (Make_Fl), Side => Both);
+            Raw_Line        : constant String  := Get_Line (Make_Fl);
+            First_Non_Blank : constant Natural
+              := Index (Source => Raw_Line,
+                        Set    => Whitespace_Set,
+                        Test   => Outside);
+            Line            : constant String
+              := Raw_Line (Natural'Max (1, First_Non_Blank) .. Raw_Line'Last);
+            -- Line = Get_Line, but heading blanks or tabs character are removed
+            -- If there is not heading blank, First_Non_Blank will be null,
+            -- and Line will start at 1.
             Line_Nb : constant Integer := Integer (Ada.Text_IO.Line (Make_Fl));
 
          begin
@@ -132,16 +142,17 @@ package body Smk.Makefiles is
             else
                -- Last but not least, it's a command line.
                declare
-                  First : Positive;
-                  Last  : Natural;
+--                    First : Positive;
+--                    Last  : Natural;
                begin
-                  -- Let's go to the first Identifier
-                  Find_Token (Source => Line,
-                              Set    => Whitespace_Set,
-                              Test   => Outside,
-                              First  => First,
-                              Last   => Last);
-                  IO.Put_Debug_Line (Line (First .. Line'Last) & "<",
+--                    -- Let's go to the first Identifier
+--                    Find_Token (Source => Line,
+--                                Set    => Whitespace_Set,
+--                                Test   => Outside,
+--                                First  => First,
+--                                Last   => Last);
+                  IO.Put_Debug_Line (Line -- (First .. Line'Last)
+                                     & "<",
                                      Debug  => Debug,
                                      Prefix => Prefix & "Command    >",
                                      File   => Makefile_Name,
@@ -149,7 +160,7 @@ package body Smk.Makefiles is
                   Entry_List.Append
                     ((Line        => Line_Nb - 1, -- why -1 ???
                       Section     => Current_Section,
-                      Command     => +(Line (First .. Line'Last)),
+                      Command     => +(Line), -- (First .. Line'Last)),
                       Already_Run => False));
                end;
 

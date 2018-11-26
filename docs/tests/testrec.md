@@ -55,7 +55,7 @@ Command line checks / Help options [Successful](tests_status.md#successful)
   Expected:
 
 ```
-0.0.2
+0.0.3
 ```
 
 
@@ -136,25 +136,25 @@ List functions checks / --list_makefile [Successful](tests_status.md#successful)
   Expected:
   (note that to ease comparison, dates are removed)
 ```
- [hello] gcc -o hello hello.o main.o
-  Sources:
-  - :/home/lionel/Proj/smk/tests/hello.c/hello.o
-  - :/home/lionel/Proj/smk/tests/hello.c/main.o
-  Targets:
-  - :/home/lionel/Proj/smk/tests/hello.c/hello
+YYYY:MM:DD HH:MM:SS.SS [hello] gcc -o hello hello.o main.o
+  Sources (20) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.o
+  Targets (1) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello
 
- [hello.o] gcc -o hello.o -c hello.c
-  Sources:
-  - :/home/lionel/Proj/smk/tests/hello.c/hello.c
-  Targets:
-  - :/home/lionel/Proj/smk/tests/hello.c/hello.o
+YYYY:MM:DD HH:MM:SS.SS [hello.o] gcc -o hello.o -c hello.c
+  Sources (55) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.c
+  Targets (1) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
 
- [main.o] gcc -o main.o -c main.c
-  Sources:
-  - :/home/lionel/Proj/smk/tests/hello.c/hello.h
-  - :/home/lionel/Proj/smk/tests/hello.c/main.c
-  Targets:
-  - :/home/lionel/Proj/smk/tests/hello.c/main.o
+YYYY:MM:DD HH:MM:SS.SS [main.o] gcc -o main.o -c main.c
+  Sources (56) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.h
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.c
+  Targets (1) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.o
 
 ```
 

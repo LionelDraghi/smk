@@ -57,32 +57,31 @@ and run it with
 
 More options:
 
-I want to | Command
-----------|--------
-Check what `smk` undestand from my file | `smk -lm MyBuild`
-Run it | `smk MyBuild`
-Run it with explanations | `smk -e MyBuild`
-Check what should be run without running it | `smk -n MyBuild`
-See what knows (from previous run) `smk` regarding sources and targets | `smk -ls MyBuild`
-What else? | `smk -h`
+| I want to                                                             | Command           |
+| --------------------------------------------------------------------- | ----------------- |
+| Check what `smk` undestand from MyBuild                               | `smk -lm MyBuild` |
+| Run it with explanations                                              | `smk -e MyBuild`  |
+| Check what would be run, without running it                           | `smk -n MyBuild`  |
+| See what knows `smk` from previous runs regarding sources and targets | `smk -ls MyBuild` |
+| What else?                                                            | `smk -h`          |
 
 
 ## Downloading and building
 
 1. First, get the sources
    
-   - Either donwload it [on the GitHub project page](https://github.com/LionelDraghi/smk)  
+   - Either donwload it on [the GitHub project page](https://github.com/LionelDraghi/smk)  
 
-   - or directly with `git`:
+   - or directly with `git`:  
      > `git clone https://github.com/LionelDraghi/smk.git`
 
 2. Go to the created `smk` directory
 
 3. Ensure you have a gnat compiler (gcc Ada)  
-   On Debian family:
+   On Debian family:  
    >  `apt install gnat make`
 
-4. Build it:
+4. Build it:  
    > `gprbuild -P smk.gpr`
 
 

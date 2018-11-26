@@ -27,9 +27,9 @@ pages:
 
 - Documentation:
 #  - why.md
-#  - rules.md
 #  - rules_quick_ref.md
   - cmd_line.md
+  - smkfile_format.md
 #  - building.md
 #  - download.md
   - compare_with_make.md

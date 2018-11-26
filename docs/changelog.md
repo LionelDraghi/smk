@@ -7,6 +7,14 @@ and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2
 
 - [Unreleased]
 
+- [0.0.3] - 2018-11-27
+> - [Added] `smkfile` format documentaton 
+> - [Fixed] Smk was not stopping in case of spawn error even if -i was not set
+> - [Fixed] /sys and /proc missing in file system filtering 
+> - [Fixed] When starting with a tab, Comment lines where identified as Command line instead
+> - [Changed] For better compatibility with Makefile, '@' are now ignored when at the beginning of the line
+> - [Changed] -ls now indicates how many sources and targets are identified overall (that is including system files)  
+
 - [0.0.2] - 2018-11-24
 > - [Added] The -ls / --list_saved_run option to dump what Smk stored of the previous run of this Makefile
 > - [Added] The -lm / --list_makefile option to see what smk understand from the Makefile

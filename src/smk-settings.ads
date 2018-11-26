@@ -28,7 +28,7 @@
 
 private package Smk.Settings is
 
-   Smk_Version : constant String := "0.0.2";
+   Smk_Version : constant String := "0.0.3";
 
    Always_Make        : Boolean := False;
    Explain            : Boolean := False;

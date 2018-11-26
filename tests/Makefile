@@ -49,7 +49,7 @@ version:
 	${TR} cmt 'Expected:'
 	${TR} cmt 
 	${TR} cmt '```' 						
-	echo "0.0.2"		> out.expected_version.txt
+	echo "0.0.3"		> out.expected_version.txt
 	cat out.expected_version.txt >> testrec.md					
 	${TR} cmt '```' 						
 	${TR} cmt 
@@ -128,7 +128,9 @@ list_saved:
 	
 	${SMK} -q hello.c/Makefile.2 
 	# $(MAKE) --directory=hello.c -f Makefile.2
-	${SMK} -ls hello.c/Makefile.2 | sed "s/[0-9].*[0-9]//g" > out.ls.txt 
+	${SMK} -ls hello.c/Makefile.2 | \
+		sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+		sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.ls.txt 
 	# to get the comparison working, numbers in date are removed
 	${TR} assert true /usr/bin/sdiff "-sbB expected_ls.txt out.ls.txt" 
 
