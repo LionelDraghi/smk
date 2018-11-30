@@ -8,6 +8,7 @@
 Table of contents
 - [Overview](#overview)
 - [Usage](#usage)
+- [More options](#more-options)
 - [Downloading and building](#downloading-and-building)
 - [Portability](#portability)
 - [About](#about)
@@ -45,17 +46,121 @@ This would require a tool able to observes the execution of the various command 
 
 ## Usage
 
-Create a `MyBuild` file with your favorite editor containing just your commands:
+- Create a `MyBuild` file with your favorite editor containing just your commands:  
+```shell
+echo "
+gcc -o hello.o -c hello.c
+gcc -o main.o -c main.c
+gcc -o hello hello.o main.o
+" > MyBuild
+```
+
+- Create the sources for this test case:  
+```C
+echo "
+#include <stdio.h>
+#include <stdlib.h>
+
+void Hello(void)
+{
+	printf("Hello World\n");
+}
+" > hello.c
+```
+
+```C
+echo "
+#include <stdio.h>
+#include <stdlib.h>
+#include "hello.h"
+
+int main(void)
+{
+	Hello();
+	return EXIT_SUCCESS;
+}
+" > main.c
+```
+
+```C
+echo "
+#ifndef H_GL_HELLO
+#define H_GL_HELLO
+
+void Hello(void);
+
+#endif
+" > hello.h
+```
+
+- First run, all command are executed:
+> smk MyBuild  
+
 ```
 gcc -o hello.o -c hello.c
 gcc -o main.o -c main.c
 gcc -o hello hello.o main.o
-etc.
-```
-and run it with
-> smk MyBuild
+```  
 
-More options:
+- From now on, smk knows sources and targets for each command:  
+> smk -ls MyBuild  
+
+```
+2018-11-30 00:42:23.47 []gcc -o hello hello.o main.o
+  Sources (20) :
+  - 2018-11-30 00:42:23.00:hello.o
+  - 2018-11-30 00:42:10.00:main.o
+  Targets (1) :
+  - 2018-11-30 00:42:23.00:hello
+
+2018-11-30 00:42:23.40 []gcc -o hello.o -c hello.c
+  Sources (55) :
+  - 2018-11-30 00:42:19.00:hello.c
+  Targets (1) :
+  - 2018-11-30 00:42:23.00:hello.o
+
+2018-11-30 00:42:10.20 []gcc -o main.o -c main.c
+  Sources (56) :
+  - 2018-11-14 23:14:17.00:hello.h
+  - 2018-11-24 18:55:04.00:main.c
+  Targets (1) :
+  - 2018-11-30 00:42:10.00:main.o
+```
+
+- Second smk run. Sources are unchanged, target is up to date, so nothing is done:  
+> smk MyBuild  
+
+```
+```
+
+- Let's remove a file. Only the two commands needed to get `hello` updated are run:  
+
+> rm main.o  
+> smk MyBuild  
+
+```
+gcc -o main.o -c main.c
+gcc -o hello hello.o main.o
+```
+
+- Let's modify a source. Once more, only the two commands needed to get `hello` updated are run:  
+
+> touch hello.c    
+> smk MyBuild  
+
+```
+gcc -o hello.o -c hello.c
+gcc -o hello hello.o main.o
+```
+
+- Another smk run. No file changes, nothing is done:  
+> smk MyBuild  
+
+```
+```
+
+
+## More options
 
 | I want to                                                             | Command           |
 | --------------------------------------------------------------------- | ----------------- |

@@ -46,7 +46,6 @@ check: smk
 	# - spec (results are not consistent with current gcc version) 
 	# - the false main
 	# - libs (Standard)
-	# - OpenToken
 
 	genhtml obj/coverage.info -o docs/lcov --title "smk tests coverage" \
 		--prefix "/home/lionel/Proj/smk" --frames | tail -n 2 > cov_sum.txt

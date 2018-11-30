@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - [Unreleased]
+> - [Fixed] #1
+> - [Fixed] #4
 
 - [0.0.3] - 2018-11-27
 > - [Added] `smkfile` format documentaton 
