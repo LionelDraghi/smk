@@ -55,6 +55,10 @@ procedure Analyze_Cmd_Line is
    end Put_Version;
 
 begin
+   -- NB: command line, including arguments should comply with GNU Coding
+   -- standards
+   -- (https://www.gnu.org/software/libc/manual/html_node/Argument-Syntax.html)
+
    if Ada.Command_Line.Argument_Count < 1 then
       Put_Help;
       return;
@@ -81,15 +85,15 @@ begin
             Settings.Ignore_Errors := True;
             Next_Arg;
 
-         elsif Opt = "-lm" or Opt = "--list_makefile" then
+         elsif Opt = "-lm" or Opt = "--list-makefile" then
             Settings.List_Makefile := True;
             Next_Arg;
 
-         elsif Opt = "-ls" or Opt = "--list_saved_run" then
+         elsif Opt = "-ls" or Opt = "--list-saved-run" then
             Settings.List_Saved_Run := True;
             Next_Arg;
 
-         elsif Opt = "-lt" or Opt = "--list_targets" then
+         elsif Opt = "-lt" or Opt = "--list-targets" then
             Settings.List_Targets := True;
             Next_Arg;
 

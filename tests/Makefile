@@ -49,7 +49,7 @@ version:
 	${TR} cmt 'Expected:'
 	${TR} cmt 
 	${TR} cmt '```' 						
-	echo "0.0.3"		> out.expected_version.txt
+	echo "0.0.4"		> out.expected_version.txt
 	cat out.expected_version.txt >> testrec.md					
 	${TR} cmt '```' 						
 	${TR} cmt 
@@ -83,7 +83,7 @@ unknow_makefile:
 list_makefile:
 	${TR} create "List functions checks"
 
-	${TR} start '--list_makefile'
+	${TR} start '--list-makefile'
 	${TR} cmt  								
 	${TR} cmt "Test the MakeFile dump" 	
 	
@@ -110,7 +110,7 @@ list_makefile:
 	${TR} end
 
 list_saved:
-	${TR} start '-ls | --list_saved_run'
+	${TR} start '-ls | --list-saved-run'
 	${TR} cmt	
 	${TR} cmt "Test the previous run dump"
 	

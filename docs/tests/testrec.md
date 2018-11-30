@@ -19,25 +19,24 @@
 Usage : smk [Options] make_file
 
 Options :
-   -a  | --always-make    : unconditionally make all targets
-   -e  | --explain        : explain why each target is made
-   -n  | --dry-run        : print the commands that would be executed, but do not execute them
-   -i  | --ignore-errors  : ignore all errors in commands executed to remake files
+   -a   | --always-make    : unconditionally make all targets
+   -e   | --explain        : explain why each target is made
+   -n   | --dry-run        : print the commands that would be executed, but do not execute them
+   -i   | --ignore-errors  : ignore all errors in commands executed to remake files
 
-   -lm | --list_makefile  : dump Smk understanding of the Makefile
+   -lm  | --list-makefile  : dump Smk understanding of a Makefile
+   -ls  | --list-saved-run : dump what Smk stored of the previous run of this Makefile
 
-   -ls | --list_saved_run : dump what Smk stored of the previous run of this Makefile
+          --clean          : remove all local Smk files (equivalent to rm .smk.*)
 
-         --clean          : remove all local Smk files (equivalent to rm .smk.*)
+   -We  | --Warnings=error : treat warnings as errors
+   -v   | --verbose
+   -q   | --quiet          : no message unless error.
+                             Warning are also ignored.
+          --version        : Smk version
+   -h   | --help           : this message
 
-   -We | --Warnings=error : treat warnings as errors
-   -v  | --verbose
-   -q  | --quiet          : no message unless error.
-                            Warning are also ignored.
-         --version        : Smk version
-   -h  | --help           : this message
-
-https://github.com/LionelDraghi/smk
+http://lionel.draghi.free.fr/smk/
 
 ```
 
@@ -55,7 +54,7 @@ Command line checks / Help options [Successful](tests_status.md#successful)
   Expected:
 
 ```
-0.0.3
+0.0.4
 ```
 
 
@@ -82,7 +81,7 @@ Command line checks / Unknow Makefile [Successful](tests_status.md#successful)
 
 
 
-##  List functions checks / --list_makefile
+##  List functions checks / --list-makefile
 
 
   Test the MakeFile dump
@@ -122,9 +121,9 @@ hello.c/Makefile.3 (2018-11-24 03:31:18.00) :
 ```
 
 
-List functions checks / --list_makefile [Successful](tests_status.md#successful)
+List functions checks / --list-makefile [Successful](tests_status.md#successful)
 
-##  List functions checks / -ls | --list_saved_run
+##  List functions checks / -ls | --list-saved-run
 
 
   Test the previous run dump
@@ -159,7 +158,7 @@ YYYY:MM:DD HH:MM:SS.SS [main.o] gcc -o main.o -c main.c
 ```
 
 
-List functions checks / -ls | --list_saved_run [Successful](tests_status.md#successful)
+List functions checks / -ls | --list-saved-run [Successful](tests_status.md#successful)
 
 # Sanity checks
 
