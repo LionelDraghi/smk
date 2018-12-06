@@ -40,24 +40,24 @@ gcc -o hello hello.o main.o
 
 that is, with **no more rules, dependencies, target, etc.**
 
-This would require a tool able to observes the execution of the various command lines, and smart enough to understand for example that the first command is reading `hello.c`, and thus depending on this file, and producing `hello.o`, and to understand that if both `hello.c` and `hello.o` didn't change since last run, it don't have to re-run this command.
+This would require a tool able to observe the execution of the various command lines, and smart enough to understand for example that the first command is reading `hello.c`, and thus depending on this file, and producing `hello.o`, and to understand that if both `hello.c` and `hello.o` didn't change since last run, it doesn't have to re-run this command.
 
-> this is what `Smk` do!
+> this is what `Smk` does!
 
 ## Usage
 
 - Create a `MyBuild` file with your favorite editor containing just your commands:  
 ```shell
-echo "
+echo '
 gcc -o hello.o -c hello.c
 gcc -o main.o -c main.c
 gcc -o hello hello.o main.o
-" > MyBuild
+' > MyBuild
 ```
 
 - Create the sources for this test case:  
 ```C
-echo "
+echo '
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -65,11 +65,11 @@ void Hello(void)
 {
 	printf("Hello World\n");
 }
-" > hello.c
+' > hello.c
 ```
 
 ```C
-echo "
+echo '
 #include <stdio.h>
 #include <stdlib.h>
 #include "hello.h"
@@ -79,21 +79,21 @@ int main(void)
 	Hello();
 	return EXIT_SUCCESS;
 }
-" > main.c
+' > main.c
 ```
 
 ```C
-echo "
+echo '
 #ifndef H_GL_HELLO
 #define H_GL_HELLO
 
 void Hello(void);
 
 #endif
-" > hello.h
+' > hello.h
 ```
 
-- First run, all command are executed:
+- First run, all commands are executed:
 > smk MyBuild  
 
 ```
@@ -192,16 +192,16 @@ gcc -o hello hello.o main.o
 
 ## Portability
 
-This tool heavily rely on [`strace`](https://en.wikipedia.org/wiki/Strace) utility, and thus is dependent on Linux for now.
+This tool heavily relies on [`strace`](https://en.wikipedia.org/wiki/Strace) utility, and thus is dependent on Linux for now.
 
 I keep OS dependencies as small and localized as possible to ease porting.  
 Currently, both dependencies to GNAT for the Spawn procedure, and to the
-OS (the strace call himself) are in a short separate procedure in smk-main-run_command.adb.
+OS (the strace call itself) are in a short separate procedure in smk-main-run_command.adb.
 
-That said, I do not entend to port smk to other platforms myself, but many OSes provide [utilities similar to strace](https://en.wikipedia.org/wiki/Strace#Similar_tools), so it may be done.  
-And obviously, any contribution, including ports, is welcomed.
+That said, I do not intend to port smk to other platforms myself, but many OSes provide [utilities similar to strace](https://en.wikipedia.org/wiki/Strace#Similar_tools), so it may be done.  
+And obviously, any contribution, including ports, is welcome.
 
-`smk` is curently only tested on my Debian x86_64 box.
+`smk` is currently only tested on my Debian x86_64 box.
 
 ## About
 
