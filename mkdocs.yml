@@ -26,14 +26,15 @@ pages:
 - Quick start: index.md
 
 - Documentation:
-#  - why.md
+  - tutorial.md
 #  - rules_quick_ref.md
   - cmd_line.md
   - smkfile_format.md
 #  - building.md
 #  - download.md
   - compare_with_make.md
-  - tests/testrec.md
+  - Tests: tests/testrec.md
+  - design_notes.md
 
 - Current Status:
   - dashboard.md
@@ -44,7 +45,7 @@ pages:
   - changelog.md
 
 - About: 
-#  - about.md
+  - about.md
 #  - contributing.md
   - License: LICENSE-2.0.md
 

@@ -1,6 +1,14 @@
 "Smkfile" format
 ================
 
+- [Overview](#overview)
+- [Comments](#comments)
+- [Sections](#sections)
+- [Commands](#commands)
+- [Compatibility with Makefile](#compatibility-with-makefile)
+    
+## Overview
+
 A `Smkfile` is a simple text file, containing commands.
 
 Here is a simple first exemple of `Smkfile`:  
@@ -14,7 +22,7 @@ gcc -o hello hello.o main.o
 `Smkfile` is named after `Makefile` exemple.  
 Both term will be used hereafter to avoid any ambiguity regarding the intended file format. 
 
-As the project goal is to greatly simplify the make process, the `Smkfile` format is logically simpler and not fully compatible with the `Makefile` format.
+As the project goal is to greatly simplify the make process, the `Smkfile` format is logically much simpler, and thus not fully compatible with the `Makefile` format.
 
 As an illustration, consider the functionnaly equivalent `Makefile` of the previous exemple of `Smkfile`:  
 
@@ -41,8 +49,7 @@ More generally speaking, a `Smkfile` may contains:
 
 (Blank lines are ignored).
 
-Comments
---------
+## Comments
 
 `Smk` recognize several comments formats (but single line comments only), so keep your own habit :
 
@@ -68,21 +75,18 @@ gcc -o hello hello.o main.o
 ```
 
 
-Sections
---------
+## Sections
 
-Sections are labels in the file that specificaly designate the following commands (until next section). It allows for exemple to run only the `clean` section of a Makefile.  
+Sections are labels in the file that specificaly designate the following commands (until next section). It allows for exemple to run only the `clean` section of a Makefile. **Fixme: Not yet implemented, as of v0.0.4**  
 Refer to the [Compatibility with Makefile](#compatibility-with-makefile) chapter.
 
 
-Commands
---------
+## Commands
 
 A command line is whatever line that is neither a blank, Section or Comment line. Once removed heading blanks, tabs and '@' characters, the rest of the line passed 'as is' to the shell to be run.
-Shell or Make variable, pattern rule, constructs, etc. are not interpreted. So, don't expect `$(MAKE)`, `%.d: %.c`, `if [ $1 -gt 100 ]`, etc. to have the right behavior.
+Shell or Make variables, pattern rules, constructs, etc. are not interpreted. So, don't expect `$(MAKE)`, `%.d: %.c`, `if [ $1 -gt 100 ]`, etc. to have the right behavior.
 
-Compatibility with Makefile
----------------------------
+## Compatibility with Makefile
 
 A makefile consists of [“rules” in the following form:](https://en.wikipedia.org/wiki/Makefile#rules)
 
@@ -125,7 +129,7 @@ build:
 
 `build` is the *section name*, `hello` is the *target*, and both `.o` (and possibly included `.h`) are the *sources*.
 
-4. Targets may also be invoked to to ask for a particular intermediate production.  
+4. `Makefile` targets may also be invoked to ask for a particular intermediate production.  
    
    For exemple, in:  
 
@@ -142,15 +146,16 @@ main.o: main.c hello.h
 
 One could invoke `make hello.o`.
 
-In `Smkfile`, targets are not explicitly stated.  
-Future version will provide the hability to:  
+But in `Smkfile`, targets are not explicitly stated.  
+This is why `smk` provides way to:  
 
 - Ask for the possible target list:  
-   `smk --list_target Makefile` (or `smk -lt Makefile`)
+   `smk --list-targets Makefile` (or `smk -lt Makefile`)
 
-- Build specifically one of the listed target:  
-   `smk Makefile hello.o`
-
+- Build specifically whatever file from the listed target:  
+   `smk hello.o`  
+   **Fixme: Not yet implemented, as of v0.0.4**
+   
 
 5. Multilines (splitted with backslash) are not yet processed.
 

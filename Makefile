@@ -40,8 +40,8 @@ check: smk
 	echo - Coverage report :
 
 	lcov --quiet --capture --directory obj -o obj/coverage.info
-	lcov -q --remove obj/coverage.info -o obj/coverage.info \
-		"/usr/*" "*.ads" "*/obj/smk-main.adb"
+	lcov --quiet --remove obj/coverage.info -o obj/coverage.info \
+		"*/adainclude/*" "*.ads" "obj/b__smk-main.adb"
 	# Ignoring :
 	# - spec (results are not consistent with current gcc version) 
 	# - the false main
@@ -120,9 +120,6 @@ dashboard: obj/coverage.info tests/tests_count.txt
 cmd_line.md:
 	echo Make cmd_line.md
 	> docs/cmd_line.md
-	echo "smk command line"		>> docs/cmd_line.md
-	echo "================"		>> docs/cmd_line.md
-	echo ""						>> docs/cmd_line.md
 	echo "smk command line"		>> docs/cmd_line.md
 	echo "----------------"		>> docs/cmd_line.md
 	echo ""						>> docs/cmd_line.md

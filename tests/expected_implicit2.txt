@@ -1,0 +1,2 @@
+gcc -o hello.o -c hello.c
+gcc -o hello hello.o main.o

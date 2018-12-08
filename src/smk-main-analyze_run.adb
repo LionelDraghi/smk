@@ -20,13 +20,15 @@ with Ada.Strings.Fixed;
 with Ada.Text_IO;             use Ada.Text_IO;
 
 with Smk.Settings;
-with Smk.Run_Files;
+with Smk.Runfiles;
 
 separate (Smk.Main)
 
 -- -----------------------------------------------------------------------------
-procedure Analyze_Run (Source_Files : out Run_Files.File_Lists.Map;
-                       Target_Files : out Run_Files.File_Lists.Map)
+procedure Analyze_Run (Source_Files             : out Runfiles.File_Lists.Map;
+                       Source_System_File_Count : out Natural;
+                       Target_Files             : out Runfiles.File_Lists.Map;
+                       Target_System_File_Count : out Natural)
 is
    Debug        : constant Boolean := False;
    Prefix       : constant String  := ""; -- smk-main-analyze_run.adb ";
@@ -89,13 +91,13 @@ is
                               Name : in String) is
       File_Time : constant Ada.Calendar.Time := Modification_Time (Name);
       use Ada.Strings.Fixed;
-      use Run_Files;
+      use Runfiles;
 
    begin
-      if Index (Line, "O_WRONLY") /= 0 or else
-        Index (Line, "O_RDWR") /= 0 or else
-        Index (Line, "write", From => 7) /= 0  or else
-        Index (Line, "creat", From => 7) /= 0
+      if Index (Line, "O_WRONLY") /= 0
+        or else Index (Line, "O_RDWR") /= 0
+        or else Index (Line, "write", From => 7) /= 0
+        or else Index (Line, "creat", From => 7) /= 0
       -- Why seven? because the called system function name comes after
       -- the pid in strace output :
       -- 4372  openat(AT_FDCWD, "/tmp/ccHKHv8W.s", O_RDWR|O_CREAT   etc.
@@ -103,10 +105,19 @@ is
       then
          -- it's a target
          if not Target_Files.Contains (+Name) then
-            Target_Files.Insert (+Name, File_Time);
-            IO.Put_Debug_Line ("T : " & IO.Image (File_Time) & " " & Name,
-                               Debug  => Debug,
-                               Prefix => Prefix);
+            if Is_System_File (Name) then
+               Target_System_File_Count := Target_System_File_Count + 1;
+               Target_Files.Insert (+Name, (File_Time, Is_System => True));
+               IO.Put_Debug_Line
+                 ("T system file :" & IO.Image (File_Time) & " " & Name,
+                  Debug  => Debug,
+                  Prefix => Prefix);
+            else
+               Target_Files.Insert (+Name, (File_Time, Is_System => False));
+               IO.Put_Debug_Line ("T : " & IO.Image (File_Time) & " " & Name,
+                                  Debug  => Debug,
+                                  Prefix => Prefix);
+            end if;
          end if;
          if Source_Files.Contains (+Name) then
             Source_Files.Delete (+Name);
@@ -118,10 +129,19 @@ is
          if not Source_Files.Contains (+Name)
            and not Target_Files.Contains (+Name)
          then
-            Source_Files.Insert (+Name, File_Time);
-            IO.Put_Debug_Line ("S : " & IO.Image (File_Time) & " " & Name,
-                               Debug  => Debug,
-                               Prefix => Prefix);
+            if Is_System_File (Name) then
+               Source_System_File_Count := Source_System_File_Count + 1;
+               Source_Files.Insert (+Name, (File_Time, Is_System => True));
+               IO.Put_Debug_Line
+                 ("S system file : " & IO.Image (File_Time) & " " & Name,
+                  Debug  => Debug,
+                  Prefix => Prefix);
+            else
+               Source_Files.Insert (+Name, (File_Time, Is_System => False));
+               IO.Put_Debug_Line ("S : " & IO.Image (File_Time) & " " & Name,
+                                  Debug  => Debug,
+                                  Prefix => Prefix);
+            end if;
          end if;
       end if;
 
@@ -129,6 +149,9 @@ is
 
 begin
    -- --------------------------------------------------------------------------
+   Source_System_File_Count := 0;
+   Target_System_File_Count := 0;
+
    IO.Put_Debug_Line ("Openning " & Strace_Outfile_Name, Debug, Prefix);
    Open (File => Strace_Ouput,
          Name => Strace_Outfile_Name,
@@ -155,6 +178,7 @@ begin
                then
                   -- Classify_By_Time (File_Name);
                   Classify_By_Cmd (Line => Line, Name => File_Name);
+
                end if;
             end;
          end if;

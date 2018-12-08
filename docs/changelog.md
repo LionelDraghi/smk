@@ -6,12 +6,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - [Unreleased]
-> - [Changed] Long format arguments now all use dashes ('-') instead of underscore ('_'). Closes #8
-> - [Fixed] #1
-> - [Fixed] #4
+
+- [0.0.4] - 2018-12-07
+> - [Added] `-lr` / `--list-runs` added
+> - [Fixed] when using '-rl', sources count is now coherent, closes #3
+> - [Added] `-ss` / `--show-system-files` modify queries listing sources files to list also system files  
+> - [Added] no more need to give the smkfile in the command line when there is one (and only one) runfile in the current dir, closes #7  
+> - [Added] `--clean` now delete targets, as a `make clean`, thanks [Manuel](https://github.com/mgrojo) for the idea, closes #10  
+> - [Added] `-ls` / `--list-sources` & `-la` / `--list-all-sources` added  
+> - [Added] `-lt` / `--list-targets` added  
+> - [Changed] using consistently `smkfile` (instead of `makefile`) and `runfile` within sources, options and docs  
+> - [Changed] `--clean` renamed `--reset`  
+> - [Changed] `--list_makefile_` renamed `-rs` / `--read-smkfile`
+> - [Changed] `--list-saved-run` renamed `-rl` / `--read-last-run`, closes #9
+> - [Fixed] using '-' instead of '_' as separator in long form options, closes #8
+> - [Fixed] change in strace command line : `-e trace=%file` changed to `-e trace=file`, closes #1
+> - [Fixed] Documentation improvement in Quickstart, closes #4
 
 - [0.0.3] - 2018-11-27
-> - [Added] `smkfile` format documentaton 
+> - [Added] `smkfile` format documentation 
 > - [Fixed] Smk was not stopping in case of spawn error even if `-i` was not set
 > - [Fixed] `/sys` and `/proc` missing in file system filtering 
 > - [Fixed] When starting with a tab, Comment lines where identified as Command line instead

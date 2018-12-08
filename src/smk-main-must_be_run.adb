@@ -19,26 +19,26 @@ with Ada.Directories;
 separate (Smk.Main)
 
 -- --------------------------------------------------------------------------
-function Must_Be_Run (Command      :        Run_Files.Command_Lines;
-                      Previous_Run : in out Run_Files.Run_Lists.Map)
+function Must_Be_Run (Command      :        Runfiles.Command_Lines;
+                      Previous_Run : in out Runfiles.Run_Lists.Map)
                       return Boolean
 is
    -- -----------------------------------------------------------------------
    procedure Put_Explanation (Text : in String) is
-      use Smk.Run_Files;
+      use Smk.Runfiles;
    begin
       if Explain then
          IO.Put_Line ("run " & (+Command) & " " & Text);
       end if;
    end Put_Explanation;
 
-   use Run_Files;
+   use Runfiles;
 
    -- -----------------------------------------------------------------------
-   function A_Target_Is_Missing (Targets : in Run_Files.File_Lists.Map)
+   function A_Target_Is_Missing (Targets : in Runfiles.File_Lists.Map)
                                  return Boolean is
       use Ada.Directories;
-      use Run_Files.File_Lists;
+      use Runfiles.File_Lists;
    begin
       for T in Targets.Iterate loop
          declare
@@ -57,14 +57,14 @@ is
    -- --------------------------------------------------------------------------
    function A_Source_Is_Updated (Sources : in File_Lists.Map) return Boolean is
       use Ada.Directories;
-      use Run_Files.File_Lists;
+      use Runfiles.File_Lists;
    begin
       for S in Sources.Iterate loop
          declare
             use Ada.Calendar;
             Name        : constant String := Full_Name (+Key (S));
             File_TT     : constant Time   := Modification_Time (Name);
-            Last_Run_TT : constant Time   := Element (S);
+            Last_Run_TT : constant Time   := Element (S).Time_Tag;
          begin
             if File_TT /= Last_Run_TT then
                Put_Explanation ("because " & Name & " (" & IO.Image (File_TT)
@@ -77,9 +77,9 @@ is
       return False;
    end A_Source_Is_Updated;
 
-   use Run_Files.Run_Lists;
+   use Runfiles.Run_Lists;
 
-   C : Run_Files.Run_Lists.Cursor;
+   C : Runfiles.Run_Lists.Cursor;
 
 begin
    -- -----------------------------------------------------------------------
@@ -98,8 +98,8 @@ begin
 
    else
       return
-        A_Target_Is_Missing (Run_Files.Run_Lists.Element (C).Targets) or else
-        A_Source_Is_Updated (Run_Files.Run_Lists.Element (C).Sources);
+        A_Target_Is_Missing (Runfiles.Run_Lists.Element (C).Targets) or else
+        A_Source_Is_Updated (Runfiles.Run_Lists.Element (C).Sources);
 
    end if;
 

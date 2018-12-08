@@ -23,17 +23,17 @@ with Ada.Strings.Fixed;
 separate (Smk.Main)
 
 -- -----------------------------------------------------------------------------
-procedure Run_Command (E            : in out Makefiles.Makefile_Entry;
-                       The_Run_List : in out Run_Files.Run_Lists.Map)
+procedure Run_Command (E            : in out Smkfiles.Smkfile_Entry;
+                       The_Run_List : in out Runfiles.Run_Lists.Map)
 is
 
    -- --------------------------------------------------------------------------
-   procedure Run (Cmd   : in     Run_Files.Command_Lines;
+   procedure Run (Cmd   : in     Runfiles.Command_Lines;
                   OK    :    out Boolean) is
       -- Spawn the Cmd under strace.
       -- OK is set to True if the spawn did it well.
 
-      use type Run_Files.Command_Lines;
+      use type Runfiles.Command_Lines;
       use GNAT.OS_Lib;
       use Ada.Directories;
       Debug       : constant Boolean := False;
@@ -63,11 +63,13 @@ is
 
    end Run;
 
-   use Smk.Run_Files;
+   use Smk.Runfiles;
    OK            : Boolean;
    Source_Files,
    Target_Files  : File_Lists.Map;
    New_Run_Time  : Ada.Calendar.Time;
+   Source_System_File_Count : Natural;
+   Target_System_File_Count : Natural;
 
 begin
    if Must_Be_Run (E.Command, The_Run_List) then
@@ -75,7 +77,7 @@ begin
       if Dry_Run then
          -- don't run, just print the command
          IO.Put_Line ("> " & (+E.Command));
-         E.Already_Run := True;
+         E.Was_Run := True;
 
       else
          -- 1. Run the command
@@ -98,26 +100,31 @@ begin
          -- =================================================================
 
          Run (E.Command, OK);
-         E.Already_Run := True;
+         E.Was_Run := True;
 
          if not OK and not Ignore_Errors then
             return;
          end if;
 
          -- 2. Analyze the run log
-         Analyze_Run (Source_Files, Target_Files);
+         Analyze_Run (Source_Files, Source_System_File_Count,
+                      Target_Files, Target_System_File_Count);
 
          -- 3. Store the results
-         Insert_Or_Update (The_Command => E.Command,
-                           The_Run     => (Section  => E.Section,
-                                           Run_Time => New_Run_Time,
-                                           Sources  => Source_Files,
-                                           Targets  => Target_Files),
-                           In_Run_List => The_Run_List);
+         Insert_Or_Update
+           (The_Command => E.Command,
+            The_Run     =>
+              (Section  => E.Section,
+               Run_Time => New_Run_Time,
+               Sources  => Source_Files,
+               Source_System_File_Count => Source_System_File_Count,
+               Targets                  => Target_Files,
+               Target_System_File_Count => Target_System_File_Count),
+            In_Run_List => The_Run_List);
       end if;
 
    else
-      E.Already_Run := False;
+      E.Was_Run := False;
       IO.Put_Line ("No need to run " & (+E.Command),
                    Level => IO.Verbose);
 

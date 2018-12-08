@@ -3,15 +3,17 @@
 
 `smk` is an attempt to realize the simplest and smartest possible make.
 
+It was created by Lionel Draghi, is released under [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0), and is under active development.
+
 ------------------------------------------------------------------------
 
-Table of contents
-- [Overview](#overview)
-- [Usage](#usage)
-- [More options](#more-options)
-- [Downloading and building](#downloading-and-building)
-- [Portability](#portability)
-- [About](#about)
+Table of contents  
+- [smk (SmartMake)](#smk-smartmake)
+  - [Overview](#overview)
+  - [Usage](#usage)
+  - [Downloading and building](#downloading-and-building)
+  - [Portability](#portability)
+  - [Further reading](#further-reading)
   
 ------------------------------------------------------------------------
 
@@ -46,129 +48,9 @@ This would require a tool able to observes the execution of the various command 
 
 ## Usage
 
-- Create a `MyBuild` file with your favorite editor containing just your commands:  
-```shell
-echo "
-gcc -o hello.o -c hello.c
-gcc -o main.o -c main.c
-gcc -o hello hello.o main.o
-" > MyBuild
-```
+A short, but highly recommended, [`smk` tutorial](tutorial.md) is the best way to quickly start.  
 
-- Create the sources for this test case:  
-```C
-echo "
-#include <stdio.h>
-#include <stdlib.h>
-
-void Hello(void)
-{
-	printf("Hello World\n");
-}
-" > hello.c
-```
-
-```C
-echo "
-#include <stdio.h>
-#include <stdlib.h>
-#include "hello.h"
-
-int main(void)
-{
-	Hello();
-	return EXIT_SUCCESS;
-}
-" > main.c
-```
-
-```C
-echo "
-#ifndef H_GL_HELLO
-#define H_GL_HELLO
-
-void Hello(void);
-
-#endif
-" > hello.h
-```
-
-- First run, all command are executed:
-> smk MyBuild  
-
-```
-gcc -o hello.o -c hello.c
-gcc -o main.o -c main.c
-gcc -o hello hello.o main.o
-```  
-
-- From now on, smk knows sources and targets for each command:  
-> smk -ls MyBuild  
-
-```
-2018-11-30 00:42:23.47 []gcc -o hello hello.o main.o
-  Sources (20) :
-  - 2018-11-30 00:42:23.00:hello.o
-  - 2018-11-30 00:42:10.00:main.o
-  Targets (1) :
-  - 2018-11-30 00:42:23.00:hello
-
-2018-11-30 00:42:23.40 []gcc -o hello.o -c hello.c
-  Sources (55) :
-  - 2018-11-30 00:42:19.00:hello.c
-  Targets (1) :
-  - 2018-11-30 00:42:23.00:hello.o
-
-2018-11-30 00:42:10.20 []gcc -o main.o -c main.c
-  Sources (56) :
-  - 2018-11-14 23:14:17.00:hello.h
-  - 2018-11-24 18:55:04.00:main.c
-  Targets (1) :
-  - 2018-11-30 00:42:10.00:main.o
-```
-
-- Second smk run. Sources are unchanged, target is up to date, so nothing is done:  
-> smk MyBuild  
-
-```
-```
-
-- Let's remove a file. Only the two commands needed to get `hello` updated are run:  
-
-> rm main.o  
-> smk MyBuild  
-
-```
-gcc -o main.o -c main.c
-gcc -o hello hello.o main.o
-```
-
-- Let's modify a source. Once more, only the two commands needed to get `hello` updated are run:  
-
-> touch hello.c    
-> smk MyBuild  
-
-```
-gcc -o hello.o -c hello.c
-gcc -o hello hello.o main.o
-```
-
-- Another smk run. No file changes, nothing is done:  
-> smk MyBuild  
-
-```
-```
-
-
-## More options
-
-| I want to                                                             | Command           |
-| --------------------------------------------------------------------- | ----------------- |
-| Check what `smk` undestand from MyBuild                               | `smk -lm MyBuild` |
-| Run it with explanations                                              | `smk -e MyBuild`  |
-| Check what would be run, without running it                           | `smk -n MyBuild`  |
-| See what knows `smk` from previous runs regarding sources and targets | `smk -ls MyBuild` |
-| What else?                                                            | `smk -h`          |
+And don't forget [`smk --help`](cmd_line.md).
 
 
 ## Downloading and building
@@ -203,8 +85,17 @@ And obviously, any contribution, including ports, is welcomed.
 
 `smk` is curently only tested on my Debian x86_64 box.
 
-## About
 
-This package was created by Lionel Draghi, and is released under [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+## Further reading
+
+- [More on the `smkfile` format](smkfile_format.md)
+- [Not sure to understand what is the difference with `make`...](compare_with_make.md)
+- [Limitations and bugs](compare_with_make.md)
+- [Changelog](changelog.md)
+- [Build Dashboard](dashboard.md)
+- Tests  
+    * [Tests status](tests/tests_status.md)
+    * [Tests results](tests/testrec.md)
+- [About](about.md)
 
 Lionel

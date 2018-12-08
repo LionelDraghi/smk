@@ -30,21 +30,33 @@ private package Smk.Settings is
 
    Smk_Version : constant String := "0.0.4";
 
+   -- --------------------------------------------------------------------------
    Always_Make        : Boolean := False;
    Explain            : Boolean := False;
    Dry_Run            : Boolean := False;
    Ignore_Errors      : Boolean := False;
-   List_Makefile      : Boolean := False;
-   List_Saved_Run     : Boolean := False;
-   List_Targets       : Boolean := False;
    Recursive          : Boolean := False;
    Warnings_As_Errors : Boolean := False;
    Create_Template    : Boolean := False;
-   Clean_Smk_Files    : Boolean := False;
+   Filter_Sytem_Files : Boolean := True;
 
-   -- -------------------------------------------------------------------------
+   type Queries is (Read_Smkfile,
+                    Read_Last_Run,
+                    List_Previous_Runs,
+                    List_Sources,
+                    List_Targets,
+                    Clean_Targets,
+                    Clean_Smk_Files,
+                    Version,
+                    Build,
+                    Help,
+                    None) with Default_Value => None;
+   Query : Queries;
+
+   -- --------------------------------------------------------------------------
    Smk_File_Prefix       : constant String := ".smk."; -- used for all Smk files
-   Strace_Outfile_Suffix : constant String := "strace_output";
+   Strace_Outfile_Prefix : constant String := "/tmp/";
+   Strace_Outfile_Suffix : constant String := ".strace_output";
    Strace_Cmd            : constant String := "/usr/bin/strace";
    Strace_Opt            : constant String := "-y -q -qq -f -e trace=file -o ";
    -- -y  : print paths associated with file descriptor arguments (between <>)
@@ -52,7 +64,7 @@ private package Smk.Settings is
    -- -qq : suppress messages about process exit status.
    -- -f  : follow forks
 
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    type Print_Out_Level is (Debug, Verbose, Normal, Quiet);
    -- default: Normal messages are displayed, verbose messages are not
    --          displayed.
@@ -62,22 +74,23 @@ private package Smk.Settings is
    --          This mode can be achieved using option --verbose.
    Verbosity : Print_Out_Level := Normal;
 
-   -- -------------------------------------------------------------------------
-   -- Function: Debug_Mode
-   -- -------------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    function Debug_Mode return Boolean is (Verbosity = Debug);
 
    -- -------------------------------------------------------------------------
-   -- Procedure: Set_Makefile_Name
-   -- -------------------------------------------------------------------------
-   procedure Set_Makefile_Name (Name : in String);
+   -- Smkfile_Name = "../hello.c/Makefile.txt"
+   -- Runfile_Name = ".smk.Makefile.txt"
+   --    that is = "Prefix + Simple_Name (Smkfile_Name)"
+   procedure Set_Smkfile_Name (Name : in String);
+   procedure Set_Runfile_Name (Name : in String);
+   function To_Runfile_Name (Smkfile_Name : in String) return String;
+   function Smkfile_Name        return String;
+   function Runfile_Name        return String;
+   function Run_Dir_Name        return String;
+   function Strace_Outfile_Name return String;
 
-   -- -------------------------------------------------------------------------
-   -- Function: Makefile_Name
-   -- -------------------------------------------------------------------------
-   function Makefile_Name          return String;
-   function Previous_Run_File_Name return String;
-   function Run_Dir_Name           return String;
-   function Strace_Outfile_Name    return String;
+   -- --------------------------------------------------------------------------
+   function Is_System_File (File_Name : in String) return Boolean;
+   -- return True if the string starts with "/usr/, "/lib/", etc.
 
 end Smk.Settings;

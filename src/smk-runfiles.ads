@@ -30,7 +30,7 @@ with Ada.Calendar;
 with Ada.Containers.Ordered_Maps;
 with Ada.Strings.Unbounded;       use Ada.Strings.Unbounded;
 
-private package Smk.Run_Files is
+private package Smk.Runfiles is
 
    -- --------------------------------------------------------------------------
    type Section_Names is new Unbounded_String;
@@ -51,64 +51,98 @@ private package Smk.Run_Files is
    -- --------------------------------------------------------------------------
    type File_Name is new Unbounded_String;
    function "+" (Name : File_Name) return String;
-   function "+" (Name : String) return File_Name;
+   function "+" (Name : String)    return File_Name;
    function "+" (Name : File_Name) return Unbounded_String;
 
    -- --------------------------------------------------------------------------
-   -- type File_Type is record
-   --    Time_Tag : Ada.Calendar.Time;
-   -- end record;
+   type File_Type is record
+      Time_Tag  : Ada.Calendar.Time;
+      Is_System : Boolean;
+   end record;
    use type Ada.Calendar.Time;
    package File_Lists is
      new Ada.Containers.Ordered_Maps (Key_Type     => File_Name,
-                                      Element_Type => Ada.Calendar.Time);
+                                      Element_Type => File_Type);
 
    -- --------------------------------------------------------------------------
-   procedure Dump (File_List          : in File_Lists.Map;
-                   Filter_Sytem_Files : in Boolean);
-   -- Dump files in a one per line bulleted way
-   -- if Filter_System_Files, then ignore /lib /usr /etc /opt files
-
-   -- --------------------------------------------------------------------------
-   procedure Update_Time_Tag (File_List : in out File_Lists.Map);
-   -- updates time_tag of each file according to the current file system state
+   procedure Dump (File_List : in File_Lists.Map);
+   -- Dump files in a one per line bulleted way.
+   -- If Settings.Filter_System_Files, then ignore
+   -- /lib /usr /etc /opt etc. files
 
    -- --------------------------------------------------------------------------
    type Run is record
-      Section  : Section_Names := Default_Section;
-      Run_Time : Ada.Calendar.Time;
-      Sources  : File_Lists.Map := File_Lists.Empty_Map;
-      Targets  : File_Lists.Map := File_Lists.Empty_Map;
+      Section                  : Section_Names  := Default_Section;
+      Run_Time                 : Ada.Calendar.Time;
+      Sources                  : File_Lists.Map := File_Lists.Empty_Map;
+      Source_System_File_Count : Natural        := 0;
+      Targets                  : File_Lists.Map := File_Lists.Empty_Map;
+      Target_System_File_Count : Natural        := 0;
    end record;
    package Run_Lists is
      new Ada.Containers.Ordered_Maps (Key_Type     => Command_Lines,
                                       Element_Type => Run);
+   -- --------------------------------------------------------------------------
+   type Runfile is record
+      Smkfile_Name : Unbounded_String;
+      Run_List     : Run_Lists.Map;
+   end record;
 
    -- --------------------------------------------------------------------------
-   procedure Insert_Or_Update (The_Command     : in     Command_Lines;
-                               The_Run         : in     Run;
-                               In_Run_List     : in out Run_Lists.Map);
+   procedure Insert_Or_Update (The_Command : in     Command_Lines;
+                               The_Run     : in     Run;
+                               In_Run_List : in out Run_Lists.Map);
 
    -- --------------------------------------------------------------------------
-   procedure Dump (Run_List           : in Run_Lists.Map;
-                   Filter_Sytem_Files : in Boolean);
+   procedure Dump (Run_List : in Run_Lists.Map);
    -- Dump each run with the format :
    --
    -- Time_Tag Command
-   --    Sources:
+   --    Sources (Sources count) :
    --       Time_Tag file1
    --       Time_Tag file2
    --       ...
-   --    Targets:
+   --    Targets (Target count):
    --       Time_Tag file1
    --       Time_Tag file2
    --       ...
+
+   -- --------------------------------------------------------------------------
+   -- procedure List_Dependencies (Run_List : in Run_Lists.Map);
+   -- List each dependency with the format :
+   --
+   -- Time_Tag Command
+   --    Sources (Sources count) :
+   --       Time_Tag file1
+   --       Time_Tag file2
+   --       ...
+
+   -- --------------------------------------------------------------------------
+   procedure List_Sources (The_Runfile : in Runfile);
+   -- List each dependeny with the format :
+   -- [section]Command:source
+   -- ...
+
+   -- --------------------------------------------------------------------------
+   procedure List_Targets (The_Runfile : in Runfile);
+   -- List each dependeny with the format :
+   -- [section]Command:target
+   -- ...
+
+   -- --------------------------------------------------------------------------
+   procedure Delete_Targets (The_Runfile : in Runfile);
+   -- remove all target files (to mimic a "make clean")
 
    -- --------------------------------------------------------------------------
    -- Run storage management
    -- --------------------------------------------------------------------------
-   function Saved_Run_Found return Boolean;
-   function Get_Saved_Run return Run_Lists.Map;
-   procedure Save_Run (The_Run : in Run_Lists.Map);
+   function Runfiles_Found return Boolean;
+   function Get_Saved_Run (Runfile_Name : in String) return Runfile;
+   procedure Save_Run (The_Run : in Runfile);
+   procedure Clean_Run_Files;
 
-end Smk.Run_Files;
+   -- --------------------------------------------------------------------------
+   function Get_Run_List return File_Lists.Map;
+   procedure Put_Run_List;
+
+end Smk.Runfiles;

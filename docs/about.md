@@ -1,5 +1,6 @@
 About
 =====
+
 **Status:**  
 `smk` is under active development, but provides usable functionnalities since 0.0.2 version.
 
@@ -23,6 +24,9 @@ ArchiCheck strives to be compliant with:
 - [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
 **Special thanks to:**  
+- Contributors:
+  - [Emmanuel](https://github.com/briot)
+  - [Manuel](https://github.com/mgrojo)
 - [Ludovic and all the Ada in Debian team](https://people.debian.org/~lbrenta/debian-ada-policy.html#Introduction). 
 - [GNAT & GPS](http://libre.adacore.com/tools/gps/)
 - [mkdocs](http://www.mkdocs.org/)

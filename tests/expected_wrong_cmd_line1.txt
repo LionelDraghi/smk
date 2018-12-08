@@ -1,14 +1,4 @@
-smk command line
-================
-
-smk command line
-----------------
-
-```
-smk -h
-```
-
-```
+Error : More than one query on command line : READ_LAST_RUN and READ_SMKFILE
 
 Usage : smk Query [Options]* [Smkfile]
 
@@ -45,17 +35,4 @@ Options :
                               Warning are also ignored
 
 http://lionel.draghi.free.fr/smk/
-
-```
-
-smk current version
--------------------
-
-```
-smk --version
-```
-
-```
-0.0.4
-```
 

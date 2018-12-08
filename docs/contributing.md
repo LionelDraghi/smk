@@ -1,5 +1,11 @@
 # Contributing
 
+Table of contents:
+- [Contributing](#contributing)
+- [submitting code / docs](#submitting-code--docs)
+- [Design Overview](#design-overview)
+- [Tests Overview](#tests-overview)
+
 Comments and issues are welcome [here](https://github.com/LionelDraghi/smk/issues/new).  
 Feel free to suggest whatever improvement.
 I'm not a native english speaker. English improvements are welcome, in documentation as in the code.  

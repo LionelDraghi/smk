@@ -29,29 +29,44 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 package body Smk.Settings is
 
-   Make_Fl_Name         : Unbounded_String := Null_Unbounded_String;
-   Previous_Run_Fl_Name : Unbounded_String := Null_Unbounded_String;
+   Smkfl_Name : Unbounded_String := Null_Unbounded_String;
+   Runfl_Name : Unbounded_String := Null_Unbounded_String;
 
    -- --------------------------------------------------------------------------
-   -- Procedure: Set_Makefile_Name
-   -- --------------------------------------------------------------------------
-   procedure Set_Makefile_Name (Name : in String) is
+   procedure Set_Smkfile_Name (Name : in String) is
    begin
-      Make_Fl_Name         := To_Unbounded_String (Name);
-      Previous_Run_Fl_Name := To_Unbounded_String
-        (Smk_File_Prefix & Ada.Directories.Simple_Name (Makefile_Name));
-   end Set_Makefile_Name;
+      Smkfl_Name := To_Unbounded_String (Name);
+      Runfl_Name := To_Unbounded_String (To_Runfile_Name (Name));
+   end Set_Smkfile_Name;
 
    -- --------------------------------------------------------------------------
-   -- Function: Makefile_Name
+   procedure Set_Runfile_Name (Name : in String) is
+   begin
+      Runfl_Name := To_Unbounded_String (Name);
+   end Set_Runfile_Name;
+
    -- --------------------------------------------------------------------------
-   function Makefile_Name          return String is
-     (To_String (Make_Fl_Name));
-   function Previous_Run_File_Name return String is
-     (To_String (Previous_Run_Fl_Name));
-   function Run_Dir_Name           return String is
-     (Ada.Directories.Containing_Directory (Makefile_Name));
-   function Strace_Outfile_Name   return String is
-     (Ada.Directories.Full_Name (Smk_File_Prefix & Strace_Outfile_Suffix));
+   function To_Runfile_Name (Smkfile_Name : in String) return String is
+      (Smk_File_Prefix & Ada.Directories.Simple_Name (Smkfile_Name));
+
+   -- --------------------------------------------------------------------------
+   function Smkfile_Name return String is (To_String (Smkfl_Name));
+   function Runfile_Name return String is (To_String (Runfl_Name));
+   function Run_Dir_Name return String is
+     (Ada.Directories.Containing_Directory (Smkfile_Name));
+   function Strace_Outfile_Name return String is
+     (Strace_Outfile_Prefix & Ada.Directories.Simple_Name (Smkfile_Name)
+      & Strace_Outfile_Suffix);
+
+   -- --------------------------------------------------------------------------
+   function Is_System_File (File_Name : in String) return Boolean is
+   begin
+      return    File_Name (File_Name'First .. File_Name'First + 4) = "/usr/"
+        or else File_Name (File_Name'First .. File_Name'First + 4) = "/lib/"
+        or else File_Name (File_Name'First .. File_Name'First + 4) = "/opt/"
+        or else File_Name (File_Name'First .. File_Name'First + 4) = "/etc/"
+        or else File_Name (File_Name'First .. File_Name'First + 5) = "/proc/"
+        or else File_Name (File_Name'First .. File_Name'First + 4) = "/sys/";
+   end Is_System_File;
 
 end Smk.Settings;

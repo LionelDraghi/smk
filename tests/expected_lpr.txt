@@ -1,0 +1,20 @@
+YYYY:MM:DD HH:MM:SS.SS [hello] gcc -o hello hello.o main.o
+  Sources (2) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.o
+  Targets (1) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello
+
+YYYY:MM:DD HH:MM:SS.SS [hello.o] gcc -o hello.o -c hello.c
+  Sources (1) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.c
+  Targets (1) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
+
+YYYY:MM:DD HH:MM:SS.SS [main.o] gcc -o main.o -c main.c
+  Sources (2) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.h
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.c
+  Targets (1) :
+  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.o
+
