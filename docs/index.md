@@ -68,6 +68,8 @@ And don't forget [`smk --help`](cmd_line.md).
    On Debian family:  
    >  `apt install gnat make`
 
+   Or get the [GNAT Community Edition](https://www.adacore.com/download).
+
 4. Build it:  
    > `gprbuild -P smk.gpr`
 
