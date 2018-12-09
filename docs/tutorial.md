@@ -18,7 +18,7 @@ Table of contents
 Create and move to a tmp dir, and then:
 
 ```C
-echo "
+echo '
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -26,11 +26,11 @@ void Hello(void)
 {
 	printf("Hello World\n");
 }
-" > hello.c
+' > hello.c
 ```
 
 ```C
-echo "
+echo '
 #include <stdio.h>
 #include <stdlib.h>
 #include "hello.h"
@@ -40,28 +40,28 @@ int main(void)
 	Hello();
 	return EXIT_SUCCESS;
 }
-" > main.c
+' > main.c
 ```
 
 ```C
-echo "
+echo '
 #ifndef H_GL_HELLO
 #define H_GL_HELLO
 
 void Hello(void);
 
 #endif
-" > hello.h
+' > hello.h
 ```
 
 Create a `MyBuild` file with your favorite editor containing just your commands:  
 
 ```shell
-echo "
+echo '
 gcc -o hello.o -c hello.c
 gcc -o main.o -c main.c
 gcc -o hello hello.o main.o
-" > MyBuild
+' > MyBuild
 ```
 
 ## First run
@@ -177,8 +177,6 @@ gcc -o hello hello.o main.o
 `smk`
 
 No file changes, nothing's done.
-
-
 
 
 ## More options

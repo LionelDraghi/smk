@@ -3,16 +3,16 @@
 Table of contents
 
 - [Design notes](#design-notes)
-    - [On file systems time stamp](#on-file-systems-time-stamp)
-        - [](#)
-    - [Options of make and mk, for inspiration...](#options-of-make-and-mk-for-inspiration)
-        - [mk](#mk)
-        - [make](#make)
-    - [Strace file operations output analysis](#strace-file-operations-output-analysis)
-        - [Write operations (that cause the file to be considered as `Target`)](#write-operations-that-cause-the-file-to-be-considered-as-target)
-        - [Read operations (that cause the file to be considered as `Source`)](#read-operations-that-cause-the-file-to-be-considered-as-source)
-        - [_I don't know_ operations (that are currently ignored!)](#_i-dont-know_-operations-that-are-currently-ignored)
-        - [Ignored](#ignored)
+  - [On file systems time stamp](#on-file-systems-time-stamp)
+    - [](#)
+  - [Options of make and mk, for inspiration...](#options-of-make-and-mk-for-inspiration)
+    - [mk](#mk)
+    - [make](#make)
+  - [Strace file operations output analysis](#strace-file-operations-output-analysis)
+    - [Write operations (that cause the file to be considered as `Target`)](#write-operations-that-cause-the-file-to-be-considered-as-target)
+    - [Read operations (that cause the file to be considered as `Source`)](#read-operations-that-cause-the-file-to-be-considered-as-source)
+    - [_I don't know_ operations (that are currently ignored!)](#i-dont-know-operations-that-are-currently-ignored)
+    - [Ignored](#ignored)
 
 ---
 
@@ -25,7 +25,7 @@ the GNAT Modification_Time ([cf. to this discussion on com.lang.ada]
 Behind the GNAT specific issue, there is a file system, and not all file systems have the same resolution :
 
 | File system |                    resolution                       |
-+-------------+-----------------------------------------------------+
+|-------------|-----------------------------------------------------|
 | FAT/VFAT    | 2 s for modification time (but 10 ms for creation)  |
 | NTFS        | 100 ns                                              |
 | EXT4        | 1 ns                                                |

@@ -19,7 +19,6 @@ ArchiCheck is proudly written in [Ada](http://getadanow.com/).
 **References and guidelines:**  
 ArchiCheck strives to be compliant with:  
 
-- [The Linux Foundation (LF) Core Infrastructure Initiative (CII) Best Practices](https://bestpractices.coreinfrastructure.org/projects/1625)
 - [Keep a Changelog principles](http://keepachangelog.com/en/1.0.0/)
 - [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 

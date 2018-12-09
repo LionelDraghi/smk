@@ -9,7 +9,7 @@ and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2
 
 - [0.0.4] - 2018-12-07
 > - [Added] `-lr` / `--list-runs` added
-> - [Fixed] when using '-rl', sources count is now coherent, closes #3
+> - [Fixed] when using `-rl`, sources count is now coherent, closes #3
 > - [Added] `-ss` / `--show-system-files` modify queries listing sources files to list also system files  
 > - [Added] no more need to give the smkfile in the command line when there is one (and only one) runfile in the current dir, closes #7  
 > - [Added] `--clean` now delete targets, as a `make clean`, thanks [Manuel](https://github.com/mgrojo) for the idea, closes #10  
