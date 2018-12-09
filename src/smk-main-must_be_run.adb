@@ -77,6 +77,17 @@ is
       return False;
    end A_Source_Is_Updated;
 
+   -- --------------------------------------------------------------------------
+   function No_Source_Nor_Target (The_Run : Run) return Boolean is
+      use Runfiles.File_Lists;
+   begin
+      -- IO.Put_Line ("Is_Empty: Sources = "
+      --              & Boolean'Image (Is_Empty (The_Run.Sources))
+      --              & ", Targets = "
+      --              & Boolean'Image (Is_Empty (The_Run.Targets)));
+      return Is_Empty (The_Run.Sources) and Is_Empty (The_Run.Targets);
+   end No_Source_Nor_Target;
+
    use Runfiles.Run_Lists;
 
    C : Runfiles.Run_Lists.Cursor;
@@ -99,8 +110,10 @@ begin
    else
       return
         A_Target_Is_Missing (Runfiles.Run_Lists.Element (C).Targets) or else
-        A_Source_Is_Updated (Runfiles.Run_Lists.Element (C).Sources);
-
+        A_Source_Is_Updated (Runfiles.Run_Lists.Element (C).Sources) or else
+        No_Source_Nor_Target (Runfiles.Run_Lists.Element (C));
+      -- If there is no sources and no target, it could be because the command
+      -- failed in the previous run, and so let's try again.
    end if;
 
 end Must_Be_Run;

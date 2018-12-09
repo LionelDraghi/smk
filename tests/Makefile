@@ -5,7 +5,7 @@ SMK=../smk
 
 .PHONY : clean
 
-check: ${SMK} header sanity cmd_line read_queries list_queries implicit_name targets multiline doc
+check: ${SMK} header sanity cmd_line read_queries list_queries implicit_name targets multiline run_error doc
 
 header:
 	@ #-------------------------------------------------------------------------
@@ -301,8 +301,6 @@ read_queries:
 
 	${SMK} -q --reset
 	test ! `${SMK} -rl hello.c/Makefile.2 > out.lpr2.txt`
-
-	# to get the comparison working, numbers in date are removed
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr2.txt out.lpr2.txt" 
 
 	${TR} cmt 
@@ -317,7 +315,6 @@ read_queries:
 	
 	${SMK} -q --reset
 	test ! `${SMK} --read-last-run > out.lpr3.txt`
-	# to get the comparison working, numbers in date are removed
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr3.txt out.lpr3.txt" 
 
 	${TR} end
@@ -588,6 +585,65 @@ multiline:
 	${SMK} -q --reset
 	test ! `${SMK} hill_multiline_smkfile.txt > out.multiline2.txt`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline2.txt out.multiline2.txt" 
+
+	${TR} end
+
+run_error:
+	${TR} create '`-k` and `-i` behavior'
+
+	@ #-------------------------------------------------------------------------
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk hello.c/Wrong_Makefile`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected_run_error1.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	${SMK} -q --reset
+	test ! `${SMK} hello.c/Wrong_Makefile > out.run_error1.txt`
+	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error1.txt out.run_error1.txt" 
+
+	@ #-------------------------------------------------------------------------
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk -k hello.c/Wrong_Makefile`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected_run_error2.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	${TR} cmt 'Note that the two command that fail are rerun'
+	${TR} cmt 'during a second loop in case the command' 
+	${TR} cmt 'that run successfully during the first loop' 
+	${TR} cmt 'changed the the situation.'
+	${TR} cmt 'And that is not the case here, nothing is run with'
+	${TR} cmt 'success during the second loop, so full stop.' 
+	${TR} cmt 
+
+	${SMK} -q --reset
+	test ! `${SMK} -k hello.c/Wrong_Makefile > out.run_error2.txt`
+	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error2.txt out.run_error2.txt" 
+
+	
+	@ #-------------------------------------------------------------------------
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk -i hello.c/Wrong_Makefile`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '   Same as -k, but without returning an error code'
+	${TR} cmt 
+	
+	${SMK} -q --reset
+	${SMK} -i hello.c/Wrong_Makefile > out.run_error3.txt
+	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error2.txt out.run_error3.txt" 
 
 	${TR} end
 

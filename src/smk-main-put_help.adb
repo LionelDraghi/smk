@@ -59,6 +59,8 @@ begin
              & " to ignore system files");
    Put_Line ("   -i   | --ignore-errors   : ignore all errors in commands"
              & " executed to remake files");
+   Put_Line ("   -k   | --keep-going      : Do as much work as possible");
+   Put_Line (" (but return an error status if some error occurs)");
    Put_Line ("   -We  | --Warnings=error  : treat warnings as errors");
    Put_Line ("   -v   | --verbose");
    Put_Line ("   -q   | --quiet           : no message unless error,");

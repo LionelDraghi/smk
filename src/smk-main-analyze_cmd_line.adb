@@ -115,6 +115,11 @@ begin
 
          elsif Opt = "-i" or Opt = "--ignore-errors" then
             Settings.Ignore_Errors := True;
+            Settings.Keep_Going    := True;
+            -- -i is essentially a -k that don't return a failure status
+
+         elsif Opt = "-k" or Opt = "--keep-going" then
+            Settings.Keep_Going := True;
 
          elsif Opt = "-We" or Opt = "--Warnings=error" then
             Settings.Warnings_As_Errors := True;

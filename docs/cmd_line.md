@@ -36,6 +36,8 @@ Options :
    -n   | --dry-run         : print the commands that would be executed, but do not execute them
    -sa  | --shows-all-files : prevent -ls and -rl to ignore system files
    -i   | --ignore-errors   : ignore all errors in commands executed to remake files
+   -k   | --keep-going      : Do as much work as possible
+ (but return an error status if some error occurs)
    -We  | --Warnings=error  : treat warnings as errors
    -v   | --verbose
    -q   | --quiet           : no message unless error,

@@ -34,6 +34,7 @@ private package Smk.Settings is
    Always_Make        : Boolean := False;
    Explain            : Boolean := False;
    Dry_Run            : Boolean := False;
+   Keep_Going         : Boolean := False;
    Ignore_Errors      : Boolean := False;
    Recursive          : Boolean := False;
    Warnings_As_Errors : Boolean := False;
@@ -80,7 +81,7 @@ private package Smk.Settings is
    -- -------------------------------------------------------------------------
    -- Smkfile_Name = "../hello.c/Makefile.txt"
    -- Runfile_Name = ".smk.Makefile.txt"
-   --    that is = "Prefix + Simple_Name (Smkfile_Name)"
+   --    that is Runfile_Name = "Prefix + Simple_Name (Smkfile_Name)"
    procedure Set_Smkfile_Name (Name : in String);
    procedure Set_Runfile_Name (Name : in String);
    function To_Runfile_Name (Smkfile_Name : in String) return String;

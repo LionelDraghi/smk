@@ -77,16 +77,19 @@ procedure Smk.Main is
 
    -- --------------------------------------------------------------------------
    procedure Run_Command (E            : in out Smkfiles.Smkfile_Entry;
-                          The_Run_List : in out Runfiles.Run_Lists.Map)
-   is separate;
+                          The_Run_List : in out Runfiles.Run_Lists.Map;
+                          Cmd_To_Run   :    out Boolean;
+                          Error_In_Run :    out Boolean)
+   is separate; -- Fixme: to be moved as a Run_All_Commands separate
    -- Run_Command is in charge of spawning the Cmd (using strace),
    -- and analysing the strace log file.
    -- The_Run_List is updated with this run results
 
    -- --------------------------------------------------------------------------
-   procedure Run_All_Commands (The_Smkfile    : in out Smkfiles.Smkfile;
-                               The_Run_List   : in out Runfiles.Run_Lists.Map;
-                               No_Command_Run :    out Boolean)
+   procedure Run_All_Commands (The_Smkfile  : in out Smkfiles.Smkfile;
+                               The_Run_List : in out Runfiles.Run_Lists.Map;
+                               Cmd_To_Run   :    out Boolean;
+                               Error_In_Run :    out Boolean)
    is separate;
 
    use Ada.Strings.Unbounded;
@@ -101,7 +104,8 @@ begin
    IO.Put_Line ("Runfile name : " & Runfile_Name, Level => Verbose);
 
    if IO.Some_Error then
-      -- If some error occurs during command line analysis, stop here.
+      -- If some error occurs during command line analysis, stop here,
+      -- even if Ignore_Errors or Keep_Going is set
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
       return;
    end if;
@@ -184,9 +188,10 @@ begin
 
       when Build              =>
          declare
-            The_Smkfile    : Smkfiles.Smkfile;
-            The_Runfile    : Runfiles.Runfile;
-            No_Command_Run : Boolean;
+            The_Smkfile   : Smkfiles.Smkfile;
+            The_Runfile   : Runfiles.Runfile;
+            Cmd_To_Run    : Boolean;
+            Error_In_Run  : Boolean;
          begin
             Smkfiles.Analyze (Smkfile_Name, The_Smkfile);
 
@@ -199,10 +204,14 @@ begin
                   Run_List     => Runfiles.Run_Lists.Empty_Map);
             end if;
             Run_All_Commands
-              (The_Smkfile, The_Runfile.Run_List, No_Command_Run);
+              (The_Smkfile, The_Runfile.Run_List, Cmd_To_Run, Error_In_Run);
 
-            if No_Command_Run then
+            if not Cmd_To_Run then
                IO.Put_Line ("Nothing to run");
+            end if;
+
+            if Error_In_Run and not Ignore_Errors then
+               Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
             end if;
 
             -- Save the updated run:
@@ -217,9 +226,8 @@ begin
 
    end case;
 
-   if IO.Some_Error then
+   if IO.Some_Error and not Ignore_Errors then
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
-      return;
    end if;
 
 end Smk.Main;

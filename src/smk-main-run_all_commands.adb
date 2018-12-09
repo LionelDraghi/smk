@@ -23,13 +23,20 @@ with Ada.Strings.Fixed;
 separate (Smk.Main)
 
 -- -----------------------------------------------------------------------------
-procedure Run_All_Commands (The_Smkfile    : in out Smkfiles.Smkfile;
-                            The_Run_List   : in out Runfiles.Run_Lists.Map;
-                            No_Command_Run :    out Boolean) is
+procedure Run_All_Commands (The_Smkfile  : in out Smkfiles.Smkfile;
+                            The_Run_List : in out Runfiles.Run_Lists.Map;
+                            Cmd_To_Run   :    out Boolean;
+                            Error_In_Run :    out Boolean) is
    Cmd_Run_During_Outer : Boolean := False;
 
+   -- those boolean cumulate the result over the loop,
+   -- that will be put in the respective output parameter.
+   Some_Command_To_Run  : Boolean := False;
+   Some_Error_In_Run    : Boolean := False;
+
 begin
-   No_Command_Run := True;
+   Cmd_To_Run   := False;
+   Error_In_Run := False;
 
    Outer : for I in 1 .. The_Smkfile.Entries.Length loop
       -- This double loop is a pragmatic way to avoid a more complex
@@ -58,35 +65,24 @@ begin
 
       Inner : for E of The_Smkfile.Entries loop
 
-         -- declare
-         --    use type Runfiles.Command_Lines;
-         -- begin
-         --    IO.Put_Line (Positive'Image (Positive (I)) & " "
-         --              & (+E.Command)
-         --              & " Was_Run = "
-         --              & Boolean'Image (E.Was_Run)
-         --              & ", No_Cmd_Run = "
-         --                 & Boolean'Image (No_Command_Run));
-         -- end;
-
          if not E.Was_Run then
-            Run_Command (E, The_Run_List);
+            Run_Command
+              (E, The_Run_List, Some_Command_To_Run, Some_Error_In_Run);
+
+            -- sum the results:
+            Cmd_To_Run   := Cmd_To_Run   or Some_Command_To_Run;
+            Error_In_Run := Error_In_Run or Some_Error_In_Run;
 
             if E.Was_Run then
-               No_Command_Run := False;
                Cmd_Run_During_Outer := True;
             end if;
 
-            if IO.Some_Error and not Ignore_Errors then
+            if Some_Error_In_Run and not Keep_Going then
                exit Outer;
             end if;
 
-            -- Cmd_Run_During_Outer := E.Was_Run;
-
          end if;
       end loop Inner;
-
-      -- IO.Put_Line ("");
 
       -- Naive loop aproach : each time a cmd is run, and potentialy
       -- invalidate another cmd, we restart the whole cmd list, until

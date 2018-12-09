@@ -160,6 +160,8 @@ Options :
    -n   | --dry-run         : print the commands that would be executed, but do not execute them
    -sa  | --shows-all-files : prevent -ls and -rl to ignore system files
    -i   | --ignore-errors   : ignore all errors in commands executed to remake files
+   -k   | --keep-going      : Do as much work as possible
+ (but return an error status if some error occurs)
    -We  | --Warnings=error  : treat warnings as errors
    -v   | --verbose
    -q   | --quiet           : no message unless error,
@@ -229,6 +231,8 @@ Options :
    -n   | --dry-run         : print the commands that would be executed, but do not execute them
    -sa  | --shows-all-files : prevent -ls and -rl to ignore system files
    -i   | --ignore-errors   : ignore all errors in commands executed to remake files
+   -k   | --keep-going      : Do as much work as possible
+ (but return an error status if some error occurs)
    -We  | --Warnings=error  : treat warnings as errors
    -v   | --verbose
    -q   | --quiet           : no message unless error,
@@ -872,3 +876,53 @@ Nothing to run
 
 
 Multiline commands in smkfile /  [Successful](tests_status.md#successful)
+
+# `-k` and `-i` behavior
+
+
+
+ Run:  
+ `smk -q --reset`  
+ `smk hello.c/Wrong_Makefile`  
+
+ Expected:  
+```  
+gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+```  
+
+
+  Run:  
+  `smk -q --reset`  
+  `smk -k hello.c/Wrong_Makefile`  
+
+  Expected:  
+```  
+gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+gcc -o main.o -c main.c --WTF
+Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc -o main.o -c main.c --WTF
+gcc -o hello hello.o main.o
+gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+gcc -o main.o -c main.c --WTF
+Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc -o main.o -c main.c --WTF
+```  
+
+  Note that the two command that fail are rerun  
+  during a second loop in case the command  
+  that run successfully during the first loop  
+  changed the the situation.  
+  And that is not the case here, nothing is run with  
+  success during the second loop, so full stop.  
+
+
+  Run:  
+  `smk -q --reset`  
+  `smk -i hello.c/Wrong_Makefile`  
+
+  Expected:  
+     Same as -k, but without returning an error code  
+
+
+`-k` and `-i` behavior /  [Successful](tests_status.md#successful)
