@@ -7,7 +7,7 @@ and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2
 
 - [Unreleased]
 > - [Added] Multiline processing, closes #5
-> - [Changed] -i semantics slightly changed, and -k added with the previous -i semantics, closes #13 
+> - [Added] -k (--keep-going) added, and previous -i semantics no more hide some -k behaviour, closes #13 
 
 - [0.0.4] - 2018-12-07
 > - [Added] `-lr` / `--list-runs` added

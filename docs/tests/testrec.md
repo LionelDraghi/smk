@@ -161,7 +161,6 @@ Options :
    -sa  | --shows-all-files : prevent -ls and -rl to ignore system files
    -i   | --ignore-errors   : ignore all errors in commands executed to remake files
    -k   | --keep-going      : Do as much work as possible
- (but return an error status if some error occurs)
    -We  | --Warnings=error  : treat warnings as errors
    -v   | --verbose
    -q   | --quiet           : no message unless error,
@@ -232,7 +231,6 @@ Options :
    -sa  | --shows-all-files : prevent -ls and -rl to ignore system files
    -i   | --ignore-errors   : ignore all errors in commands executed to remake files
    -k   | --keep-going      : Do as much work as possible
- (but return an error status if some error occurs)
    -We  | --Warnings=error  : treat warnings as errors
    -v   | --verbose
    -q   | --quiet           : no message unless error,
@@ -859,7 +857,7 @@ ploticus -prefab pie data=out.sloccount labels=2 colors="blue red green orange" 
 		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
 // the end of the command is missing 
 
--- Note that coment immediatly following the command 
+-- Note that the comment immediatly following the command 
 -- should not be considered as the end of the command, neither 
 -- should the following blank line or any of the following lines.
 ```  
@@ -922,7 +920,30 @@ Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wron
   `smk -i hello.c/Wrong_Makefile`  
 
   Expected:  
-     Same as -k, but without returning an error code  
+     Same as without nothing, but without returning an error code  
+```  
+gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+```  
+
+
+  Run: with both!  
+  `smk -q --reset`  
+  `smk --keep-going --ignore-errors hello.c/Wrong_Makefile`  
+
+  Expected:  
+     Same as with -k, but without returning an error code  
+```  
+gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+gcc -o main.o -c main.c --WTF
+Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc -o main.o -c main.c --WTF
+gcc -o hello hello.o main.o
+gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+gcc -o main.o -c main.c --WTF
+Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc -o main.o -c main.c --WTF
+```  
 
 
 `-k` and `-i` behavior /  [Successful](tests_status.md#successful)

@@ -5,6 +5,6 @@
 		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
 // the end of the command is missing 
 
--- Note that coment immediatly following the command 
+-- Note that the comment immediatly following the command 
 -- should not be considered as the end of the command, neither 
 -- should the following blank line or any of the following lines.

@@ -638,12 +638,32 @@ run_error:
 	${TR} cmt '`smk -i hello.c/Wrong_Makefile`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
-	${TR} cmt '   Same as -k, but without returning an error code'
+	${TR} cmt '   Same as without nothing, but without returning an error code'
+	${TR} cmt '```' 
+	cat expected_run_error1.txt >> testrec.md
+	${TR} cmt '```' 
 	${TR} cmt 
 	
 	${SMK} -q --reset
 	${SMK} -i hello.c/Wrong_Makefile > out.run_error3.txt
-	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error2.txt out.run_error3.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error1.txt out.run_error3.txt" 
+
+	@ #-------------------------------------------------------------------------
+	${TR} cmt 
+	${TR} cmt 'Run: with both!'
+	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk --keep-going --ignore-errors hello.c/Wrong_Makefile`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '   Same as with -k, but without returning an error code'
+	${TR} cmt '```' 
+	cat expected_run_error2.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	${SMK} -q --reset
+	${SMK} --keep-going --ignore-errors hello.c/Wrong_Makefile > out.run_error4.txt
+	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error2.txt out.run_error4.txt" 
 
 	${TR} end
 
