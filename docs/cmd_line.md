@@ -1,7 +1,4 @@
 smk command line
-================
-
-smk command line
 ----------------
 
 ```
@@ -56,6 +53,6 @@ smk --version
 ```
 
 ```
-0.0.4
+0.0.5
 ```
 

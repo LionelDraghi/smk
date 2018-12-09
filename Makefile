@@ -61,7 +61,7 @@ dashboard: obj/coverage.info tests/tests_count.txt
 
 	@ # Language pie
 	@ # --------------------------------------------------------------------
-	sloccount src | grep "ada=" |  ploticus  -prefab pie 	\
+	sloccount src | grep "ada=" | ploticus  -prefab pie 	\
 		data=stdin labels=2 colors="blue red green orange"	\
 		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
 		-png -o docs/img/sloc.png
@@ -90,7 +90,7 @@ dashboard: obj/coverage.info tests/tests_count.txt
 	echo "> date -r ./smk --iso-8601=seconds" 	>> docs/dashboard.md
 	echo 	 						>> docs/dashboard.md
 	echo '```' 						>> docs/dashboard.md
-	date -r ./smk --iso-8601=seconds 	>> docs/dashboard.md
+	date -r ./smk --iso-8601=seconds 			>> docs/dashboard.md
 	echo '```' 						>> docs/dashboard.md
 	echo 	 						>> docs/dashboard.md
 	echo "Test results"				>> docs/dashboard.md
@@ -145,12 +145,19 @@ cmd_line.md:
 
 doc: dashboard cmd_line.md
 	echo Make Doc
+	
+	>  docs/fixme.md
+	rgrep -ni "Fixme" docs/*.md | sed "s/:/|/2"	>> /tmp/fixme.md
+
 	echo 'Fixme in current version:'		>  docs/fixme.md
 	echo '-------------------------'		>> docs/fixme.md
 	echo                            		>> docs/fixme.md
 	echo 'Location | Text'             		>> docs/fixme.md
 	echo '---------|-----'             		>> docs/fixme.md
-	rgrep -ni "Fixme" src/* |sed "s/:/|/2"	>> docs/fixme.md
+	cat /tmp/fixme.md                       >> docs/fixme.md
+	rm /tmp/fixme.md
+	rgrep -ni "Fixme" src/*   | sed "s/:/|/2"	>> docs/fixme.md
+	rgrep -ni "Fixme" tests/* | sed "s/:/|/2"	>> docs/fixme.md
 
 	mkdocs build --clean
 	@ - chmod --silent +x ./site/smk

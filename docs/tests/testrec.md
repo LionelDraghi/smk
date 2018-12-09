@@ -1,9 +1,124 @@
 
-# Command line checks
+# Sanity
 
 
 
-##  Command line checks / Help options
+ Makefile:  
+```  
+gcc -o hello.o -c hello.c
+gcc -o main.o -c main.c
+gcc -o hello hello.o main.o
+```  
+
+##  Sanity / First `smk`, after `make`, should run no command
+
+
+  Run:  
+  `smk -q hello.c/Makefile.2`  
+  `smk -e hello.c/Makefile.2`  
+
+  Expected:  
+```  
+Nothing to run
+```  
+
+
+Sanity / First `smk`, after `make`, should run no command [Successful](tests_status.md#successful)
+
+##  Sanity / Second `smk`, should not run any command
+
+
+  Run:  
+  `smk -e hello.c/Makefile.2`  
+
+  Expected:  
+```  
+Nothing to run
+```  
+
+
+Sanity / Second `smk`, should not run any command [Successful](tests_status.md#successful)
+
+##  Sanity / `smk --reset`, no more history, should run all commands
+
+
+  Run:  
+  `smk --reset --quiet`  
+  `smk -e hello.c/Makefile.2`  
+
+  Expected:  
+```  
+run gcc -o hello.o -c hello.c because it was not run before
+gcc -o hello.o -c hello.c
+run gcc -o main.o -c main.c because it was not run before
+gcc -o main.o -c main.c
+run gcc -o hello hello.o main.o because it was not run before
+gcc -o hello hello.o main.o
+```  
+
+
+Sanity / `smk --reset`, no more history, should run all commands [Successful](tests_status.md#successful)
+
+##  Sanity / `smk -a`, should run all commands even if not needed
+
+
+  Run:  
+  `smk -e -a hello.c/Makefile.2`  
+
+  Expected:  
+```  
+run gcc -o hello.o -c hello.c because -a option is set
+gcc -o hello.o -c hello.c
+run gcc -o main.o -c main.c because -a option is set
+gcc -o main.o -c main.c
+run gcc -o hello hello.o main.o because -a option is set
+gcc -o hello hello.o main.o
+```  
+
+
+Sanity / `smk -a`, should run all commands even if not needed [Successful](tests_status.md#successful)
+
+##  Sanity / `rm main.o` (missing file)
+
+
+  Run:  
+  `rm hello.c/main.o`  
+  `smk -e hello.c/Makefile.2`  
+
+  Expected:  
+```  
+run gcc -o main.o -c main.c because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
+gcc -o main.o -c main.c
+run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/main.o (-- ::.) has been updated since last run (-- ::.)
+gcc -o hello hello.o main.o
+```  
+
+
+Sanity / `rm main.o` (missing file) [Successful](tests_status.md#successful)
+
+##  Sanity / `touch hello.c` (updated file)
+
+
+  Run:  
+  `rm hello.c/main.o`  
+  `smk -e hello.c/Makefile.2`  
+
+  Expected:  
+```  
+run gcc -o hello.o -c hello.c because /home/lionel/Proj/smk/tests/hello.c/hello.c (-- ::.) has been updated since last run (-- ::.)
+gcc -o hello.o -c hello.c
+run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/hello.o (-- ::.) has been updated since last run (-- ::.)
+gcc -o hello hello.o main.o
+```  
+
+
+Sanity / `touch hello.c` (updated file) [Successful](tests_status.md#successful)
+
+# Command line
+
+
+
+##  Command line / Help options
 
 
   Test the -h and --help output :  
@@ -55,9 +170,9 @@ http://lionel.draghi.free.fr/smk/
 ```  
 
 
-Command line checks / Help options [Successful](tests_status.md#successful)
+Command line / Help options [Successful](tests_status.md#successful)
 
-##  Command line checks / Version option
+##  Command line / Version option
 
 
   Test that the --version will put :  
@@ -68,13 +183,13 @@ Command line checks / Help options [Successful](tests_status.md#successful)
   Expected:  
 
 ```  
-0.0.4
+0.0.5
 ```  
 
 
-Command line checks / Version option [Successful](tests_status.md#successful)
+Command line / Version option [Successful](tests_status.md#successful)
 
-##  Command line checks / Illegal cmd lines
+##  Command line / Illegal cmd lines
 
 
   Run:  
@@ -124,9 +239,9 @@ http://lionel.draghi.free.fr/smk/
 ```  
 
 
-Command line checks / Illegal cmd lines [Successful](tests_status.md#successful)
+Command line / Illegal cmd lines [Successful](tests_status.md#successful)
 
-##  Command line checks / Unknow Makefile
+##  Command line / Unknow Makefile
 
 
   Test the error message if an unknow MakeFile is given  
@@ -141,7 +256,7 @@ Error : Unknown Makefile or unknow option My_Makefile
 ```  
 
 
-Command line checks / Unknow Makefile [Successful](tests_status.md#successful)
+Command line / Unknow Makefile [Successful](tests_status.md#successful)
 
 # Read queries
 
@@ -706,117 +821,54 @@ gcc -o hello hello.o main.o
 
 Targets related functions / --clean [Successful](tests_status.md#successful)
 
-# Sanity checks
+# Multiline commands in smkfile
 
 
 
- Makefile:  
+ cat `multiline_smkfile.txt`:  
 ```  
-gcc -o hello.o -c hello.c
-gcc -o main.o -c main.c
-gcc -o hello hello.o main.o
+	ploticus -prefab pie 	\
+		data=out.sloccount labels=2 colors="blue red green orange"	\
+# comment in the middle should not get in the way
+		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
+		 -png -o out.sloc.png 
+
 ```  
 
-##  Sanity checks / First `smk`, after `make`, should run no command
+ Run:  
+ `smk -q --reset`  
+ `smk multiline_smkfile.txt`  
 
+ Expected:  
+```  
+ploticus -prefab pie data=out.sloccount labels=2 colors="blue red green orange" explode=0.1 values=1 title="Ada sloc `date +%x`" -png -o out.sloc.png
+```  
+
+  Hill formatted multiline:  
+
+  cat `hill_multiline_smkfile.txt`:  
+```  
+# Hill formatted multiline command:
+
+	ploticus -prefab pie 	\
+		data=out.sloccount labels=2 colors="blue red green orange"	\
+		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
+// the end of the command is missing 
+
+-- Note that coment immediatly following the command 
+-- should not be considered as the end of the command, neither 
+-- should the following blank line or any of the following lines.
+```  
 
   Run:  
-  `smk -q hello.c/Makefile.2`  
-  `smk -e hello.c/Makefile.2`  
+  `smk -q --reset`  
+  `smk hill_multiline_smkfile.txt`  
 
   Expected:  
 ```  
+Error : hill_multiline_smkfile.txt ends with incomplete multine, last command ignored
 Nothing to run
 ```  
 
 
-Sanity checks / First `smk`, after `make`, should run no command [Successful](tests_status.md#successful)
-
-##  Sanity checks / Second `smk`, should not run any command
-
-
-  Run:  
-  `smk -e hello.c/Makefile.2`  
-
-  Expected:  
-```  
-Nothing to run
-```  
-
-
-Sanity checks / Second `smk`, should not run any command [Successful](tests_status.md#successful)
-
-##  Sanity checks / smk --reset, no more history, should run all commands
-
-
-  Run:  
-  `smk --reset --quiet`  
-  `smk -e hello.c/Makefile.2`  
-
-  Expected:  
-```  
-run gcc -o hello.o -c hello.c because it was not run before
-gcc -o hello.o -c hello.c
-run gcc -o main.o -c main.c because it was not run before
-gcc -o main.o -c main.c
-run gcc -o hello hello.o main.o because it was not run before
-gcc -o hello hello.o main.o
-```  
-
-
-Sanity checks / smk --reset, no more history, should run all commands [Successful](tests_status.md#successful)
-
-##  Sanity checks / `smk -a`, should run all commands even if not needed
-
-
-  Run:  
-  `smk -e -a hello.c/Makefile.2`  
-
-  Expected:  
-```  
-run gcc -o hello.o -c hello.c because -a option is set
-gcc -o hello.o -c hello.c
-run gcc -o main.o -c main.c because -a option is set
-gcc -o main.o -c main.c
-run gcc -o hello hello.o main.o because -a option is set
-gcc -o hello hello.o main.o
-```  
-
-
-Sanity checks / `smk -a`, should run all commands even if not needed [Successful](tests_status.md#successful)
-
-##  Sanity checks / `rm main.o` (missing file)
-
-
-  Run:  
-  `rm hello.c/main.o`  
-  `smk -e hello.c/Makefile.2`  
-
-  Expected:  
-```  
-run gcc -o main.o -c main.c because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
-gcc -o main.o -c main.c
-run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/main.o (-- ::.) has been updated since last run (-- ::.)
-gcc -o hello hello.o main.o
-```  
-
-
-Sanity checks / `rm main.o` (missing file) [Successful](tests_status.md#successful)
-
-##  Sanity checks / `touch hello.c` (updated file)
-
-
-  Run:  
-  `rm hello.c/main.o`  
-  `smk -e hello.c/Makefile.2`  
-
-  Expected:  
-```  
-run gcc -o hello.o -c hello.c because /home/lionel/Proj/smk/tests/hello.c/hello.c (-- ::.) has been updated since last run (-- ::.)
-gcc -o hello.o -c hello.c
-run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/hello.o (-- ::.) has been updated since last run (-- ::.)
-gcc -o hello hello.o main.o
-```  
-
-
-Sanity checks / `touch hello.c` (updated file) [Successful](tests_status.md#successful)
+Multiline commands in smkfile /  [Successful](tests_status.md#successful)

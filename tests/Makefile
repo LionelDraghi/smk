@@ -5,15 +5,130 @@ SMK=../smk
 
 .PHONY : clean
 
-check: ${SMK} header cmd_line read_queries list_queries implicit_name targets sanity doc
+check: ${SMK} header sanity cmd_line read_queries list_queries implicit_name targets multiline doc
 
 header:
 	@ #-------------------------------------------------------------------------
 	${TR} clean
 
+sanity:
+	${TR} create "Sanity"
+
+	${TR} cmt  								
+	${TR} cmt "Makefile:"
+	${TR} cmt '```' 						
+	cat hello.c/Makefile.1 >> testrec.md
+	${TR} cmt 
+	${TR} cmt '```' 						
+
+	@ #-------------------------------------------------------------------------
+	${TR} start 'First `smk`, after `make`, should run no command'
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -q hello.c/Makefile.2`'
+	${TR} cmt '`smk -e hello.c/Makefile.2`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 						
+	cat expected_sanity.1 >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+	# $(MAKE) --directory=hello.c -f Makefile.2 
+	# let's do it with smk:
+	${SMK} -q hello.c/Makefile.2
+	${SMK} -e hello.c/Makefile.2 > out.1
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.1 out.1" 
+	${TR} end
+
+	@ #-------------------------------------------------------------------------
+	${TR} start 'Second `smk`, should not run any command'
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -e hello.c/Makefile.2`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 						
+	cat expected_sanity.2 >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+	${SMK} -e hello.c/Makefile.2 > out.2
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.2 out.2" 
+	${TR} end
+
+	@ #-------------------------------------------------------------------------
+	${TR} start '`smk --reset`, no more history, should run all commands'
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk --reset --quiet`'
+	${TR} cmt '`smk -e hello.c/Makefile.2`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 						
+	cat expected_sanity.3 >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+	${SMK} --reset --quiet
+	${SMK} -e hello.c/Makefile.2 > out.3 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.3 out.3" 
+	${TR} end
+
+	@ #-------------------------------------------------------------------------
+	${TR} start '`smk -a`, should run all commands even if not needed'
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -e -a hello.c/Makefile.2`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 						
+	cat expected_sanity.4 >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+	${SMK} -e -a hello.c/Makefile.2 > out.4 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.4 out.4" 
+	${TR} end
+	
+	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
+	sleep 1
+
+	@ #-------------------------------------------------------------------------
+	${TR} start '`rm main.o` (missing file)'
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`rm hello.c/main.o`'
+	${TR} cmt '`smk -e hello.c/Makefile.2`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 						
+	cat expected_sanity.5 >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+	rm hello.c/main.o
+	${SMK} -e hello.c/Makefile.2 | sed "s/[0-9]//g" > out.5
+	# Time tag neutralized
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.5 out.5" 
+	${TR} end
+
+	@ #-------------------------------------------------------------------------
+	${TR} start '`touch hello.c` (updated file)'
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`rm hello.c/main.o`'
+	${TR} cmt '`smk -e hello.c/Makefile.2`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 						
+	cat expected_sanity.6 >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+	touch hello.c/hello.c
+	${SMK} -e hello.c/Makefile.2 | sed "s/[0-9]//g" > out.6
+	# Time tag neutralized
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.6 out.6" 
+	${TR} end
+
 cmd_line:
 	@ #-------------------------------------------------------------------------
-	${TR} create "Command line checks"
+	${TR} create "Command line"
 
 	${TR} start "Help options" 
 	${TR} cmt  								
@@ -48,7 +163,7 @@ cmd_line:
 	${TR} cmt 'Expected:'
 	${TR} cmt 
 	${TR} cmt '```' 						
-	echo "0.0.4"		> out.expected_version.txt
+	echo "0.0.5"		> out.expected_version.txt
 	cat out.expected_version.txt >> testrec.md					
 	${TR} cmt '```' 						
 	${TR} cmt 
@@ -427,119 +542,53 @@ targets:
 
 	${TR} end
 
-sanity:
-	${TR} create "Sanity checks"
-
-	${TR} cmt  								
-	${TR} cmt "Makefile:"
-	${TR} cmt '```' 						
-	cat hello.c/Makefile.1 >> testrec.md
-	${TR} cmt 
-	${TR} cmt '```' 						
+multiline:
+	${TR} create "Multiline commands in smkfile"
+	sloccount ../src | grep "ada=" > out.sloccount
 
 	@ #-------------------------------------------------------------------------
-	${TR} start 'First `smk`, after `make`, should run no command'
+	${TR} cmt 
+	${TR} cmt 'cat `multiline_smkfile.txt`:'
+	${TR} cmt '```' 
+	cat multiline_smkfile.txt >> testrec.md
+	${TR} cmt '```' 
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q hello.c/Makefile.2`'
-	${TR} cmt '`smk -e hello.c/Makefile.2`'
+	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk multiline_smkfile.txt`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
-	${TR} cmt '```' 						
-	cat expected_sanity.1 >> testrec.md
-	${TR} cmt '```' 						
+	${TR} cmt '```' 
+	cat expected_multiline1.txt >> testrec.md
+	${TR} cmt '```' 
 	${TR} cmt 
-	# $(MAKE) --directory=hello.c -f Makefile.2 
-	# let's do it with smk:
-	${SMK} -q hello.c/Makefile.2
-	${SMK} -e hello.c/Makefile.2 > out.1
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.1 out.1" 
-	${TR} end
-
-	@ #-------------------------------------------------------------------------
-	${TR} start 'Second `smk`, should not run any command'
-	${TR} cmt 
-	${TR} cmt 'Run:'
-	${TR} cmt '`smk -e hello.c/Makefile.2`'
-	${TR} cmt 
-	${TR} cmt 'Expected:'
-	${TR} cmt '```' 						
-	cat expected_sanity.2 >> testrec.md
-	${TR} cmt '```' 						
-	${TR} cmt 
-	${SMK} -e hello.c/Makefile.2 > out.2
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.2 out.2" 
-	${TR} end
-
-	@ #-------------------------------------------------------------------------
-	${TR} start 'smk --reset, no more history, should run all commands'
-	${TR} cmt 
-	${TR} cmt 'Run:'
-	${TR} cmt '`smk --reset --quiet`'
-	${TR} cmt '`smk -e hello.c/Makefile.2`'
-	${TR} cmt 
-	${TR} cmt 'Expected:'
-	${TR} cmt '```' 						
-	cat expected_sanity.3 >> testrec.md
-	${TR} cmt '```' 						
-	${TR} cmt 
-	${SMK} --reset --quiet
-	${SMK} -e hello.c/Makefile.2 > out.3 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.3 out.3" 
-	${TR} end
-
-	@ #-------------------------------------------------------------------------
-	${TR} start '`smk -a`, should run all commands even if not needed'
-	${TR} cmt 
-	${TR} cmt 'Run:'
-	${TR} cmt '`smk -e -a hello.c/Makefile.2`'
-	${TR} cmt 
-	${TR} cmt 'Expected:'
-	${TR} cmt '```' 						
-	cat expected_sanity.4 >> testrec.md
-	${TR} cmt '```' 						
-	${TR} cmt 
-	${SMK} -e -a hello.c/Makefile.2 > out.4 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.4 out.4" 
-	${TR} end
 	
-	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
-	sleep 1
+	${SMK} -q --reset
+	${SMK} multiline_smkfile.txt > out.multiline1.txt
+	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline1.txt out.multiline1.txt" 
 
 	@ #-------------------------------------------------------------------------
-	${TR} start '`rm main.o` (missing file)'
+	${TR} cmt 'Hill formatted multiline:'
+	${TR} cmt 
+	${TR} cmt 'cat `hill_multiline_smkfile.txt`:'
+	${TR} cmt '```' 
+	cat hill_multiline_smkfile.txt >> testrec.md
+	${TR} cmt '```' 
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`rm hello.c/main.o`'
-	${TR} cmt '`smk -e hello.c/Makefile.2`'
+	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk hill_multiline_smkfile.txt`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
-	${TR} cmt '```' 						
-	cat expected_sanity.5 >> testrec.md
-	${TR} cmt '```' 						
+	${TR} cmt '```' 
+	cat expected_multiline2.txt >> testrec.md
+	${TR} cmt '```' 
 	${TR} cmt 
-	rm hello.c/main.o
-	${SMK} -e hello.c/Makefile.2 | sed "s/[0-9]//g" > out.5
-	# Time tag neutralized
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.5 out.5" 
-	${TR} end
+	
+	${SMK} -q --reset
+	test ! `${SMK} hill_multiline_smkfile.txt > out.multiline2.txt`
+	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline2.txt out.multiline2.txt" 
 
-	@ #-------------------------------------------------------------------------
-	${TR} start '`touch hello.c` (updated file)'
-	${TR} cmt 
-	${TR} cmt 'Run:'
-	${TR} cmt '`rm hello.c/main.o`'
-	${TR} cmt '`smk -e hello.c/Makefile.2`'
-	${TR} cmt 
-	${TR} cmt 'Expected:'
-	${TR} cmt '```' 						
-	cat expected_sanity.6 >> testrec.md
-	${TR} cmt '```' 						
-	${TR} cmt 
-	touch hello.c/hello.c
-	${SMK} -e hello.c/Makefile.2 | sed "s/[0-9]//g" > out.6
-	# Time tag neutralized
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.6 out.6" 
 	${TR} end
 
 doc:

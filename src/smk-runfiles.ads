@@ -45,6 +45,9 @@ private package Smk.Runfiles is
    function "+" (Command : String) return Command_Lines is
      (To_Unbounded_String (Command));
 
+   Null_Command_Line : constant Command_Lines
+     := Command_Lines (Null_Unbounded_String);
+
    Default_Section : constant Section_Names
      := Section_Names (Null_Unbounded_String);
 

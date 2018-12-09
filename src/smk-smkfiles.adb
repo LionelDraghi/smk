@@ -26,7 +26,7 @@ with Smk.IO;
 package body Smk.Smkfiles is
 
    Debug  : constant Boolean := False;
-   Prefix : constant String  := " smk-smkfiles.adb ";
+   Prefix : constant String  := "";
 
    use Ada.Strings;
    use Ada.Strings.Fixed;
@@ -86,25 +86,24 @@ package body Smk.Smkfiles is
 
   -- --------------------------------------------------------------------------
    procedure Analyze (Smkfile_Name : in     String;
-                      Line_List    :    out Smkfile) is
-      Make_Fl    : Ada.Text_IO.File_Type;
-      Entry_List : Smkfile_Entry_Lists.List;
+                      Line_List    :    out Smkfile)
+   is
+      Make_Fl        : Ada.Text_IO.File_Type;
+      Entry_List     : Smkfile_Entry_Lists.List;
+      In_A_Multiline : Boolean := False;
+      Multiline      : Command_Lines := Null_Command_Line;
 
    begin
       Open (Make_Fl, Mode => In_File, Name => Smkfile_Name);
 
       Analysis : while not End_Of_File (Make_Fl) loop
          declare
-            Raw_Line        : constant String  := Get_Line (Make_Fl);
-            First_Non_Blank : constant Natural
-              := Index (Source => Raw_Line,
-                        Set    => Whitespace_Set,
-                        Test   => Outside);
-            Line            : constant String
-              := Raw_Line (Natural'Max (1, First_Non_Blank) .. Raw_Line'Last);
             -- Line = Get_Line, but heading blanks or tabs character are removed
             -- If there is not heading blank, First_Non_Blank will be null,
             -- and Line will start at 1.
+            Line : constant String := Trim (Get_Line (Make_Fl),
+                                            Left  => Whitespace_Set,
+                                            Right => Whitespace_Set);
             Line_Nb : constant Integer := Integer (Ada.Text_IO.Line (Make_Fl));
 
          begin
@@ -131,22 +130,70 @@ package body Smk.Smkfiles is
 
             else
                -- Last but not least, it's a command line.
-               IO.Put_Debug_Line (Line -- (First .. Line'Last)
-                                  & "<",
-                                  Debug  => Debug,
-                                  Prefix => Prefix & "Command    >",
-                                  File   => Smkfile_Name,
-                                  Line   => Line_Nb);
-               Entry_List.Append ((Line    => Line_Nb - 1, -- why -1 ???
-                                   Section => Current_Section,
-                                   Command => +(Line),
-                                   Was_Run => False));
+               if Line (Line'Last) = '\' then
+                  -- first or continuation line of the multiline
+                  declare
+                     Last_Non_Blank_Before_Backslash  : constant Natural
+                       := Index (Source => Line (Line'First .. Line'Last - 1),
+                                 Set    => Whitespace_Set,
+                                 Test   => Outside,
+                                 Going  => Backward);
+                  begin
+                     -- we replace all all blanks and tab befor '\' with
+                     -- a single blank
+                     Multiline := Multiline
+                       & Line (Line'First .. Last_Non_Blank_Before_Backslash)
+                       & " ";
+                     In_A_Multiline := True;
+                     IO.Put_Debug_Line
+                       (To_String (Multiline) & "<",
+                        Debug  => Debug,
+                        Prefix => Prefix & "First or continuation    >",
+                        File   => Smkfile_Name,
+                        Line   => Line_Nb);
+                  end;
+
+               else
+                  if In_A_Multiline then
+                     -- last line of the multiline
+                     Multiline := Multiline & Line;
+                     Entry_List.Append ((Line    => Line_Nb - 1, -- why -1 ???
+                                         Section => Current_Section,
+                                         Command => Multiline,
+                                         Was_Run => False));
+                     IO.Put_Debug_Line (To_String (Multiline) & "<",
+                                        Debug  => Debug,
+                                        Prefix => Prefix & "Last line >",
+                                        File   => Smkfile_Name,
+                                        Line   => Line_Nb);
+                     Multiline := Null_Command_Line;
+                     In_A_Multiline := False;
+
+                  else
+                     -- single line command
+                     Entry_List.Append ((Line    => Line_Nb - 1, -- why -1 ???
+                                         Section => Current_Section,
+                                         Command => +(Line),
+                                         Was_Run => False));
+                     IO.Put_Debug_Line (Line & "<",
+                                        Debug  => Debug,
+                                        Prefix => Prefix & "Single line >",
+                                        File   => Smkfile_Name,
+                                        Line   => Line_Nb);
+                  end if;
+
+               end if;
 
             end if;
 
          end;
 
       end loop Analysis;
+
+      if In_A_Multiline then
+         IO.Put_Error (Smkfile_Name
+                       & " ends with incomplete multine, last command ignored");
+      end if;
 
       Close (Make_Fl);
 

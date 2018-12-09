@@ -76,7 +76,7 @@ And don't forget [`smk --help`](cmd_line.md).
 
 ## Portability
 
-This tool heavily rely on [`strace`](https://en.wikipedia.org/wiki/Strace) utility, and thus is dependent on Linux for now.
+This tool heavily relies on [`strace`](https://en.wikipedia.org/wiki/Strace) utility, and thus is dependent on Linux for now.
 
 I keep OS dependencies as small and localized as possible to ease porting.  
 Currently, both dependencies to GNAT for the Spawn procedure, and to the

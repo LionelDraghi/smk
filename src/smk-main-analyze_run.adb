@@ -34,58 +34,6 @@ is
    Prefix       : constant String  := ""; -- smk-main-analyze_run.adb ";
    Strace_Ouput : File_Type;
 
---     procedure Classify_By_Time (Name : in String) is
---        use type Ada.Calendar.Time;
---        File_Time : constant Ada.Calendar.Time := Modification_Time (Name);
---        -- Due to a limitation in the Modification_Time function
---        -- (subsecond are ignored, Modification_Time returns
---        -- Time_Of (Year, Month, Day, Hour, Minute, Second, 0.0);
---        -- This cause the Modification_Time to be < to the
---        -- command execution time, even when the file is
---        -- modified after command execution start.
---        -- To be clear :
---        -- Exec start will be at second 14.45
---        -- File will be modified at second 14.57
---        -- Modification_Time will return 14 instead of 14.57
---        -- So the file will be considered as not modified by the
---        -- command, and never classified as Target.
---        -- To avoid this, I remove sub-seconds in both time,
---        -- both will have the same time tag ending with second
---        -- 14.00, and when equal, file will be considered a Target.
---
---        Line_Nb : constant Integer := Integer (Ada.Text_IO.Line);
---     TT_Image   : constant String := Image (Previous_Run_Time);
---        use Run_Files;
---
---     begin
---        delay (0.1); -- Fixme:
---        if File_Time >= Previous_Run_Time then
---           if not Target_Files.Contains (+Name) then
---              Target_Files.Insert (+Name, File_Time);
---              IO.Put_Debug_Line ("O : " & Image (File_Time,
---                                 Include_Time_Fraction => True) & " >= "
---                                 & TT_Image & " : " & Name,
---                                 Debug  => Debug,
---                                 Prefix => Prefix,
---                                 -- File   => Settings.Strace_Outfile_Name,
---                                 Line   => Line_Nb);
---           end if;
---
---        else
---           if not Source_Files.Contains (+Name) then
---              Source_Files.Insert (+Name, File_Time);
---              IO.Put_Debug_Line ("S : " & Image (File_Time,
---                                 Include_Time_Fraction => True) & " < "
---                                 & TT_Image & " : " & Name,
---                                 Debug  => Debug,
---                                 Prefix => Prefix,
---                                 -- File   => Settings.Strace_Outfile_Name,
---                                 Line   => Line_Nb);
---           end if;
---
---        end if;
---     end Classify_By_Time;
-
    -- --------------------------------------------------------------------------
    procedure Classify_By_Cmd (Line : in String;
                               Name : in String) is
