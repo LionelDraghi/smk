@@ -152,6 +152,7 @@ You may try it, with or without the `--dry-run` (short form `-n`) option if you 
 This option will not remove `smk` internal files. If you want to do that:  
 `smk --reset`  
 Check it with : `ls -l .smk*`  
+Or with `smk -lr` (long form : `--list-runs`)
 
 And then, rebuild with `smk MyBuild`.
 
@@ -166,7 +167,6 @@ Got get more info on why are commands executed, just add the `--explain` option 
 Once more, only the two commands needed to get `hello` updated are run:  
 ```
 gcc -o hello.o -c hello.c
-gcc -o main.o -c main.c
 gcc -o hello hello.o main.o
 ```
 
@@ -185,6 +185,7 @@ What have we seen in this tutorial?
 | --------------------------------------------------------------------- | ----------------- |
 | Run MyBuild                                                           | `smk MyBuild`     |
 | Check what `smk` undestand from MyBuild                               | `smk -rl MyBuild` |
+| See runfiles in the current directory                                 | `smk -lr`         |
 | Run it with explanations                                              | `smk -e MyBuild`  |
 | Check what would be run, without running it                           | `smk -n MyBuild`  |
 | cleanup all targets                                                   | `smk --clean`     |
@@ -193,12 +194,11 @@ What have we seen in this tutorial?
 
 What else have I to explore?  
 
-| I want to                                                             | Command           |
-| --------------------------------------------------------------------- | ----------------- |
-| Check what `smk` undestand from my smkfile                            | `smk -rs smkfile` |
-| do as much as possible                                                | `smk -k`          |
-| ignore build errors (return no error)                                 | `smk -i`          |
+| I want to                                                             | Command               |
+| --------------------------------------------------------------------- | --------------------- |
+| Check what `smk` undestand from my smkfile                            | `smk -rs smkfile`     |
+| do as much as possible                                                | `smk -k`              |
+| ignore build errors (return no error)                                 | `smk -i`              |
 | See identified sources / targets                                      | `smk -ls` / `smk -lt` |
-| See runfiles in the current directory                                 | `smk -lr`             |
 
 
