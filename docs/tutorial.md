@@ -145,15 +145,13 @@ gcc -o main.o -c main.c
 gcc -o hello hello.o main.o
 ```
 
-`smk` provides an equivalent to the classical `make clean` : the `--clean` option.
-You may try it, with or without the `--dry-run` (short form `-n`) option if you don't want to effectively remove files :
+`smk` provides an equivalent to the classical `make clean` : the `--clean` option.  
+You may try it, with or without the `--dry-run` (short form `-n`) option if you don't want to effectively remove files :  
+`smk -n --clean`  
 
-`smk -n --clean`
-
-This option will not remove `smk` internal files. If you want to do that:
-`smk --reset` 
-Check it with : `ls -l .smk*`
-
+This option will not remove `smk` internal files. If you want to do that:  
+`smk --reset`  
+Check it with : `ls -l .smk*`  
 
 And then, rebuild with `smk MyBuild`.
 
@@ -161,7 +159,7 @@ And then, rebuild with `smk MyBuild`.
 
 `touch hello.c`  
 
-Got get more info on why are commands executed, just add the `--explain` option (short form : `-e`)
+Got get more info on why are commands executed, just add the `--explain` option (short form : `-e`)  
 
 `smk -e`
 
@@ -179,17 +177,28 @@ gcc -o hello hello.o main.o
 No file changes, nothing's done.
 
 
-## More options
+## Command summary
 
-What else?  
-
-`smk -h` 
+What have we seen in this tutorial?  
 
 | I want to                                                             | Command           |
 | --------------------------------------------------------------------- | ----------------- |
+| Run MyBuild                                                           | `smk MyBuild`     |
 | Check what `smk` undestand from MyBuild                               | `smk -rl MyBuild` |
 | Run it with explanations                                              | `smk -e MyBuild`  |
 | Check what would be run, without running it                           | `smk -n MyBuild`  |
-| See what knows `smk` from previous runs regarding sources and targets | `smk -ls MyBuild` |
+| cleanup all targets                                                   | `smk --clean`     |
+| show system files on -rl (and -lt, ls, etc.)                          | `smk -sa -rl      |
+| Get the full picture                                                  | `smk -h`          |
+
+What else have I to explore?  
+
+| I want to                                                             | Command           |
+| --------------------------------------------------------------------- | ----------------- |
+| Check what `smk` undestand from my smkfile                            | `smk -rs smkfile` |
+| do as much as possible                                                | `smk -k`          |
+| ignore build errors (return no error)                                 | `smk -i`          |
+| See identified sources / targets                                      | `smk -ls` / `smk -lt` |
+| See runfiles in the current directory                                 | `smk -lr`             |
 
 
