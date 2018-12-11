@@ -5,6 +5,8 @@
 
 It was created by Lionel Draghi, is released under [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0), and is under active development.
 
+> Note that an introduction in french is available [here](https://linuxfr.org/users/3tus/journaux/smk-un-make-sans-makefile)
+
 ------------------------------------------------------------------------
 
 Table of contents  
@@ -40,7 +42,7 @@ gcc -o main.o -c main.c
 gcc -o hello hello.o main.o
 ```
 
-that is, with **no more rules, dependencies, target, etc.**
+that is, with **no more rules, recipes, dependencies, targets, etc.**
 
 This would require a tool able to observe the execution of the various command lines, and smart enough to understand for example that the first command is reading `hello.c`, and thus depending on this file, and producing `hello.o`, and to understand that if both `hello.c` and `hello.o` didn't change since last run, it doesn't have to re-run this command.
 
@@ -92,12 +94,13 @@ And obviously, any contribution, including ports, is welcome.
 
 - [More on the `smkfile` format](smkfile_format.md)
 - [Not sure to understand what is the difference with `make`...](compare_with_make.md)
-- [Limitations and bugs](compare_with_make.md)
+- [Limitations and bugs](limitations.md)
 - [Changelog](changelog.md)
 - [Build Dashboard](dashboard.md)
 - Tests  
     * [Tests status](tests/tests_status.md)
     * [Tests results](tests/testrec.md)
 - [About](about.md)
+ 
 
 Lionel

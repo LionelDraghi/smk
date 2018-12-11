@@ -34,10 +34,9 @@ Options :
    -a   | --always-make     : unconditionally make all targets
    -e   | --explain         : explain why each target is made
    -n   | --dry-run         : print the commands that would be executed, but do not execute them
-   -sa  | --shows-all-files : prevent -ls and -rl to ignore system files
+   -sa  | --shows-all-files : prevent -ls and -rl from ignoring system files
    -i   | --ignore-errors   : ignore all errors in commands executed to remake files
    -k   | --keep-going      : Do as much work as possible
- (but return an error status if some error occurs)
    -We  | --Warnings=error  : treat warnings as errors
    -v   | --verbose
    -q   | --quiet           : no message unless error,
@@ -55,6 +54,6 @@ smk --version
 ```
 
 ```
-0.0.5
+0.1.0
 ```
 

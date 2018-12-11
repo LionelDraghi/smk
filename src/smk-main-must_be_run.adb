@@ -35,16 +35,34 @@ is
    use Runfiles;
 
    -- -----------------------------------------------------------------------
-   function A_Target_Is_Missing (Targets : in Runfiles.File_Lists.Map)
-                                 return Boolean is
+   function A_Source_Is_Missing (The_Run : Run) return Boolean is
       use Ada.Directories;
       use Runfiles.File_Lists;
    begin
-      for T in Targets.Iterate loop
+      for T in The_Run.Sources.Iterate loop
          declare
             Name : constant String := (+Key (T));
          begin
-            if not Exists (+(Key (T))) then
+            if not Exists (Name) then
+               IO.Put_Line ("Source " & Name & " is missing for command "
+                            & (+Command));
+               return True;
+            end if;
+         end;
+      end loop;
+      return False;
+   end A_Source_Is_Missing;
+
+   -- -----------------------------------------------------------------------
+   function A_Target_Is_Missing (The_Run : Run) return Boolean is
+      use Ada.Directories;
+      use Runfiles.File_Lists;
+   begin
+      for T in The_Run.Targets.Iterate loop
+         declare
+            Name : constant String := (+Key (T));
+         begin
+            if not Exists (Name) then
                Put_Explanation ("because " & Name & " is missing");
                return True;
             end if;
@@ -55,11 +73,11 @@ is
 
 
    -- --------------------------------------------------------------------------
-   function A_Source_Is_Updated (Sources : in File_Lists.Map) return Boolean is
+   function A_Source_Is_Updated (The_Run : Run) return Boolean is
       use Ada.Directories;
       use Runfiles.File_Lists;
    begin
-      for S in Sources.Iterate loop
+      for S in The_Run.Sources.Iterate loop
          declare
             use Ada.Calendar;
             Name        : constant String := Full_Name (+Key (S));
@@ -107,10 +125,10 @@ begin
       Put_Explanation ("because it was not run before");
       return True;
 
-   else
-      return
-        A_Target_Is_Missing (Runfiles.Run_Lists.Element (C).Targets) or else
-        A_Source_Is_Updated (Runfiles.Run_Lists.Element (C).Sources) or else
+   else return
+        A_Source_Is_Missing (Runfiles.Run_Lists.Element (C)) or else
+        A_Source_Is_Updated (Runfiles.Run_Lists.Element (C)) or else
+        A_Target_Is_Missing (Runfiles.Run_Lists.Element (C)) or else
         No_Source_Nor_Target (Runfiles.Run_Lists.Element (C));
       -- If there is no sources and no target, it could be because the command
       -- failed in the previous run, and so let's try again.

@@ -1,11 +1,12 @@
 "Smkfile" format
 ================
 
-- [Overview](#overview)
-- [Comments](#comments)
-- [Sections](#sections)
-- [Commands](#commands)
-- [Compatibility with Makefile](#compatibility-with-makefile)
+- ["Smkfile" format](#%22smkfile%22-format)
+  - [Overview](#overview)
+  - [Comments](#comments)
+  - [Sections](#sections)
+  - [Commands](#commands)
+  - [Compatibility with Makefile](#compatibility-with-makefile)
     
 ## Overview
 
@@ -157,7 +158,7 @@ This is why `smk` provides way to:
    **Fixme: Not yet implemented, as of v0.0.4**
    
 
-5. Multilines (splitted with backslash) are not yet processed.
+5. Multilines (splitted with backslash) are processed, provided there is only one command, no pipe and no redirection.
 
 
 
