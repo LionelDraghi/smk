@@ -56,7 +56,7 @@ begin
    Put_Line ("   -n   | --dry-run         : print the commands that would"
              & " be executed, but do not execute them");
    Put_Line ("   -sa  | --shows-all-files : prevent -ls and -rl"
-             & " to ignore system files");
+             & " from ignoring system files");
    Put_Line ("   -i   | --ignore-errors   : ignore all errors in commands"
              & " executed to remake files");
    Put_Line ("   -k   | --keep-going      : Do as much work as possible");
