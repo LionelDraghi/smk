@@ -14,10 +14,10 @@ ArchiCheck was created by [Lionel Draghi](mailto:lionel.draghi@free.fr).
 Comments and issues are welcome [here](https://github.com/LionelDraghi/smk/issues/new).
 
 **Ada:**  
-ArchiCheck is proudly written in [Ada](http://getadanow.com/).
+`smk` is proudly written in [Ada](http://getadanow.com/).
 
 **References and guidelines:**  
-ArchiCheck strives to be compliant with:  
+`smk` strives to be compliant with:  
 
 - [Keep a Changelog principles](http://keepachangelog.com/en/1.0.0/)
 - [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
