@@ -8,7 +8,7 @@ About
 `smk` is licensed under [Apache License, Version 2.0](LICENSE-2.0.md).
 
 **Author & contact:**  
-ArchiCheck was created by [Lionel Draghi](mailto:lionel.draghi@free.fr).
+`smk` was created by [Lionel Draghi](mailto:lionel.draghi@free.fr).
 
 **Issues:**  
 Comments and issues are welcome [here](https://github.com/LionelDraghi/smk/issues/new).
