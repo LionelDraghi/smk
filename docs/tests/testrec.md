@@ -39,11 +39,11 @@ Nothing to run
 
 Sanity / Second `smk`, should not run any command [Successful](tests_status.md#successful)
 
-##  Sanity / `smk --reset`, no more history, should run all commands
+##  Sanity / `smk reset`, no more history, should run all commands
 
 
   Run:  
-  `smk --reset --quiet`  
+  `smk reset --quiet`  
   `smk -e hello.c/Makefile.2`  
 
   Expected:  
@@ -57,7 +57,7 @@ gcc -o hello hello.o main.o
 ```  
 
 
-Sanity / `smk --reset`, no more history, should run all commands [Successful](tests_status.md#successful)
+Sanity / `smk reset`, no more history, should run all commands [Successful](tests_status.md#successful)
 
 ##  Sanity / `smk -a`, should run all commands even if not needed
 
@@ -121,17 +121,17 @@ Sanity / `touch hello.c` (updated file) [Successful](tests_status.md#successful)
 ##  Command line / Help options
 
 
-  Test the -h and --help output :  
+  Test the -h and help output :  
 
   Run:  
   `smk `  
-  `smk --help`  
+  `smk help`  
 
   Expected:  
 
 ```  
 
-Usage : smk Query [Options]* [Smkfile]
+Usage : smk Command [Options]* [Smkfile]
 
 Usual use example:
    when run the first time:
@@ -140,19 +140,19 @@ Usual use example:
    > smk
    to rebuild
 
-Queries :
-   -rs  | --read-smkfile  : shows Smk understanding of a Smkfile
-   -rl  | --read-last-run : shows what smk knows about the previous runs
-                               (commands, sources and targets)
+Commands :
+   build        : run the build
+   status       : shows what smk knows about the previous runs
+                  (commands, sources and targets)
+   read-smkfile : shows Smk understanding of a Smkfile
+   clean        : remove all targets files
+   reset        : remove all local Smk files (equivalent to rm .smk.*)
+   version      : put Smk version
+   help | -h    : this message
    -lr  | --list-runs     : list runfiles in current directory
    -ls  | --list-sources  : list sources, except system files
    -lt  | --list-targets
-          --clean         : remove all targets files
-          --reset         : remove all local Smk files (equivalent to rm .smk.*)
-          --version       : Smk version
-   -h   | --help          : this message
-   -b   | --build         : run the build
-   NB : when no query is given, --build is assumed
+   NB : when no command is given, build is assumed
 
 Options :
    -a   | --always-make     : unconditionally make all targets
@@ -176,10 +176,10 @@ Command line / Help options [Successful](tests_status.md#successful)
 ##  Command line / Version option
 
 
-  Test that the --version will put :  
+  Test that the version command will put :  
 
   Run:  
-  `smk --version`  
+  `smk version`  
 
   Expected:  
 
@@ -194,14 +194,14 @@ Command line / Version option [Successful](tests_status.md#successful)
 
 
   Run:  
-  `smk -rs -rl`  
+  `smk read-smkfile status`  
 
   Expected:  
 
 ```  
-Error : More than one query on command line : READ_LAST_RUN and READ_SMKFILE
+Error : More than one command on command line : READ_RUN_STATUS and READ_SMKFILE
 
-Usage : smk Query [Options]* [Smkfile]
+Usage : smk Command [Options]* [Smkfile]
 
 Usual use example:
    when run the first time:
@@ -210,19 +210,19 @@ Usual use example:
    > smk
    to rebuild
 
-Queries :
-   -rs  | --read-smkfile  : shows Smk understanding of a Smkfile
-   -rl  | --read-last-run : shows what smk knows about the previous runs
-                               (commands, sources and targets)
+Commands :
+   build        : run the build
+   status       : shows what smk knows about the previous runs
+                  (commands, sources and targets)
+   read-smkfile : shows Smk understanding of a Smkfile
+   clean        : remove all targets files
+   reset        : remove all local Smk files (equivalent to rm .smk.*)
+   version      : put Smk version
+   help | -h    : this message
    -lr  | --list-runs     : list runfiles in current directory
    -ls  | --list-sources  : list sources, except system files
    -lt  | --list-targets
-          --clean         : remove all targets files
-          --reset         : remove all local Smk files (equivalent to rm .smk.*)
-          --version       : Smk version
-   -h   | --help          : this message
-   -b   | --build         : run the build
-   NB : when no query is given, --build is assumed
+   NB : when no command is given, build is assumed
 
 Options :
    -a   | --always-make     : unconditionally make all targets
@@ -264,7 +264,7 @@ Command line / Unknow Makefile [Successful](tests_status.md#successful)
 
 
 
-##  Read queries / -rs | --read-smkfile
+##  Read queries / read-smkfile
 
 
   Read a smkfile and shows what is understud by smk  
@@ -291,7 +291,7 @@ mrproper: clean
 ```  
 
   Run:  
-  `smk -rs hello.c/Makefile.3`  
+  `smk read-smkfile hello.c/Makefile.3`  
 
   Expected:  
 ```  
@@ -304,17 +304,17 @@ hello.c/Makefile.3 (YYYY:MM:DD HH:MM:SS.SS) :
 ```  
 
 
-Read queries / -rs | --read-smkfile [Successful](tests_status.md#successful)
+Read queries / read-smkfile [Successful](tests_status.md#successful)
 
-##  Read queries / -rl | --read-last-run
+##  Read queries / status
 
 
   Read the previous run dump and shows sources and targets  
 
   Run:  
-  `smk -q --reset`  
-  `smk -q --build hello.c/Makefile.2`  
-  `smk -rl hello.c/Makefile.2`  
+  `smk -q reset`  
+  `smk -q build hello.c/Makefile.2`  
+  `smk status hello.c/Makefile.2`  
 
   Expected:  
   (note that to ease comparison, dates are removed)  
@@ -342,9 +342,9 @@ YYYY:MM:DD HH:MM:SS.SS [main.o] gcc -o main.o -c main.c
 ```  
 
   Run: (same with system files not ignored)   
-  `smk -q --reset`  
-  `smk -q --build hello.c/Makefile.2`  
-  `smk -rl -sa hello.c/Makefile.2`  
+  `smk -q reset`  
+  `smk -q build hello.c/Makefile.2`  
+  `smk status -sa hello.c/Makefile.2`  
 
   Expected:  
   (note that to ease comparison, dates are removed)  
@@ -499,8 +499,8 @@ YYYY:MM:DD HH:MM:SS.SS [main.o] gcc -o main.o -c main.c
 
 
   Run:  
-  `smk -q --reset`  
-  `smk -rl hello.c/Makefile.2`  
+  `smk -q reset`  
+  `smk status hello.c/Makefile.2`  
 
   Expected:  
 ```  
@@ -509,7 +509,7 @@ Error : No previous run found.
 
 
   Run:  
-  `smk --read-last-run`  
+  `smk status`  
 
   Expected:  
 ```  
@@ -517,7 +517,7 @@ Error : No smkfile given, and no existing runfile in dir
 ```  
 
 
-Read queries / -rl | --read-last-run [Successful](tests_status.md#successful)
+Read queries / status [Successful](tests_status.md#successful)
 
 # List queries
 
@@ -529,7 +529,7 @@ Read queries / -rl | --read-last-run [Successful](tests_status.md#successful)
   Test available previous runs  
 
   Run:  
-  `smk -q --reset`  
+  `smk -q reset`  
   `smk -lr`  
 
   Expected:  
@@ -538,7 +538,7 @@ No run file
 ```  
 
   Run:  
-  `smk -q -b hello.c/Makefile.2`  
+  `smk -q build hello.c/Makefile.2`  
   `smk -q hello.c/Makefile.3`  
   `smk --list-runs`  
 
@@ -742,7 +742,7 @@ List queries / -ls | --list-sources --show-all-files [Successful](tests_status.m
 
 
   Run:  
-  `smk -q --reset`  
+  `smk -q reset`  
   `smk`  
 
   Expected: help message as there is nothing in the directory  
@@ -779,15 +779,15 @@ Implicit naming / Implicit naming [Successful](tests_status.md#successful)
 
 
 
-##  Targets related functions / --clean
+##  Targets related functions / clean
 
 
-  Test targets cleaning  
+  Test targets cleaning (dry run and real)  
 
   Run:  
-  `smk --reset`  
-  `smk -q -b hello.c/Makefile.2`  
-  `smk --clean --dry-run`  
+  `smk reset`  
+  `smk -q build hello.c/Makefile.2`  
+  `smk clean --dry-run`  
   `smk --explain`  (to check that nothing was actually deleted)  
 
   Expected:  
@@ -798,7 +798,7 @@ Deleting /home/lionel/Proj/smk/tests/hello.c/main.o
 ```  
 
   Run:  
-  `smk --clean`  
+  `smk clean`  
 
   Expected:  
 ```  
@@ -821,7 +821,7 @@ gcc -o hello hello.o main.o
 ```  
 
 
-Targets related functions / --clean [Successful](tests_status.md#successful)
+Targets related functions / clean [Successful](tests_status.md#successful)
 
 # Multiline commands in smkfile
 
@@ -838,7 +838,7 @@ Targets related functions / --clean [Successful](tests_status.md#successful)
 ```  
 
  Run:  
- `smk -q --reset`  
+ `smk -q reset`  
  `smk multiline_smkfile.txt`  
 
  Expected:  
@@ -863,7 +863,7 @@ ploticus -prefab pie data=out.sloccount labels=2 colors="blue red green orange" 
 ```  
 
   Run:  
-  `smk -q --reset`  
+  `smk -q reset`  
   `smk hill_multiline_smkfile.txt`  
 
   Expected:  
@@ -880,7 +880,7 @@ Multiline commands in smkfile /  [Successful](tests_status.md#successful)
 
 
  Run:  
- `smk -q --reset`  
+ `smk -q reset`  
  `smk hello.c/Wrong_Makefile`  
 
  Expected:  
@@ -891,7 +891,7 @@ Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wron
 
 
   Run:  
-  `smk -q --reset`  
+  `smk -q reset`  
   `smk -k hello.c/Wrong_Makefile`  
 
   Expected:  
@@ -916,7 +916,7 @@ Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wron
 
 
   Run:  
-  `smk -q --reset`  
+  `smk -q reset`  
   `smk -i hello.c/Wrong_Makefile`  
 
   Expected:  
@@ -928,7 +928,7 @@ Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wron
 
 
   Run: with both!  
-  `smk -q --reset`  
+  `smk -q reset`  
   `smk --keep-going --ignore-errors hello.c/Wrong_Makefile`  
 
   Expected:  

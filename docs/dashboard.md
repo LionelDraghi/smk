@@ -3,7 +3,7 @@ Dashboard
 
 Version
 -------
-> smk --version
+> smk version
 
 ```
 0.1.0
@@ -12,7 +12,7 @@ Version
 > date -r ./smk --iso-8601=seconds
 
 ```
-2018-12-11T01:07:31+01:00
+2018-12-14T00:06:45+01:00
 ```
 
 Test results
@@ -28,8 +28,8 @@ Coverage
 --------
 
 ```
-  lines......: 94.2% (766 of 813 lines)
-  functions..: 93.4% (171 of 183 functions)
+  lines......: 93.9% (767 of 817 lines)
+  functions..: 92.9% (171 of 184 functions)
 ```
 
 [**Coverage details in the sources**](http://lionel.draghi.free.fr/smk/lcov/home/lionel/Proj/smk/src/index-sort-f.html)

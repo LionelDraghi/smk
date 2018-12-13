@@ -103,7 +103,13 @@ is
       --              & Boolean'Image (Is_Empty (The_Run.Sources))
       --              & ", Targets = "
       --              & Boolean'Image (Is_Empty (The_Run.Targets)));
-      return Is_Empty (The_Run.Sources) and Is_Empty (The_Run.Targets);
+      if Is_Empty (The_Run.Sources) and Is_Empty (The_Run.Targets) then
+         Put_Explanation ("because no source nor target for command "
+                          & To_String (Command));
+         return True;
+      else
+         return False;
+      end if;
    end No_Source_Nor_Target;
 
    use Runfiles.Run_Lists;
@@ -126,9 +132,9 @@ begin
       return True;
 
    else return
+        A_Target_Is_Missing (Runfiles.Run_Lists.Element (C)) or else
         A_Source_Is_Missing (Runfiles.Run_Lists.Element (C)) or else
         A_Source_Is_Updated (Runfiles.Run_Lists.Element (C)) or else
-        A_Target_Is_Missing (Runfiles.Run_Lists.Element (C)) or else
         No_Source_Nor_Target (Runfiles.Run_Lists.Element (C));
       -- If there is no sources and no target, it could be because the command
       -- failed in the previous run, and so let's try again.

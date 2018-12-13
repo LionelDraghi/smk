@@ -53,7 +53,7 @@ private package Smk.Smkfiles is
 
    -- --------------------------------------------------------------------------
    procedure Dump (The_Smkfile : in Smkfile);
-   -- Dump Smk undestanding of a Makefile, only the useful part of the
+   -- Dump Smk understanding of a Makefile, only the useful part of the
    -- Current Makefile, that is without any comment or blank line.
 
 end Smk.Smkfiles;

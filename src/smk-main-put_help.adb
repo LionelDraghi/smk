@@ -22,7 +22,7 @@ separate (Smk.Main)
 procedure Put_Help is
 begin
    New_Line;
-   Put_Line ("Usage : smk Query [Options]* [Smkfile]");
+   Put_Line ("Usage : smk Command [Options]* [Smkfile]");
    New_Line;
    Put_Line ("Usual use example:");
    Put_Line ("   when run the first time:");
@@ -31,24 +31,23 @@ begin
    Put_Line ("   > smk");
    Put_Line ("   to rebuild");
    New_Line;
-   Put_Line ("Queries :");
-   Put_Line ("   -rs  | --read-smkfile  : shows Smk understanding of a"
-             & " Smkfile");
-   Put_Line ("   -rl  | --read-last-run : shows what smk knows about the"
-             & " previous runs");
-   Put_Line ("                               (commands, sources and targets)");
+   Put_Line ("Commands :");
+   Put_Line ("   build        : run the build");
+   Put_Line ("   status       : shows what smk knows about the previous runs");
+   Put_Line ("                  (commands, sources and targets)");
+   Put_Line ("   read-smkfile : shows Smk understanding of a Smkfile");
+   Put_Line ("   clean        : remove all targets files");
+   Put_Line ("   reset        : remove all local Smk files"
+             & " (equivalent to rm .smk.*)");
+   Put_Line ("   version      : put Smk version");
+   Put_Line ("   help | -h    : this message");
+
    Put_Line ("   -lr  | --list-runs     : list runfiles in current"
              & " directory");
    Put_Line ("   -ls  | --list-sources  : list sources,"
              & " except system files");
    Put_Line ("   -lt  | --list-targets");
-   Put_Line ("          --clean         : remove all targets files");
-   Put_Line ("          --reset         : remove all local Smk files"
-             & " (equivalent to rm .smk.*)");
-   Put_Line ("          --version       : Smk version");
-   Put_Line ("   -h   | --help          : this message");
-   Put_Line ("   -b   | --build         : run the build");
-   Put_Line ("   NB : when no query is given, --build is assumed");
+   Put_Line ("   NB : when no command is given, build is assumed");
    New_Line;
    Put_Line ("Options :");
    Put_Line ("   -a   | --always-make     : unconditionally make all targets");

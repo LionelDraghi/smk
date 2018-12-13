@@ -99,7 +99,7 @@ begin
    Analyze_Cmd_Line;
 
    -- should be set here:
-   IO.Put_Line ("Query        : " & Queries'Image (Query), Level => Debug);
+   IO.Put_Line ("Command        : " & Commands'Image (Command), Level => Debug);
    IO.Put_Line ("Smkfile name : " & Smkfile_Name, Level => Verbose);
    IO.Put_Line ("Runfile name : " & Runfile_Name, Level => Verbose);
 
@@ -110,7 +110,7 @@ begin
       return;
    end if;
 
-   case Query is
+   case Command is
       when Read_Smkfile       =>
          declare
             The_Smkfile : Smkfiles.Smkfile;
@@ -119,7 +119,7 @@ begin
             Smkfiles.Dump (The_Smkfile);
          end;
 
-      when Read_Last_Run      =>
+      when Read_Run_Status    =>
          declare
             The_Runfile : Runfiles.Runfile;
          begin
@@ -180,7 +180,7 @@ begin
             Runfiles.Delete_Targets (The_Runfile);
          end;
 
-      when Clean_Smk_Files    =>
+      when Reset_Smk_Files    =>
          Runfiles.Clean_Run_Files;
 
       when Version            =>
@@ -222,7 +222,8 @@ begin
          Put_Help;
 
       when None =>
-         Put_Error ("Internal error : exiting Analyze_Cmd_Line without Query");
+         Put_Error
+           ("Internal error : exiting Analyze_Cmd_Line without Command");
 
    end case;
 

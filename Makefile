@@ -81,10 +81,10 @@ dashboard: obj/coverage.info tests/tests_count.txt
 	echo 							>> docs/dashboard.md
 	echo "Version"					>> docs/dashboard.md
 	echo "-------"					>> docs/dashboard.md
-	echo "> smk --version"			>> docs/dashboard.md
+	echo "> smk version"			>> docs/dashboard.md
 	echo 	 						>> docs/dashboard.md
 	echo '```' 						>> docs/dashboard.md
-	./smk --version					>> docs/dashboard.md
+	./smk version					>> docs/dashboard.md
 	echo '```' 						>> docs/dashboard.md
 	echo 	 						>> docs/dashboard.md
 	echo "> date -r ./smk --iso-8601=seconds" 	>> docs/dashboard.md
@@ -135,11 +135,11 @@ cmd_line.md:
 	echo "-------------------"	>> docs/cmd_line.md
 	echo ""						>> docs/cmd_line.md
 	echo '```'					>> docs/cmd_line.md
-	echo "$ smk --version"		>> docs/cmd_line.md
+	echo "$ smk version"		>> docs/cmd_line.md
 	echo '```'					>> docs/cmd_line.md
 	echo ""						>> docs/cmd_line.md
 	echo '```'					>> docs/cmd_line.md
-	./smk --version				>> docs/cmd_line.md
+	./smk version				>> docs/cmd_line.md
 	echo '```'					>> docs/cmd_line.md
 	echo ""						>> docs/cmd_line.md
 

@@ -46,14 +46,14 @@ procedure Analyze_Cmd_Line is
    end Next_Arg;
 
    -- --------------------------------------------------------------------------
-   procedure Set_If_Not_Already_Set (New_Query : in Queries) is
+   procedure Set_If_Not_Already_Set (New_Command : in Commands) is
    begin
-      if Query = None then
-         Query := New_Query;
+      if Command = None then
+         Command := New_Command;
       else
-         Put_Error ("More than one query on command line : "
-                    & Queries'Image (New_Query)
-                    & " and " & Queries'Image (Query),
+         Put_Error ("More than one command on command line : "
+                    & Commands'Image (New_Command)
+                    & " and " & Commands'Image (Command),
                     With_Help => True);
       end if;
    end Set_If_Not_Already_Set;
@@ -69,12 +69,27 @@ begin
          Opt : constant String := Ada.Command_Line.Argument (Arg_Counter);
 
       begin
-         -- 1/3 Queries:
-         if Opt = "-rs" or Opt = "--read-smkfile" then
-            Set_If_Not_Already_Set (Read_Smkfile);
+         -- 1/3 Commands:
+         if    Opt = "build" then
+            Set_If_Not_Already_Set (Build);
 
-         elsif Opt = "-rl" or Opt = "--read-last-run" then
-            Set_If_Not_Already_Set (Read_Last_Run);
+         elsif Opt = "status" then
+            Set_If_Not_Already_Set (Read_Run_Status);
+
+         elsif Opt = "clean" then
+            Set_If_Not_Already_Set (Clean_Targets);
+
+         elsif Opt = "reset" then
+            Set_If_Not_Already_Set (Reset_Smk_Files);
+
+         elsif Opt = "version" then
+            Set_If_Not_Already_Set (Version);
+
+         elsif Opt = "help" or Opt = "-h" then
+            Set_If_Not_Already_Set (Help);
+
+         elsif Opt = "read-smkfile" then
+            Set_If_Not_Already_Set (Read_Smkfile);
 
          elsif Opt = "-lr" or Opt = "--list-runs" then
             Set_If_Not_Already_Set (List_Previous_Runs);
@@ -84,21 +99,6 @@ begin
 
          elsif Opt = "-lt" or Opt = "--list-targets" then
             Set_If_Not_Already_Set (List_Targets);
-
-         elsif Opt = "--clean" then
-            Set_If_Not_Already_Set (Clean_Targets);
-
-         elsif Opt = "--reset" then
-            Set_If_Not_Already_Set (Clean_Smk_Files);
-
-         elsif Opt = "--version" then
-            Set_If_Not_Already_Set (Version);
-
-         elsif Opt = "-b" or Opt = "--build" then
-            Set_If_Not_Already_Set (Build);
-
-         elsif Opt = "-h" or Opt = "--help" then
-            Set_If_Not_Already_Set (Help);
 
             -- 2/3 Options:
          elsif Opt = "-a" or Opt = "--always-make" then
@@ -152,16 +152,16 @@ begin
 
    end loop;
 
-   if Query = None then
+   if Command = None then
       -- default behavior:
       Set_If_Not_Already_Set (Build);
    end if;
 
    -- Options_Coherency_Tests;
 
-   -- Check for inplicit Smkfile, except if the query doesn't need it
-   if Smkfile_Name = "" and Query not in
-     List_Previous_Runs | Clean_Smk_Files | Version | Help
+   -- Check for inplicit Smkfile, except if the command doesn't need it
+   if Smkfile_Name = "" and Command not in
+     List_Previous_Runs | Reset_Smk_Files | Version | Help
    then
       -- IO.Put_Debug_Line ("no smkfile given");
       -- no smkfile given on the command line

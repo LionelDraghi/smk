@@ -7,7 +7,7 @@ smk -h
 
 ```
 
-Usage : smk Query [Options]* [Smkfile]
+Usage : smk Command [Options]* [Smkfile]
 
 Usual use example:
    when run the first time:
@@ -16,19 +16,19 @@ Usual use example:
    > smk
    to rebuild
 
-Queries :
-   -rs  | --read-smkfile  : shows Smk understanding of a Smkfile
-   -rl  | --read-last-run : shows what smk knows about the previous runs
-                               (commands, sources and targets)
+Commands :
+   build        : run the build
+   status       : shows what smk knows about the previous runs
+                  (commands, sources and targets)
+   read-smkfile : shows Smk understanding of a Smkfile
+   clean        : remove all targets files
+   reset        : remove all local Smk files (equivalent to rm .smk.*)
+   version      : put Smk version
+   help | -h    : this message
    -lr  | --list-runs     : list runfiles in current directory
    -ls  | --list-sources  : list sources, except system files
    -lt  | --list-targets
-          --clean         : remove all targets files
-          --reset         : remove all local Smk files (equivalent to rm .smk.*)
-          --version       : Smk version
-   -h   | --help          : this message
-   -b   | --build         : run the build
-   NB : when no query is given, --build is assumed
+   NB : when no command is given, build is assumed
 
 Options :
    -a   | --always-make     : unconditionally make all targets
@@ -50,7 +50,7 @@ smk current version
 -------------------
 
 ```
-smk --version
+smk version
 ```
 
 ```

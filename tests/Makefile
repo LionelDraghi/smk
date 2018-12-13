@@ -56,10 +56,10 @@ sanity:
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
-	${TR} start '`smk --reset`, no more history, should run all commands'
+	${TR} start '`smk reset`, no more history, should run all commands'
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk --reset --quiet`'
+	${TR} cmt '`smk reset --quiet`'
 	${TR} cmt '`smk -e hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -67,7 +67,7 @@ sanity:
 	cat expected_sanity.3 >> testrec.md
 	${TR} cmt '```' 						
 	${TR} cmt 
-	${SMK} --reset --quiet
+	${SMK} reset --quiet
 	${SMK} -e hello.c/Makefile.2 > out.3 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.3 out.3" 
 	${TR} end
@@ -132,13 +132,13 @@ cmd_line:
 
 	${TR} start "Help options" 
 	${TR} cmt  								
-	${TR} cmt "Test the -h and --help output :" 	
+	${TR} cmt "Test the -h and help output :" 	
 	${SMK} -h > out.expected_help.txt
 
 	${TR} cmt 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk `'
-	${TR} cmt '`smk --help`'
+	${TR} cmt '`smk help`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt 
@@ -147,7 +147,7 @@ cmd_line:
 	${TR} cmt '```' 						
 	${TR} cmt 
 
-	${SMK} --help	> out.help1.txt
+	${SMK} help	> out.help1.txt
 	${TR} assert true /usr/bin/sdiff "-sbB out.expected_help.txt out.help1.txt" 
 	
 	${TR} end
@@ -155,20 +155,20 @@ cmd_line:
 	@ #-------------------------------------------------------------------------
 	${TR} start "Version option" 					
 	${TR} cmt  								
-	${TR} cmt "Test that the --version will put :" 			
+	${TR} cmt "Test that the version command will put :" 			
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk --version`'
+	${TR} cmt '`smk version`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt 
 	${TR} cmt '```' 						
-	echo "0.1.0"		> out.expected_version.txt
+	echo "0.2.0"		> out.expected_version.txt
 	cat out.expected_version.txt >> testrec.md					
 	${TR} cmt '```' 						
 	${TR} cmt 
 
-	${SMK} --version	> out.version1.txt
+	${SMK} version	> out.version1.txt
 	${TR} assert true /usr/bin/sdiff "-sbB out.expected_version.txt out.version1.txt"
 
 	${TR} end
@@ -177,7 +177,7 @@ cmd_line:
 	${TR} start "Illegal cmd lines" 
 	${TR} cmt  								
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -rs -rl`'
+	${TR} cmt '`smk read-smkfile status`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt 
@@ -186,7 +186,7 @@ cmd_line:
 	${TR} cmt '```' 						
 	${TR} cmt 
 
-	test ! `${SMK} -rs -rl > out.wrong_cmd_line1.txt`
+	test ! `${SMK} read-smkfile status > out.wrong_cmd_line1.txt`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_wrong_cmd_line1.txt out.wrong_cmd_line1.txt" 
 	
 	${TR} end
@@ -216,7 +216,7 @@ read_queries:
 	${TR} create "Read queries"
 
 	@ #-------------------------------------------------------------------------
-	${TR} start '-rs | --read-smkfile'
+	${TR} start 'read-smkfile'
 	${TR} cmt  								
 	${TR} cmt "Read a smkfile and shows what is understud by smk"
 	
@@ -228,7 +228,7 @@ read_queries:
 	${TR} cmt '```' 						
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -rs hello.c/Makefile.3`'
+	${TR} cmt '`smk read-smkfile hello.c/Makefile.3`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 						
@@ -236,7 +236,7 @@ read_queries:
 	${TR} cmt '```' 						
 	${TR} cmt 
 
-	${SMK} -rs hello.c/Makefile.3 | sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	${SMK} read-smkfile hello.c/Makefile.3 | sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 		         sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.read_smkfile.txt 
 	# to get the comparison working, numbers in date are removed
 	${TR} assert true /usr/bin/sdiff "-sbB expected_read_smkfile.txt out.read_smkfile.txt" 
@@ -245,15 +245,15 @@ read_queries:
 
 
 	@ #-------------------------------------------------------------------------
-	${TR} start '-rl | --read-last-run'
+	${TR} start 'status'
 	${TR} cmt 
 	${TR} cmt "Read the previous run dump and shows sources and targets"
 
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q --reset`'
-	${TR} cmt '`smk -q --build hello.c/Makefile.2`'
-	${TR} cmt '`smk -rl hello.c/Makefile.2`'
+	${TR} cmt '`smk -q reset`'
+	${TR} cmt '`smk -q build hello.c/Makefile.2`'
+	${TR} cmt '`smk status hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt "(note that to ease comparison, dates are removed)"
@@ -262,17 +262,17 @@ read_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	${SMK} -q --reset
-	${SMK} -q --build hello.c/Makefile.2 
-	${SMK} -rl | sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	${SMK} -q reset
+	${SMK} -q build hello.c/Makefile.2 
+	${SMK} status | sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 		         sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.lpr.txt 
 	# to get the comparison working, numbers in date are removed
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr.txt out.lpr.txt" 
 
 	${TR} cmt 'Run: (same with system files not ignored) '
-	${TR} cmt '`smk -q --reset`'
-	${TR} cmt '`smk -q --build hello.c/Makefile.2`'
-	${TR} cmt '`smk -rl -sa hello.c/Makefile.2`'
+	${TR} cmt '`smk -q reset`'
+	${TR} cmt '`smk -q build hello.c/Makefile.2`'
+	${TR} cmt '`smk status -sa hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt "(note that to ease comparison, dates are removed)"
@@ -281,17 +281,17 @@ read_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	${SMK} -q --reset
-	${SMK} -q --build hello.c/Makefile.2 
-	${SMK} -rl -sa | sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	${SMK} -q reset
+	${SMK} -q build hello.c/Makefile.2 
+	${SMK} status -sa | sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 		             sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.lpr1.txt 
 	# to get the comparison working, numbers in date are removed
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr1.txt out.lpr1.txt" 
 
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q --reset`'
-	${TR} cmt '`smk -rl hello.c/Makefile.2`'
+	${TR} cmt '`smk -q reset`'
+	${TR} cmt '`smk status hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -299,13 +299,13 @@ read_queries:
 	${TR} cmt '```' 
 	${TR} cmt
 
-	${SMK} -q --reset
-	test ! `${SMK} -rl hello.c/Makefile.2 > out.lpr2.txt`
+	${SMK} -q reset
+	test ! `${SMK} status hello.c/Makefile.2 > out.lpr2.txt`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr2.txt out.lpr2.txt" 
 
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk --read-last-run`'
+	${TR} cmt '`smk status`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -313,8 +313,8 @@ read_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	${SMK} -q --reset
-	test ! `${SMK} --read-last-run > out.lpr3.txt`
+	${SMK} -q reset
+	test ! `${SMK} status > out.lpr3.txt`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr3.txt out.lpr3.txt" 
 
 	${TR} end
@@ -329,7 +329,7 @@ list_queries:
 	
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk -q reset`'
 	${TR} cmt '`smk -lr`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -338,7 +338,7 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q -b hello.c/Makefile.2`'
+	${TR} cmt '`smk -q build hello.c/Makefile.2`'
 	${TR} cmt '`smk -q hello.c/Makefile.3`'
 	${TR} cmt '`smk --list-runs`'
 	${TR} cmt 
@@ -349,11 +349,11 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	${SMK} -q --reset
+	${SMK} -q reset
 	test ! `${SMK} -lr > out.lr1.txt`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lr1.txt out.lr1.txt" 
 
-	${SMK} -q -b hello.c/Makefile.2 
+	${SMK} -q build hello.c/Makefile.2 
 	${SMK} -q hello.c/Makefile.3 
 	${SMK} --list-runs > out.lr2.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lr2.txt out.lr2.txt" 
@@ -436,7 +436,7 @@ implicit_name:
 
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk -q reset`'
 	${TR} cmt '`smk`'
 	${TR} cmt 
 	${TR} cmt 'Expected: help message as there is nothing in the directory'
@@ -446,7 +446,7 @@ implicit_name:
 	${TR} cmt '```' 						
 	${TR} cmt
 	 
-	${SMK} -q --reset
+	${SMK} -q reset
 	test ! `${SMK} > out.implicit1.txt`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_implicit1.txt out.implicit1.txt" 
 
@@ -489,15 +489,15 @@ targets:
 	${TR} create "Targets related functions"
 
 	@ #-------------------------------------------------------------------------
-	${TR} start '--clean'
+	${TR} start 'clean'
 	${TR} cmt	
-	${TR} cmt "Test targets cleaning"
+	${TR} cmt "Test targets cleaning (dry run and real)"
 	
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk --reset`'
-	${TR} cmt '`smk -q -b hello.c/Makefile.2`'
-	${TR} cmt '`smk --clean --dry-run`'
+	${TR} cmt '`smk reset`'
+	${TR} cmt '`smk -q build hello.c/Makefile.2`'
+	${TR} cmt '`smk clean --dry-run`'
 	${TR} cmt '`smk --explain`  (to check that nothing was actually deleted)'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -506,15 +506,15 @@ targets:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	${SMK} -q --reset
-	${SMK} -q -b hello.c/Makefile.2
-	${SMK} --clean --dry-run > out.targets1.txt 
+	${SMK} -q reset
+	${SMK} -q build hello.c/Makefile.2
+	${SMK} clean --dry-run > out.targets1.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_targets1.txt out.targets1.txt" 
-	${SMK} --explain          > out.targets2.txt 
+	${SMK} --explain       > out.targets2.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_targets2.txt out.targets2.txt" 
 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk --clean`'
+	${TR} cmt '`smk clean`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -522,7 +522,7 @@ targets:
 	${TR} cmt '```' 
 	${TR} cmt 
 
-	${SMK} --clean > out.targets3.txt 
+	${SMK} clean > out.targets3.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_targets3.txt out.targets3.txt" 
 
 	${TR} cmt 'Run:'
@@ -551,7 +551,7 @@ multiline:
 	${TR} cmt '```' 
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk -q reset`'
 	${TR} cmt '`smk multiline_smkfile.txt`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -560,7 +560,7 @@ multiline:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	${SMK} -q --reset
+	${SMK} -q reset
 	${SMK} multiline_smkfile.txt > out.multiline1.txt
 	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline1.txt out.multiline1.txt" 
 
@@ -573,7 +573,7 @@ multiline:
 	${TR} cmt '```' 
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk -q reset`'
 	${TR} cmt '`smk hill_multiline_smkfile.txt`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -582,7 +582,7 @@ multiline:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	${SMK} -q --reset
+	${SMK} -q reset
 	test ! `${SMK} hill_multiline_smkfile.txt > out.multiline2.txt`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline2.txt out.multiline2.txt" 
 
@@ -594,7 +594,7 @@ run_error:
 	@ #-------------------------------------------------------------------------
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk -q reset`'
 	${TR} cmt '`smk hello.c/Wrong_Makefile`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -603,14 +603,14 @@ run_error:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	${SMK} -q --reset
+	${SMK} -q reset
 	test ! `${SMK} hello.c/Wrong_Makefile > out.run_error1.txt`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error1.txt out.run_error1.txt" 
 
 	@ #-------------------------------------------------------------------------
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk -q reset`'
 	${TR} cmt '`smk -k hello.c/Wrong_Makefile`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -626,7 +626,7 @@ run_error:
 	${TR} cmt 'success during the second loop, so full stop.' 
 	${TR} cmt 
 
-	${SMK} -q --reset
+	${SMK} -q reset
 	test ! `${SMK} -k hello.c/Wrong_Makefile > out.run_error2.txt`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error2.txt out.run_error2.txt" 
 
@@ -634,7 +634,7 @@ run_error:
 	@ #-------------------------------------------------------------------------
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk -q reset`'
 	${TR} cmt '`smk -i hello.c/Wrong_Makefile`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -644,14 +644,14 @@ run_error:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	${SMK} -q --reset
+	${SMK} -q reset
 	${SMK} -i hello.c/Wrong_Makefile > out.run_error3.txt
 	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error1.txt out.run_error3.txt" 
 
 	@ #-------------------------------------------------------------------------
 	${TR} cmt 
 	${TR} cmt 'Run: with both!'
-	${TR} cmt '`smk -q --reset`'
+	${TR} cmt '`smk -q reset`'
 	${TR} cmt '`smk --keep-going --ignore-errors hello.c/Wrong_Makefile`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -661,7 +661,7 @@ run_error:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	${SMK} -q --reset
+	${SMK} -q reset
 	${SMK} --keep-going --ignore-errors hello.c/Wrong_Makefile > out.run_error4.txt
 	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error2.txt out.run_error4.txt" 
 
@@ -706,6 +706,6 @@ doc:
 
 clean:
 	${TR} clean
-	${SMK} --reset
+	${SMK} reset
 	- ${RM} -rf tests_count.txt *.lst out.* *.o hello 
 	- $(MAKE) --directory=hello.c clean

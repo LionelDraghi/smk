@@ -28,7 +28,7 @@
 
 private package Smk.Settings is
 
-   Smk_Version : constant String := "0.1.0";
+   Smk_Version : constant String := "0.2.0";
 
    -- --------------------------------------------------------------------------
    Always_Make        : Boolean := False;
@@ -41,18 +41,18 @@ private package Smk.Settings is
    Create_Template    : Boolean := False;
    Filter_Sytem_Files : Boolean := True;
 
-   type Queries is (Read_Smkfile,
-                    Read_Last_Run,
-                    List_Previous_Runs,
-                    List_Sources,
-                    List_Targets,
-                    Clean_Targets,
-                    Clean_Smk_Files,
-                    Version,
-                    Build,
-                    Help,
-                    None) with Default_Value => None;
-   Query : Queries;
+   type Commands is (Read_Smkfile,
+                     Read_Run_Status,
+                     List_Previous_Runs,
+                     List_Sources,
+                     List_Targets,
+                     Clean_Targets,
+                     Reset_Smk_Files,
+                     Version,
+                     Build,
+                     Help,
+                     None) with Default_Value => None;
+   Command : Commands;
 
    -- --------------------------------------------------------------------------
    Smk_File_Prefix       : constant String := ".smk."; -- used for all Smk files

@@ -52,7 +52,7 @@ This would require a tool able to observe the execution of the various command l
 
 A short, but highly recommended, [`smk` tutorial](tutorial.md) is the best way to quickly start.  
 
-And don't forget [`smk --help`](cmd_line.md).
+And don't forget [`smk help`](cmd_line.md).
 
 
 ## Downloading and building

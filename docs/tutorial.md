@@ -10,7 +10,7 @@ Table of contents
   - [Let's remove a file](#lets-remove-a-file)
   - [Let's modify a source](#lets-modify-a-source)
   - [Another smk run](#another-smk-run)
-  - [More options](#more-options)
+  - [Command summary](#command-summary)
 
 
 ## Create the sources for this test case  
@@ -67,7 +67,7 @@ gcc -o hello hello.o main.o
 ## First run
 
 `smk MyBuild`  
-
+(it's equivalent to `smk build MyBuild`)  
 all commands should be executed:
 
 ```
@@ -80,7 +80,10 @@ gcc -o hello hello.o main.o
 
 let's see what smk retains from the last run:
 
-`smk -rl MyBuild`
+`smk status`
+
+For convenience, when there is one (and only one) smk file in the dir, you don't have to give it on the command line.  
+So, from now on, `smk` is equivalent to `smk MyBuild` 
 
 ```
 2018-12-07 23:53:06.50 [] gcc -o hello hello.o main.o
@@ -110,7 +113,7 @@ let's see what smk retains from the last run:
 
 To see what I mean by flooded, try it :
 
-`smk -rl -sa MyBuild` 
+`smk status -sa MyBuild` 
 
 
 ## What are those new files in the the current dir?
@@ -118,9 +121,6 @@ To see what I mean by flooded, try it :
 Smk stores information in local hidden .smk.* files, one per smk file :
 
 `ls -l .smk*`
-
-For convenience, when there is one (and only one) smk file in the dir, you don't have to give it on the command line.  
-So, from now on, `smk` is equivalent to `smk MyBuild` 
 
 ## Second smk run
 
@@ -145,12 +145,12 @@ gcc -o main.o -c main.c
 gcc -o hello hello.o main.o
 ```
 
-`smk` provides an equivalent to the classical `make clean` : the `--clean` option.  
+`smk` provides an equivalent to the classical `make clean` : the `clean` command.  
 You may try it, with or without the `--dry-run` (short form `-n`) option if you don't want to effectively remove files :  
-`smk -n --clean`  
+`smk -n clean`  
 
 This option will not remove `smk` internal files. If you want to do that:  
-`smk --reset`  
+`smk reset`  
 Check it with : `ls -l .smk*`  
 Or with `smk -lr` (long form : `--list-runs`)
 
@@ -184,19 +184,19 @@ What have we seen in this tutorial?
 | I want to                                                             | Command           |
 | --------------------------------------------------------------------- | ----------------- |
 | Run MyBuild                                                           | `smk MyBuild`     |
-| Check what `smk` undestand from MyBuild                               | `smk -rl MyBuild` |
+| Check what `smk` understand from MyBuild                               | `smk status MyBuild` |
 | See runfiles in the current directory                                 | `smk -lr`         |
 | Run it with explanations                                              | `smk -e MyBuild`  |
 | Check what would be run, without running it                           | `smk -n MyBuild`  |
-| cleanup all targets                                                   | `smk --clean`     |
-| show system files on -rl (and -lt, ls, etc.)                          | `smk -sa -rl      |
-| Get the full picture                                                  | `smk -h`          |
+| cleanup all targets                                                   | `smk clean`       |
+| show system files on status (and -lt, ls, etc.)                       | `smk -sa -rl`     |
+| Get the full picture of command line                                  | `smk -h`          |
 
 What else have I to explore?  
 
 | I want to                                                             | Command               |
 | --------------------------------------------------------------------- | --------------------- |
-| Check what `smk` undestand from my smkfile                            | `smk -rs smkfile`     |
+| Check what `smk` understand from my smkfile                            | `smk read-smkfile smkfile`     |
 | do as much as possible                                                | `smk -k`              |
 | ignore build errors (return no error)                                 | `smk -i`              |
 | See identified sources / targets                                      | `smk -ls` / `smk -lt` |
