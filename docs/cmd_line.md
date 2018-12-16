@@ -22,20 +22,24 @@ Commands :
                   (commands, sources and targets)
    read-smkfile : shows Smk understanding of a Smkfile
    clean        : remove all targets files
-   reset        : remove all local Smk files (equivalent to rm .smk.*)
+   reset        : remove all local Smk files
+                  (equivalent to rm .smk.*)
    version      : put Smk version
    help | -h    : this message
-   -lr  | --list-runs     : list runfiles in current directory
-   -ls  | --list-sources  : list sources, except system files
+   -lr  | --list-runs    : list runfiles in current directory
+   -ls  | --list-sources : list sources, except system files
    -lt  | --list-targets
    NB : when no command is given, build is assumed
 
 Options :
    -a   | --always-make     : unconditionally make all targets
    -e   | --explain         : explain why each target is made
-   -n   | --dry-run         : print the commands that would be executed, but do not execute them
-   -sa  | --shows-all-files : prevent -ls and -rl from ignoring system files
-   -i   | --ignore-errors   : ignore all errors in commands executed to remake files
+   -n   | --dry-run         : print the commands that would be
+                              executed, but do not execute them
+   -sa  | --shows-all-files : prevent -ls and -rl from
+                              ignoring system files
+   -i   | --ignore-errors   : ignore all errors in commands
+                              executed to remake files
    -k   | --keep-going      : Do as much work as possible
    -We  | --Warnings=error  : treat warnings as errors
    -v   | --verbose

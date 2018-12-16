@@ -1,4 +1,4 @@
-hello.c/Makefile.3 (YYYY:MM:DD HH:MM:SS.SS) :
+../hello.c/Makefile.3 (YYYY:MM:DD HH:MM:SS.SS) :
 4: [hello.o] gcc -o hello.o -c hello.c
 7: [main.o] gcc -o main.o -c main.c
 10: [hello] gcc -o hello hello.o main.o

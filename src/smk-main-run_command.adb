@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make
+-- smk, the smart make (http://lionel.draghi.free.fr/smk/)
 -- © 2018 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -33,32 +33,17 @@ procedure Run_Command (E            : in out Smkfiles.Smkfile_Entry;
                        Error_In_Run :    out Boolean)
 is
    -- --------------------------------------------------------------------------
-   function Escape_Blanks (Text : in String) return String is
+   function Escape (Text : in String) return String is
       use Ada.Strings.Maps;
       Src_Idx       : Natural := Text'First;
       To_Be_Escaped : constant Character_Set := To_Set (' '
-                                                        & '!'
-                                                        & '"'
-                                                        & '#'
-                                                        & '$'
-                                                        & '&'
-                                                        & '''
-                                                        & '('
-                                                        & ')'
-                                                        & '*'
-                                                        & ','
-                                                        & ';'
-                                                        & '<'
-                                                        & '>'
-                                                        & '?'
-                                                        & '['
-                                                        & '\'
-                                                        & ']'
-                                                        & '^'
-                                                        & '`'
-                                                        & '{'
-                                                        & '|'
-                                                        & '}');
+                                                        & '"' & '#' & '$'
+                                                        & '&' & ''' & '('
+                                                        & ')' & '*' & ','
+                                                        & ';' & '<' & '>'
+                                                        & '?' & '[' & '\'
+                                                        & ']' & '^' & '`'
+                                                        & '{' & '|' & '}');
       -- Refer to the "Which characters need to be escaped when using Bash?"
       -- discussion on stackoverflow.com
       -- Fixme: this escaping is not portable
@@ -67,7 +52,7 @@ is
         := Ada.Strings.Fixed.Count (Text, Set => To_Be_Escaped);
       Out_Str       : String (Text'First .. Text'Last + Blank_Count);
    begin
-      -- IO.Put_Line ("Blank_Count =" & Natural'Image (Blank_Count));
+      -- IO.Put_Line ("Blank_Count    =" & Natural'Image (Blank_Count));
       -- IO.Put_Line ("Out_Str'length =" & Natural'Image (Out_Str'Length));
       -- IO.Put_Line ("Text'length    =" & Natural'Image (Text'Length));
 
@@ -90,7 +75,7 @@ is
          Src_Idx := Src_Idx + 2;
       end loop;
       return Out_Str;
-   end Escape_Blanks;
+   end Escape;
 
    -- --------------------------------------------------------------------------
    procedure Run (Cmd   : in     Runfiles.Command_Lines;
@@ -104,9 +89,9 @@ is
       Debug       : constant Boolean := False;
       Prefix      : constant String  := "";
       Opt         : constant String  := Settings.Shell_Opt
-                      & Settings.Strace_Cmd
-                      & Settings.Strace_Outfile_Name
-                      & "\ " & Escape_Blanks (+Cmd);
+                      & Escape (Settings.Strace_Cmd
+                                & Settings.Strace_Outfile_Name
+                                & " " & (+Cmd));
       Initial_Dir : constant String  := Current_Directory;
       Spawn_Arg   : constant Argument_List_Access
         := Argument_String_To_List (Opt);
@@ -122,14 +107,13 @@ is
       for A of Spawn_Arg.all loop
          IO.Put_Debug_Line (">" & A.all & "<", Debug, Prefix);
       end loop;
-      IO.Put_Line ("");
 
       IO.Put_Line ((+Cmd));
       Spawn (Program_Name => Shell_Cmd,
              Args         => Spawn_Arg.all,
              Success      => OK);
       if not OK then
-         IO.Put_Error (Msg => "Spawn failed for " & Shell_Cmd & " " & (Opt));
+         IO.Put_Error (Msg => "Spawn failed for " & (+Cmd));
       end if;
 
       Set_Directory (Initial_Dir);

@@ -1,0 +1,5 @@
+gcc -o hello.o -c hello.c
+gcc -o main.o -c main.c --WTF
+gcc: error: unrecognized command line option '--WTF'
+Error : Spawn failed for gcc -o main.o -c main.c --WTF
+

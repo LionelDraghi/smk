@@ -1,6 +1,8 @@
 [smk (SmartMake)](http://lionel.draghi.free.fr/smk/index.html)
 ==============================================================
 
+![](img/version.svg) ![](img/tests_ok.svg) ![](img/tests_ko.svg)
+
 `smk` is an attempt to realize the simplest and smartest possible make.
 
 It was created by Lionel Draghi, is released under [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0), and is under active development.

@@ -1,119 +1,4 @@
 
-# Sanity
-
-
-
- Makefile:  
-```  
-gcc -o hello.o -c hello.c
-gcc -o main.o -c main.c
-gcc -o hello hello.o main.o
-```  
-
-##  Sanity / First `smk`, after `make`, should run no command
-
-
-  Run:  
-  `smk -q hello.c/Makefile.2`  
-  `smk -e hello.c/Makefile.2`  
-
-  Expected:  
-```  
-Nothing to run
-```  
-
-
-Sanity / First `smk`, after `make`, should run no command [Successful](tests_status.md#successful)
-
-##  Sanity / Second `smk`, should not run any command
-
-
-  Run:  
-  `smk -e hello.c/Makefile.2`  
-
-  Expected:  
-```  
-Nothing to run
-```  
-
-
-Sanity / Second `smk`, should not run any command [Successful](tests_status.md#successful)
-
-##  Sanity / `smk reset`, no more history, should run all commands
-
-
-  Run:  
-  `smk reset --quiet`  
-  `smk -e hello.c/Makefile.2`  
-
-  Expected:  
-```  
-run gcc -o hello.o -c hello.c because it was not run before
-gcc -o hello.o -c hello.c
-run gcc -o main.o -c main.c because it was not run before
-gcc -o main.o -c main.c
-run gcc -o hello hello.o main.o because it was not run before
-gcc -o hello hello.o main.o
-```  
-
-
-Sanity / `smk reset`, no more history, should run all commands [Successful](tests_status.md#successful)
-
-##  Sanity / `smk -a`, should run all commands even if not needed
-
-
-  Run:  
-  `smk -e -a hello.c/Makefile.2`  
-
-  Expected:  
-```  
-run gcc -o hello.o -c hello.c because -a option is set
-gcc -o hello.o -c hello.c
-run gcc -o main.o -c main.c because -a option is set
-gcc -o main.o -c main.c
-run gcc -o hello hello.o main.o because -a option is set
-gcc -o hello hello.o main.o
-```  
-
-
-Sanity / `smk -a`, should run all commands even if not needed [Successful](tests_status.md#successful)
-
-##  Sanity / `rm main.o` (missing file)
-
-
-  Run:  
-  `rm hello.c/main.o`  
-  `smk -e hello.c/Makefile.2`  
-
-  Expected:  
-```  
-run gcc -o main.o -c main.c because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
-gcc -o main.o -c main.c
-run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/main.o (-- ::.) has been updated since last run (-- ::.)
-gcc -o hello hello.o main.o
-```  
-
-
-Sanity / `rm main.o` (missing file) [Successful](tests_status.md#successful)
-
-##  Sanity / `touch hello.c` (updated file)
-
-
-  Run:  
-  `rm hello.c/main.o`  
-  `smk -e hello.c/Makefile.2`  
-
-  Expected:  
-```  
-run gcc -o hello.o -c hello.c because /home/lionel/Proj/smk/tests/hello.c/hello.c (-- ::.) has been updated since last run (-- ::.)
-gcc -o hello.o -c hello.c
-run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/hello.o (-- ::.) has been updated since last run (-- ::.)
-gcc -o hello hello.o main.o
-```  
-
-
-Sanity / `touch hello.c` (updated file) [Successful](tests_status.md#successful)
-
 # Command line
 
 
@@ -146,20 +31,24 @@ Commands :
                   (commands, sources and targets)
    read-smkfile : shows Smk understanding of a Smkfile
    clean        : remove all targets files
-   reset        : remove all local Smk files (equivalent to rm .smk.*)
+   reset        : remove all local Smk files
+                  (equivalent to rm .smk.*)
    version      : put Smk version
    help | -h    : this message
-   -lr  | --list-runs     : list runfiles in current directory
-   -ls  | --list-sources  : list sources, except system files
+   -lr  | --list-runs    : list runfiles in current directory
+   -ls  | --list-sources : list sources, except system files
    -lt  | --list-targets
    NB : when no command is given, build is assumed
 
 Options :
    -a   | --always-make     : unconditionally make all targets
    -e   | --explain         : explain why each target is made
-   -n   | --dry-run         : print the commands that would be executed, but do not execute them
-   -sa  | --shows-all-files : prevent -ls and -rl from ignoring system files
-   -i   | --ignore-errors   : ignore all errors in commands executed to remake files
+   -n   | --dry-run         : print the commands that would be
+                              executed, but do not execute them
+   -sa  | --shows-all-files : prevent -ls and -rl from
+                              ignoring system files
+   -i   | --ignore-errors   : ignore all errors in commands
+                              executed to remake files
    -k   | --keep-going      : Do as much work as possible
    -We  | --Warnings=error  : treat warnings as errors
    -v   | --verbose
@@ -216,20 +105,24 @@ Commands :
                   (commands, sources and targets)
    read-smkfile : shows Smk understanding of a Smkfile
    clean        : remove all targets files
-   reset        : remove all local Smk files (equivalent to rm .smk.*)
+   reset        : remove all local Smk files
+                  (equivalent to rm .smk.*)
    version      : put Smk version
    help | -h    : this message
-   -lr  | --list-runs     : list runfiles in current directory
-   -ls  | --list-sources  : list sources, except system files
+   -lr  | --list-runs    : list runfiles in current directory
+   -ls  | --list-sources : list sources, except system files
    -lt  | --list-targets
    NB : when no command is given, build is assumed
 
 Options :
    -a   | --always-make     : unconditionally make all targets
    -e   | --explain         : explain why each target is made
-   -n   | --dry-run         : print the commands that would be executed, but do not execute them
-   -sa  | --shows-all-files : prevent -ls and -rl from ignoring system files
-   -i   | --ignore-errors   : ignore all errors in commands executed to remake files
+   -n   | --dry-run         : print the commands that would be
+                              executed, but do not execute them
+   -sa  | --shows-all-files : prevent -ls and -rl from
+                              ignoring system files
+   -i   | --ignore-errors   : ignore all errors in commands
+                              executed to remake files
    -k   | --keep-going      : Do as much work as possible
    -We  | --Warnings=error  : treat warnings as errors
    -v   | --verbose
@@ -259,6 +152,345 @@ Error : Unknown Makefile or unknow option My_Makefile
 
 
 Command line / Unknow Makefile [Successful](tests_status.md#successful)
+
+# Implicit naming
+
+
+
+##  Implicit naming / Implicit naming
+
+
+  Test that when there is only one run file in the directory, smk assume it without giving it on the command line.  
+
+
+  Run:  
+  `smk -q reset`  
+  `smk`  
+
+  Expected: help message as there is nothing in the directory  
+
+```  
+Error : No smkfile given, and no existing runfile in dir
+```  
+
+  Run:  
+  `smk -q ../hello.c/Makefile.2`  
+  `touch ../hello.c/hello.c`  
+  `smk`  
+
+  Expected: smk re-run Makefile.2, as it is the only one in the dir  
+```  
+gcc -o hello.o -c hello.c
+gcc -o hello hello.o main.o
+```  
+
+  Run:  
+  `smk -q ../hello.c/Makefile.3`  
+  `smk `  
+
+  Expected:  
+     There is more than one possible run, smk display the list but don't do anything else   
+```  
+Error : No smkfile given, and more than one runfile in dir
+```  
+
+
+Implicit naming / Implicit naming [Successful](tests_status.md#successful)
+
+# List queries
+
+
+
+##  List queries / -lr | --list-runs
+
+
+  Test available previous runs  
+
+  Run:  
+  `smk -q reset`  
+  `smk -lr`  
+
+  Expected:  
+```  
+No run file
+```  
+
+  Run:  
+  `smk -q build ../hello.c/Makefile.2`  
+  `smk -q ../hello.c/Makefile.3`  
+  `smk --list-runs`  
+
+  Expected:  
+```  
+Makefile.2
+Makefile.3
+```  
+
+
+List queries / -lr | --list-runs [Successful](tests_status.md#successful)
+
+##  List queries / -lt | --list-targets
+
+  Run:  
+  `smk -lt ../hello.c/Makefile.2`  
+  `smk --list-targets ../hello.c/Makefile.2`  
+
+  Expected:  
+```  
+[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/hello
+[hello.o]gcc -o hello.o -c hello.c:/home/lionel/Proj/smk/tests/hello.c/hello.o
+[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/main.o
+```  
+
+
+List queries / -lt | --list-targets [Successful](tests_status.md#successful)
+
+##  List queries / -ls | --list-sources
+
+
+  Run:  
+  `smk -ls ../hello.c/Makefile.2`  
+  `smk --list-sources ../hello.c/Makefile.2`  
+
+  Expected:  
+```  
+[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/hello.o
+[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/main.o
+[hello.o]gcc -o hello.o -c hello.c:/home/lionel/Proj/smk/tests/hello.c/hello.c
+[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/hello.h
+[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/main.c
+```  
+
+
+List queries / -ls | --list-sources [Successful](tests_status.md#successful)
+
+##  List queries / -ls | --list-sources --show-all-files
+
+
+  Run:  
+  `smk -las ../hello.c/Makefile.2`  
+  `smk --list-sources --shows-system-files ../hello.c/Makefile.2`  
+
+  Expected:  
+```  
+[hello]gcc -o hello hello.o main.o:/etc/ld.so.cache
+[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/hello.o
+[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/main.o
+[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/ld-2.27.so
+[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/libc-2.27.so
+[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/libdl-2.27.so
+[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/libm-2.27.so
+[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtbegin.o
+[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtend.o
+[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a
+[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib64/libgcc_s.so
+[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib64/libgcc_s.so.1
+[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/libexec/gcc/x86_64-pc-linux-gnu/7.3.1/liblto_plugin.so.0.0.0
+[hello]gcc -o hello hello.o main.o:/usr/lib/locale/locale-archive
+[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/crt1.o
+[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/crti.o
+[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/crtn.o
+[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/libc.so
+[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/libc_nonshared.a
+[hello.o]gcc -o hello.o -c hello.c:/etc/ld.so.cache
+[hello.o]gcc -o hello.o -c hello.c:/home/lionel/Proj/smk/tests/hello.c/hello.c
+[hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libc-2.27.so
+[hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libdl-2.27.so
+[hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libm-2.27.so
+[hello.o]gcc -o hello.o -c hello.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
+[hello.o]gcc -o hello.o -c hello.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/alloca.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/endian.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/features.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/stdc-predef.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/stdio.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/stdlib.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/_G_config.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/byteswap-16.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/byteswap.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/endian.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/floatn-common.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/floatn.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/libio.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/long-double.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/select.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/stdio_lim.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/stdlib-float.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/sys_errlist.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/sysmacros.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/FILE.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/__FILE.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/clock_t.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/time_t.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/timer_t.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/typesizes.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/uintn-identity.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/waitflags.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/waitstatus.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/wordsize.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/gnu/stubs.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/cdefs.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/select.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/sysmacros.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/types.h
+[hello.o]gcc -o hello.o -c hello.c:/usr/lib/locale/locale-archive
+[main.o]gcc -o main.o -c main.c:/etc/ld.so.cache
+[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/hello.h
+[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/main.c
+[main.o]gcc -o main.o -c main.c:/lib/x86_64-linux-gnu/libc-2.27.so
+[main.o]gcc -o main.o -c main.c:/lib/x86_64-linux-gnu/libdl-2.27.so
+[main.o]gcc -o main.o -c main.c:/lib/x86_64-linux-gnu/libm-2.27.so
+[main.o]gcc -o main.o -c main.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
+[main.o]gcc -o main.o -c main.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
+[main.o]gcc -o main.o -c main.c:/usr/include/alloca.h
+[main.o]gcc -o main.o -c main.c:/usr/include/endian.h
+[main.o]gcc -o main.o -c main.c:/usr/include/features.h
+[main.o]gcc -o main.o -c main.c:/usr/include/stdc-predef.h
+[main.o]gcc -o main.o -c main.c:/usr/include/stdio.h
+[main.o]gcc -o main.o -c main.c:/usr/include/stdlib.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/_G_config.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/byteswap-16.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/byteswap.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/endian.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/floatn-common.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/floatn.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/libio.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/long-double.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/select.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/stdio_lim.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/stdlib-float.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/sys_errlist.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/sysmacros.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/FILE.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/__FILE.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/clock_t.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/time_t.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/timer_t.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/typesizes.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/uintn-identity.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/waitflags.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/waitstatus.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/wordsize.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/gnu/stubs.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/cdefs.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/select.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/sysmacros.h
+[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/types.h
+[main.o]gcc -o main.o -c main.c:/usr/lib/locale/locale-archive
+```  
+
+
+List queries / -ls | --list-sources --show-all-files [Successful](tests_status.md#successful)
+
+# Multiline Commands
+
+
+
+##  Multiline Commands / multiline single command
+
+
+  cat `multiline_smkfile1.txt`:  
+```  
+	ploticus -prefab pie 	\
+		data=out.sloccount labels=2 colors="blue red green orange"	\
+# comment in the middle should not get in the way
+		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
+		 -png -o out.sloc.png 
+```  
+
+  Run:  
+  `smk -q reset`  
+  `smk multiline_smkfile1.txt`  
+
+  Expected:  
+```  
+ploticus -prefab pie data=out.sloccount labels=2 colors="blue red green orange" explode=0.1 values=1 title="Ada sloc `date +%x`" -png -o out.sloc.png
+```  
+
+
+Multiline Commands / multiline single command [Successful](tests_status.md#successful)
+
+##  Multiline Commands / multiline with more commands and pipes
+
+
+  cat `multiline_smkfile2.txt`:  
+```  
+// multiline with command and pipes
+sloccount ../hello.c/* | 	\
+grep "ansic=" 			\
+|sed "s/ansic/C/"
+		-- comment at the end```  
+
+  Run:  
+  `smk -q reset`  
+  `smk multiline_smkfile2.txt`  
+
+  Expected:  
+```  
+
+sloccount ../hello.c/* | grep "ansic=" |sed "s/ansic/C/"
+18      top_dir         C=18
+```  
+
+
+Multiline Commands / multiline with more commands and pipes [Successful](tests_status.md#successful)
+
+##  Multiline Commands / Hill formatted multiline
+
+
+  cat `hill_multiline_smkfile.txt`:  
+```  
+# Hill formatted multiline command:
+
+	ploticus -prefab pie 	\
+		data=out.sloccount labels=2 colors="blue red green orange"	\
+		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
+// the end of the command is missing 
+
+-- Note that the comment immediatly following the command 
+-- should not be considered as the end of the command, neither 
+-- should the following blank line or any of the following lines.
+```  
+
+  Run:  
+  `smk -q reset`  
+  `smk hill_multiline_smkfile.txt`  
+
+  Expected:  
+```  
+Error : hill_multiline_smkfile.txt ends with incomplete multine, last command ignored
+Nothing to run
+```  
+
+
+Multiline Commands / Hill formatted multiline [Successful](tests_status.md#successful)
 
 # Read queries
 
@@ -291,11 +523,11 @@ mrproper: clean
 ```  
 
   Run:  
-  `smk read-smkfile hello.c/Makefile.3`  
+  `smk read-smkfile ../hello.c/Makefile.3`  
 
   Expected:  
 ```  
-hello.c/Makefile.3 (YYYY:MM:DD HH:MM:SS.SS) :
+../hello.c/Makefile.3 (YYYY:MM:DD HH:MM:SS.SS) :
 4: [hello.o] gcc -o hello.o -c hello.c
 7: [main.o] gcc -o main.o -c main.c
 10: [hello] gcc -o hello hello.o main.o
@@ -313,8 +545,8 @@ Read queries / read-smkfile [Successful](tests_status.md#successful)
 
   Run:  
   `smk -q reset`  
-  `smk -q build hello.c/Makefile.2`  
-  `smk status hello.c/Makefile.2`  
+  `smk -q build ../hello.c/Makefile.2`  
+  `smk status ../hello.c/Makefile.2`  
 
   Expected:  
   (note that to ease comparison, dates are removed)  
@@ -343,8 +575,8 @@ YYYY:MM:DD HH:MM:SS.SS [main.o] gcc -o main.o -c main.c
 
   Run: (same with system files not ignored)   
   `smk -q reset`  
-  `smk -q build hello.c/Makefile.2`  
-  `smk status -sa hello.c/Makefile.2`  
+  `smk -q build ../hello.c/Makefile.2`  
+  `smk status -sa ../hello.c/Makefile.2`  
 
   Expected:  
   (note that to ease comparison, dates are removed)  
@@ -500,7 +732,7 @@ YYYY:MM:DD HH:MM:SS.SS [main.o] gcc -o main.o -c main.c
 
   Run:  
   `smk -q reset`  
-  `smk status hello.c/Makefile.2`  
+  `smk status ../hello.c/Makefile.2`  
 
   Expected:  
 ```  
@@ -519,261 +751,227 @@ Error : No smkfile given, and no existing runfile in dir
 
 Read queries / status [Successful](tests_status.md#successful)
 
-# List queries
+# Run errors
 
 
+ test -k and -i behavior  
 
-##  List queries / -lr | --list-runs
-
-
-  Test available previous runs  
-
-  Run:  
-  `smk -q reset`  
-  `smk -lr`  
-
-  Expected:  
-```  
-No run file
-```  
-
-  Run:  
-  `smk -q build hello.c/Makefile.2`  
-  `smk -q hello.c/Makefile.3`  
-  `smk --list-runs`  
-
-  Expected:  
-```  
-Makefile.2
-Makefile.3
-```  
-
-
-List queries / -lr | --list-runs [Successful](tests_status.md#successful)
-
-##  List queries / -lt | --list-targets
-
-  Run:  
-  `smk -lt hello.c/Makefile.2`  
-  `smk --list-targets hello.c/Makefile.2`  
-
-  Expected:  
-```  
-[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/hello
-[hello.o]gcc -o hello.o -c hello.c:/home/lionel/Proj/smk/tests/hello.c/hello.o
-[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/main.o
-```  
-
-
-List queries / -lt | --list-targets [Successful](tests_status.md#successful)
-
-##  List queries / -ls | --list-sources
-
-
-  Run:  
-  `smk -ls hello.c/Makefile.2`  
-  `smk --list-sources hello.c/Makefile.2`  
-
-  Expected:  
-```  
-[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/hello.o
-[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/main.o
-[hello.o]gcc -o hello.o -c hello.c:/home/lionel/Proj/smk/tests/hello.c/hello.c
-[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/hello.h
-[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/main.c
-```  
-
-
-List queries / -ls | --list-sources [Successful](tests_status.md#successful)
-
-##  List queries / -ls | --list-sources --show-all-files
-
-
-  Run:  
-  `smk -las hello.c/Makefile.2`  
-  `smk --list-sources --shows-system-files hello.c/Makefile.2`  
-
-  Expected:  
-```  
-[hello]gcc -o hello hello.o main.o:/etc/ld.so.cache
-[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/hello.o
-[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/main.o
-[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/ld-2.27.so
-[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/libc-2.27.so
-[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/libdl-2.27.so
-[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/libm-2.27.so
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtbegin.o
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtend.o
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib64/libgcc_s.so
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib64/libgcc_s.so.1
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/libexec/gcc/x86_64-pc-linux-gnu/7.3.1/liblto_plugin.so.0.0.0
-[hello]gcc -o hello hello.o main.o:/usr/lib/locale/locale-archive
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/crt1.o
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/crti.o
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/crtn.o
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/libc.so
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/libc_nonshared.a
-[hello.o]gcc -o hello.o -c hello.c:/etc/ld.so.cache
-[hello.o]gcc -o hello.o -c hello.c:/home/lionel/Proj/smk/tests/hello.c/hello.c
-[hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libc-2.27.so
-[hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libdl-2.27.so
-[hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libm-2.27.so
-[hello.o]gcc -o hello.o -c hello.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
-[hello.o]gcc -o hello.o -c hello.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/alloca.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/endian.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/features.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/stdc-predef.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/stdio.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/stdlib.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/_G_config.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/byteswap-16.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/byteswap.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/endian.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/floatn-common.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/floatn.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/libc-header-start.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/libio.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/long-double.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/select.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/stdint-intn.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/stdio_lim.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/stdlib-float.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/sys_errlist.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/sysmacros.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/FILE.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/__FILE.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/clock_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/time_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/timer_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/typesizes.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/uintn-identity.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/waitflags.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/waitstatus.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/wordsize.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/gnu/stubs-64.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/gnu/stubs.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/cdefs.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/select.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/sysmacros.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/types.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/lib/locale/locale-archive
-[main.o]gcc -o main.o -c main.c:/etc/ld.so.cache
-[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/hello.h
-[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/main.c
-[main.o]gcc -o main.o -c main.c:/lib/x86_64-linux-gnu/libc-2.27.so
-[main.o]gcc -o main.o -c main.c:/lib/x86_64-linux-gnu/libdl-2.27.so
-[main.o]gcc -o main.o -c main.c:/lib/x86_64-linux-gnu/libm-2.27.so
-[main.o]gcc -o main.o -c main.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
-[main.o]gcc -o main.o -c main.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
-[main.o]gcc -o main.o -c main.c:/usr/include/alloca.h
-[main.o]gcc -o main.o -c main.c:/usr/include/endian.h
-[main.o]gcc -o main.o -c main.c:/usr/include/features.h
-[main.o]gcc -o main.o -c main.c:/usr/include/stdc-predef.h
-[main.o]gcc -o main.o -c main.c:/usr/include/stdio.h
-[main.o]gcc -o main.o -c main.c:/usr/include/stdlib.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/_G_config.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/byteswap-16.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/byteswap.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/endian.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/floatn-common.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/floatn.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/libc-header-start.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/libio.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/long-double.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/select.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/stdint-intn.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/stdio_lim.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/stdlib-float.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/sys_errlist.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/sysmacros.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/FILE.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/__FILE.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/clock_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/time_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/timer_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/typesizes.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/uintn-identity.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/waitflags.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/waitstatus.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/wordsize.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/gnu/stubs-64.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/gnu/stubs.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/cdefs.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/select.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/sysmacros.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/types.h
-[main.o]gcc -o main.o -c main.c:/usr/lib/locale/locale-archive
-```  
-
-
-List queries / -ls | --list-sources --show-all-files [Successful](tests_status.md#successful)
-
-# Implicit naming
-
-
-
-##  Implicit naming / Implicit naming
-
-
-  Test that when there is only one run file in the directory, smk assume it without giving it on the command line.  
+##  Run errors / no option
 
 
   Run:  
   `smk -q reset`  
-  `smk`  
+  `smk ../hello.c/Wrong_Makefile`  
 
-  Expected: help message as there is nothing in the directory  
-
-```  
-Error : No smkfile given, and no existing runfile in dir
-```  
-
-  Run:  
-  `smk -q hello.c/Makefile.2`  
-  `touch hello.c/hello.c`  
-  `smk`  
-
-  Expected: smk re-run Makefile.2, as it is the only one in the dir  
+  Expected:  
 ```  
 gcc -o hello.o -c hello.c
+gcc -o main.o -c main.c --WTF
+gcc: error: unrecognized command line option '--WTF'
+Error : Spawn failed for gcc -o main.o -c main.c --WTF
+```  
+
+
+##  Run errors / -k
+
+
+  Run:  
+  `smk -q reset`  
+  `smk -k ../hello.c/Wrong_Makefile`  
+
+  Expected:  
+```  
+gcc -o hello.o -c hello.c
+gcc -o main.o -c main.c --WTF
+gcc: error: unrecognized command line option '--WTF'
+Error : Spawn failed for gcc -o main.o -c main.c --WTF
+gcc -o hello hello.o main.o
+gcc: error: main.o: No such file or directory
+Error : Spawn failed for gcc -o hello hello.o main.o
+gcc -o main.o -c main.c --WTF
+gcc: error: unrecognized command line option '--WTF'
+Error : Spawn failed for gcc -o main.o -c main.c --WTF
+gcc -o hello hello.o main.o
+gcc: error: main.o: No such file or directory
+Error : Spawn failed for gcc -o hello hello.o main.o
+```  
+
+  Note that the two command that fail are rerun  
+  during a second loop in case the command  
+  that run successfully during the first loop  
+  changed the the situation.  
+  And that is not the case here, nothing is run with  
+  success during the second loop, so full stop.  
+
+
+##  Run errors / -i
+
+
+  Run:  
+  `smk -q reset`  
+  `smk -i ../hello.c/Wrong_Makefile`  
+
+  Expected:  
+     Same as with -k, but without returning an error code  
+```  
+gcc -o hello.o -c hello.c
+gcc -o main.o -c main.c --WTF
+gcc: error: unrecognized command line option '--WTF'
+Error : Spawn failed for gcc -o main.o -c main.c --WTF
+
+```  
+
+
+##  Run errors / -k -i
+
+
+  Run: with both!  
+  `smk -q reset`  
+  `smk --keep-going --ignore-errors ../hello.c/Wrong_Makefile`  
+
+  Expected:  
+     Same as with -k, but without returning an error code  
+```  
+gcc -o hello.o -c hello.c
+gcc -o main.o -c main.c --WTF
+gcc: error: unrecognized command line option '--WTF'
+Error : Spawn failed for gcc -o main.o -c main.c --WTF
+gcc -o hello hello.o main.o
+gcc: error: main.o: No such file or directory
+Error : Spawn failed for gcc -o hello hello.o main.o
+gcc -o main.o -c main.c --WTF
+gcc: error: unrecognized command line option '--WTF'
+Error : Spawn failed for gcc -o main.o -c main.c --WTF
+gcc -o hello hello.o main.o
+gcc: error: main.o: No such file or directory
+Error : Spawn failed for gcc -o hello hello.o main.o
+```  
+
+
+Run errors / -k -i [Successful](tests_status.md#successful)
+
+# Sanity
+
+
+
+ Makefile:  
+```  
+all: hello
+
+hello.o: hello.c
+	gcc -o hello.o -c hello.c
+
+main.o: main.c hello.h
+	gcc -o main.o -c main.c
+
+hello: hello.o main.o
+	gcc -o hello hello.o main.o
+
+```  
+
+##  Sanity / First `smk`, after `make`, should run no command
+
+
+  Run:  
+  `smk -q ../hello.c/Makefile.2`  
+  `smk -e ../hello.c/Makefile.2`  
+
+  Expected:  
+```  
+Nothing to run
+```  
+
+
+Sanity / First `smk`, after `make`, should run no command [Successful](tests_status.md#successful)
+
+##  Sanity / Second `smk`, should not run any command
+
+
+  Run:  
+  `smk -e ../hello.c/Makefile.2`  
+
+  Expected:  
+```  
+Nothing to run
+```  
+
+
+Sanity / Second `smk`, should not run any command [Successful](tests_status.md#successful)
+
+##  Sanity / `smk reset`, no more history, should run all commands
+
+
+  Run:  
+  `smk reset --quiet`  
+  `smk -e ../hello.c/Makefile.2`  
+
+  Expected:  
+```  
+run gcc -o hello.o -c hello.c because it was not run before
+gcc -o hello.o -c hello.c
+run gcc -o main.o -c main.c because it was not run before
+gcc -o main.o -c main.c
+run gcc -o hello hello.o main.o because it was not run before
 gcc -o hello hello.o main.o
 ```  
 
+
+Sanity / `smk reset`, no more history, should run all commands [Successful](tests_status.md#successful)
+
+##  Sanity / `smk -a`, should run all commands even if not needed
+
+
   Run:  
-  `smk -q hello.c/Makefile.3`  
-  `smk `  
+  `smk -e -a ../hello.c/Makefile.2`  
 
   Expected:  
-     There is more than one possible run, smk display the list but don't do anything else   
 ```  
-Error : No smkfile given, and more than one runfile in dir
+run gcc -o hello.o -c hello.c because -a option is set
+gcc -o hello.o -c hello.c
+run gcc -o main.o -c main.c because -a option is set
+gcc -o main.o -c main.c
+run gcc -o hello hello.o main.o because -a option is set
+gcc -o hello hello.o main.o
 ```  
 
 
-Implicit naming / Implicit naming [Successful](tests_status.md#successful)
+Sanity / `smk -a`, should run all commands even if not needed [Successful](tests_status.md#successful)
+
+##  Sanity / `rm main.o` (missing file)
+
+
+  Run:  
+  `rm ../hello.c/main.o`  
+  `smk -e ../hello.c/Makefile.2`  
+
+  Expected:  
+```  
+run gcc -o main.o -c main.c because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
+gcc -o main.o -c main.c
+run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/main.o (-- ::.) has been updated since last run (-- ::.)
+gcc -o hello hello.o main.o
+```  
+
+
+Sanity / `rm main.o` (missing file) [Successful](tests_status.md#successful)
+
+##  Sanity / `touch hello.c` (updated file)
+
+
+  Run:  
+  `rm ../hello.c/main.o`  
+  `smk -e ../hello.c/Makefile.2`  
+
+  Expected:  
+```  
+run gcc -o hello.o -c hello.c because /home/lionel/Proj/smk/tests/hello.c/hello.c (-- ::.) has been updated since last run (-- ::.)
+gcc -o hello.o -c hello.c
+run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/hello.o (-- ::.) has been updated since last run (-- ::.)
+gcc -o hello hello.o main.o
+```  
+
+
+Sanity / `touch hello.c` (updated file) [Successful](tests_status.md#successful)
 
 # Targets related functions
 
@@ -786,7 +984,7 @@ Implicit naming / Implicit naming [Successful](tests_status.md#successful)
 
   Run:  
   `smk reset`  
-  `smk -q build hello.c/Makefile.2`  
+  `smk -q build ../hello.c/Makefile.2`  
   `smk clean --dry-run`  
   `smk --explain`  (to check that nothing was actually deleted)  
 
@@ -822,159 +1020,3 @@ gcc -o hello hello.o main.o
 
 
 Targets related functions / clean [Successful](tests_status.md#successful)
-
-# Multiline commands in smkfile
-
-
-
-##  Multiline commands in smkfile / multiline single command
-
-
-  cat `multiline_smkfile1.txt`:  
-```  
-	ploticus -prefab pie 	\
-		data=out.sloccount labels=2 colors="blue red green orange"	\
-# comment in the middle should not get in the way
-		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
-		 -png -o out.sloc.png 
-```  
-
-  Run:  
-  `smk -q reset`  
-  `smk multiline_smkfile1.txt`  
-
-  Expected:  
-```  
-ploticus -prefab pie data=out.sloccount labels=2 colors="blue red green orange" explode=0.1 values=1 title="Ada sloc `date +%x`" -png -o out.sloc.png
-```  
-
-
-Multiline commands in smkfile / multiline single command [Successful](tests_status.md#successful)
-
-##  Multiline commands in smkfile / multiline with more commands and pipes
-
-
-  cat `multiline_smkfile2.txt`:  
-```  
-// multiline with command and pipes
-sloccount hello.c | \
-grep "ansic=" \
-|sed "s/ansic/C/"
-		-- comment at the end```  
-
-  Run:  
-  `smk -q reset`  
-  `smk multiline_smkfile2.txt`  
-
-  Expected:  
-```  
-
-sloccount hello.c | grep "ansic=" |sed "s/ansic/C/"
-18      hello.c         C=18
-```  
-
-
-Multiline commands in smkfile / multiline with more commands and pipes [Successful](tests_status.md#successful)
-
-##  Multiline commands in smkfile / Hill formatted multiline
-
-
-  cat `hill_multiline_smkfile.txt`:  
-```  
-# Hill formatted multiline command:
-
-	ploticus -prefab pie 	\
-		data=out.sloccount labels=2 colors="blue red green orange"	\
-		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
-// the end of the command is missing 
-
--- Note that the comment immediatly following the command 
--- should not be considered as the end of the command, neither 
--- should the following blank line or any of the following lines.
-```  
-
-  Run:  
-  `smk -q reset`  
-  `smk hill_multiline_smkfile.txt`  
-
-  Expected:  
-```  
-Error : hill_multiline_smkfile.txt ends with incomplete multine, last command ignored
-Nothing to run
-```  
-
-
-Multiline commands in smkfile / Hill formatted multiline [Successful](tests_status.md#successful)
-
-# `-k` and `-i` behavior
-
-
-
- Run:  
- `smk -q reset`  
- `smk hello.c/Wrong_Makefile`  
-
- Expected:  
-```  
-gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
-```  
-
-
-  Run:  
-  `smk -q reset`  
-  `smk -k hello.c/Wrong_Makefile`  
-
-  Expected:  
-```  
-gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
-gcc -o main.o -c main.c --WTF
-Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ -o\ main.o\ -c\ main.c\ --WTF
-gcc -o hello hello.o main.o
-gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
-gcc -o main.o -c main.c --WTF
-Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ -o\ main.o\ -c\ main.c\ --WTF
-```  
-
-  Note that the two command that fail are rerun  
-  during a second loop in case the command  
-  that run successfully during the first loop  
-  changed the the situation.  
-  And that is not the case here, nothing is run with  
-  success during the second loop, so full stop.  
-
-
-  Run:  
-  `smk -q reset`  
-  `smk -i hello.c/Wrong_Makefile`  
-
-  Expected:  
-     Same as without nothing, but without returning an error code  
-```  
-gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
-```  
-
-
-  Run: with both!  
-  `smk -q reset`  
-  `smk --keep-going --ignore-errors hello.c/Wrong_Makefile`  
-
-  Expected:  
-     Same as with -k, but without returning an error code  
-```  
-gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
-gcc -o main.o -c main.c --WTF
-Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ -o\ main.o\ -c\ main.c\ --WTF
-gcc -o hello hello.o main.o
-gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
-gcc -o main.o -c main.c --WTF
-Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ -o\ main.o\ -c\ main.c\ --WTF
-```  
-
-
-`-k` and `-i` behavior /  [Successful](tests_status.md#successful)

@@ -1,0 +1,3 @@
+
+sloccount ../hello.c/* | grep "ansic=" |sed "s/ansic/C/"
+18      top_dir         C=18

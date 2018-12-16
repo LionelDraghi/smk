@@ -12,7 +12,7 @@ Version
 > date -r ./smk --iso-8601=seconds
 
 ```
-2018-12-16T02:15:50+01:00
+2018-12-16T20:20:59+01:00
 ```
 
 Test results
@@ -28,7 +28,7 @@ Coverage
 --------
 
 ```
-  lines......: 94.0% (786 of 836 lines)
+  lines......: 94.0% (790 of 840 lines)
   functions..: 93.0% (172 of 185 functions)
 ```
 

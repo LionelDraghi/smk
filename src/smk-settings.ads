@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make
+-- smk, the smart make (http://lionel.draghi.free.fr/smk/)
 -- © 2018 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -59,12 +59,9 @@ private package Smk.Settings is
    Strace_Outfile_Prefix : constant String := "/tmp/";
    Strace_Outfile_Suffix : constant String := ".strace_output";
    Shell_Cmd             : constant String := "/bin/sh";
-   Shell_Opt             : constant String := "-c ";
-   -- don't put a space before -c!
+   Shell_Opt             : constant String := "-c "; -- no space before -c!
    Strace_Cmd            : constant String
-     := "/usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ ";
-   -- Strace_Cmd : constant String := "/usr/bin/strace";
-   -- Strace_Opt : constant String := "-y -q -qq -f -e trace=file -o ";
+     := "/usr/bin/strace -y -q -qq -f -e trace=file -o ";
    -- -y  : print paths associated with file descriptor arguments (between <>)
    -- -q  : suppress messages about attaching, detaching, etc.
    -- -qq : suppress messages about process exit status.

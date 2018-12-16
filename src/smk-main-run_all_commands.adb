@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make
+-- smk, the smart make (http://lionel.draghi.free.fr/smk/)
 -- © 2018 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ begin
       -- 2. gcc -o hello.o -c hello.c
       -- 3. gcc -o main.o -c main.c
       -- If main.c is changed, a single loop approach will
-      -- re-run 3. andexit.
+      -- re-run 3. and exit.
       -- The double loop will re-loop, and run 1.
       -- If during the inner loop, nothing is run, then OK,
       -- we exit the outer loop.

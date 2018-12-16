@@ -1,3 +1,0 @@
-
-sloccount hello.c | grep "ansic=" |sed "s/ansic/C/"
-18      hello.c         C=18

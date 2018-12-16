@@ -1,3 +1,5 @@
+# How does smk compare with make, and what are the comparable solutions 
+
 ## Differences with `Make` 
 
 `Make` is an old, succesful and mature tool, able to do lots of stuff that `Smk` don't even dream of. From that point of vue, there is no comparison, full stop.
@@ -13,3 +15,7 @@ Nevertheeless, this table provides some informations that may help to understand
 `Smkfile` are as stupidly simple as possible | Usual Makefiles may be easy to understand, or just a nightmare
 `smk` is faster to type, it has only three letter|`make` has four :-)
 If no `smkfile` is given on command line, `smk` checks for existing `runfiles`. If there is only one in the current directory, `smk` pick it up. So, feel free to use a descriptive name for your smkfiles, it will still be handy.|If you don't want to give the makefile name on command line, it has to be named `Makefile`. Full stop.
+
+## other solutions
+
+Fixme: to be done

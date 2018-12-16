@@ -1,44 +1,42 @@
-# -----------------------------------------------------------------------------
-# Copyright 2018 Lionel Draghi
-# 
+# ------------------------------------------------------------------------------
+# smk, the smart make (http://lionel.draghi.free.fr/smk/)
+#  © 2018 Lionel Draghi <lionel.draghi@free.fr>
+# SPDX-License-Identifier: APSL-2.0
+# ------------------------------------------------------------------------------
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
-#     http://www.apache.org/licenses/LICENSE-2.0
-# 
+# http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# -----------------------------------------------------------------------------
-# This file is part of the smk project
-# available at https://github.com/LionelDraghi/smk
-# -----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 .SILENT:
-
 all: build check doc
 
 build:
+	echo
 	echo --- build:
+	@ - mkdir -p obj
+	echo
 	gprbuild -P smk.gpr
 	echo
 
 check: smk
 	echo --- tests:
-	echo
 	$(MAKE) --directory=tests
-	
 	echo
-	echo --- tests summary :
+
+	echo --- tests summary:
+	echo
 	cat tests/tests_count.txt
 
 	# --------------------------------------------------------------------
 	echo
-	echo - Coverage report :
-
+	echo Coverage report: 
 	lcov --quiet --capture --directory obj -o obj/coverage.info
 	lcov --quiet --remove obj/coverage.info -o obj/coverage.info \
 		"*/adainclude/*" "*.ads" "obj/b__smk-main.adb"
@@ -57,8 +55,7 @@ check: smk
 
 .PHONY : dashboard
 dashboard: obj/coverage.info tests/tests_count.txt
-	echo Make dashboard
-
+	
 	@ # Language pie
 	@ # --------------------------------------------------------------------
 	sloccount src | grep "ada=" | ploticus  -prefab pie 	\
@@ -109,16 +106,14 @@ dashboard: obj/coverage.info tests/tests_count.txt
 	echo 							>> docs/dashboard.md
 	echo '[**Coverage details in the sources**](http://lionel.draghi.free.fr/smk/lcov/home/lionel/Proj/smk/src/index-sort-f.html)'	>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
-	
 
 	# badge making:
-	wget -q "https://img.shields.io/badge/Version-`./smk --version`-blue.svg" -O docs/img/version.svg
-	wget -q "https://img.shields.io/badge/tests_OK-`cat tests/tests_count.txt |sed -n "s/Successful  //p"`-green.svg" -O docs/img/tests_ok.svg
-	wget -q "https://img.shields.io/badge/tests_KO-`cat tests/tests_count.txt |sed -n "s/Failed      //p"`-green.svg" -O docs/img/tests_ko.svg
+	wget -q "https://img.shields.io/badge/Version-`./smk version`-blue.svg" -O docs/img/version.svg
+	wget -q "https://img.shields.io/badge/tests_OK-`cat tests/tests_count.txt | sed -n "s/Successful  //p"`-green.svg" -O docs/img/tests_ok.svg
+	wget -q "https://img.shields.io/badge/tests_KO-`cat tests/tests_count.txt | sed -n "s/Failed      //p"`-green.svg" -O docs/img/tests_ko.svg
 
 .PHONY : cmd_line.md
 cmd_line.md:
-	echo Make cmd_line.md
 	> docs/cmd_line.md
 	echo "smk command line"		>> docs/cmd_line.md
 	echo "----------------"		>> docs/cmd_line.md
@@ -144,7 +139,7 @@ cmd_line.md:
 	echo ""						>> docs/cmd_line.md
 
 doc: dashboard cmd_line.md
-	echo Make Doc
+	echo --- doc:
 	
 	>  docs/fixme.md
 	rgrep -ni "Fixme" docs/*.md | sed "s/:/|/2"	>> /tmp/fixme.md
@@ -159,8 +154,11 @@ doc: dashboard cmd_line.md
 	rgrep -ni "Fixme" src/*   | sed "s/:/|/2"	>> docs/fixme.md
 	rgrep -ni "Fixme" tests/* | sed "s/:/|/2"	>> docs/fixme.md
 
-	mkdocs build --clean
+	mkdocs build --clean --quiet
 	@ - chmod --silent +x ./site/smk
+
+	echo OK
+	echo
 
 .PHONY : clean
 clean:

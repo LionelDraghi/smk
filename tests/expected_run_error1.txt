@@ -1,2 +1,0 @@
-gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
