@@ -1,0 +1,5 @@
+# for f in hello.c/*.c ; do gcc -o $(basename $f .c).o -c $f ; done
+for f in hello.c/*.c ; do echo $f ; done
+
+# thanks to [needs](https://linuxfr.org/users/needs)
+# for this [simple test case](https://linuxfr.org/nodes/115945/comments/1756704)

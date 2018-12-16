@@ -544,15 +544,16 @@ multiline:
 	sloccount ../src | grep "ada=" > out.sloccount
 
 	@ #-------------------------------------------------------------------------
+	${TR} start 'multiline single command'
 	${TR} cmt 
-	${TR} cmt 'cat `multiline_smkfile.txt`:'
+	${TR} cmt 'cat `multiline_smkfile1.txt`:'
 	${TR} cmt '```' 
-	cat multiline_smkfile.txt >> testrec.md
+	cat multiline_smkfile1.txt >> testrec.md
 	${TR} cmt '```' 
 	${TR} cmt 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -q reset`'
-	${TR} cmt '`smk multiline_smkfile.txt`'
+	${TR} cmt '`smk multiline_smkfile1.txt`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -561,11 +562,35 @@ multiline:
 	${TR} cmt 
 	
 	${SMK} -q reset
-	${SMK} multiline_smkfile.txt > out.multiline1.txt
+	${SMK} multiline_smkfile1.txt > out.multiline1.txt
 	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline1.txt out.multiline1.txt" 
+	${TR} end
 
 	@ #-------------------------------------------------------------------------
-	${TR} cmt 'Hill formatted multiline:'
+	${TR} start 'multiline with more commands and pipes'
+	${TR} cmt 
+	${TR} cmt 'cat `multiline_smkfile2.txt`:'
+	${TR} cmt '```' 
+	cat multiline_smkfile2.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -q reset`'
+	${TR} cmt '`smk multiline_smkfile2.txt`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected_multiline2.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	${SMK} -q reset
+	${SMK} multiline_smkfile2.txt > out.multiline2.txt
+	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline2.txt out.multiline2.txt" 
+	${TR} end
+
+	@ #-------------------------------------------------------------------------
+	${TR} start 'Hill formatted multiline'
 	${TR} cmt 
 	${TR} cmt 'cat `hill_multiline_smkfile.txt`:'
 	${TR} cmt '```' 
@@ -578,14 +603,13 @@ multiline:
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
-	cat expected_multiline2.txt >> testrec.md
+	cat expected_multiline3.txt >> testrec.md
 	${TR} cmt '```' 
 	${TR} cmt 
 	
 	${SMK} -q reset
-	test ! `${SMK} hill_multiline_smkfile.txt > out.multiline2.txt`
-	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline2.txt out.multiline2.txt" 
-
+	test ! `${SMK} hill_multiline_smkfile.txt > out.multiline3.txt`
+	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline3.txt out.multiline3.txt" 
 	${TR} end
 
 run_error:

@@ -99,7 +99,7 @@ begin
    Analyze_Cmd_Line;
 
    -- should be set here:
-   IO.Put_Line ("Command        : " & Commands'Image (Command), Level => Debug);
+   IO.Put_Line ("Command      : " & Commands'Image (Command), Level => Debug);
    IO.Put_Line ("Smkfile name : " & Smkfile_Name, Level => Verbose);
    IO.Put_Line ("Runfile name : " & Runfile_Name, Level => Verbose);
 

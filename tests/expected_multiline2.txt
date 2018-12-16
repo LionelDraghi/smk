@@ -1,2 +1,3 @@
-Error : hill_multiline_smkfile.txt ends with incomplete multine, last command ignored
-Nothing to run
+
+sloccount hello.c | grep "ansic=" |sed "s/ansic/C/"
+18      hello.c         C=18

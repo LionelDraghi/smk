@@ -14,11 +14,15 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-with Ada.Directories;
-with GNAT.OS_Lib;
 with Smk.IO;
-with Ada.Text_IO; use Ada.Text_IO;
+
+with GNAT.OS_Lib;
+
+with Ada.Directories;
+with Ada.Text_IO;       use Ada.Text_IO;
 with Ada.Strings.Fixed;
+with Ada.Strings.Maps;
+with Ada.Strings;
 
 separate (Smk.Main)
 
@@ -28,6 +32,65 @@ procedure Run_Command (E            : in out Smkfiles.Smkfile_Entry;
                        Cmd_To_Run   :    out Boolean;
                        Error_In_Run :    out Boolean)
 is
+   -- --------------------------------------------------------------------------
+   function Escape_Blanks (Text : in String) return String is
+      use Ada.Strings.Maps;
+      Src_Idx       : Natural := Text'First;
+      To_Be_Escaped : constant Character_Set := To_Set (' '
+                                                        & '!'
+                                                        & '"'
+                                                        & '#'
+                                                        & '$'
+                                                        & '&'
+                                                        & '''
+                                                        & '('
+                                                        & ')'
+                                                        & '*'
+                                                        & ','
+                                                        & ';'
+                                                        & '<'
+                                                        & '>'
+                                                        & '?'
+                                                        & '['
+                                                        & '\'
+                                                        & ']'
+                                                        & '^'
+                                                        & '`'
+                                                        & '{'
+                                                        & '|'
+                                                        & '}');
+      -- Refer to the "Which characters need to be escaped when using Bash?"
+      -- discussion on stackoverflow.com
+      -- Fixme: this escaping is not portable
+
+      Blank_Count   : constant Natural
+        := Ada.Strings.Fixed.Count (Text, Set => To_Be_Escaped);
+      Out_Str       : String (Text'First .. Text'Last + Blank_Count);
+   begin
+      -- IO.Put_Line ("Blank_Count =" & Natural'Image (Blank_Count));
+      -- IO.Put_Line ("Out_Str'length =" & Natural'Image (Out_Str'Length));
+      -- IO.Put_Line ("Text'length    =" & Natural'Image (Text'Length));
+
+      Out_Str (Text'First .. Text'Last) := Text;
+
+      for I in 1 .. Blank_Count loop
+         -- IO.Put_Line (Integer'Image (I) & ": S >" & Text    & "<");
+         -- IO.Put_Line (Integer'Image (I) & ": T >" & Out_Str & "<");
+         -- IO.Put_Line (Integer'Image (I) & ": Src_Idx before search ="
+         --             & Natural'Image (Src_Idx));
+
+         Src_Idx := Ada.Strings.Fixed.Index (Out_Str (Src_Idx .. Out_Str'Last),
+                                             To_Be_Escaped);
+         -- IO.Put_Line (Integer'Image (I) & ": Src_Idx after search ="
+         --             & Natural'Image (Src_Idx));
+         Ada.Strings.Fixed.Insert (Out_Str,
+                                   Before   => Src_Idx,
+                                   New_Item => "\",
+                                   Drop     => Ada.Strings.Right);
+         Src_Idx := Src_Idx + 2;
+      end loop;
+      return Out_Str;
+   end Escape_Blanks;
 
    -- --------------------------------------------------------------------------
    procedure Run (Cmd   : in     Runfiles.Command_Lines;
@@ -39,25 +102,34 @@ is
       use GNAT.OS_Lib;
       use Ada.Directories;
       Debug       : constant Boolean := False;
-      Prefix      : constant String  := "Run";
-      Opt         : constant String
-        := Settings.Strace_Opt & Settings.Strace_Outfile_Name & " " & (+Cmd);
+      Prefix      : constant String  := "";
+      Opt         : constant String  := Settings.Shell_Opt
+                      & Settings.Strace_Cmd
+                      & Settings.Strace_Outfile_Name
+                      & "\ " & Escape_Blanks (+Cmd);
       Initial_Dir : constant String  := Current_Directory;
+      Spawn_Arg   : constant Argument_List_Access
+        := Argument_String_To_List (Opt);
 
    begin
       -- IO.Put_Line ("cd " & Settings.Run_Dir_Name, Level => Verbose);
       Set_Directory (Settings.Run_Dir_Name);
 
       IO.Put_Debug_Line
-        (Msg    => " Spawn " & Strace_Cmd & " " & (Opt) & "...",
+        (Msg    => "Spawn " & Shell_Cmd & " " & (Opt) & "...",
          Debug  => Debug,
          Prefix => Prefix);
+      for A of Spawn_Arg.all loop
+         IO.Put_Debug_Line (">" & A.all & "<", Debug, Prefix);
+      end loop;
+      IO.Put_Line ("");
+
       IO.Put_Line ((+Cmd));
-      Spawn (Program_Name => Strace_Cmd,
-             Args         => Argument_String_To_List (Opt).all,
+      Spawn (Program_Name => Shell_Cmd,
+             Args         => Spawn_Arg.all,
              Success      => OK);
       if not OK then
-         IO.Put_Error (Msg => "Spawn failed for " & Strace_Cmd & " " & (Opt));
+         IO.Put_Error (Msg => "Spawn failed for " & Shell_Cmd & " " & (Opt));
       end if;
 
       Set_Directory (Initial_Dir);
@@ -88,23 +160,8 @@ begin
          -- 1. Run the command
          New_Run_Time := Ada.Calendar.Clock;
 
-         -- New_Run_Time := Time_Of
-         --    (Year     => Year (Tmp),
-         --     Month    => Month (Tmp),
-         --     Day      => Day (Tmp),
-         --     Seconds  => Day_Duration (Float'Floor (Float (Seconds (Tmp)))));
-         -- This pretty ridiculous code is here to avoid the sub_second
-         -- part that is return by Calendar.Clock, but always set
-         -- to 0.0 in the Time returned by the Directories.Modification_Time.
-         -- This cause files created by a command to be seeing as older than
-         -- this command, and prevent the evaluation of the need to re-run a
-         -- command.
-         -- It's better described in Analyze_Run code.
-         -- =================================================================
-         -- NB: this method IS CLEARLY NOT RELIABLE
-         -- =================================================================
-
          Run (E.Command, OK);
+
          E.Was_Run    := OK;
          Error_In_Run := not OK;
 

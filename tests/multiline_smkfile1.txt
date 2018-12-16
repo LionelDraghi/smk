@@ -3,4 +3,3 @@
 # comment in the middle should not get in the way
 		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
 		 -png -o out.sloc.png 
-

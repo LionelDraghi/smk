@@ -2,7 +2,7 @@
 
 ## Successful
 
-   20 tests OK
+   22 tests OK
 
   - [Sanity / First `smk`, after `make`, should run no command](testrec.md#)
   - [Sanity / Second `smk`, should not run any command](testrec.md#)
@@ -22,7 +22,9 @@
   - [List queries / -ls | --list-sources --show-all-files](testrec.md#)
   - [Implicit naming / Implicit naming](testrec.md#)
   - [Targets related functions / clean](testrec.md#)
-  - [Multiline commands in smkfile / ](testrec.md#)
+  - [Multiline commands in smkfile / multiline single command](testrec.md#)
+  - [Multiline commands in smkfile / multiline with more commands and pipes](testrec.md#)
+  - [Multiline commands in smkfile / Hill formatted multiline](testrec.md#)
   - [`-k` and `-i` behavior / ](testrec.md#)
 
 ## Failed

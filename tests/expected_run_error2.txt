@@ -1,9 +1,9 @@
 gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
 gcc -o main.o -c main.c --WTF
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc -o main.o -c main.c --WTF
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ -o\ main.o\ -c\ main.c\ --WTF
 gcc -o hello hello.o main.o
 gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
 gcc -o main.o -c main.c --WTF
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc -o main.o -c main.c --WTF
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ -o\ main.o\ -c\ main.c\ --WTF

@@ -58,8 +58,13 @@ private package Smk.Settings is
    Smk_File_Prefix       : constant String := ".smk."; -- used for all Smk files
    Strace_Outfile_Prefix : constant String := "/tmp/";
    Strace_Outfile_Suffix : constant String := ".strace_output";
-   Strace_Cmd            : constant String := "/usr/bin/strace";
-   Strace_Opt            : constant String := "-y -q -qq -f -e trace=file -o ";
+   Shell_Cmd             : constant String := "/bin/sh";
+   Shell_Opt             : constant String := "-c ";
+   -- don't put a space before -c!
+   Strace_Cmd            : constant String
+     := "/usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ ";
+   -- Strace_Cmd : constant String := "/usr/bin/strace";
+   -- Strace_Opt : constant String := "-y -q -qq -f -e trace=file -o ";
    -- -y  : print paths associated with file descriptor arguments (between <>)
    -- -q  : suppress messages about attaching, detaching, etc.
    -- -qq : suppress messages about process exit status.

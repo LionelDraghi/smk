@@ -7,6 +7,7 @@ and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2
 
 - [Unreleased]
 > - [Changed] major command line refactoring  
+> - [Changed] line are now run in a shell, and may now include multiple commande and shell specifics constructs, like pipes 
 
 - [0.1.0] - 2018-12-11
 > - [Added] Multiline processing, closes #5

@@ -184,7 +184,7 @@ Command line / Help options [Successful](tests_status.md#successful)
   Expected:  
 
 ```  
-0.1.0
+0.2.0
 ```  
 
 
@@ -827,26 +827,57 @@ Targets related functions / clean [Successful](tests_status.md#successful)
 
 
 
- cat `multiline_smkfile.txt`:  
+##  Multiline commands in smkfile / multiline single command
+
+
+  cat `multiline_smkfile1.txt`:  
 ```  
 	ploticus -prefab pie 	\
 		data=out.sloccount labels=2 colors="blue red green orange"	\
 # comment in the middle should not get in the way
 		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
 		 -png -o out.sloc.png 
-
 ```  
 
- Run:  
- `smk -q reset`  
- `smk multiline_smkfile.txt`  
+  Run:  
+  `smk -q reset`  
+  `smk multiline_smkfile1.txt`  
 
- Expected:  
+  Expected:  
 ```  
 ploticus -prefab pie data=out.sloccount labels=2 colors="blue red green orange" explode=0.1 values=1 title="Ada sloc `date +%x`" -png -o out.sloc.png
 ```  
 
-  Hill formatted multiline:  
+
+Multiline commands in smkfile / multiline single command [Successful](tests_status.md#successful)
+
+##  Multiline commands in smkfile / multiline with more commands and pipes
+
+
+  cat `multiline_smkfile2.txt`:  
+```  
+// multiline with command and pipes
+sloccount hello.c | \
+grep "ansic=" \
+|sed "s/ansic/C/"
+		-- comment at the end```  
+
+  Run:  
+  `smk -q reset`  
+  `smk multiline_smkfile2.txt`  
+
+  Expected:  
+```  
+
+sloccount hello.c | grep "ansic=" |sed "s/ansic/C/"
+18      hello.c         C=18
+```  
+
+
+Multiline commands in smkfile / multiline with more commands and pipes [Successful](tests_status.md#successful)
+
+##  Multiline commands in smkfile / Hill formatted multiline
+
 
   cat `hill_multiline_smkfile.txt`:  
 ```  
@@ -873,7 +904,7 @@ Nothing to run
 ```  
 
 
-Multiline commands in smkfile /  [Successful](tests_status.md#successful)
+Multiline commands in smkfile / Hill formatted multiline [Successful](tests_status.md#successful)
 
 # `-k` and `-i` behavior
 
@@ -886,7 +917,7 @@ Multiline commands in smkfile /  [Successful](tests_status.md#successful)
  Expected:  
 ```  
 gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
 ```  
 
 
@@ -897,14 +928,14 @@ Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wron
   Expected:  
 ```  
 gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
 gcc -o main.o -c main.c --WTF
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc -o main.o -c main.c --WTF
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ -o\ main.o\ -c\ main.c\ --WTF
 gcc -o hello hello.o main.o
 gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
 gcc -o main.o -c main.c --WTF
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc -o main.o -c main.c --WTF
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ -o\ main.o\ -c\ main.c\ --WTF
 ```  
 
   Note that the two command that fail are rerun  
@@ -923,7 +954,7 @@ Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wron
      Same as without nothing, but without returning an error code  
 ```  
 gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
 ```  
 
 
@@ -935,14 +966,14 @@ Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wron
      Same as with -k, but without returning an error code  
 ```  
 gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
 gcc -o main.o -c main.c --WTF
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc -o main.o -c main.c --WTF
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ -o\ main.o\ -c\ main.c\ --WTF
 gcc -o hello hello.o main.o
 gcc --not-an-option -o hello.o -c hello.c
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc --not-an-option -o hello.o -c hello.c
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ --not-an-option\ -o\ hello.o\ -c\ hello.c
 gcc -o main.o -c main.c --WTF
-Error : Spawn failed for /usr/bin/strace -y -q -qq -f -e trace=file -o /tmp/Wrong_Makefile.strace_output gcc -o main.o -c main.c --WTF
+Error : Spawn failed for /bin/sh -c /usr/bin/strace\ -y\ -q\ -qq\ -f\ -e\ trace=file\ -o\ /tmp/Wrong_Makefile.strace_output\ gcc\ -o\ main.o\ -c\ main.c\ --WTF
 ```  
 
 
