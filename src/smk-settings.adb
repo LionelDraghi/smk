@@ -29,8 +29,9 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 package body Smk.Settings is
 
-   Smkfl_Name : Unbounded_String := Null_Unbounded_String;
-   Runfl_Name : Unbounded_String := Null_Unbounded_String;
+   Smkfl_Name  : Unbounded_String := Null_Unbounded_String;
+   Runfl_Name  : Unbounded_String := Null_Unbounded_String;
+   Target_Name : Unbounded_String := Null_Unbounded_String;
 
    -- --------------------------------------------------------------------------
    procedure Set_Smkfile_Name (Name : in String) is
@@ -46,6 +47,12 @@ package body Smk.Settings is
    end Set_Runfile_Name;
 
    -- --------------------------------------------------------------------------
+   procedure Set_Target (Name : in String) is
+   begin
+      Target_Name := To_Unbounded_String (Name);
+   end Set_Target;
+
+   -- --------------------------------------------------------------------------
    function To_Runfile_Name (Smkfile_Name : in String) return String is
       (Smk_File_Prefix & Ada.Directories.Simple_Name (Smkfile_Name));
 
@@ -57,16 +64,18 @@ package body Smk.Settings is
    function Strace_Outfile_Name return String is
      (Strace_Outfile_Prefix & Ada.Directories.Simple_Name (Smkfile_Name)
       & Strace_Outfile_Suffix);
+   function Target return String is (To_String (Target_Name));
 
    -- --------------------------------------------------------------------------
    function Is_System_File (File_Name : in String) return Boolean is
    begin
-      return    File_Name (File_Name'First .. File_Name'First + 4) = "/usr/"
-        or else File_Name (File_Name'First .. File_Name'First + 4) = "/lib/"
-        or else File_Name (File_Name'First .. File_Name'First + 4) = "/opt/"
-        or else File_Name (File_Name'First .. File_Name'First + 4) = "/etc/"
-        or else File_Name (File_Name'First .. File_Name'First + 5) = "/proc/"
-        or else File_Name (File_Name'First .. File_Name'First + 4) = "/sys/";
+      return File_Name'Length > 5 and then
+        (File_Name (File_Name'First .. File_Name'First + 4) = "/usr/"
+         or else File_Name (File_Name'First .. File_Name'First + 4) = "/lib/"
+         or else File_Name (File_Name'First .. File_Name'First + 4) = "/opt/"
+         or else File_Name (File_Name'First .. File_Name'First + 4) = "/etc/"
+         or else File_Name (File_Name'First .. File_Name'First + 5) = "/proc/"
+         or else File_Name (File_Name'First .. File_Name'First + 4) = "/sys/");
    end Is_System_File;
 
 end Smk.Settings;

@@ -2,7 +2,7 @@
 
 ## Successful
 
-   22 tests OK
+   25 tests OK
 
   - [Command line / Help options](testrec.md#)
   - [Command line / Version option](testrec.md#)
@@ -25,7 +25,10 @@
   - [Sanity / `smk -a`, should run all commands even if not needed](testrec.md#)
   - [Sanity / `rm main.o` (missing file)](testrec.md#)
   - [Sanity / `touch hello.c` (updated file)](testrec.md#)
-  - [Targets related functions / clean](testrec.md#)
+  - [Targets related functions / real clean](testrec.md#)
+  - [Targets related functions / specific section building](testrec.md#)
+  - [Targets related functions / unknow section](testrec.md#)
+  - [Targets related functions / smkmfile:section notation](testrec.md#)
 
 ## Failed
 

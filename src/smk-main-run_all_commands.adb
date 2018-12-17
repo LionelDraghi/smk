@@ -23,10 +23,11 @@ with Ada.Strings.Fixed;
 separate (Smk.Main)
 
 -- -----------------------------------------------------------------------------
-procedure Run_All_Commands (The_Smkfile  : in out Smkfiles.Smkfile;
-                            The_Run_List : in out Runfiles.Run_Lists.Map;
-                            Cmd_To_Run   :    out Boolean;
-                            Error_In_Run :    out Boolean) is
+procedure Run_All_Commands (The_Smkfile   : in out Smkfiles.Smkfile;
+                            The_Run_List  : in out Runfiles.Run_Lists.Map;
+                            Cmd_To_Run    :    out Boolean;
+                            Error_In_Run  :    out Boolean;
+                            Section_Found :    out Boolean) is
    Cmd_Run_During_Outer : Boolean := False;
 
    -- those boolean cumulate the result over the loop,
@@ -34,9 +35,13 @@ procedure Run_All_Commands (The_Smkfile  : in out Smkfiles.Smkfile;
    Some_Command_To_Run  : Boolean := False;
    Some_Error_In_Run    : Boolean := False;
 
+   --use Runfiles;
+   use type Runfiles.Section_Names;
+
 begin
-   Cmd_To_Run   := False;
-   Error_In_Run := False;
+   Cmd_To_Run    := False;
+   Error_In_Run  := False;
+   Section_Found := False;
 
    Outer : for I in 1 .. The_Smkfile.Entries.Length loop
       -- This double loop is a pragmatic way to avoid a more complex
@@ -65,23 +70,29 @@ begin
 
       Inner : for E of The_Smkfile.Entries loop
 
-         if not E.Was_Run then
-            Run_Command
-              (E, The_Run_List, Some_Command_To_Run, Some_Error_In_Run);
+         if Settings.Target = "" or else Settings.Target = E.Section then
+            Section_Found := True;
 
-            -- sum the results:
-            Cmd_To_Run   := Cmd_To_Run   or Some_Command_To_Run;
-            Error_In_Run := Error_In_Run or Some_Error_In_Run;
+            if not E.Was_Run then
+               Run_Command
+                 (E, The_Run_List, Some_Command_To_Run, Some_Error_In_Run);
 
-            if E.Was_Run then
-               Cmd_Run_During_Outer := True;
-            end if;
+               -- sum the results:
+               Cmd_To_Run   := Cmd_To_Run   or Some_Command_To_Run;
+               Error_In_Run := Error_In_Run or Some_Error_In_Run;
 
-            if Some_Error_In_Run and not Keep_Going then
-               exit Outer;
+               if E.Was_Run then
+                  Cmd_Run_During_Outer := True;
+               end if;
+
+               if Some_Error_In_Run and not Keep_Going then
+                  exit Outer;
+               end if;
+
             end if;
 
          end if;
+
       end loop Inner;
 
       -- Naive loop aproach : each time a cmd is run, and potentialy

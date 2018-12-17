@@ -14,23 +14,13 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
--- -----------------------------------------------------------------------------
--- Package: Smk.Cmd_Line body
---
--- Implementation Notes:
---
--- Portability Issues:
---
--- Anticipated Changes:
---
--- -----------------------------------------------------------------------------
-
 with Smk.IO;
 with Smk.Settings;
 
 with Ada.Command_Line;
 with Ada.Directories;
-with Ada.Strings.Unbounded;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Strings.Fixed;
 
 separate (Smk.Main)
 
@@ -134,11 +124,37 @@ begin
 
             -- 3/3 Smkfile:
          elsif Ada.Directories.Exists (Opt) then
-            -- should be the Makefile
+            -- may be the smkfile
             Settings.Set_Smkfile_Name (Opt);
 
+         elsif Ada.Strings.Fixed.Index (Source  => Opt,
+                                        Pattern => ":") /= 0
+         then
+           -- maybe either smkfile:target or :target
+            declare
+               Index   : constant Natural := Ada.Strings.Fixed.Index (Opt, ":");
+               Smkfile : constant String  := Opt (Opt'First .. Index - 1);
+               Target  : constant String  := Opt (Index + 1 .. Opt'Last);
+            begin
+               -- IO.Put_Line ("Smkfile : " & Smkfile);
+               -- IO.Put_Line ("Target  : " & Target);
+
+               if Smkfile = "" then
+                  Settings.Set_Target (Target);
+
+               else
+                  if Ada.Directories.Exists (Smkfile) then
+                     Settings.Set_Smkfile_Name (Smkfile);
+                     Settings.Set_Target (Target);
+                  else
+                     Put_Error ("Unknown Smkfile " & Smkfile & " in "
+                                & Opt, With_Help => False);
+                  end if;
+               end if;
+            end;
+
          else
-            Put_Error ("Unknown Makefile or unknow option "
+            Put_Error ("Unknown Smkfile or unknow option "
                        & Opt, With_Help => False);
 
          end if;
@@ -159,18 +175,17 @@ begin
 
    -- Options_Coherency_Tests;
 
-   -- Check for inplicit Smkfile, except if the command doesn't need it
+   -- Check for implicit Smkfile, except if the command doesn't need it
    if Smkfile_Name = "" and Command not in
      List_Previous_Runs | Reset_Smk_Files | Version | Help
    then
       -- IO.Put_Debug_Line ("no smkfile given");
-      -- no smkfile given on the command line
+      -- No smkfile given on the command line
       declare
          use type Ada.Containers.Count_Type;
          use Runfiles;
          use Runfiles.File_Lists;
          Run_List : constant File_Lists.Map := Get_Run_List;
-         use Ada.Strings.Unbounded;
 
       begin
          if Run_List.Length = 1 then
@@ -187,19 +202,11 @@ begin
                IO.Put_Line ("Implicit runfile = " & (Runfile_Name),
                             Level => Debug);
 
-               -- if Exists (Runfile_Name) then
-                  Run := Get_Saved_Run (Runfile_Name);
-                  Settings.Set_Smkfile_Name (To_String (Run.Smkfile_Name));
-                  IO.Put_Line ("Implicit smkfile = " &
-                               (To_String (Run.Smkfile_Name)),
-                               Level => Debug);
---                 else
---                    Put_Error ("runfile " & Runfile_Name & " not found",
---                               With_Help => False);
---                    Put_Error ("bring it back!, or run smk --reset",
---                               With_Help => False);
---                 end if;
-
+               Run := Get_Saved_Run (Runfile_Name);
+               Settings.Set_Smkfile_Name (To_String (Run.Smkfile_Name));
+               IO.Put_Line ("Implicit smkfile = " &
+                            (To_String (Run.Smkfile_Name)),
+                            Level => Debug);
             end;
 
          elsif Run_List.Length > 1 then

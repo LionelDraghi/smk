@@ -40,10 +40,10 @@ procedure Smk.Main is
    -- Debug : constant Boolean := True;
 
    -- --------------------------------------------------------------------------
+   -- Put_Line Utilities:
    procedure Put_Help is separate;
    procedure Put_Error (Msg       : in String  := "";
                         With_Help : in Boolean := False) is separate;
-   -- Put_Line Utilities
 
    -- --------------------------------------------------------------------------
    procedure Analyze_Cmd_Line is separate;
@@ -86,10 +86,11 @@ procedure Smk.Main is
    -- The_Run_List is updated with this run results
 
    -- --------------------------------------------------------------------------
-   procedure Run_All_Commands (The_Smkfile  : in out Smkfiles.Smkfile;
-                               The_Run_List : in out Runfiles.Run_Lists.Map;
-                               Cmd_To_Run   :    out Boolean;
-                               Error_In_Run :    out Boolean)
+   procedure Run_All_Commands (The_Smkfile   : in out Smkfiles.Smkfile;
+                               The_Run_List  : in out Runfiles.Run_Lists.Map;
+                               Cmd_To_Run    :    out Boolean;
+                               Error_In_Run  :    out Boolean;
+                               Section_Found :    out Boolean)
    is separate;
 
    use Ada.Strings.Unbounded;
@@ -192,6 +193,9 @@ begin
             The_Runfile   : Runfiles.Runfile;
             Cmd_To_Run    : Boolean;
             Error_In_Run  : Boolean;
+            Section_Found : Boolean;
+            use type Runfiles.File_Name;
+
          begin
             Smkfiles.Analyze (Smkfile_Name, The_Smkfile);
 
@@ -203,10 +207,16 @@ begin
                  (Smkfile_Name => To_Unbounded_String (Smkfile_Name),
                   Run_List     => Runfiles.Run_Lists.Empty_Map);
             end if;
-            Run_All_Commands
-              (The_Smkfile, The_Runfile.Run_List, Cmd_To_Run, Error_In_Run);
+            Run_All_Commands (The_Smkfile,
+                              The_Runfile.Run_List,
+                              Cmd_To_Run,
+                              Error_In_Run,
+                              Section_Found);
 
-            if not Cmd_To_Run then
+            if Settings.Target /= "" and not Section_Found then
+               IO.Put_Line ("No section """ & Settings.Target &
+                              """ in " & (+The_Smkfile.Name));
+            elsif not Cmd_To_Run then
                IO.Put_Line ("Nothing to run");
             end if;
 

@@ -70,6 +70,10 @@ is
          if Source_Files.Contains (+Name) then
             Source_Files.Delete (+Name);
             -- can't be both Target and Source
+            IO.Put_Debug_Line
+              ("T : " & Name & " is both source and target, deleting source",
+               Debug  => Debug,
+               Prefix => Prefix);
          end if;
 
       else
@@ -111,6 +115,7 @@ begin
          Line  : constant String  := Get_Line (Strace_Ouput);
          First : constant Natural := Index (Line, "<");
          Last  : constant Natural := Index (Line, ">");
+         -- use type Runfiles.File_Name;
 
       begin
          -- IO.Put_Debug_Line ("Processing line: " & Line, Debug, Prefix);
@@ -129,6 +134,52 @@ begin
 
                end if;
             end;
+
+--           elsif Index (Line, "unlink") /= 0 then
+--             -- In some cases, the file name is not inside <> (there is no
+--             -- file descriptor), but the line is never the less useful.
+--             -- Exemple:
+--             --    19258 unlinkat(AT_FDCWD, "tmp.1", 0)    = 0
+--             -- is a delete of tmp.1
+--              declare
+--                 First     : constant Natural := Index (Line, """");
+--                 Last      : constant Natural := Index (Line, """",
+--                                                        From => First + 1);
+--                 File_Name : constant String  := Line (First + 1 .. Last - 1);
+--                 Clock_Time : constant Ada.Calendar.Time
+--                          := Ada.Calendar.Clock;
+--                 -- time used for deleted files
+--              begin
+--
+--                 -- Fixme : code duplicated from Classify_By_Cmd:
+--
+--                 -- it's a source
+--                 if not Source_Files.Contains (+File_Name)
+--                   and not Target_Files.Contains (+File_Name)
+--                 then
+--                    if Is_System_File (File_Name) then
+--                       Source_System_File_Count :=
+--                         Source_System_File_Count + 1;
+--                       Source_Files.Insert (+File_Name,
+--                                            (Clock_Time, Is_System => True));
+--                       IO.Put_Debug_Line
+--                         ("S deleted system file : " & IO.Image (Clock_Time)
+--                          & " " & File_Name,
+--                          Debug  => Debug,
+--                          Prefix => Prefix);
+--                    else
+--                       Source_Files.Insert (+File_Name,
+--                                            (Clock_Time, Is_System => False));
+--                       IO.Put_Debug_Line ("S deleted : "
+--                                          & IO.Image (Clock_Time)
+--                                          & " " & File_Name,
+--                                          Debug  => Debug,
+--                                          Prefix => Prefix);
+--                    end if;
+--                 end if;
+--
+--              end;
+--
          end if;
       end File_Filter;
    end loop;

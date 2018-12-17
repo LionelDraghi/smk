@@ -1,1 +1,1 @@
-Error : Unknown Makefile or unknow option My_Makefile
+Error : Unknown Smkfile or unknow option My_Makefile

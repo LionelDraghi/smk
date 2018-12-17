@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - [Unreleased]
+> - [Added] First "section" implementation : `smk smkfile:section`, or `smk :section`. For exemple `smkfile :clean`.
 > - [Changed] major command line refactoring  
 > - [Changed] line are now run in a shell, and may now include multiple commande and shell specifics constructs, like pipes 
 

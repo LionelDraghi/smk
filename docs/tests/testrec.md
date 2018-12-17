@@ -147,7 +147,7 @@ Command line / Illegal cmd lines [Successful](tests_status.md#successful)
   Expected:  
 
 ```  
-Error : Unknown Makefile or unknow option My_Makefile
+Error : Unknown Smkfile or unknow option My_Makefile
 ```  
 
 
@@ -977,7 +977,7 @@ Sanity / `touch hello.c` (updated file) [Successful](tests_status.md#successful)
 
 
 
-##  Targets related functions / clean
+##  Targets related functions / dry-run clean
 
 
   Test targets cleaning (dry run and real)  
@@ -994,6 +994,9 @@ Deleting /home/lionel/Proj/smk/tests/hello.c/hello
 Deleting /home/lionel/Proj/smk/tests/hello.c/hello.o
 Deleting /home/lionel/Proj/smk/tests/hello.c/main.o
 ```  
+
+
+##  Targets related functions / real clean
 
   Run:  
   `smk clean`  
@@ -1019,4 +1022,62 @@ gcc -o hello hello.o main.o
 ```  
 
 
-Targets related functions / clean [Successful](tests_status.md#successful)
+Targets related functions / real clean [Successful](tests_status.md#successful)
+
+##  Targets related functions / specific section building
+
+  Run:  
+  `smk :main.o` with main.o up to date  
+
+  Expected:  
+```  
+Nothing to run
+```  
+
+  Run:  
+  `touch main.c`  
+  `smk :main.o  
+
+  Expected:  
+```  
+gcc -o main.o -c main.c
+```  
+
+
+Targets related functions / specific section building [Successful](tests_status.md#successful)
+
+##  Targets related functions / unknow section
+
+  Run:  
+  `smk :qzdsqdq.o  
+
+  Expected:  
+```  
+No section "qzdsqdq.o" in ../hello.c/Makefile.2
+```  
+
+
+Targets related functions / unknow section [Successful](tests_status.md#successful)
+
+##  Targets related functions / smkmfile:section notation
+
+  Run:  
+  `smk build ../hello.c/Makefile.4  
+  `touch ../hello.c/hello.c  
+  `smk ../hello.c/Makefile.4:hello.o  
+
+  Expected:  
+```  
+gcc -o hello.o -c hello.c
+```  
+
+  Run:  
+  `smk ../hello.c/Makefile.4:mrproper  
+
+  Expected:  
+```  
+rm -rf hello
+```  
+
+
+Targets related functions / smkmfile:section notation [Successful](tests_status.md#successful)

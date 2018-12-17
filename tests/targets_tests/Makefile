@@ -28,7 +28,7 @@ header:
 
 targets:
 	@ #-------------------------------------------------------------------------
-	${TR} start 'clean'
+	${TR} start 'dry-run clean'
 	${TR} cmt	
 	${TR} cmt "Test targets cleaning (dry run and real)"
 	
@@ -47,11 +47,13 @@ targets:
 	
 	${SMK} -q reset
 	${SMK} -q build ../hello.c/Makefile.2
-	${SMK} clean --dry-run > out.targets1.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets1.txt out.targets1.txt" 
-	${SMK} --explain       > out.targets2.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets2.txt out.targets2.txt" 
+	${SMK} clean --dry-run > out.1.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets1.txt out.1.txt" 
+	${SMK} --explain       > out.2.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets2.txt out.2.txt" 
 
+	@ #-------------------------------------------------------------------------
+	${TR} start 'real clean'
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk clean`'
 	${TR} cmt 
@@ -61,8 +63,8 @@ targets:
 	${TR} cmt '```' 
 	${TR} cmt 
 
-	${SMK} clean > out.targets3.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets3.txt out.targets3.txt" 
+	${SMK} clean > out.3.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets3.txt out.3.txt" 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -e`  (to check effective cleaning)'
@@ -73,8 +75,83 @@ targets:
 	${TR} cmt '```' 
 	${TR} cmt 
 
-	${SMK} -e      > out.targets4.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets4.txt out.targets4.txt" 
+	${SMK} -e      > out.4.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets4.txt out.4.txt" 
+
+	${TR} end
+
+	@ #-------------------------------------------------------------------------
+	${TR} start 'specific section building'
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk :main.o` with main.o up to date'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected_targets5.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	${SMK} build -q
+	${SMK} :main.o > out.5.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets5.txt out.5.txt" 
+
+	@ #-------------------------------------------------------------------------
+	${TR} cmt 'Run:'
+	${TR} cmt '`touch main.c`'
+	${TR} cmt '`smk :main.o'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected_targets6.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	touch ../hello.c/main.c
+	${SMK} :main.o      > out.6.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets6.txt out.6.txt" 
+
+	${TR} end
+
+	@ #-------------------------------------------------------------------------
+	${TR} start 'unknow section'
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk :qzdsqdq.o'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected_targets7.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	${SMK} :qzdsqdq.o      > out.7.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets7.txt out.7.txt" 
+
+	${TR} end
+
+	@ #-------------------------------------------------------------------------
+	${TR} start 'smkmfile:section notation'
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk build ../hello.c/Makefile.4'
+	${TR} cmt '`touch ../hello.c/hello.c'
+	${TR} cmt '`smk ../hello.c/Makefile.4:hello.o'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected_targets8.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	${SMK} build -q ../hello.c/Makefile.4
+	touch ../hello.c/hello.c
+	${SMK} ../hello.c/Makefile.4:hello.o      > out.8.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets8.txt out.8.txt" 
+
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk ../hello.c/Makefile.4:mrproper'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected_targets9.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	${SMK} ../hello.c/Makefile.4:mrproper      > out.9.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets9.txt out.9.txt" 
 
 	${TR} end
 

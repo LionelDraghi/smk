@@ -87,10 +87,12 @@ private package Smk.Settings is
    procedure Set_Smkfile_Name (Name : in String);
    procedure Set_Runfile_Name (Name : in String);
    function To_Runfile_Name (Smkfile_Name : in String) return String;
+   procedure Set_Target (Name : in String);
    function Smkfile_Name        return String;
    function Runfile_Name        return String;
    function Run_Dir_Name        return String;
    function Strace_Outfile_Name return String;
+   function Target              return String;
 
    -- --------------------------------------------------------------------------
    function Is_System_File (File_Name : in String) return Boolean;
