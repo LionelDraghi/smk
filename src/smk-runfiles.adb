@@ -118,10 +118,13 @@ package body Smk.Runfiles is
       for R in The_Runfile.Run_List.Iterate loop
          declare
             Run    : constant Runfiles.Run := Element (R);
-            Prefix : constant String       :=
-                       "[" & (+Run.Section) & "]" & (+Key (R)) & ":";
          begin
-            Dump (Run.Sources, Prefix);
+            if Settings.Long_Listing_Format then
+               Dump (Run.Sources,
+                     "[" & (+Run.Section) & "]" & (+Key (R)) & ":");
+            else
+               Dump (Run.Sources, "");
+            end if;
          end;
       end loop;
    end List_Sources;
@@ -133,17 +136,20 @@ package body Smk.Runfiles is
       for R in The_Runfile.Run_List.Iterate loop
          declare
             Run    : constant Runfiles.Run := Element (R);
-            Prefix : constant String       :=
-                       "[" & (+Run.Section) & "]" & (+Key (R)) & ":";
          begin
-            Dump (Run.Targets, Prefix);
+            if Settings.Long_Listing_Format then
+               Dump (Run.Targets,
+                     "[" & (+Run.Section) & "]" & (+Key (R)) & ":");
+            else
+               Dump (Run.Targets, "");
+            end if;
          end;
       end loop;
    end List_Targets;
 
    -- --------------------------------------------------------------------------
    procedure Delete_Targets (The_Runfile : in Runfile) is
-      use Run_Lists;
+      -- use Run_Lists;
       use Ada.Directories;
    begin
       for R of The_Runfile.Run_List loop
@@ -166,6 +172,25 @@ package body Smk.Runfiles is
          end loop;
       end loop;
    end Delete_Targets;
+
+   -- --------------------------------------------------------------------------
+   function Has_Target (The_Run_List : Run_Lists.Map;
+                        Target       : String) return Boolean is
+      use File_Lists;
+   begin
+      if Target = "" then return False; end if;
+
+      for R of The_Run_List loop
+         for T in R.Targets.Iterate loop
+            if Tail (+Key (T), Target'Length) = Target then
+               IO.Put_Line ("File " & (+Key (T)) & " match Target "
+                            & Target & ".", Level => IO.Verbose);
+               return True;
+            end if;
+         end loop;
+      end loop;
+      return False;
+   end Has_Target;
 
    -- --------------------------------------------------------------------------
 --     procedure Update_Time_Tag (File_List : in out File_Lists.Map) is
@@ -205,7 +230,7 @@ package body Smk.Runfiles is
    -- --------------------------------------------------------------------------
    procedure Dump (Run_List : in Run_Lists.Map) is
       use Run_Lists;
-      use Ada.Containers;
+      -- use Ada.Containers;
       Target_Count : Natural;
    begin
       for L in Run_List.Iterate loop

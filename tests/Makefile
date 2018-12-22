@@ -27,14 +27,17 @@ check: ../smk
 		# 	echo "   - "$$test;					\
 		# 	$(MAKE) check --directory=$$test;	\
 		# done
-	$(MAKE) check --directory=sanity_tests
-	$(MAKE) check --directory=read_queries_tests
-	$(MAKE) check --directory=list_queries_tests
-	$(MAKE) check --directory=targets_tests
-	$(MAKE) check --directory=implicit_naming_tests
-	$(MAKE) check --directory=run_error_tests
-	$(MAKE) check --directory=cmd_line_tests
-	$(MAKE) check --directory=multiline_tests
+	$(MAKE) check --directory=01_sanity_tests
+	$(MAKE) check --directory=02_website_sanity_tests
+	$(MAKE) check --directory=03_read_queries_tests
+	$(MAKE) check --directory=04_list_queries_tests
+	$(MAKE) check --directory=05_target_tests
+	$(MAKE) check --directory=06_implicit_naming_tests
+	$(MAKE) check --directory=07_run_error_tests
+	$(MAKE) check --directory=08_cmd_line_tests
+	$(MAKE) check --directory=09_multiline_tests
+	$(MAKE) check --directory=10_section_tests
+	$(MAKE) check --directory=11_command_run_tests
 
 doc:
 	cat *_tests/testrec.md > testrec.md

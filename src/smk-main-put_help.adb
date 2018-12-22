@@ -22,26 +22,25 @@ separate (Smk.Main)
 procedure Put_Help is
 begin
    New_Line;
-   Put_Line ("Usage : smk Command [Options]* [Smkfile]");
+   Put_Line ("Usage : smk Command [Options]* [Smkfile][:target]");
    New_Line;
-   Put_Line ("Usual use example:");
-   Put_Line ("   when run the first time:");
-   Put_Line ("   > smk MyBuild.txt");
-   Put_Line ("   and then just:");
-   Put_Line ("   > smk");
-   Put_Line ("   to rebuild");
+   Put_Line ("Use example :");
+   Put_Line ("   when run the first time   : smk MyBuild.txt");
+   Put_Line ("   and then,to rebuild, just : smk");
+   Put_Line ("   to run a specific target  : smk MyBuild.txt:target");
+   Put_Line ("   or just                   : smk :target");
    New_Line;
    Put_Line ("Commands :");
    Put_Line ("   build        : run the build");
    Put_Line ("   status       : shows what smk knows about the previous runs");
    Put_Line ("                  (commands, sources and targets)");
    Put_Line ("   read-smkfile : shows Smk understanding of a Smkfile");
+   Put_Line ("   add          : add the following arguments to default.smk");
    Put_Line ("   clean        : remove all targets files");
    Put_Line ("   reset        : remove all local Smk files");
    Put_Line ("                  (equivalent to rm .smk.*)");
    Put_Line ("   version      : put Smk version");
    Put_Line ("   help | -h    : this message");
-
    Put_Line ("   -lr  | --list-runs    : list runfiles in current directory");
    Put_Line ("   -ls  | --list-sources : list sources, except system files");
    Put_Line ("   -lt  | --list-targets");
@@ -56,6 +55,8 @@ begin
    Put_Line ("                              ignoring system files");
    Put_Line ("   -i   | --ignore-errors   : ignore all errors in commands");
    Put_Line ("                              executed to remake files");
+   Put_Line ("   -l   | --long-listing    : use a long listing format when");
+   Put_Line ("                              listing files");
    Put_Line ("   -k   | --keep-going      : Do as much work as possible");
    Put_Line ("   -We  | --Warnings=error  : treat warnings as errors");
    Put_Line ("   -v   | --verbose");

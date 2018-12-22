@@ -5,10 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-- [Unreleased]
-> - [Added] First "section" implementation : `smk smkfile:section`, or `smk :section`. For exemple `smkfile :clean`.
+- [0.2.0]
+> - [Fixed] line considered as section even when the identifier was not immediately followed by a colon 
+> - [Added] First "add & run" implementation 
+> - [Added] First "section" implementation : `smk smkfile:section`, or `smk :section`. For example `smkfile :mrproper`.
 > - [Changed] major command line refactoring  
-> - [Changed] line are now run in a shell, and may now include multiple commande and shell specifics constructs, like pipes 
+> - [Changed] line are now run in a shell, and may now include multiple commands and shell specifics constructs, like pipes
+> - [Changed] list query now print only file names. To get the previous _[section]command:file_ format, use `-l` / `--long-listing` option
 
 - [0.1.0] - 2018-12-11
 > - [Added] Multiline processing, closes #5

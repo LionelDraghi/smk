@@ -113,21 +113,21 @@ is
 --     end No_Source_Nor_Target;
 
    -- --------------------------------------------------------------------------
-   function No_Target (The_Run : Run) return Boolean is
-      use Runfiles.File_Lists;
-   begin
-      -- IO.Put_Line ("Is_Empty: Sources = "
-      --              & Boolean'Image (Is_Empty (The_Run.Sources))
-      --              & ", Targets = "
-      --              & Boolean'Image (Is_Empty (The_Run.Targets)));
-      if Is_Empty (The_Run.Targets) then
-         Put_Explanation ("because no target for command "
-                          & To_String (Command));
-         return True;
-      else
-         return False;
-      end if;
-   end No_Target;
+--     function No_Target (The_Run : Run) return Boolean is
+--        use Runfiles.File_Lists;
+--     begin
+--        -- IO.Put_Line ("Is_Empty: Sources = "
+--        --              & Boolean'Image (Is_Empty (The_Run.Sources))
+--        --              & ", Targets = "
+--        --              & Boolean'Image (Is_Empty (The_Run.Targets)));
+--        if Is_Empty (The_Run.Targets) then
+--           Put_Explanation ("because no target for command "
+--                            & To_String (Command));
+--           return True;
+--        else
+--           return False;
+--        end if;
+--     end No_Target;
 
    use Runfiles.Run_Lists;
 
@@ -151,11 +151,11 @@ begin
    else return
         A_Target_Is_Missing (Runfiles.Run_Lists.Element (C)) or else
         A_Source_Is_Missing (Runfiles.Run_Lists.Element (C)) or else
-        A_Source_Is_Updated (Runfiles.Run_Lists.Element (C)) or else
+        A_Source_Is_Updated (Runfiles.Run_Lists.Element (C));
         -- No_Source_Nor_Target (Runfiles.Run_Lists.Element (C)) or else
-        No_Target (Runfiles.Run_Lists.Element (C));
       -- If there is no sources and no target, it could be because the command
       -- failed in the previous run, and so let's try again.
+        --     No_Target (Runfiles.Run_Lists.Element (C));
    end if;
 
 end Must_Be_Run;

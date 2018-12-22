@@ -35,7 +35,7 @@ pages:
   - compare_with_make.md
   - Tests: tests/testrec.md
 
-- Design
+- Design:
   - design_notes.md
 
 - Current Status:

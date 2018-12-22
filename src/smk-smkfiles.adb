@@ -37,7 +37,7 @@ package body Smk.Smkfiles is
    use Ada.Strings.Maps.Constants;
    Whitespace_Set : constant Ada.Strings.Maps.Character_Set
      := Ada.Strings.Maps.To_Set
-       (Ada.Characters.Latin_1.HT & Ada.Characters.Latin_1.Space & "@");
+       (Ada.Characters.Latin_1.HT & Ada.Characters.Latin_1.Space & '@');
    Identifier_Set : constant Ada.Strings.Maps.Character_Set
      := Alphanumeric_Set or To_Set (".-_");
 
@@ -56,8 +56,9 @@ package body Smk.Smkfiles is
 
    -- --------------------------------------------------------------------------
    function Is_A_Section (Line : in String) return Boolean is
-      -- A section line is an identifier followed by a semicolon.
-      -- NB: this function updates the global Current_Section variable
+      -- A section line starts with an identifier immediatly followed by
+      -- a semicolon, e.g. "mrproper:"
+      -- Warning: this function updates the global Current_Section variable
       First : Positive;
       Last  : Natural;
    begin
@@ -67,15 +68,17 @@ package body Smk.Smkfiles is
                   First  => First,
                   Last   => Last);
       if Last = 0 then
-         return False;
          -- The line don't start with an identifier, can't be a section
+         return False;
+
+      elsif Last = Line'Last then
+         -- There is only an identifier on this line
+         return False;
+
       else
-         IO.Put_Debug_Line (Line (First .. Last) & "<", Debug, Prefix);
-         if Index (Source  => Line,
-                   Pattern => ":",
-                   From    => Last + 1,
-                   Going   => Forward) /= 0
-         then
+         -- IO.Put_Debug_Line ("""" & Line (First .. Last)
+         --                    & """", Debug, Prefix);
+         if Line (Last + 1) = ':' then
             Current_Section := +(Line (First .. Last));
             return True;
          else
@@ -219,5 +222,22 @@ package body Smk.Smkfiles is
                         & ": [" & (+E.Section) & "] " & (+E.Command));
       end loop;
    end Dump;
+
+   -- --------------------------------------------------------------------------
+   function Contains (The_Smkfile : in Smkfile;
+                      The_Command : in Command_Lines)
+                      return Boolean is
+   begin
+      for E of The_Smkfile.Entries loop
+         if E.Command = The_Command then
+         -- IO.Put_Line (">" & (+E.Command) & "< =  >" & (+The_Command) & "<");
+            return True;
+         -- else
+         -- IO.Put_Line (">" & (+E.Command) & "< /= >" & (+The_Command) & "<");
+         end if;
+      end loop;
+      return False;
+   end Contains;
+
 
 end Smk.Smkfiles;

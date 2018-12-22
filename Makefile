@@ -104,7 +104,7 @@ dashboard: obj/coverage.info tests/tests_count.txt
 	cat cov_sum.txt					>> docs/dashboard.md
 	echo '```'			 			>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
-	echo '[**Coverage details in the sources**](http://lionel.draghi.free.fr/smk/lcov/home/lionel/Proj/smk/src/index-sort-f.html)'	>> docs/dashboard.md
+	echo '[**Coverage details in the sources**](http://lionel.draghi.free.fr/smk/lcov/src/index.html)'	>> docs/dashboard.md
 	echo 							>> docs/dashboard.md
 
 	# badge making:
@@ -151,8 +151,8 @@ doc: dashboard cmd_line.md
 	echo '---------|-----'             		>> docs/fixme.md
 	cat /tmp/fixme.md                       >> docs/fixme.md
 	rm /tmp/fixme.md
-	rgrep -ni "Fixme" src/*   | sed "s/:/|/2"	>> docs/fixme.md
-	rgrep -ni "Fixme" tests/* | sed "s/:/|/2"	>> docs/fixme.md
+	rgrep -n "Fixme:" src/*           | sed "s/:/|/2"	>> docs/fixme.md
+	rgrep -n "Fixme:" tests/*_tests/* | sed "s/:/|/2"	>> docs/fixme.md
 
 	mkdocs build --clean --quiet
 	@ - chmod --silent +x ./site/smk

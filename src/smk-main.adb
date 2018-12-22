@@ -34,6 +34,7 @@ with Ada.Command_Line;
 with Ada.Directories;
 with Ada.Containers;
 with Ada.Strings.Unbounded;
+with Ada.Text_IO;
 
 procedure Smk.Main is
 
@@ -90,7 +91,8 @@ procedure Smk.Main is
                                The_Run_List  : in out Runfiles.Run_Lists.Map;
                                Cmd_To_Run    :    out Boolean;
                                Error_In_Run  :    out Boolean;
-                               Section_Found :    out Boolean)
+                               Section_Found :    out Boolean;
+                               Target_Found  :    out Boolean)
    is separate;
 
    use Ada.Strings.Unbounded;
@@ -99,11 +101,6 @@ begin
    -- --------------------------------------------------------------------------
    Analyze_Cmd_Line;
 
-   -- should be set here:
-   IO.Put_Line ("Command      : " & Commands'Image (Command), Level => Debug);
-   IO.Put_Line ("Smkfile name : " & Smkfile_Name, Level => Verbose);
-   IO.Put_Line ("Runfile name : " & Runfile_Name, Level => Verbose);
-
    if IO.Some_Error then
       -- If some error occurs during command line analysis, stop here,
       -- even if Ignore_Errors or Keep_Going is set
@@ -111,7 +108,7 @@ begin
       return;
    end if;
 
-   case Command is
+   case Current_Command is
       when Read_Smkfile       =>
          declare
             The_Smkfile : Smkfiles.Smkfile;
@@ -194,6 +191,7 @@ begin
             Cmd_To_Run    : Boolean;
             Error_In_Run  : Boolean;
             Section_Found : Boolean;
+            Target_Found  : Boolean;
             use type Runfiles.File_Name;
 
          begin
@@ -211,11 +209,17 @@ begin
                               The_Runfile.Run_List,
                               Cmd_To_Run,
                               Error_In_Run,
-                              Section_Found);
+                              Section_Found,
+                              Target_Found);
 
-            if Settings.Target /= "" and not Section_Found then
-               IO.Put_Line ("No section """ & Settings.Target &
+            if Settings.Section_Name /= "" and not Section_Found then
+               IO.Put_Line ("No section """ & Settings.Section_Name &
                               """ in " & (+The_Smkfile.Name));
+            elsif Settings.Target_Name /= "" and not Target_Found then
+               IO.Put_Line
+                 ("Target """ & Settings.Target_Name & """ not found");
+               IO.Put_Line
+                 ("run smk --list-targets to get a list of possible target");
             elsif not Cmd_To_Run then
                IO.Put_Line ("Nothing to run");
             end if;
@@ -227,6 +231,29 @@ begin
             -- Save the updated run:
             Runfiles.Save_Run (The_Runfile);
          end;
+
+      when Add =>
+         declare
+            use Ada.Text_IO;
+            Smk_File    : File_Type;
+            The_Smkfile : Smkfiles.Smkfile;
+            use type Runfiles.Command_Lines;
+
+         begin
+            if Ada.Directories.Exists (Smkfile_Name) then
+               Smkfiles.Analyze (Smkfile_Name, The_Smkfile);
+               Open   (Smk_File, Mode => Append_File, Name => Smkfile_Name);
+            else
+               Create (Smk_File, Mode => Append_File, Name => Smkfile_Name);
+            end if;
+
+            if not Smkfiles.Contains (The_Smkfile, +Command_Line) then
+               Put_Line (Smk_File, Command_Line);
+            end if;
+
+            Close (Smk_File);
+         end;
+
 
       when Help =>
          Put_Help;

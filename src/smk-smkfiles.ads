@@ -56,4 +56,9 @@ private package Smk.Smkfiles is
    -- Dump Smk understanding of a Makefile, only the useful part of the
    -- Current Makefile, that is without any comment or blank line.
 
+   -- --------------------------------------------------------------------------
+   function Contains (The_Smkfile : in Smkfile;
+                      The_Command : in Command_Lines)
+                      return Boolean;
+
 end Smk.Smkfiles;

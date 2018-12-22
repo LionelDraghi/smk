@@ -31,15 +31,16 @@ private package Smk.Settings is
    Smk_Version : constant String := "0.2.0";
 
    -- --------------------------------------------------------------------------
-   Always_Make        : Boolean := False;
-   Explain            : Boolean := False;
-   Dry_Run            : Boolean := False;
-   Keep_Going         : Boolean := False;
-   Ignore_Errors      : Boolean := False;
-   Recursive          : Boolean := False;
-   Warnings_As_Errors : Boolean := False;
-   Create_Template    : Boolean := False;
-   Filter_Sytem_Files : Boolean := True;
+   Always_Make         : Boolean := False;
+   Explain             : Boolean := False;
+   Dry_Run             : Boolean := False;
+   Keep_Going          : Boolean := False;
+   Ignore_Errors       : Boolean := False;
+   Long_Listing_Format : Boolean := False;
+   Recursive           : Boolean := False;
+   Warnings_As_Errors  : Boolean := False;
+   Create_Template     : Boolean := False;
+   Filter_Sytem_Files  : Boolean := True;
 
    type Commands is (Read_Smkfile,
                      Read_Run_Status,
@@ -51,13 +52,15 @@ private package Smk.Settings is
                      Version,
                      Build,
                      Help,
+                     Add,
                      None) with Default_Value => None;
-   Command : Commands;
+   Current_Command : Commands;
 
    -- --------------------------------------------------------------------------
    Smk_File_Prefix       : constant String := ".smk."; -- used for all Smk files
    Strace_Outfile_Prefix : constant String := "/tmp/";
    Strace_Outfile_Suffix : constant String := ".strace_output";
+   Default_Smkfile_Name  : constant String := "default.smk";
    Shell_Cmd             : constant String := "/bin/sh";
    Shell_Opt             : constant String := "-c "; -- no space before -c!
    Strace_Cmd            : constant String
@@ -80,19 +83,35 @@ private package Smk.Settings is
    -- --------------------------------------------------------------------------
    function Debug_Mode return Boolean is (Verbosity = Debug);
 
+   -- --------------------------------------------------------------------------
+   function Run_Dir_Name return String;
+
+   -- --------------------------------------------------------------------------
+   function Strace_Outfile_Name return String;
+
    -- -------------------------------------------------------------------------
    -- Smkfile_Name = "../hello.c/Makefile.txt"
    -- Runfile_Name = ".smk.Makefile.txt"
    --    that is Runfile_Name = "Prefix + Simple_Name (Smkfile_Name)"
    procedure Set_Smkfile_Name (Name : in String);
+   function Smkfile_Name return String;
+
+   -- --------------------------------------------------------------------------
    procedure Set_Runfile_Name (Name : in String);
+   function Runfile_Name return String;
    function To_Runfile_Name (Smkfile_Name : in String) return String;
-   procedure Set_Target (Name : in String);
-   function Smkfile_Name        return String;
-   function Runfile_Name        return String;
-   function Run_Dir_Name        return String;
-   function Strace_Outfile_Name return String;
-   function Target              return String;
+
+   -- --------------------------------------------------------------------------
+   procedure Set_Section_Name (Name : in String);
+   function Section_Name return String;
+
+   -- --------------------------------------------------------------------------
+   procedure Add_To_Command_Line (Text : in String);
+   function Command_Line return String;
+
+   -- --------------------------------------------------------------------------
+   procedure Set_Target_Name (Target : in String);
+   function Target_Name return String;
 
    -- --------------------------------------------------------------------------
    function Is_System_File (File_Name : in String) return Boolean;

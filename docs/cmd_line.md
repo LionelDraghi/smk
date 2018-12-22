@@ -7,14 +7,13 @@ smk -h
 
 ```
 
-Usage : smk Command [Options]* [Smkfile]
+Usage : smk Command [Options]* [Smkfile][:target]
 
-Usual use example:
-   when run the first time:
-   > smk MyBuild.txt
-   and then just:
-   > smk
-   to rebuild
+Use example :
+   when run the first time   : smk MyBuild.txt
+   and then,to rebuild, just : smk
+   to run a specific target  : smk MyBuild.txt:target
+   or just                   : smk :target
 
 Commands :
    build        : run the build
@@ -40,6 +39,8 @@ Options :
                               ignoring system files
    -i   | --ignore-errors   : ignore all errors in commands
                               executed to remake files
+   -l   | --long-listing    : use a long listing format when
+                              listing files
    -k   | --keep-going      : Do as much work as possible
    -We  | --Warnings=error  : treat warnings as errors
    -v   | --verbose

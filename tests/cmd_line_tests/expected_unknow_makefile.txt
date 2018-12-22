@@ -1,1 +1,0 @@
-Error : Unknown Smkfile or unknow option My_Makefile

@@ -21,13 +21,15 @@ with Ada.Command_Line;
 with Ada.Directories;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Ada.Strings.Fixed;
+with Ada.Directories;
 
 separate (Smk.Main)
 
 procedure Analyze_Cmd_Line is
 
    -- --------------------------------------------------------------------------
-   Arg_Counter : Positive := 1;
+   Arg_Counter      : Positive         := 1;
+   Unidentified_Opt : Unbounded_String := Null_Unbounded_String;
 
    -- --------------------------------------------------------------------------
    procedure Next_Arg is
@@ -38,15 +40,170 @@ procedure Analyze_Cmd_Line is
    -- --------------------------------------------------------------------------
    procedure Set_If_Not_Already_Set (New_Command : in Commands) is
    begin
-      if Command = None then
-         Command := New_Command;
+      if Current_Command = None then
+         Current_Command := New_Command;
       else
          Put_Error ("More than one command on command line : "
                     & Commands'Image (New_Command)
-                    & " and " & Commands'Image (Command),
+                    & " and " & Commands'Image (Current_Command),
                     With_Help => True);
       end if;
    end Set_If_Not_Already_Set;
+
+   -- --------------------------------------------------------------------------
+   function Is_Section_Name (Opt : in String) return Boolean is
+   begin
+      return Ada.Strings.Fixed.Index (Source  => Opt, Pattern => ":") /= 0;
+   end Is_Section_Name;
+
+   -- --------------------------------------------------------------------------
+   procedure Process_Section_Name (Opt : in String) is
+      Index   : constant Natural := Ada.Strings.Fixed.Index (Opt, ":");
+      Smkfile : constant String  := Opt (Opt'First .. Index - 1);
+      Section : constant String  := Opt (Index + 1 .. Opt'Last);
+
+   begin
+      -- maybe either smkfile:section or :section
+      if Smkfile = "" then
+         Settings.Set_Section_Name (Section);
+
+      else
+         if Ada.Directories.Exists (Smkfile) then
+            Settings.Set_Smkfile_Name (Smkfile);
+            Settings.Set_Section_Name (Section);
+         else
+            Put_Error ("Unknown Smkfile " & Smkfile & " in "
+                       & Opt, With_Help => False);
+         end if;
+      end if;
+
+   end Process_Section_Name;
+
+   -- --------------------------------------------------------------------------
+   procedure Unidentified_Opt_Processing is
+
+      procedure Reset_Unidentified_Opt is
+      begin
+         Unidentified_Opt := Null_Unbounded_String;
+      end Reset_Unidentified_Opt;
+
+   begin
+
+      case Current_Command is
+         -- the unrecognized argument processing depends on the
+         -- ongoing command
+
+      when Read_Smkfile | Read_Run_Status | List_Sources =>
+         declare
+            Opt : constant String := To_String (Unidentified_Opt);
+
+         begin
+            -- should be the smkfile
+            if Ada.Directories.Exists (Opt) then
+               Settings.Set_Smkfile_Name (Opt);
+               Reset_Unidentified_Opt;
+
+            else
+               Put_Error ("Unknown Smkfile " & Opt,
+                          With_Help => False);
+            end if;
+         end;
+
+      when List_Previous_Runs | Reset_Smk_Files | Version | Help | None =>
+         -- no more argument expected
+         Put_Error ("Unknown option " & To_String (Unidentified_Opt),
+                    With_Help => True);
+
+      when List_Targets | Clean_Targets | Build =>
+         declare
+            Opt : constant String := To_String (Unidentified_Opt);
+
+         begin
+            -- may be smkfile or target or section
+            if Ada.Directories.Exists (Opt) then
+               Settings.Set_Smkfile_Name (Opt);
+               Reset_Unidentified_Opt;
+
+            elsif Is_Section_Name (Opt) then
+               Process_Section_Name (Opt);
+               Reset_Unidentified_Opt;
+
+            else
+               Settings.Set_Target_Name (Opt);
+               Reset_Unidentified_Opt;
+
+            end if;
+         end;
+
+         when Add =>
+            -- the Add case is already process at the beginning of the if,
+            -- this line can't be executed!
+            Put_Error ("Unknown error in command line on :" &
+                         To_String (Unidentified_Opt));
+
+      end case;
+
+   end Unidentified_Opt_Processing;
+
+   -- --------------------------------------------------------------------------
+   procedure Implicit_Smkfile_Processing is
+      -- if there is no smkfile in the command line, but there is
+      -- no ambiguity because there is only one runfile in the current dir,
+      -- let's load it.
+   begin
+      if Smkfile_Name = "" and Current_Command
+      not in List_Previous_Runs | Reset_Smk_Files | Version | Help
+      then
+         -- Check for implicit Smkfile, except if the command doesn't need it
+         -- IO.Put_Debug_Line ("no smkfile given");
+         -- No smkfile given on the command line
+         declare
+            use type Ada.Containers.Count_Type;
+            use Runfiles;
+            use Runfiles.File_Lists;
+            Run_List : constant File_Lists.Map := Get_Run_List;
+
+         begin
+            if Run_List.Length = 1 then
+               IO.Put_Line ("Run_List.Length = 1", Level => IO.Debug);
+               -- implicit smkfile: if there's only one in the
+               -- current directory, then, go with it!
+               declare
+                  Runfile_Name : constant String
+                    := To_Runfile_Name (+Key (Run_List.First));
+                  Run          : Runfile;
+               begin
+                  Settings.Set_Runfile_Name (Runfile_Name);
+                  IO.Put_Line ("Implicit runfile = " & (Runfile_Name),
+                               Level => Debug);
+
+                  Run := Get_Saved_Run (Runfile_Name);
+                  Settings.Set_Smkfile_Name (To_String (Run.Smkfile_Name));
+                  IO.Put_Line ("Implicit smkfile = " &
+                               (To_String (Run.Smkfile_Name)),
+                               Level => Debug);
+               end;
+
+            elsif Run_List.Length > 1 then
+               Put_Error ("No smkfile given, and more than one runfile in dir",
+                          With_Help => False);
+
+            else
+               Put_Error ("No smkfile given, and no existing runfile in dir",
+                          With_Help => False);
+
+            end if;
+         end;
+
+         -- elsif Settings.Target_Name /= "" and Current_Command /= Build then
+         --        -- Target_Name is meaningless unless building, so
+         --        -- what we took for the target name was just a typo
+         --        Put_Error ("Unknown smkfile or unknow option "
+         --                   & Settings.Target_Name, With_Help => False);
+
+      end if;
+
+   end Implicit_Smkfile_Processing;
 
 begin
    -- NB: command line, including arguments should comply with GNU Coding
@@ -60,7 +217,13 @@ begin
 
       begin
          -- 1/3 Commands:
-         if    Opt = "build" then
+
+         if Current_Command = Add then
+            -- all parameters following "add" are considered as part of the
+            -- command line, so there is no analysis of the content
+            Add_To_Command_Line (Opt);
+
+         elsif Opt = "build" then
             Set_If_Not_Already_Set (Build);
 
          elsif Opt = "status" then
@@ -90,6 +253,10 @@ begin
          elsif Opt = "-lt" or Opt = "--list-targets" then
             Set_If_Not_Already_Set (List_Targets);
 
+         elsif Opt = "add" then
+            Set_If_Not_Already_Set (Add);
+            -- undocumented option
+
             -- 2/3 Options:
          elsif Opt = "-a" or Opt = "--always-make" then
             Settings.Always_Make := True;
@@ -105,6 +272,9 @@ begin
 
          elsif Opt = "-i" or Opt = "--ignore-errors" then
             Settings.Ignore_Errors := True;
+
+         elsif Opt = "-l" or Opt = "--long-listing" then
+            Settings.Long_Listing_Format := True;
 
          elsif Opt = "-k" or Opt = "--keep-going" then
             Settings.Keep_Going := True;
@@ -122,40 +292,8 @@ begin
             -- undocumented option
             Settings.Verbosity := Debug;
 
-            -- 3/3 Smkfile:
-         elsif Ada.Directories.Exists (Opt) then
-            -- may be the smkfile
-            Settings.Set_Smkfile_Name (Opt);
-
-         elsif Ada.Strings.Fixed.Index (Source  => Opt,
-                                        Pattern => ":") /= 0
-         then
-           -- maybe either smkfile:target or :target
-            declare
-               Index   : constant Natural := Ada.Strings.Fixed.Index (Opt, ":");
-               Smkfile : constant String  := Opt (Opt'First .. Index - 1);
-               Target  : constant String  := Opt (Index + 1 .. Opt'Last);
-            begin
-               -- IO.Put_Line ("Smkfile : " & Smkfile);
-               -- IO.Put_Line ("Target  : " & Target);
-
-               if Smkfile = "" then
-                  Settings.Set_Target (Target);
-
-               else
-                  if Ada.Directories.Exists (Smkfile) then
-                     Settings.Set_Smkfile_Name (Smkfile);
-                     Settings.Set_Target (Target);
-                  else
-                     Put_Error ("Unknown Smkfile " & Smkfile & " in "
-                                & Opt, With_Help => False);
-                  end if;
-               end if;
-            end;
-
          else
-            Put_Error ("Unknown Smkfile or unknow option "
-                       & Opt, With_Help => False);
+            Unidentified_Opt := To_Unbounded_String (Opt);
 
          end if;
 
@@ -168,58 +306,36 @@ begin
 
    end loop;
 
-   if Command = None then
-      -- default behavior:
+   -- --------------------------------------------------------------------------
+   if Current_Command = None then
+      -- default behavior = build
       Set_If_Not_Already_Set (Build);
    end if;
 
-   -- Options_Coherency_Tests;
-
-   -- Check for implicit Smkfile, except if the command doesn't need it
-   if Smkfile_Name = "" and Command not in
-     List_Previous_Runs | Reset_Smk_Files | Version | Help
-   then
-      -- IO.Put_Debug_Line ("no smkfile given");
-      -- No smkfile given on the command line
-      declare
-         use type Ada.Containers.Count_Type;
-         use Runfiles;
-         use Runfiles.File_Lists;
-         Run_List : constant File_Lists.Map := Get_Run_List;
-
-      begin
-         if Run_List.Length = 1 then
-            IO.Put_Line ("Run_List.Length = 1", Level => IO.Debug);
-            -- implicit smkfile: if there's only one in the current directory,
-            -- then, go with it!
-            declare
-               Runfile_Name : constant String
-                 := To_Runfile_Name (+Key (Run_List.First));
-               Run          : Runfile;
-               -- use Ada.Directories;
-            begin
-               Settings.Set_Runfile_Name (Runfile_Name);
-               IO.Put_Line ("Implicit runfile = " & (Runfile_Name),
-                            Level => Debug);
-
-               Run := Get_Saved_Run (Runfile_Name);
-               Settings.Set_Smkfile_Name (To_String (Run.Smkfile_Name));
-               IO.Put_Line ("Implicit smkfile = " &
-                            (To_String (Run.Smkfile_Name)),
-                            Level => Debug);
-            end;
-
-         elsif Run_List.Length > 1 then
-            Put_Error ("No smkfile given, and more than one runfile in dir",
-                       With_Help => False);
-
-         else
-            Put_Error ("No smkfile given, and no existing runfile in dir",
-                       With_Help => False);
-
-         end if;
-      end;
+   -- --------------------------------------------------------------------------
+   if Unidentified_Opt /= "" then
+      Unidentified_Opt_Processing;
    end if;
 
+   -- --------------------------------------------------------------------------
+   if Smkfile_Name = "" and Current_Command = Add then
+      -- adding to default smkfile if none given
+      Set_Smkfile_Name (Default_Smkfile_Name);
+   end if;
+
+   -- --------------------------------------------------------------------------
+   Implicit_Smkfile_Processing;
+
+   -- --------------------------------------------------------------------------
+   IO.Put_Line ("Command line analysis:",                Level => Debug);
+   IO.Put_Line ("   Command          : "
+                & Commands'Image (Current_Command),      Level => Debug);
+   IO.Put_Line ("   Smkfile name     : " & Smkfile_Name, Level => Debug);
+   IO.Put_Line ("   Runfile name     : " & Runfile_Name, Level => Debug);
+   IO.Put_Line ("   Section name     : " & Section_Name, Level => Debug);
+   IO.Put_Line ("   Cmd Line         : " & Command_Line, Level => Debug);
+   IO.Put_Line ("   Target name      : " & Target_Name,  Level => Debug);
+   IO.Put_Line ("   Unidentified Opt : "
+                & To_String (Unidentified_Opt),          Level => Debug);
 
 end Analyze_Cmd_Line;

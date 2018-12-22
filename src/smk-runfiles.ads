@@ -137,6 +137,12 @@ private package Smk.Runfiles is
    -- remove all target files (to mimic a "make clean")
 
    -- --------------------------------------------------------------------------
+   function Has_Target (The_Run_List : Run_Lists.Map;
+                        Target       : String) return Boolean;
+   -- return true if Target match the right part of one of the target
+   -- file name
+
+   -- --------------------------------------------------------------------------
    -- Run storage management
    -- --------------------------------------------------------------------------
    function Runfiles_Found return Boolean;

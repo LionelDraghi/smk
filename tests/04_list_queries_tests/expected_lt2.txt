@@ -1,0 +1,3 @@
+/home/lionel/Proj/smk/tests/hello.c/hello
+/home/lionel/Proj/smk/tests/hello.c/hello.o
+/home/lionel/Proj/smk/tests/hello.c/main.o
