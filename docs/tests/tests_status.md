@@ -2,7 +2,7 @@
 
 ## Successful
 
-   33 tests OK
+   34 tests OK
 
   - [Sanity / First `smk`, after `make`, should run no command](testrec.md#)
   - [Sanity / Second `smk`, should not run any command](testrec.md#)
@@ -37,6 +37,7 @@
   - [Sections related functions / unknow section](testrec.md#)
   - [Sections related functions / smkmfile:section notation](testrec.md#)
   - [Command Run features / Add and build](testrec.md#)
+  - [Command Run features / Run](testrec.md#)
 
 ## Failed
 

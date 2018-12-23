@@ -63,7 +63,7 @@ package body Smk.Runfiles is
    procedure Dump (File_List : in File_Lists.Map;
                    Prefix    : in String) is
       use Runfiles.File_Lists;
-      use Settings;
+      use Smk.Settings;
    begin
       for F in File_List.Iterate loop
          if not (Settings.Filter_Sytem_Files and Element (F).Is_System) then
@@ -149,7 +149,6 @@ package body Smk.Runfiles is
 
    -- --------------------------------------------------------------------------
    procedure Delete_Targets (The_Runfile : in Runfile) is
-      -- use Run_Lists;
       use Ada.Directories;
    begin
       for R of The_Runfile.Run_List loop
@@ -193,26 +192,6 @@ package body Smk.Runfiles is
    end Has_Target;
 
    -- --------------------------------------------------------------------------
---     procedure Update_Time_Tag (File_List : in out File_Lists.Map) is
---        use Ada.Directories;
---        use File_Lists;
---     begin
---        for C in File_List.Iterate loop
---           declare
---              Name : constant String := +Key (C);
---           begin
---              if Exists (Name) then
---                 File_List.Replace_Element
---                   (C, (Time_Tag  => Ada.Directories.Modification_Time (Name),
---                        Is_System => Element (C).Is_System));
---                 -- Fixme : GNAT 2018 bug on this line:
---                 -- Element (C) := Ada.Directories.Modification_Time (Name);
---              end if;
---           end;
---        end loop;
---     end Update_Time_Tag;
-
-   -- --------------------------------------------------------------------------
    procedure Insert_Or_Update (The_Command     : in     Command_Lines;
                                The_Run         : in     Run;
                                In_Run_List     : in out Run_Lists.Map) is
@@ -235,13 +214,6 @@ package body Smk.Runfiles is
    begin
       for L in Run_List.Iterate loop
          if Settings.Filter_Sytem_Files then
-            -- IO.Put_Line
-            --   ("  Targets.Length = "
-            --    & Natural'Image (Natural (Element (L).Targets.Length)));
-            -- IO.Put_Line
-            --   ("  Target_System_File_Count ="
-            --    & Natural'Image (Element (L).Target_System_File_Count));
-
             Target_Count := Natural (Element (L).Targets.Length) -
               Element (L).Target_System_File_Count;
          else
@@ -286,6 +258,20 @@ package body Smk.Runfiles is
       Close (Run_Fl);
       return The_Runfile;
    end Get_Saved_Run;
+
+   -- --------------------------------------------------------------------------
+   function Load_Runfile return Runfile is
+      The_Runfile : Runfile;
+      use Settings;
+   begin
+      if Runfiles_Found then
+         The_Runfile := Get_Saved_Run (To_Runfile_Name (Smkfile_Name));
+      else
+         The_Runfile := (Smkfile_Name => To_Unbounded_String (Smkfile_Name),
+                         Run_List     => Run_Lists.Empty_Map);
+      end if;
+      return The_Runfile;
+   end Load_Runfile;
 
    -- --------------------------------------------------------------------------
    procedure Save_Run (The_Run : in Runfile) is

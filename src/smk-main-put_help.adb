@@ -36,6 +36,7 @@ begin
    Put_Line ("                  (commands, sources and targets)");
    Put_Line ("   read-smkfile : shows Smk understanding of a Smkfile");
    Put_Line ("   add          : add the following arguments to default.smk");
+   Put_Line ("   run          : equivalent to `add` followed by `build`");
    Put_Line ("   clean        : remove all targets files");
    Put_Line ("   reset        : remove all local Smk files");
    Put_Line ("                  (equivalent to rm .smk.*)");

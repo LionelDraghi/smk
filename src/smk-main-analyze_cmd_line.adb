@@ -135,7 +135,7 @@ procedure Analyze_Cmd_Line is
             end if;
          end;
 
-         when Add =>
+         when Add | Run =>
             -- the Add case is already process at the beginning of the if,
             -- this line can't be executed!
             Put_Error ("Unknown error in command line on :" &
@@ -151,8 +151,8 @@ procedure Analyze_Cmd_Line is
       -- no ambiguity because there is only one runfile in the current dir,
       -- let's load it.
    begin
-      if Smkfile_Name = "" and Current_Command
-      not in List_Previous_Runs | Reset_Smk_Files | Version | Help
+      if Smkfile_Name = "" and Current_Command not in
+        List_Previous_Runs | Reset_Smk_Files | Version | Help
       then
          -- Check for implicit Smkfile, except if the command doesn't need it
          -- IO.Put_Debug_Line ("no smkfile given");
@@ -188,6 +188,11 @@ procedure Analyze_Cmd_Line is
                Put_Error ("No smkfile given, and more than one runfile in dir",
                           With_Help => False);
 
+            elsif Ada.Directories.Exists (Default_Smkfile_Name) then
+               Settings.Set_Smkfile_Name (Default_Smkfile_Name);
+               IO.Put_Line ("Using smkfile = " & Smkfile_Name,
+                            Level => Verbose);
+
             else
                Put_Error ("No smkfile given, and no existing runfile in dir",
                           With_Help => False);
@@ -218,7 +223,7 @@ begin
       begin
          -- 1/3 Commands:
 
-         if Current_Command = Add then
+         if Current_Command = Add or Current_Command = Run then
             -- all parameters following "add" are considered as part of the
             -- command line, so there is no analysis of the content
             Add_To_Command_Line (Opt);
@@ -255,7 +260,9 @@ begin
 
          elsif Opt = "add" then
             Set_If_Not_Already_Set (Add);
-            -- undocumented option
+
+         elsif Opt = "run" then
+            Set_If_Not_Already_Set (Run);
 
             -- 2/3 Options:
          elsif Opt = "-a" or Opt = "--always-make" then
@@ -318,7 +325,9 @@ begin
    end if;
 
    -- --------------------------------------------------------------------------
-   if Smkfile_Name = "" and Current_Command = Add then
+   if Smkfile_Name = "" and
+     (Current_Command = Add or Current_Command = Run)
+   then
       -- adding to default smkfile if none given
       Set_Smkfile_Name (Default_Smkfile_Name);
    end if;

@@ -35,7 +35,7 @@ is
    use Runfiles;
 
    -- -----------------------------------------------------------------------
-   function A_Source_Is_Missing (The_Run : Run) return Boolean is
+   function A_Source_Is_Missing (The_Run : Runfiles.Run) return Boolean is
       use Ada.Directories;
       use Runfiles.File_Lists;
    begin
@@ -54,7 +54,7 @@ is
    end A_Source_Is_Missing;
 
    -- -----------------------------------------------------------------------
-   function A_Target_Is_Missing (The_Run : Run) return Boolean is
+   function A_Target_Is_Missing (The_Run : Runfiles.Run) return Boolean is
       use Ada.Directories;
       use Runfiles.File_Lists;
    begin
@@ -71,9 +71,8 @@ is
       return False;
    end A_Target_Is_Missing;
 
-
    -- --------------------------------------------------------------------------
-   function A_Source_Is_Updated (The_Run : Run) return Boolean is
+   function A_Source_Is_Updated (The_Run : Runfiles.Run) return Boolean is
       use Ada.Directories;
       use Runfiles.File_Lists;
    begin

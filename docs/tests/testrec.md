@@ -1269,6 +1269,8 @@ Commands :
    status       : shows what smk knows about the previous runs
                   (commands, sources and targets)
    read-smkfile : shows Smk understanding of a Smkfile
+   add          : add the following arguments to default.smk
+   run          : equivalent to `add` followed by `build`
    clean        : remove all targets files
    reset        : remove all local Smk files
                   (equivalent to rm .smk.*)
@@ -1344,6 +1346,8 @@ Commands :
    status       : shows what smk knows about the previous runs
                   (commands, sources and targets)
    read-smkfile : shows Smk understanding of a Smkfile
+   add          : add the following arguments to default.smk
+   run          : equivalent to `add` followed by `build`
    clean        : remove all targets files
    reset        : remove all local Smk files
                   (equivalent to rm .smk.*)
@@ -1549,11 +1553,13 @@ Sections related functions / smkmfile:section notation [Successful](tests_status
 
 
   Run:  
+  `smk -q clean`  
   `smk -q reset`  
+  `rm default.smk`  
   `smk add gcc -c ../hello.c/main.c`  
   `smk add gcc -c ../hello.c/hello.c`  
   `smk add gcc -o hello hello.o main.o`  
-  `smk build default.smk`  
+  `smk build`  
 
   Expected:  
 ```  
@@ -1564,3 +1570,25 @@ gcc -o hello hello.o main.o
 
 
 Command Run features / Add and build [Successful](tests_status.md#successful)
+
+##  Command Run features / Run
+
+
+  Run:  
+  `smk -q clean`  
+  `smk -q reset`  
+  `rm default.smk`  
+  `smk run gcc -c ../hello.c/main.c`  
+  `smk run gcc -c ../hello.c/hello.c`  
+  `smk run gcc -o hello hello.o main.o`  
+
+  Expected:  
+```  
+
+gcc -c ../hello.c/main.c
+gcc -c ../hello.c/hello.c
+gcc -o hello hello.o main.o
+```  
+
+
+Command Run features / Run [Successful](tests_status.md#successful)

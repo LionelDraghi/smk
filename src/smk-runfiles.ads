@@ -147,6 +147,10 @@ private package Smk.Runfiles is
    -- --------------------------------------------------------------------------
    function Runfiles_Found return Boolean;
    function Get_Saved_Run (Runfile_Name : in String) return Runfile;
+
+   function Load_Runfile return Runfile;
+   -- Get_Saved_Run or create a new runfile if none saved
+
    procedure Save_Run (The_Run : in Runfile);
    procedure Clean_Run_Files;
 

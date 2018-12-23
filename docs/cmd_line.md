@@ -20,6 +20,8 @@ Commands :
    status       : shows what smk knows about the previous runs
                   (commands, sources and targets)
    read-smkfile : shows Smk understanding of a Smkfile
+   add          : add the following arguments to default.smk
+   run          : equivalent to `add` followed by `build`
    clean        : remove all targets files
    reset        : remove all local Smk files
                   (equivalent to rm .smk.*)

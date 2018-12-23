@@ -53,6 +53,7 @@ private package Smk.Settings is
                      Build,
                      Help,
                      Add,
+                     Run,
                      None) with Default_Value => None;
    Current_Command : Commands;
 

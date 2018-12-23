@@ -95,7 +95,73 @@ procedure Smk.Main is
                                Target_Found  :    out Boolean)
    is separate;
 
-   use Ada.Strings.Unbounded;
+   -- --------------------------------------------------------------------------
+   procedure Process_Build is
+      The_Smkfile   : Smkfiles.Smkfile;
+      The_Runfile   : Runfiles.Runfile;
+      Cmd_To_Run    : Boolean;
+      Error_In_Run  : Boolean;
+      Section_Found : Boolean;
+      Target_Found  : Boolean;
+      use type Runfiles.File_Name;
+      use Ada.Strings.Unbounded;
+
+   begin
+      Smkfiles.Analyze (Smkfile_Name, The_Smkfile);
+
+      The_Runfile := Runfiles.Load_Runfile;
+
+      Run_All_Commands (The_Smkfile,
+                        The_Runfile.Run_List,
+                        Cmd_To_Run,
+                        Error_In_Run,
+                        Section_Found,
+                        Target_Found);
+
+      if Settings.Section_Name /= "" and not Section_Found then
+         IO.Put_Line ("No section """ & Settings.Section_Name &
+                        """ in " & (+The_Smkfile.Name));
+
+      elsif Settings.Target_Name /= "" and not Target_Found then
+         IO.Put_Line
+           ("Target """ & Settings.Target_Name & """ not found");
+         IO.Put_Line
+           ("run smk --list-targets to get a list of possible target");
+
+      elsif not Cmd_To_Run then
+         IO.Put_Line ("Nothing to run");
+
+      end if;
+
+      if Error_In_Run and not Ignore_Errors then
+         Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+      end if;
+
+      -- Save the updated run:
+      Runfiles.Save_Run (The_Runfile);
+   end Process_Build;
+
+   -- --------------------------------------------------------------------------
+   procedure Add_To_Smkfile is
+      use Ada.Text_IO;
+      Smk_File    : File_Type;
+      The_Smkfile : Smkfiles.Smkfile;
+      use type Runfiles.Command_Lines;
+
+   begin
+      if Ada.Directories.Exists (Smkfile_Name) then
+         Smkfiles.Analyze (Smkfile_Name, The_Smkfile);
+         Open   (Smk_File, Mode => Append_File, Name => Smkfile_Name);
+      else
+         Create (Smk_File, Mode => Append_File, Name => Smkfile_Name);
+      end if;
+
+      if not Smkfiles.Contains (The_Smkfile, +Command_Line) then
+         Put_Line (Smk_File, Command_Line);
+      end if;
+
+      Close (Smk_File);
+   end Add_To_Smkfile;
 
 begin
    -- --------------------------------------------------------------------------
@@ -109,7 +175,7 @@ begin
    end if;
 
    case Current_Command is
-      when Read_Smkfile       =>
+      when Read_Smkfile =>
          declare
             The_Smkfile : Smkfiles.Smkfile;
          begin
@@ -117,7 +183,7 @@ begin
             Smkfiles.Dump (The_Smkfile);
          end;
 
-      when Read_Run_Status    =>
+      when Read_Run_Status =>
          declare
             The_Runfile : Runfiles.Runfile;
          begin
@@ -133,127 +199,30 @@ begin
       when List_Previous_Runs =>
          Runfiles.Put_Run_List; -- Fixme:
 
-      when List_Targets       =>
-         declare
-            The_Runfile : Runfiles.Runfile;
-         begin
-            if Runfiles.Runfiles_Found then
-               The_Runfile := Runfiles.Get_Saved_Run
-                 (To_Runfile_Name (Smkfile_Name));
-            else
-               The_Runfile :=
-                 (Smkfile_Name => To_Unbounded_String (Smkfile_Name),
-                  Run_List     => Runfiles.Run_Lists.Empty_Map);
-            end if;
-            Runfiles.List_Targets (The_Runfile);
-         end;
+      when List_Targets =>
+         Runfiles.List_Targets (Runfiles.Load_Runfile);
 
-      when List_Sources       =>
-         declare
-            The_Runfile : Runfiles.Runfile;
-         begin
-            if Runfiles.Runfiles_Found then
-               The_Runfile := Runfiles.Get_Saved_Run
-                 (To_Runfile_Name (Smkfile_Name));
-            else
-               The_Runfile :=
-                 (Smkfile_Name => To_Unbounded_String (Smkfile_Name),
-                  Run_List     => Runfiles.Run_Lists.Empty_Map);
-            end if;
-            Runfiles.List_Sources (The_Runfile);
-         end;
+      when List_Sources =>
+         Runfiles.List_Sources (Runfiles.Load_Runfile);
 
-      when Clean_Targets      =>
-         declare
-            The_Runfile : Runfiles.Runfile;
-         begin
-            if Runfiles.Runfiles_Found then
-               The_Runfile := Runfiles.Get_Saved_Run
-                 (To_Runfile_Name (Smkfile_Name));
-            else
-               The_Runfile :=
-                 (Smkfile_Name => To_Unbounded_String (Smkfile_Name),
-                  Run_List     => Runfiles.Run_Lists.Empty_Map);
-            end if;
-            Runfiles.Delete_Targets (The_Runfile);
-         end;
+      when Clean_Targets =>
+         Runfiles.Delete_Targets (Runfiles.Load_Runfile);
 
-      when Reset_Smk_Files    =>
+      when Reset_Smk_Files =>
          Runfiles.Clean_Run_Files;
 
-      when Version            =>
+      when Version =>
          IO.Put_Line (Settings.Smk_Version);
 
-      when Build              =>
-         declare
-            The_Smkfile   : Smkfiles.Smkfile;
-            The_Runfile   : Runfiles.Runfile;
-            Cmd_To_Run    : Boolean;
-            Error_In_Run  : Boolean;
-            Section_Found : Boolean;
-            Target_Found  : Boolean;
-            use type Runfiles.File_Name;
-
-         begin
-            Smkfiles.Analyze (Smkfile_Name, The_Smkfile);
-
-            if Runfiles.Runfiles_Found then
-               The_Runfile := Runfiles.Get_Saved_Run
-                 (To_Runfile_Name (Smkfile_Name));
-            else
-               The_Runfile :=
-                 (Smkfile_Name => To_Unbounded_String (Smkfile_Name),
-                  Run_List     => Runfiles.Run_Lists.Empty_Map);
-            end if;
-            Run_All_Commands (The_Smkfile,
-                              The_Runfile.Run_List,
-                              Cmd_To_Run,
-                              Error_In_Run,
-                              Section_Found,
-                              Target_Found);
-
-            if Settings.Section_Name /= "" and not Section_Found then
-               IO.Put_Line ("No section """ & Settings.Section_Name &
-                              """ in " & (+The_Smkfile.Name));
-            elsif Settings.Target_Name /= "" and not Target_Found then
-               IO.Put_Line
-                 ("Target """ & Settings.Target_Name & """ not found");
-               IO.Put_Line
-                 ("run smk --list-targets to get a list of possible target");
-            elsif not Cmd_To_Run then
-               IO.Put_Line ("Nothing to run");
-            end if;
-
-            if Error_In_Run and not Ignore_Errors then
-               Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
-            end if;
-
-            -- Save the updated run:
-            Runfiles.Save_Run (The_Runfile);
-         end;
+      when Build =>
+         Process_Build;
 
       when Add =>
-         declare
-            use Ada.Text_IO;
-            Smk_File    : File_Type;
-            The_Smkfile : Smkfiles.Smkfile;
-            use type Runfiles.Command_Lines;
+         Add_To_Smkfile;
 
-         begin
-            if Ada.Directories.Exists (Smkfile_Name) then
-               Smkfiles.Analyze (Smkfile_Name, The_Smkfile);
-               Open   (Smk_File, Mode => Append_File, Name => Smkfile_Name);
-            else
-               Create (Smk_File, Mode => Append_File, Name => Smkfile_Name);
-            end if;
-
-            if not Smkfiles.Contains (The_Smkfile, +Command_Line) then
-               Put_Line (Smk_File, Command_Line);
-            end if;
-
-            Close (Smk_File);
-         end;
-
+      when Run =>
+         Add_To_Smkfile;
+         Process_Build;
 
       when Help =>
          Put_Help;
