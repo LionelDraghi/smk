@@ -80,7 +80,7 @@ gcc -o hello hello.o main.o
 
 let's see what smk retains from the last run:
 
-`smk status`
+`smk status -l`
 
 For convenience, when there is one (and only one) smk file in the dir, you don't have to give it on the command line.  
 So, from now on, `smk` is equivalent to `smk MyBuild` 
@@ -113,7 +113,7 @@ So, from now on, `smk` is equivalent to `smk MyBuild`
 
 To see what I mean by flooded, try it :
 
-`smk status -sa MyBuild` 
+`smk status -sa -l MyBuild` 
 
 
 ## What are those new files in the the current dir?
@@ -126,7 +126,7 @@ Smk stores information in local hidden .smk.* files, one per smk file :
 
 `smk MyBuild`, or just `smk`
 
-Sources are unchanged, target is up to date, smk exit sillently.  
+Sources are unchanged, target is up to date, smk exit silently.  
 
 To get more info, you may try the `--verbose` option (short form : `-v`)
 

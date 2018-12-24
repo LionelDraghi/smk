@@ -14,13 +14,14 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
+with Smk.IO;
+with Smk.Settings;
+
 with Ada.Characters.Latin_1;
 with Ada.Directories;
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps.Constants;
 with Ada.Text_IO;                use Ada.Text_IO;
-
-with Smk.IO;
 
 -- -----------------------------------------------------------------------------
 package body Smk.Smkfiles is
@@ -28,10 +29,16 @@ package body Smk.Smkfiles is
    Debug  : constant Boolean := False;
    Prefix : constant String  := "";
 
+   -- --------------------------------------------------------------------------
+   function "+" (Name : Smk_File_Name) return String is
+     (Files."+" (Files.File_Name (Name)));
+   function "+" (Name : String) return Smk_File_Name is
+     (Smk_File_Name (Files."+" (Name)));
+
    use Ada.Strings;
    use Ada.Strings.Fixed;
 
-   Current_Section : Runfiles.Section_Names := Runfiles.Default_Section;
+   Current_Section : Section_Names := Default_Section;
 
    use Ada.Strings.Maps;
    use Ada.Strings.Maps.Constants;
@@ -88,16 +95,17 @@ package body Smk.Smkfiles is
    end Is_A_Section;
 
   -- --------------------------------------------------------------------------
-   procedure Analyze (Smkfile_Name : in     String;
+   procedure Analyze (Smkfile_Name : in     Smk_File_Name;
                       Line_List    :    out Smkfile)
    is
       Make_Fl        : Ada.Text_IO.File_Type;
       Entry_List     : Smkfile_Entry_Lists.List;
       In_A_Multiline : Boolean := False;
       Multiline      : Command_Lines := Null_Command_Line;
+      Name           : constant String := +Smkfile_Name;
 
    begin
-      Open (Make_Fl, Mode => In_File, Name => Smkfile_Name);
+      Open (Make_Fl, In_File, Name);
 
       Analysis : while not End_Of_File (Make_Fl) loop
          declare
@@ -114,21 +122,21 @@ package body Smk.Smkfiles is
                IO.Put_Debug_Line (Line & "<",
                                   Debug  => Debug,
                                   Prefix => Prefix & "Comment    >",
-                                  File   => Smkfile_Name,
+                                  File   => Name,
                                   Line   => Line_Nb);
 
             elsif Is_Empty (Line) then
                IO.Put_Debug_Line (Line & "<",
                                   Debug  => Debug,
                                   Prefix => Prefix & "Empty line >",
-                                  File   => Smkfile_Name,
+                                  File   => Name,
                                   Line   => Line_Nb);
 
             elsif Is_A_Section (Line) then
                IO.Put_Debug_Line (+Current_Section & "<",
                                   Debug  => Debug,
                                   Prefix => Prefix & "Section    >",
-                                  File   => Smkfile_Name,
+                                  File   => Name,
                                   Line   => Line_Nb);
 
             else
@@ -149,10 +157,10 @@ package body Smk.Smkfiles is
                        & " ";
                      In_A_Multiline := True;
                      IO.Put_Debug_Line
-                       (To_String (Multiline) & "<",
+                       ((+Multiline) & "<",
                         Debug  => Debug,
                         Prefix => Prefix & "First or continuation    >",
-                        File   => Smkfile_Name,
+                        File   => +Smkfile_Name,
                         Line   => Line_Nb);
                   end;
 
@@ -164,10 +172,10 @@ package body Smk.Smkfiles is
                                          Section => Current_Section,
                                          Command => Multiline,
                                          Was_Run => False));
-                     IO.Put_Debug_Line (To_String (Multiline) & "<",
+                     IO.Put_Debug_Line (+Multiline & "<",
                                         Debug  => Debug,
                                         Prefix => Prefix & "Last line >",
-                                        File   => Smkfile_Name,
+                                        File   => Name,
                                         Line   => Line_Nb);
                      Multiline := Null_Command_Line;
                      In_A_Multiline := False;
@@ -181,7 +189,7 @@ package body Smk.Smkfiles is
                      IO.Put_Debug_Line (Line & "<",
                                         Debug  => Debug,
                                         Prefix => Prefix & "Single line >",
-                                        File   => Smkfile_Name,
+                                        File   => Name,
                                         Line   => Line_Nb);
                   end if;
 
@@ -194,7 +202,7 @@ package body Smk.Smkfiles is
       end loop Analysis;
 
       if In_A_Multiline then
-         IO.Put_Error (Smkfile_Name
+         IO.Put_Error (Name
                        & " ends with incomplete multine, last command ignored");
       end if;
 
@@ -203,8 +211,8 @@ package body Smk.Smkfiles is
       declare
          use Ada.Directories;
       begin
-         Line_List := (Name     => +Smkfile_Name,
-                       Time_Tag => Modification_Time (Smkfile_Name),
+         Line_List := (Name     => Smkfile_Name,
+                       Time_Tag => Modification_Time (Name),
                        Entries  => Entry_List);
       end;
 
@@ -239,5 +247,24 @@ package body Smk.Smkfiles is
       return False;
    end Contains;
 
+   -- --------------------------------------------------------------------------
+   procedure Add_To_Smkfile (Cmd_Line : String) is
+      Smk_File    : Ada.Text_IO.File_Type;
+      The_Smkfile : Smkfiles.Smkfile;
+      use Settings;
+   begin
+      if Ada.Directories.Exists (Smkfile_Name) then
+         Smkfiles.Analyze (+Smkfile_Name, The_Smkfile);
+         Open   (Smk_File, Mode => Append_File, Name => Smkfile_Name);
+      else
+         Create (Smk_File, Mode => Append_File, Name => Smkfile_Name);
+      end if;
+
+      if not Smkfiles.Contains (The_Smkfile, +Cmd_Line) then
+         Put_Line (Smk_File, Cmd_Line);
+      end if;
+
+      Close (Smk_File);
+   end Add_To_Smkfile;
 
 end Smk.Smkfiles;

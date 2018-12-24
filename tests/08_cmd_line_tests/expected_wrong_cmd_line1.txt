@@ -1,4 +1,4 @@
-Error : More than one command on command line : READ_RUN_STATUS and READ_SMKFILE
+Error : More than one command on command line : STATUS and READ_SMKFILE
 
 Usage : smk Command [Options]* [Smkfile][:target]
 
@@ -9,20 +9,22 @@ Use example :
    or just                   : smk :target
 
 Commands :
-   build        : run the build
-   status       : shows what smk knows about the previous runs
-                  (commands, sources and targets)
-   read-smkfile : shows Smk understanding of a Smkfile
-   add          : add the following arguments to default.smk
-   run          : equivalent to `add` followed by `build`
-   clean        : remove all targets files
-   reset        : remove all local Smk files
-                  (equivalent to rm .smk.*)
-   version      : put Smk version
-   help | -h    : this message
-   -lr  | --list-runs    : list runfiles in current directory
-   -ls  | --list-sources : list sources, except system files
-   -lt  | --list-targets
+   build             : run the build
+   status       | st : shows what smk knows about the previous
+                       runs (commands, sources and targets)
+   read-smkfile | rs : shows Smk understanding of a Smkfile
+   whatsnew     | wn : list changes since last run
+   add               : add the rest of the command line to
+                       default.smk
+   run               : equivalent to `add` followed by `build`
+   clean             : remove all targets files
+   reset             : remove all local Smk files
+                       (equivalent to rm .smk.*)
+   version           : put Smk version
+   help              : this message
+   list-runs    | lr : list runfiles in current directory
+   list-sources | ls : list sources, except system files
+   list-targets | lt
    NB : when no command is given, build is assumed
 
 Options :
@@ -41,6 +43,8 @@ Options :
    -v   | --verbose
    -q   | --quiet           : no message unless error,
                               Warning are also ignored
+   -h   | --help            : this message
+
 
 http://lionel.draghi.free.fr/smk/
 

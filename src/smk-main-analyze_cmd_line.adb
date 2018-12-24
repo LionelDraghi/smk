@@ -22,6 +22,8 @@ with Ada.Directories;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Ada.Strings.Fixed;
 with Ada.Directories;
+with Smk.Smkfiles;          use type Smk.Smkfiles.Smk_File_Name;
+
 
 separate (Smk.Main)
 
@@ -61,7 +63,6 @@ procedure Analyze_Cmd_Line is
       Index   : constant Natural := Ada.Strings.Fixed.Index (Opt, ":");
       Smkfile : constant String  := Opt (Opt'First .. Index - 1);
       Section : constant String  := Opt (Index + 1 .. Opt'Last);
-
    begin
       -- maybe either smkfile:section or :section
       if Smkfile = "" then
@@ -93,7 +94,7 @@ procedure Analyze_Cmd_Line is
          -- the unrecognized argument processing depends on the
          -- ongoing command
 
-      when Read_Smkfile | Read_Run_Status | List_Sources =>
+      when Read_Smkfile | Status | List_Sources | Whatsnew =>
          declare
             Opt : constant String := To_String (Unidentified_Opt);
 
@@ -109,12 +110,12 @@ procedure Analyze_Cmd_Line is
             end if;
          end;
 
-      when List_Previous_Runs | Reset_Smk_Files | Version | Help | None =>
+      when List_Previous_Runs | Reset | Version | Help | None =>
          -- no more argument expected
          Put_Error ("Unknown option " & To_String (Unidentified_Opt),
                     With_Help => True);
 
-      when List_Targets | Clean_Targets | Build =>
+      when List_Targets | Clean | Build =>
          declare
             Opt : constant String := To_String (Unidentified_Opt);
 
@@ -151,8 +152,8 @@ procedure Analyze_Cmd_Line is
       -- no ambiguity because there is only one runfile in the current dir,
       -- let's load it.
    begin
-      if Smkfile_Name = "" and Current_Command not in
-        List_Previous_Runs | Reset_Smk_Files | Version | Help
+      if not Is_Smkfile_Name_Set and Current_Command not in
+        List_Previous_Runs | Reset | Version | Help
       then
          -- Check for implicit Smkfile, except if the command doesn't need it
          -- IO.Put_Debug_Line ("no smkfile given");
@@ -160,7 +161,9 @@ procedure Analyze_Cmd_Line is
          declare
             use type Ada.Containers.Count_Type;
             use Runfiles;
-            use Runfiles.File_Lists;
+            use Files;
+            use File_Lists;
+            use Smkfiles;
             Run_List : constant File_Lists.Map := Get_Run_List;
 
          begin
@@ -177,10 +180,9 @@ procedure Analyze_Cmd_Line is
                   IO.Put_Line ("Implicit runfile = " & (Runfile_Name),
                                Level => Debug);
 
-                  Run := Get_Saved_Run (Runfile_Name);
-                  Settings.Set_Smkfile_Name (To_String (Run.Smkfile_Name));
-                  IO.Put_Line ("Implicit smkfile = " &
-                               (To_String (Run.Smkfile_Name)),
+                  Run := Get_Saved_Run (+Runfile_Name);
+                  Settings.Set_Smkfile_Name (+Run.Smkfile_Name);
+                  IO.Put_Line ("Implicit smkfile = " & (+Run.Smkfile_Name),
                                Level => Debug);
                end;
 
@@ -190,7 +192,7 @@ procedure Analyze_Cmd_Line is
 
             elsif Ada.Directories.Exists (Default_Smkfile_Name) then
                Settings.Set_Smkfile_Name (Default_Smkfile_Name);
-               IO.Put_Line ("Using smkfile = " & Smkfile_Name,
+               IO.Put_Line ("Using smkfile = " & (Smkfile_Name),
                             Level => Verbose);
 
             else
@@ -231,32 +233,35 @@ begin
          elsif Opt = "build" then
             Set_If_Not_Already_Set (Build);
 
-         elsif Opt = "status" then
-            Set_If_Not_Already_Set (Read_Run_Status);
+         elsif Opt = "st" or Opt = "status" then
+            Set_If_Not_Already_Set (Status);
 
          elsif Opt = "clean" then
-            Set_If_Not_Already_Set (Clean_Targets);
+            Set_If_Not_Already_Set (Clean);
 
          elsif Opt = "reset" then
-            Set_If_Not_Already_Set (Reset_Smk_Files);
+            Set_If_Not_Already_Set (Reset);
 
          elsif Opt = "version" then
             Set_If_Not_Already_Set (Version);
 
-         elsif Opt = "help" or Opt = "-h" then
+         elsif Opt = "help" or Opt = "-h" or Opt = "--help" then
             Set_If_Not_Already_Set (Help);
 
-         elsif Opt = "read-smkfile" then
+         elsif Opt = "rs" or Opt = "read-smkfile" then
             Set_If_Not_Already_Set (Read_Smkfile);
 
-         elsif Opt = "-lr" or Opt = "--list-runs" then
+         elsif Opt = "lr" or Opt = "list-runs" then
             Set_If_Not_Already_Set (List_Previous_Runs);
 
-         elsif Opt = "-ls" or Opt = "--list-sources" then
+         elsif Opt = "ls" or Opt = "list-sources" then
             Set_If_Not_Already_Set (List_Sources);
 
-         elsif Opt = "-lt" or Opt = "--list-targets" then
+         elsif Opt = "lt" or Opt = "list-targets" then
             Set_If_Not_Already_Set (List_Targets);
+
+         elsif Opt = "wn" or Opt = "whatsnew" then
+            Set_If_Not_Already_Set (Whatsnew);
 
          elsif Opt = "add" then
             Set_If_Not_Already_Set (Add);
@@ -325,7 +330,7 @@ begin
    end if;
 
    -- --------------------------------------------------------------------------
-   if Smkfile_Name = "" and
+   if not Is_Smkfile_Name_Set and
      (Current_Command = Add or Current_Command = Run)
    then
       -- adding to default smkfile if none given

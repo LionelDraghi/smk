@@ -121,6 +121,9 @@ sanity:
 	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.5 out.5" 
 	${TR} end
 
+	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
+	sleep 1
+
 	@ #-------------------------------------------------------------------------
 	${TR} start '`touch hello.c` (updated file)'
 	${TR} cmt 

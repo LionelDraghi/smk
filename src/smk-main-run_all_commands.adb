@@ -37,8 +37,6 @@ is
    Some_Command_To_Run  : Boolean := False;
    Some_Error_In_Run    : Boolean := False;
 
-   use type Runfiles.Section_Names;
-
 begin
    Cmd_To_Run    := False;
    Error_In_Run  := False;
@@ -73,7 +71,7 @@ begin
       Inner : for E of The_Smkfile.Entries loop
 
          if Settings.Section_Name = "" or else
-           Settings.Section_Name = E.Section
+           Settings.Section_Name = +E.Section
          then
             Section_Found := True;
             Target_Found  := Runfiles.Has_Target (The_Run_List,

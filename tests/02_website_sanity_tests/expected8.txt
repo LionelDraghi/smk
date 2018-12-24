@@ -1,2 +1,5 @@
-
+No need to run mkdocs build --clean --quiet
+No need to run echo --- clean:
+No need to run rm -rf ./site/*
+No need to run echo OK
 Nothing to run

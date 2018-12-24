@@ -14,20 +14,13 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
--- -----------------------------------------------------------------------------
--- Procedure: Smk.Main body
---
--- Implementation Notes:
---
--- Portability Issues:
---
--- Anticipated Changes:
--- -----------------------------------------------------------------------------
-
+with Smk.Definitions;      use Smk.Definitions;
 with Smk.IO;
+with Smk.Files;
+with Smk.Files.File_Lists;
 with Smk.Smkfiles;
 with Smk.Runfiles;
-with Smk.Settings;     use Smk.Settings;
+with Smk.Settings;          use Smk.Settings;
 
 with Ada.Calendar;
 with Ada.Command_Line;
@@ -52,9 +45,9 @@ procedure Smk.Main is
 
    -- --------------------------------------------------------------------------
    procedure Analyze_Run
-     (Source_Files             : out Runfiles.File_Lists.Map;
+     (Source_Files             : out Files.File_Lists.Map;
       Source_System_File_Count : out Natural;
-      Target_Files             : out Runfiles.File_Lists.Map;
+      Target_Files             : out Files.File_Lists.Map;
       Target_System_File_Count : out Natural) is separate;
    -- Based on the run log file (that is the strace output), and the run time,
    -- it identifies Source and Target files.
@@ -65,7 +58,7 @@ procedure Smk.Main is
    -- the execution time, and to Target_Files list otherwise.
 
    -- --------------------------------------------------------------------------
-   function Must_Be_Run (Command      : Runfiles.Command_Lines;
+   function Must_Be_Run (Command      : Command_Lines;
                          Previous_Run : in out Runfiles.Run_Lists.Map)
                          return Boolean is separate;
    -- This function return True if one of the following condition is met:
@@ -103,11 +96,10 @@ procedure Smk.Main is
       Error_In_Run  : Boolean;
       Section_Found : Boolean;
       Target_Found  : Boolean;
-      use type Runfiles.File_Name;
-      use Ada.Strings.Unbounded;
+      use Smk.Smkfiles;
 
    begin
-      Smkfiles.Analyze (Smkfile_Name, The_Smkfile);
+      Smkfiles.Analyze (+Smkfile_Name, The_Smkfile);
 
       The_Runfile := Runfiles.Load_Runfile;
 
@@ -126,7 +118,7 @@ procedure Smk.Main is
          IO.Put_Line
            ("Target """ & Settings.Target_Name & """ not found");
          IO.Put_Line
-           ("run smk --list-targets to get a list of possible target");
+           ("run smk list-targets to get a list of possible target");
 
       elsif not Cmd_To_Run then
          IO.Put_Line ("Nothing to run");
@@ -140,28 +132,6 @@ procedure Smk.Main is
       -- Save the updated run:
       Runfiles.Save_Run (The_Runfile);
    end Process_Build;
-
-   -- --------------------------------------------------------------------------
-   procedure Add_To_Smkfile is
-      use Ada.Text_IO;
-      Smk_File    : File_Type;
-      The_Smkfile : Smkfiles.Smkfile;
-      use type Runfiles.Command_Lines;
-
-   begin
-      if Ada.Directories.Exists (Smkfile_Name) then
-         Smkfiles.Analyze (Smkfile_Name, The_Smkfile);
-         Open   (Smk_File, Mode => Append_File, Name => Smkfile_Name);
-      else
-         Create (Smk_File, Mode => Append_File, Name => Smkfile_Name);
-      end if;
-
-      if not Smkfiles.Contains (The_Smkfile, +Command_Line) then
-         Put_Line (Smk_File, Command_Line);
-      end if;
-
-      Close (Smk_File);
-   end Add_To_Smkfile;
 
 begin
    -- --------------------------------------------------------------------------
@@ -178,18 +148,20 @@ begin
       when Read_Smkfile =>
          declare
             The_Smkfile : Smkfiles.Smkfile;
+            use Smkfiles;
          begin
-            Smkfiles.Analyze (Smkfile_Name, The_Smkfile);
+            Smkfiles.Analyze (+Smkfile_Name, The_Smkfile);
             Smkfiles.Dump (The_Smkfile);
          end;
 
-      when Read_Run_Status =>
+      when Status =>
          declare
             The_Runfile : Runfiles.Runfile;
+            use Files;
          begin
             if Runfiles.Runfiles_Found then
                The_Runfile := Runfiles.Get_Saved_Run
-                 (To_Runfile_Name (Smkfile_Name));
+                 (+To_Runfile_Name (Smkfile_Name));
                Runfiles.Dump (The_Runfile.Run_List);
             else
                Put_Error ("No previous run found.");
@@ -205,10 +177,22 @@ begin
       when List_Sources =>
          Runfiles.List_Sources (Runfiles.Load_Runfile);
 
-      when Clean_Targets =>
+      when Whatsnew =>
+         declare
+            use Runfiles;
+            The_Runfile  : Runfile;
+            Updated_List : Files.File_Lists.Map;
+         begin
+            The_Runfile := Load_Runfile;
+            Update_Files_Status (The_Runfile, Updated_List);
+            List_Updated (Updated_List);
+            Save_Run (The_Runfile);
+         end;
+
+      when Clean =>
          Runfiles.Delete_Targets (Runfiles.Load_Runfile);
 
-      when Reset_Smk_Files =>
+      when Reset =>
          Runfiles.Clean_Run_Files;
 
       when Version =>
@@ -218,10 +202,10 @@ begin
          Process_Build;
 
       when Add =>
-         Add_To_Smkfile;
+         Smkfiles.Add_To_Smkfile (Command_Line);
 
       when Run =>
-         Add_To_Smkfile;
+         Smkfiles.Add_To_Smkfile (Command_Line);
          Process_Build;
 
       when Help =>

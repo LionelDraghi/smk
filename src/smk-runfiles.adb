@@ -14,20 +14,11 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
--- -----------------------------------------------------------------------------
--- Package: Smk.Run_Files body
---
--- Implementation Notes:
---
--- Portability Issues:
---
--- Anticipated Changes:
--- -----------------------------------------------------------------------------
-
 with Ada.Directories;
 with Ada.Streams.Stream_IO;
 with Ada.Strings.Fixed;
 
+with Smk.Files.Dump;
 with Smk.IO;
 with Smk.Settings;
 
@@ -36,37 +27,13 @@ package body Smk.Runfiles is
    Run_Fl : Ada.Streams.Stream_IO.File_Type;
 
    -- --------------------------------------------------------------------------
-   function "+" (Name : File_Name) return String is
-     (To_String (Name));
-   function "+" (Name : String) return File_Name is
-     (File_Name'(To_Unbounded_String (Name)));
-   function "+" (Name : File_Name) return Unbounded_String is
-     (Unbounded_String (Name));
-
-   -- --------------------------------------------------------------------------
-   procedure Dump (File_List : in File_Lists.Map) is
-      use Runfiles.File_Lists;
-   begin
-      for F in File_List.Iterate loop
-         declare
-            Name : constant String            := +Key (F);
-            TT   : constant Ada.Calendar.Time := Element (F).Time_Tag;
-         begin
-            if not (Settings.Filter_Sytem_Files and Element (F).Is_System) then
-               IO.Put_Line ("  - " & IO.Image (TT) & ":" & Name);
-            end if;
-         end;
-      end loop;
-   end Dump;
-
-   -- --------------------------------------------------------------------------
    procedure Dump (File_List : in File_Lists.Map;
                    Prefix    : in String) is
-      use Runfiles.File_Lists;
+      use File_Lists;
       use Smk.Settings;
    begin
       for F in File_List.Iterate loop
-         if not (Settings.Filter_Sytem_Files and Element (F).Is_System) then
+         if not (Settings.Filter_Sytem_Files and Is_System (Element (F))) then
             IO.Put_Line (Item => Prefix & (+Key (F)));
          end if;
       end loop;
@@ -79,7 +46,7 @@ package body Smk.Runfiles is
       RT_Image : constant String := IO.Image (Run.Run_Time);
       Section  : constant String := " [" & (+Run.Section) & "] ";
    begin
-      return (RT_Image & Section & Command);
+      return (RT_Image & Section & """" & Command & """");
    end Command_Image;
 
    -- --------------------------------------------------------------------------
@@ -93,23 +60,75 @@ package body Smk.Runfiles is
    end Source_Count;
 
    -- --------------------------------------------------------------------------
---     procedure List_Dependencies (Run_List : in Run_Lists.Map) is
---        use Run_Lists;
---     begin
---        for L in Run_List.Iterate loop
---           declare
---              Run : constant Runfiles.Run := Element (L);
---              SC  : constant String := Natural'Image (Source_Count (Run));
---           begin
---              IO.Put_Line (Command_Image ((+Key (L)), Run));
---
---              IO.Put_Line ("  Sources (" & SC (2 .. SC'Last) & ") :");
---              Dump (Run.Sources);
---
---              IO.Put_Line ("");
---           end;
---        end loop;
---     end List_Dependencies;
+   function Target_Count (Run : in Runfiles.Run) return Natural is
+   begin
+      if Settings.Filter_Sytem_Files then
+         return Natural (Run.Targets.Length) - Run.Target_System_File_Count;
+      else
+         return Natural (Run.Targets.Length);
+      end if;
+   end Target_Count;
+
+   -- --------------------------------------------------------------------------
+   procedure Update_Files_Status (File_List    : in out File_Lists.Map;
+                                  Updated_List : in out File_Lists.Map) is
+      use Smk.Files.File_Lists;
+   begin
+      for I in File_List.Iterate loop
+         declare
+            Previous_Status : File_Status;
+            Current_Status  : File_Status;
+         begin
+            Files.Update_File_Status (File_Lists.Key (I),
+                                      File_List (I),
+                                      Previous_Status,
+                                      Current_Status);
+            if Current_Status /= Identical then
+               if not Updated_List.Contains (File_Lists.Key (I)) then
+                  Updated_List.Insert (File_Lists.Key (I), File_List (I));
+                  if Previous_Status /= Current_Status then
+                     IO.Put_Line (+File_Lists.Key (I) & " status changed from "
+                            & File_Status'Image (Previous_Status) & " to "
+                            & File_Status'Image (Current_Status),
+                                  Level => IO.Debug);
+                  end if;
+               end if;
+            end if;
+         end;
+      end loop;
+   end Update_Files_Status;
+
+   -- --------------------------------------------------------------------------
+   procedure Update_Files_Status (The_Runfile  : in out Runfile;
+                                  Updated_List : in out File_Lists.Map) is
+   begin
+      for R of The_Runfile.Run_List loop
+         Update_Files_Status (R.Sources, Updated_List);
+         Update_Files_Status (R.Targets, Updated_List);
+      end loop;
+   end Update_Files_Status;
+
+   -- --------------------------------------------------------------------------
+   procedure List_Updated (File_List : in File_Lists.Map) is
+      use File_Lists;
+   begin
+      for I in File_List.Iterate loop
+         declare
+            Name : constant String    := +File_Lists.Key (I);
+            File : constant File_Type := File_Lists.Element (I);
+         begin
+            IO.Put_Line ("[" & Short_Image (Status (File))
+                         & "] " & Name, Level => IO.Debug);
+            if not (Settings.Filter_Sytem_Files and Is_System (File))
+            then
+               if Status (File) /= Identical and not Is_Dir (File) then
+                     IO.Put_Line ("[" & File_Status'Image (Status (File)) & "] "
+                                  & Name);
+               end if;
+            end if;
+         end;
+      end loop;
+   end List_Updated;
 
    -- --------------------------------------------------------------------------
    procedure List_Sources (The_Runfile : in Runfile) is
@@ -154,7 +173,7 @@ package body Smk.Runfiles is
       for R of The_Runfile.Run_List loop
          for F in R.Targets.Iterate loop
             declare
-               use Runfiles.File_Lists;
+               use File_Lists;
                Name : constant String := (+Key (F));
                use Settings;
             begin
@@ -181,7 +200,7 @@ package body Smk.Runfiles is
 
       for R of The_Run_List loop
          for T in R.Targets.Iterate loop
-            if Tail (+Key (T), Target'Length) = Target then
+            if Ada.Strings.Fixed.Tail (+Key (T), Target'Length) = Target then
                IO.Put_Line ("File " & (+Key (T)) & " match Target "
                             & Target & ".", Level => IO.Verbose);
                return True;
@@ -209,31 +228,30 @@ package body Smk.Runfiles is
    -- --------------------------------------------------------------------------
    procedure Dump (Run_List : in Run_Lists.Map) is
       use Run_Lists;
-      -- use Ada.Containers;
-      Target_Count : Natural;
    begin
       for L in Run_List.Iterate loop
-         if Settings.Filter_Sytem_Files then
-            Target_Count := Natural (Element (L).Targets.Length) -
-              Element (L).Target_System_File_Count;
-         else
-            Target_Count := Natural (Element (L).Targets.Length);
-         end if;
-
          declare
             Run : constant Runfiles.Run := Element (L);
             SC  : constant String := Natural'Image (Source_Count (Run));
-            TC  : constant String := Natural'Image (Target_Count);
+            TC  : constant String := Natural'Image (Target_Count (Run));
+
          begin
-            IO.Put_Line (Command_Image ((+Key (L)), Run));
+            if Settings.Long_Listing_Format then
+               -- long form:
+               IO.Put_Line (Command_Image ((+Key (L)), Run));
+               IO.Put_Line ("  Sources (" & SC (2 .. SC'Last) & ") :");
+               Smk.Files.Dump (Run.Sources);
+               IO.Put_Line ("  Targets (" & TC (2 .. TC'Last) & ") :");
+               Smk.Files.Dump (Run.Targets);
+               IO.Put_Line ("");
 
-            IO.Put_Line ("  Sources (" & SC (2 .. SC'Last) & ") :");
-            Dump (Run.Sources);
+            else
+               -- short form:
+               IO.Put_Line (Command_Image ((+Key (L)), Run)
+                            & " (" & SC (2 .. SC'Last) & " source(s),"
+                            & TC & " target(s))");
 
-            IO.Put_Line ("  Targets (" & TC (2 .. TC'Last) & ") :");
-            Dump (Run.Targets);
-
-            IO.Put_Line ("");
+            end if;
          end;
       end loop;
    end Dump;
@@ -245,12 +263,12 @@ package body Smk.Runfiles is
    end Runfiles_Found;
 
    -- --------------------------------------------------------------------------
-   function Get_Saved_Run (Runfile_Name : in String) return Runfile is
+   function Get_Saved_Run (Runfile_Name : in File_Name) return Runfile is
       use Ada.Streams.Stream_IO;
       The_Runfile : Runfile;
       S           : Stream_Access;
    begin
-      Open (Name => Runfile_Name,
+      Open (Name => +Runfile_Name,
             File => Run_Fl,
             Mode => In_File);
       S := Stream (Run_Fl);
@@ -265,9 +283,9 @@ package body Smk.Runfiles is
       use Settings;
    begin
       if Runfiles_Found then
-         The_Runfile := Get_Saved_Run (To_Runfile_Name (Smkfile_Name));
+         The_Runfile := Get_Saved_Run (+To_Runfile_Name (Smkfile_Name));
       else
-         The_Runfile := (Smkfile_Name => To_Unbounded_String (Smkfile_Name),
+         The_Runfile := (Smkfile_Name => +Smkfile_Name,
                          Run_List     => Run_Lists.Empty_Map);
       end if;
       return The_Runfile;
@@ -279,7 +297,7 @@ package body Smk.Runfiles is
       S : Stream_Access;
       use Settings;
    begin
-      Create (Name => To_Runfile_Name (To_String (The_Run.Smkfile_Name)),
+      Create (Name => To_Runfile_Name (+The_Run.Smkfile_Name),
               File => Run_Fl,
               Mode => Out_File);
       S := Stream (Run_Fl);
@@ -311,7 +329,6 @@ package body Smk.Runfiles is
       Search   : Search_Type;
       File     : Directory_Entry_Type;
       The_List : File_Lists.Map;
-      use File_Lists;
    begin
       Start_Search (Search,
                     Directory => ".",
@@ -329,13 +346,8 @@ package body Smk.Runfiles is
                Through => Run_Fl_Name'First + Prefix_Length - 1);
             -- removing File_Prefix
          begin
-            -- IO.Put_Line ("Get_Run_List inserting = " & Smkfile_Name);
-            -- IO.Put_Line ("          (Simple_Name = " & Run_Fl_Name & ")");
-
             The_List.Insert (Key      => +Smkfile_Name,
-                             New_Item => (Modification_Time (File),
-                                          Is_System => False));
-            -- Fixme: pas compatible avec un smkfile en répertoire relatif!
+                             New_Item => Create (+Smkfile_Name));
          end;
       end loop;
       return The_List;
@@ -343,7 +355,7 @@ package body Smk.Runfiles is
 
    -- --------------------------------------------------------------------------
    procedure Put_Run_List is
-      use Runfiles.File_Lists;
+      use File_Lists;
       Run_List : constant File_Lists.Map := Runfiles.Get_Run_List;
       use type Ada.Containers.Count_Type;
    begin
@@ -355,6 +367,5 @@ package body Smk.Runfiles is
          end loop;
       end if;
    end Put_Run_List;
-
 
 end Smk.Runfiles;

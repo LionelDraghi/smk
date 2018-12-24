@@ -27,16 +27,38 @@ check: ../smk
 		# 	echo "   - "$$test;					\
 		# 	$(MAKE) check --directory=$$test;	\
 		# done
+	echo
+	echo 01_sanity_tests
 	$(MAKE) check --directory=01_sanity_tests
+	echo
+	echo 02_website_sanity_tests
 	$(MAKE) check --directory=02_website_sanity_tests
+	echo
+	echo 03_read_queries_tests
 	$(MAKE) check --directory=03_read_queries_tests
+	echo
+	echo 04_list_queries_tests
 	$(MAKE) check --directory=04_list_queries_tests
+	echo
+	echo 05_target_tests
 	$(MAKE) check --directory=05_target_tests
+	echo
+	echo 06_implicit_naming_tests
 	$(MAKE) check --directory=06_implicit_naming_tests
+	echo
+	echo 07_run_error_tests
 	$(MAKE) check --directory=07_run_error_tests
+	echo
+	echo 08_cmd_line_tests
 	$(MAKE) check --directory=08_cmd_line_tests
+	echo
+	echo 09_multiline_tests
 	$(MAKE) check --directory=09_multiline_tests
+	echo
+	echo 10_section_tests
 	$(MAKE) check --directory=10_section_tests
+	echo
+	echo 11_command_run_tests
 	$(MAKE) check --directory=11_command_run_tests
 
 doc:

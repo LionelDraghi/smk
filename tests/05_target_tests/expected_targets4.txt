@@ -1,6 +1,6 @@
-run gcc -o hello.o -c hello.c because /home/lionel/Proj/smk/tests/hello.c/hello.o is missing
+run "gcc -o hello.o -c hello.c" because /home/lionel/Proj/smk/tests/hello.c/hello.o is missing
 gcc -o hello.o -c hello.c
-run gcc -o main.o -c main.c because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
+run "gcc -o main.o -c main.c" because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
 gcc -o main.o -c main.c
-run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/hello is missing
+run "gcc -o hello hello.o main.o" because /home/lionel/Proj/smk/tests/hello.c/hello is missing
 gcc -o hello hello.o main.o

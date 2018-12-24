@@ -15,15 +15,8 @@
 -- -----------------------------------------------------------------------------
 
 -- -----------------------------------------------------------------------------
--- Package: smk.Settings specification
---
 -- Purpose:
 --   This package manages global settings, hard coded or from cmd line.
---
--- Effects:
---
--- Performance:
---
 -- -----------------------------------------------------------------------------
 
 private package Smk.Settings is
@@ -42,15 +35,16 @@ private package Smk.Settings is
    Create_Template     : Boolean := False;
    Filter_Sytem_Files  : Boolean := True;
 
-   type Commands is (Read_Smkfile,
-                     Read_Run_Status,
+   type Commands is (Build,
+                     Read_Smkfile,
+                     Status,
+                     Whatsnew,
                      List_Previous_Runs,
                      List_Sources,
                      List_Targets,
-                     Clean_Targets,
-                     Reset_Smk_Files,
+                     Clean,
+                     Reset,
                      Version,
-                     Build,
                      Help,
                      Add,
                      Run,
@@ -85,10 +79,6 @@ private package Smk.Settings is
    function Debug_Mode return Boolean is (Verbosity = Debug);
 
    -- --------------------------------------------------------------------------
-   function Run_Dir_Name return String;
-
-   -- --------------------------------------------------------------------------
-   function Strace_Outfile_Name return String;
 
    -- -------------------------------------------------------------------------
    -- Smkfile_Name = "../hello.c/Makefile.txt"
@@ -96,6 +86,10 @@ private package Smk.Settings is
    --    that is Runfile_Name = "Prefix + Simple_Name (Smkfile_Name)"
    procedure Set_Smkfile_Name (Name : in String);
    function Smkfile_Name return String;
+   -- Smkfile_Name returns "" if Smkfile has not been set
+   function Is_Smkfile_Name_Set return Boolean;
+   function Run_Dir_Name return String;
+   function Strace_Outfile_Name return String;
 
    -- --------------------------------------------------------------------------
    procedure Set_Runfile_Name (Name : in String);
@@ -113,9 +107,5 @@ private package Smk.Settings is
    -- --------------------------------------------------------------------------
    procedure Set_Target_Name (Target : in String);
    function Target_Name return String;
-
-   -- --------------------------------------------------------------------------
-   function Is_System_File (File_Name : in String) return Boolean;
-   -- return True if the string starts with "/usr/, "/lib/", etc.
 
 end Smk.Settings;

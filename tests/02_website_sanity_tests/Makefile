@@ -54,7 +54,7 @@ listing:
 	${TR} cmt	
 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -ls -l`   (long listing format)'
+	${TR} cmt '`smk ls -l`   (long listing format)'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -62,11 +62,11 @@ listing:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk -ls -l > out.2.txt 
+	../../smk ls -l > out.2.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected2.txt out.2.txt" 
 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -ls`   (default short listing format)'
+	${TR} cmt '`smk ls`   (default short listing format)'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -74,11 +74,11 @@ listing:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk -ls > out.3.txt 
+	../../smk ls > out.3.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected3.txt out.3.txt" 
 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk --list-targets --long-listing`'
+	${TR} cmt '`smk list-targets --long-listing`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -86,11 +86,11 @@ listing:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk --list-targets --long-listing > out.4.txt 
+	../../smk list-targets --long-listing > out.4.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected4.txt out.4.txt" 
 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk read-smkfile`'
+	${TR} cmt '`smk rs`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -98,7 +98,7 @@ listing:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk read-smkfile > out.5.txt 
+	../../smk rs > out.5.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected5.txt out.5.txt" 
 
 	${TR} end
@@ -138,7 +138,7 @@ build:
 
 	${TR} cmt 'Run:'
 	${TR} cmt '   Third run : all targets are up-to-date'
-	${TR} cmt '`smk --explain`'
+	${TR} cmt '`smk --explain --verbose`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -146,7 +146,7 @@ build:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk --explain > out.8.txt
+	../../smk --explain --verbose > out.8.txt
 	${TR} assert true /usr/bin/sdiff "-sbB expected8.txt out.8.txt" 
 
 	${TR} end
@@ -158,17 +158,44 @@ rebuild:
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`touch ../mysite/docs/about.md`'
-	${TR} cmt '`smk --explain`'
+	${TR} cmt '`smk whatsnew`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
-	cat expected9.txt >> testrec.md
+	cat expected9a.txt >> testrec.md
 	${TR} cmt '```' 
 	${TR} cmt 
 	
+	sleep 1.0 # Fixme: if "touched" just after being build, the change is not detected
 	touch ../mysite/docs/about.md
-	../../smk --explain | sed "s/[0-9]//g" > out.9.txt 	# Time tag neutralized
-	${TR} assert true /usr/bin/sdiff "-sbB expected9.txt out.9.txt" 
+	../../smk whatsnew | sed "s/[0-9]//g" > out.9a.txt 	# Time tag neutralized
+	${TR} assert true /usr/bin/sdiff "-sbB expected9a.txt out.9a.txt" 
+
+	${TR} cmt 'Run:'
+	${TR} cmt '`rm ../mysite/site/tutorial/index.html`'
+	${TR} cmt '`smk wn`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected9b.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	rm ../mysite/site/tutorial/index.html
+	../../smk wn | sed "s/[0-9]//g" > out.9b.txt 	# Time tag neutralized
+	${TR} assert true /usr/bin/sdiff "-sbB expected9b.txt out.9b.txt" 
+
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -e -v`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected9c.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	../../smk -e -v | sed "s/[0-9]//g" > out.9c.txt 	# Time tag neutralized
+	${TR} assert true /usr/bin/sdiff "-sbB expected9c.txt out.9c.txt" 
 
 	${TR} end
 

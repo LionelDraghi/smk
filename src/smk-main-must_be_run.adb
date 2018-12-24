@@ -14,21 +14,22 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
+with Smk.Definitions;      use Smk.Definitions;
+
 with Ada.Directories;
 
 separate (Smk.Main)
 
 -- --------------------------------------------------------------------------
-function Must_Be_Run (Command      :        Runfiles.Command_Lines;
+function Must_Be_Run (Command      :        Command_Lines;
                       Previous_Run : in out Runfiles.Run_Lists.Map)
                       return Boolean
 is
    -- -----------------------------------------------------------------------
    procedure Put_Explanation (Text : in String) is
-      use Smk.Runfiles;
    begin
       if Explain then
-         IO.Put_Line ("run " & (+Command) & " " & Text);
+         IO.Put_Line ("run """ & (+Command) & """ " & Text);
       end if;
    end Put_Explanation;
 
@@ -37,11 +38,11 @@ is
    -- -----------------------------------------------------------------------
    function A_Source_Is_Missing (The_Run : Runfiles.Run) return Boolean is
       use Ada.Directories;
-      use Runfiles.File_Lists;
+      use Files;
    begin
       for T in The_Run.Sources.Iterate loop
          declare
-            Name : constant String := (+Key (T));
+            Name : constant String := (+File_Lists.Key (T));
          begin
             if not Exists (Name) then
                IO.Put_Line ("Source " & Name & " is missing for command "
@@ -56,11 +57,11 @@ is
    -- -----------------------------------------------------------------------
    function A_Target_Is_Missing (The_Run : Runfiles.Run) return Boolean is
       use Ada.Directories;
-      use Runfiles.File_Lists;
+      use Files;
    begin
       for T in The_Run.Targets.Iterate loop
          declare
-            Name : constant String := (+Key (T));
+            Name : constant String := (+File_Lists.Key (T));
          begin
             if not Exists (Name) then
                Put_Explanation ("because " & Name & " is missing");
@@ -74,16 +75,16 @@ is
    -- --------------------------------------------------------------------------
    function A_Source_Is_Updated (The_Run : Runfiles.Run) return Boolean is
       use Ada.Directories;
-      use Runfiles.File_Lists;
+      use Files;
    begin
       for S in The_Run.Sources.Iterate loop
          declare
             use Ada.Calendar;
-            Name        : constant String := Full_Name (+Key (S));
+            Name        : constant String := Full_Name (+File_Lists.Key (S));
             File_TT     : constant Time   := Modification_Time (Name);
-            Last_Run_TT : constant Time   := Element (S).Time_Tag;
+            Last_Run_TT : constant Time   := Time_Tag (File_Lists.Element (S));
          begin
-            if File_TT /= Last_Run_TT then
+            if File_TT > Last_Run_TT then
                Put_Explanation ("because " & Name & " (" & IO.Image (File_TT)
                                 & ") has been updated since last run ("
                                 & IO.Image (Last_Run_TT) & ")");
@@ -96,7 +97,7 @@ is
 
    -- --------------------------------------------------------------------------
 --     function No_Source_Nor_Target (The_Run : Run) return Boolean is
---        use Runfiles.File_Lists;
+--        use File_Lists;
 --     begin
 --        IO.Put_Line ("Is_Empty: Sources = "
 --                    & Boolean'Image (Is_Empty (The_Run.Sources))
@@ -113,7 +114,7 @@ is
 
    -- --------------------------------------------------------------------------
 --     function No_Target (The_Run : Run) return Boolean is
---        use Runfiles.File_Lists;
+--        use File_Lists;
 --     begin
 --        -- IO.Put_Line ("Is_Empty: Sources = "
 --        --              & Boolean'Image (Is_Empty (The_Run.Sources))

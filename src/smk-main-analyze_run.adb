@@ -15,33 +15,36 @@
 -- -----------------------------------------------------------------------------
 
 with Ada.Calendar;
-with Ada.Directories;         use Ada.Directories;
+with Ada.Directories;   use Ada.Directories;
 with Ada.Strings.Fixed;
-with Ada.Text_IO;             use Ada.Text_IO;
+with Ada.Text_IO;       use Ada.Text_IO;
 
+with Smk.Files;         use Smk.Files;
 with Smk.Settings;
 with Smk.Runfiles;
 
 separate (Smk.Main)
 
 -- -----------------------------------------------------------------------------
-procedure Analyze_Run (Source_Files             : out Runfiles.File_Lists.Map;
-                       Source_System_File_Count : out Natural;
-                       Target_Files             : out Runfiles.File_Lists.Map;
-                       Target_System_File_Count : out Natural)
+procedure Analyze_Run (Source_Files             :    out Files.File_Lists.Map;
+                       Source_System_File_Count :    out Natural;
+                       Target_Files             :    out Files.File_Lists.Map;
+                       Target_System_File_Count :    out Natural)
 is
    Debug        : constant Boolean := False;
    Prefix       : constant String  := ""; -- smk-main-analyze_run.adb ";
-   Strace_Ouput : File_Type;
+   Strace_Ouput : Ada.Text_IO.File_Type;
 
    -- --------------------------------------------------------------------------
-   procedure Classify_By_Cmd (Line : in String;
-                              Name : in String) is
-      File_Time : constant Ada.Calendar.Time := Modification_Time (Name);
+   procedure Classify_Source_Or_Target (Line : in String;
+                                        Name : in String) is
       use Ada.Strings.Fixed;
-      use Runfiles;
-
    begin
+      if In_Ignore_List (Name) then
+         IO.Put_Line ("Ignoring " & Name, Level => IO.Debug);
+         return;
+      end if;
+
       if Index (Line, "O_WRONLY") /= 0
         or else Index (Line, "O_RDWR") /= 0
         or else Index (Line, "write", From => 7) /= 0
@@ -53,27 +56,17 @@ is
       then
          -- it's a target
          if not Target_Files.Contains (+Name) then
-            if Is_System_File (Name) then
+            if Is_System (Name) then
                Target_System_File_Count := Target_System_File_Count + 1;
-               Target_Files.Insert (+Name, (File_Time, Is_System => True));
-               IO.Put_Debug_Line
-                 ("T system file :" & IO.Image (File_Time) & " " & Name,
-                  Debug  => Debug,
-                  Prefix => Prefix);
-            else
-               Target_Files.Insert (+Name, (File_Time, Is_System => False));
-               IO.Put_Debug_Line ("T : " & IO.Image (File_Time) & " " & Name,
-                                  Debug  => Debug,
-                                  Prefix => Prefix);
             end if;
+            Target_Files.Insert (+Name, Create (+Name));
          end if;
+
          if Source_Files.Contains (+Name) then
             Source_Files.Delete (+Name);
             -- can't be both Target and Source
-            IO.Put_Debug_Line
-              ("T : " & Name & " is both source and target, deleting source",
-               Debug  => Debug,
-               Prefix => Prefix);
+            IO.Put_Line
+              ("T : " & Name & " is both source and target, deleting source");
          end if;
 
       else
@@ -81,23 +74,14 @@ is
          if not Source_Files.Contains (+Name)
            and not Target_Files.Contains (+Name)
          then
-            if Is_System_File (Name) then
+            if Is_System (Name) then
                Source_System_File_Count := Source_System_File_Count + 1;
-               Source_Files.Insert (+Name, (File_Time, Is_System => True));
-               IO.Put_Debug_Line
-                 ("S system file : " & IO.Image (File_Time) & " " & Name,
-                  Debug  => Debug,
-                  Prefix => Prefix);
-            else
-               Source_Files.Insert (+Name, (File_Time, Is_System => False));
-               IO.Put_Debug_Line ("S : " & IO.Image (File_Time) & " " & Name,
-                                  Debug  => Debug,
-                                  Prefix => Prefix);
             end if;
+            Source_Files.Insert (+Name, Create (+Name));
          end if;
       end if;
 
-   end Classify_By_Cmd;
+   end Classify_Source_Or_Target;
 
 begin
    -- --------------------------------------------------------------------------
@@ -129,9 +113,7 @@ begin
                -- 2. special file, e. g. /dev/something,
                if Exists (File_Name) and then Kind (File_Name) /= Special_File
                then
-                  -- Classify_By_Time (File_Name);
-                  Classify_By_Cmd (Line => Line, Name => File_Name);
-
+                  Classify_Source_Or_Target (Line => Line, Name => File_Name);
                end if;
             end;
 
@@ -157,7 +139,7 @@ begin
 --                 if not Source_Files.Contains (+File_Name)
 --                   and not Target_Files.Contains (+File_Name)
 --                 then
---                    if Is_System_File (File_Name) then
+--                    if Is_System (File_Name) then
 --                       Source_System_File_Count :=
 --                         Source_System_File_Count + 1;
 --                       Source_Files.Insert (+File_Name,

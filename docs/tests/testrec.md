@@ -56,11 +56,11 @@ Sanity / Second `smk`, should not run any command [Successful](tests_status.md#s
 
   Expected:  
 ```  
-run gcc -o hello.o -c hello.c because it was not run before
+run "gcc -o hello.o -c hello.c" because it was not run before
 gcc -o hello.o -c hello.c
-run gcc -o main.o -c main.c because it was not run before
+run "gcc -o main.o -c main.c" because it was not run before
 gcc -o main.o -c main.c
-run gcc -o hello hello.o main.o because it was not run before
+run "gcc -o hello hello.o main.o" because it was not run before
 gcc -o hello hello.o main.o
 ```  
 
@@ -75,11 +75,11 @@ Sanity / `smk reset`, no more history, should run all commands [Successful](test
 
   Expected:  
 ```  
-run gcc -o hello.o -c hello.c because -a option is set
+run "gcc -o hello.o -c hello.c" because -a option is set
 gcc -o hello.o -c hello.c
-run gcc -o main.o -c main.c because -a option is set
+run "gcc -o main.o -c main.c" because -a option is set
 gcc -o main.o -c main.c
-run gcc -o hello hello.o main.o because -a option is set
+run "gcc -o hello hello.o main.o" because -a option is set
 gcc -o hello hello.o main.o
 ```  
 
@@ -95,9 +95,9 @@ Sanity / `smk -a`, should run all commands even if not needed [Successful](tests
 
   Expected:  
 ```  
-run gcc -o main.o -c main.c because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
+run "gcc -o main.o -c main.c" because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
 gcc -o main.o -c main.c
-run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/main.o (-- ::.) has been updated since last run (-- ::.)
+run "gcc -o hello hello.o main.o" because /home/lionel/Proj/smk/tests/hello.c/main.o (-- ::.) has been updated since last run (-- ::.)
 gcc -o hello hello.o main.o
 ```  
 
@@ -113,9 +113,9 @@ Sanity / `rm main.o` (missing file) [Successful](tests_status.md#successful)
 
   Expected:  
 ```  
-run gcc -o hello.o -c hello.c because /home/lionel/Proj/smk/tests/hello.c/hello.c (-- ::.) has been updated since last run (-- ::.)
+run "gcc -o hello.o -c hello.c" because /home/lionel/Proj/smk/tests/hello.c/hello.c (-- ::.) has been updated since last run (-- ::.)
 gcc -o hello.o -c hello.c
-run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/hello.o (-- ::.) has been updated since last run (-- ::.)
+run "gcc -o hello hello.o main.o" because /home/lionel/Proj/smk/tests/hello.c/hello.o (-- ::.) has been updated since last run (-- ::.)
 gcc -o hello hello.o main.o
 ```  
 
@@ -147,7 +147,7 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 
 
   Run:  
-  `smk -ls -l`   (long listing format)  
+  `smk ls -l`   (long listing format)  
 
   Expected:  
 ```  
@@ -174,7 +174,7 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 ```  
 
   Run:  
-  `smk -ls`   (default short listing format)  
+  `smk ls`   (default short listing format)  
 
   Expected:  
 ```  
@@ -201,7 +201,7 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 ```  
 
   Run:  
-  `smk --list-targets --long-listing`  
+  `smk list-targets --long-listing`  
 
   Expected:  
 ```  
@@ -246,7 +246,7 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 ```  
 
   Run:  
-  `smk read-smkfile`  
+  `smk rs`  
 
   Expected:  
 ```  
@@ -286,17 +286,20 @@ OK
   Expected:  
 ```  
 
-run mkdocs build --clean --quiet because /home/lionel/Proj/smk/tests/mysite/site/about/index.html is missing
+run "mkdocs build --clean --quiet" because /home/lionel/Proj/smk/tests/mysite/site/about/index.html is missing
 mkdocs build --clean --quiet
 ```  
 
   Run:  
      Third run : all targets are up-to-date  
-  `smk --explain`  
+  `smk --explain --verbose`  
 
   Expected:  
 ```  
-
+No need to run mkdocs build --clean --quiet
+No need to run echo --- clean:
+No need to run rm -rf ./site/*
+No need to run echo OK
 Nothing to run
 ```  
 
@@ -308,13 +311,36 @@ Website building sanity tests / building without section [Successful](tests_stat
 
   Run:  
   `touch ../mysite/docs/about.md`  
-  `smk --explain`  
+  `smk whatsnew`  
 
   Expected:  
 ```  
+[UPDATED] /home/lionel/Proj/smk/tests/mysite/docs/about.md
+```  
 
-run mkdocs build --clean --quiet because /home/lionel/Proj/smk/tests/mysite/docs/about.md (-- ::.) has been updated since last run (-- ::.)
+  Run:  
+  `rm ../mysite/site/tutorial/index.html`  
+  `smk wn`  
+
+  Expected:  
+```  
+[UPDATED] /home/lionel/Proj/smk/tests/mysite/docs/about.md
+[MISSING] /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
+```  
+
+  Run:  
+  `smk -e -v`  
+
+  Expected:  
+```  
+run "mkdocs build --clean --quiet" because /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html is missing
 mkdocs build --clean --quiet
+No need to run echo --- clean:
+No need to run rm -rf ./site/*
+No need to run echo OK
+No need to run echo --- clean:
+No need to run rm -rf ./site/*
+No need to run echo OK
 ```  
 
 
@@ -381,7 +407,7 @@ Website building sanity tests / cleaning [Successful](tests_status.md#successful
   Expected:  
 ```  
 
-run mkdocs build --clean --quiet because /home/lionel/Proj/smk/tests/mysite/site/about/index.html is missing
+run "mkdocs build --clean --quiet" because /home/lionel/Proj/smk/tests/mysite/site/about/index.html is missing
 mkdocs build --clean --quiet
 ```  
 
@@ -447,39 +473,21 @@ Read queries / read-smkfile [Successful](tests_status.md#successful)
   Expected:  
   (note that to ease comparison, dates are removed)  
 ```  
-YYYY:MM:DD HH:MM:SS.SS [hello] gcc -o hello hello.o main.o
-  Sources (2) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.o
-  Targets (1) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello
-
-YYYY:MM:DD HH:MM:SS.SS [hello.o] gcc -o hello.o -c hello.c
-  Sources (1) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.c
-  Targets (1) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
-
-YYYY:MM:DD HH:MM:SS.SS [main.o] gcc -o main.o -c main.c
-  Sources (2) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.h
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.c
-  Targets (1) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.o
-
+YYYY:MM:DD HH:MM:SS.SS [hello] "gcc -o hello hello.o main.o" (2 source(s), 1 target(s))
+YYYY:MM:DD HH:MM:SS.SS [hello.o] "gcc -o hello.o -c hello.c" (1 source(s), 1 target(s))
+YYYY:MM:DD HH:MM:SS.SS [main.o] "gcc -o main.o -c main.c" (2 source(s), 1 target(s))
 ```  
 
-  Run: (same with system files not ignored)   
+  Run: (same with system files not ignored and long form)   
   `smk -q reset`  
   `smk -q build ../hello.c/Makefile.2`  
-  `smk status -sa ../hello.c/Makefile.2`  
+  `smk st -l -sa ../hello.c/Makefile.2`  
 
   Expected:  
   (note that to ease comparison, dates are removed)  
 ```  
-YYYY:MM:DD HH:MM:SS.SS [hello] gcc -o hello hello.o main.o
-  Sources (20) :
-  - YYYY:MM:DD HH:MM:SS.SS:/etc/ld.so.cache
+YYYY:MM:DD HH:MM:SS.SS [hello] "gcc -o hello hello.o main.o"
+  Sources (19) :
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.o
   - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/ld-2.27.so
@@ -502,9 +510,8 @@ YYYY:MM:DD HH:MM:SS.SS [hello] gcc -o hello hello.o main.o
   Targets (1) :
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello
 
-YYYY:MM:DD HH:MM:SS.SS [hello.o] gcc -o hello.o -c hello.c
-  Sources (55) :
-  - YYYY:MM:DD HH:MM:SS.SS:/etc/ld.so.cache
+YYYY:MM:DD HH:MM:SS.SS [hello.o] "gcc -o hello.o -c hello.c"
+  Sources (54) :
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.c
   - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libc-2.27.so
   - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libdl-2.27.so
@@ -562,9 +569,8 @@ YYYY:MM:DD HH:MM:SS.SS [hello.o] gcc -o hello.o -c hello.c
   Targets (1) :
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
 
-YYYY:MM:DD HH:MM:SS.SS [main.o] gcc -o main.o -c main.c
-  Sources (56) :
-  - YYYY:MM:DD HH:MM:SS.SS:/etc/ld.so.cache
+YYYY:MM:DD HH:MM:SS.SS [main.o] "gcc -o main.o -c main.c"
+  Sources (55) :
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.h
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.c
   - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libc-2.27.so
@@ -651,14 +657,14 @@ Read queries / status [Successful](tests_status.md#successful)
 
 
 
-##  List queries / -lr | --list-runs
+##  List queries / lr | list-runs
 
 
   Test available previous runs  
 
   Run:  
   `smk -q reset`  
-  `smk -lr`  
+  `smk lr`  
 
   Expected:  
 ```  
@@ -668,7 +674,7 @@ No run file
   Run:  
   `smk -q build ../hello.c/Makefile.2`  
   `smk -q ../hello.c/Makefile.3`  
-  `smk --list-runs`  
+  `smk list-runs`  
 
   Expected:  
 ```  
@@ -677,12 +683,12 @@ Makefile.3
 ```  
 
 
-List queries / -lr | --list-runs [Successful](tests_status.md#successful)
+List queries / lr | list-runs [Successful](tests_status.md#successful)
 
-##  List queries / -lt | --list-targets
+##  List queries / lt | list-targets
 
   Run:  
-  `smk --list-targets --long-listing ../hello.c/Makefile.2`  
+  `smk list-targets --long-listing ../hello.c/Makefile.2`  
 
   Expected: (long form)  
 ```  
@@ -692,7 +698,7 @@ List queries / -lr | --list-runs [Successful](tests_status.md#successful)
 ```  
 
   Run:  
-  `smk -lt ../hello.c/Makefile.2`  
+  `smk lt ../hello.c/Makefile.2`  
 
   Expected: (short form)  
 ```  
@@ -702,13 +708,13 @@ List queries / -lr | --list-runs [Successful](tests_status.md#successful)
 ```  
 
 
-List queries / -lt | --list-targets [Successful](tests_status.md#successful)
+List queries / lt | list-targets [Successful](tests_status.md#successful)
 
-##  List queries / -ls | --list-sources
+##  List queries / ls | list-sources
 
 
   Run: (long form)  
-  `smk -ls -l ../hello.c/Makefile.2`  
+  `smk ls -l ../hello.c/Makefile.2`  
 
   Expected:  
 ```  
@@ -721,7 +727,7 @@ List queries / -lt | --list-targets [Successful](tests_status.md#successful)
 
 
   Run:  
-  `smk --list-sources ../hello.c/Makefile.2`  
+  `smk list-sources ../hello.c/Makefile.2`  
 
   Expected:  
 ```  
@@ -733,17 +739,16 @@ List queries / -lt | --list-targets [Successful](tests_status.md#successful)
 ```  
 
 
-List queries / -ls | --list-sources [Successful](tests_status.md#successful)
+List queries / ls | list-sources [Successful](tests_status.md#successful)
 
-##  List queries / -ls | --list-sources --show-all-files
+##  List queries / ls | list-sources --show-all-files
 
 
   Run: (short form)  
-  `smk --list-sources --shows-system-files ../hello.c/Makefile.2`  
+  `smk list-sources --shows-system-files ../hello.c/Makefile.2`  
 
   Expected:  
 ```  
-/etc/ld.so.cache
 /home/lionel/Proj/smk/tests/hello.c/hello.o
 /home/lionel/Proj/smk/tests/hello.c/main.o
 /lib/x86_64-linux-gnu/ld-2.27.so
@@ -763,7 +768,6 @@ List queries / -ls | --list-sources [Successful](tests_status.md#successful)
 /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
 /usr/lib/x86_64-linux-gnu/libc.so
 /usr/lib/x86_64-linux-gnu/libc_nonshared.a
-/etc/ld.so.cache
 /home/lionel/Proj/smk/tests/hello.c/hello.c
 /lib/x86_64-linux-gnu/libc-2.27.so
 /lib/x86_64-linux-gnu/libdl-2.27.so
@@ -818,7 +822,6 @@ List queries / -ls | --list-sources [Successful](tests_status.md#successful)
 /usr/include/x86_64-linux-gnu/sys/sysmacros.h
 /usr/include/x86_64-linux-gnu/sys/types.h
 /usr/lib/locale/locale-archive
-/etc/ld.so.cache
 /home/lionel/Proj/smk/tests/hello.c/hello.h
 /home/lionel/Proj/smk/tests/hello.c/main.c
 /lib/x86_64-linux-gnu/libc-2.27.so
@@ -878,11 +881,10 @@ List queries / -ls | --list-sources [Successful](tests_status.md#successful)
 
 
   Run: (long form)  
-  `smk -l -ls -sa ../hello.c/Makefile.2`  
+  `smk -l ls -sa ../hello.c/Makefile.2`  
 
   Expected:  
 ```  
-[hello]gcc -o hello hello.o main.o:/etc/ld.so.cache
 [hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/hello.o
 [hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/main.o
 [hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/ld-2.27.so
@@ -902,7 +904,6 @@ List queries / -ls | --list-sources [Successful](tests_status.md#successful)
 [hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
 [hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/libc.so
 [hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/libc_nonshared.a
-[hello.o]gcc -o hello.o -c hello.c:/etc/ld.so.cache
 [hello.o]gcc -o hello.o -c hello.c:/home/lionel/Proj/smk/tests/hello.c/hello.c
 [hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libc-2.27.so
 [hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libdl-2.27.so
@@ -957,7 +958,6 @@ List queries / -ls | --list-sources [Successful](tests_status.md#successful)
 [hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/sysmacros.h
 [hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/types.h
 [hello.o]gcc -o hello.o -c hello.c:/usr/lib/locale/locale-archive
-[main.o]gcc -o main.o -c main.c:/etc/ld.so.cache
 [main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/hello.h
 [main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/main.c
 [main.o]gcc -o main.o -c main.c:/lib/x86_64-linux-gnu/libc-2.27.so
@@ -1016,7 +1016,7 @@ List queries / -ls | --list-sources [Successful](tests_status.md#successful)
 ```  
 
 
-List queries / -ls | --list-sources --show-all-files [Successful](tests_status.md#successful)
+List queries / ls | list-sources --show-all-files [Successful](tests_status.md#successful)
 
 # Targets related functions
 
@@ -1058,11 +1058,11 @@ Deleting /home/lionel/Proj/smk/tests/hello.c/main.o
 
   Expected:  
 ```  
-run gcc -o hello.o -c hello.c because /home/lionel/Proj/smk/tests/hello.c/hello.o is missing
+run "gcc -o hello.o -c hello.c" because /home/lionel/Proj/smk/tests/hello.c/hello.o is missing
 gcc -o hello.o -c hello.c
-run gcc -o main.o -c main.c because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
+run "gcc -o main.o -c main.c" because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
 gcc -o main.o -c main.c
-run gcc -o hello hello.o main.o because /home/lionel/Proj/smk/tests/hello.c/hello is missing
+run "gcc -o hello hello.o main.o" because /home/lionel/Proj/smk/tests/hello.c/hello is missing
 gcc -o hello hello.o main.o
 ```  
 
@@ -1265,20 +1265,23 @@ Use example :
    or just                   : smk :target
 
 Commands :
-   build        : run the build
-   status       : shows what smk knows about the previous runs
-                  (commands, sources and targets)
-   read-smkfile : shows Smk understanding of a Smkfile
-   add          : add the following arguments to default.smk
-   run          : equivalent to `add` followed by `build`
-   clean        : remove all targets files
-   reset        : remove all local Smk files
-                  (equivalent to rm .smk.*)
-   version      : put Smk version
-   help | -h    : this message
-   -lr  | --list-runs    : list runfiles in current directory
-   -ls  | --list-sources : list sources, except system files
-   -lt  | --list-targets
+   build             : run the build
+   status       | st : shows what smk knows about the previous
+                       runs (commands, sources and targets)
+   read-smkfile | rs : shows Smk understanding of a Smkfile
+   whatsnew     | wn : list changes since last run
+   add               : add the rest of the command line to
+                       default.smk
+   run               : equivalent to `add` followed by `build`
+   clean             : remove all targets files
+   reset             : remove all local Smk files
+                       (equivalent to rm .smk.*)
+   version           : put Smk version
+   help              : this message
+   list-runs    | lr : list runfiles in current directory
+   list-sources | ls : list sources, except system files
+   list-targets | lt
+
    NB : when no command is given, build is assumed
 
 Options :
@@ -1297,6 +1300,7 @@ Options :
    -v   | --verbose
    -q   | --quiet           : no message unless error,
                               Warning are also ignored
+   -h   | --help            : this message
 
 http://lionel.draghi.free.fr/smk/
 
@@ -1331,7 +1335,7 @@ Command line / Version option [Successful](tests_status.md#successful)
   Expected:  
 
 ```  
-Error : More than one command on command line : READ_RUN_STATUS and READ_SMKFILE
+Error : More than one command on command line : STATUS and READ_SMKFILE
 
 Usage : smk Command [Options]* [Smkfile][:target]
 
@@ -1342,20 +1346,22 @@ Use example :
    or just                   : smk :target
 
 Commands :
-   build        : run the build
-   status       : shows what smk knows about the previous runs
-                  (commands, sources and targets)
-   read-smkfile : shows Smk understanding of a Smkfile
-   add          : add the following arguments to default.smk
-   run          : equivalent to `add` followed by `build`
-   clean        : remove all targets files
-   reset        : remove all local Smk files
-                  (equivalent to rm .smk.*)
-   version      : put Smk version
-   help | -h    : this message
-   -lr  | --list-runs    : list runfiles in current directory
-   -ls  | --list-sources : list sources, except system files
-   -lt  | --list-targets
+   build             : run the build
+   status       | st : shows what smk knows about the previous
+                       runs (commands, sources and targets)
+   read-smkfile | rs : shows Smk understanding of a Smkfile
+   whatsnew     | wn : list changes since last run
+   add               : add the rest of the command line to
+                       default.smk
+   run               : equivalent to `add` followed by `build`
+   clean             : remove all targets files
+   reset             : remove all local Smk files
+                       (equivalent to rm .smk.*)
+   version           : put Smk version
+   help              : this message
+   list-runs    | lr : list runfiles in current directory
+   list-sources | ls : list sources, except system files
+   list-targets | lt
    NB : when no command is given, build is assumed
 
 Options :
@@ -1374,6 +1380,8 @@ Options :
    -v   | --verbose
    -q   | --quiet           : no message unless error,
                               Warning are also ignored
+   -h   | --help            : this message
+
 
 http://lionel.draghi.free.fr/smk/
 

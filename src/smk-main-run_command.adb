@@ -78,12 +78,11 @@ is
    end Escape;
 
    -- --------------------------------------------------------------------------
-   procedure Run (Cmd   : in     Runfiles.Command_Lines;
+   procedure Run (Cmd   : in     Command_Lines;
                   OK    :    out Boolean) is
       -- Spawn the Cmd under strace.
       -- OK is set to True if the spawn did it well.
 
-      use type Runfiles.Command_Lines;
       use GNAT.OS_Lib;
       use Ada.Directories;
       Debug       : constant Boolean := False;
@@ -124,7 +123,7 @@ is
    use Smk.Runfiles;
    OK            : Boolean;
    Source_Files,
-   Target_Files  : File_Lists.Map;
+   Target_Files  : Files.File_Lists.Map;
    New_Run_Time  : Ada.Calendar.Time;
    Source_System_File_Count,
    Target_System_File_Count : Natural;

@@ -20,9 +20,8 @@ all: build check doc
 build:
 	echo
 	echo --- build:
-	@ - mkdir -p obj
 	echo
-	gprbuild -P smk.gpr
+	gprbuild --create-missing-dirs -P smk.gpr
 	echo
 
 check: smk

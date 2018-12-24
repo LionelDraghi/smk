@@ -28,14 +28,14 @@ list_queries:
 	${TR} create "List queries"
 
 	@ #-------------------------------------------------------------------------
-	${TR} start '-lr | --list-runs'
+	${TR} start 'lr | list-runs'
 	${TR} cmt	
 	${TR} cmt "Test available previous runs"
 	
 	${TR} cmt 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -q reset`'
-	${TR} cmt '`smk -lr`'
+	${TR} cmt '`smk lr`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -45,7 +45,7 @@ list_queries:
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -q build ../hello.c/Makefile.2`'
 	${TR} cmt '`smk -q ../hello.c/Makefile.3`'
-	${TR} cmt '`smk --list-runs`'
+	${TR} cmt '`smk list-runs`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -55,21 +55,21 @@ list_queries:
 	${TR} cmt 
 	
 	../../smk -q reset
-	test ! `../../smk -lr > out.lr1.txt`
+	test ! `../../smk lr > out.lr1.txt`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lr1.txt out.lr1.txt" 
 
 	../../smk -q build ../hello.c/Makefile.2 
 	../../smk -q ../hello.c/Makefile.3 
-	../../smk --list-runs > out.lr2.txt 
+	../../smk list-runs > out.lr2.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lr2.txt out.lr2.txt" 
 
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
-	${TR} start '-lt | --list-targets'
+	${TR} start 'lt | list-targets'
 	
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk --list-targets --long-listing ../hello.c/Makefile.2`'
+	${TR} cmt '`smk list-targets --long-listing ../hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected: (long form)'
 	${TR} cmt '```' 
@@ -77,11 +77,11 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk --list-targets --long-listing ../hello.c/Makefile.2 > out.lt1.txt 
+	../../smk list-targets --long-listing ../hello.c/Makefile.2 > out.lt1.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lt1.txt out.lt1.txt" 
 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -lt ../hello.c/Makefile.2`'
+	${TR} cmt '`smk lt ../hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected: (short form)'
 	${TR} cmt '```' 
@@ -89,17 +89,17 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk -lt ../hello.c/Makefile.2 > out.lt2.txt 
+	../../smk lt ../hello.c/Makefile.2 > out.lt2.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lt2.txt out.lt2.txt" 
 
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
-	${TR} start '-ls | --list-sources'
+	${TR} start 'ls | list-sources'
 	
 	${TR} cmt 
 	${TR} cmt 'Run: (long form)'
-	${TR} cmt '`smk -ls -l ../hello.c/Makefile.2`'
+	${TR} cmt '`smk ls -l ../hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -107,12 +107,12 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk -ls ../hello.c/Makefile.2 > out.ls1.txt 
+	../../smk ls ../hello.c/Makefile.2 > out.ls1.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_ls1.txt out.ls1.txt" 
 
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk --list-sources ../hello.c/Makefile.2`'
+	${TR} cmt '`smk list-sources ../hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -120,17 +120,17 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk --list-sources ../hello.c/Makefile.2 > out.ls2.txt 
+	../../smk list-sources ../hello.c/Makefile.2 > out.ls2.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_ls2.txt out.ls2.txt" 
 
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
-	${TR} start '-ls | --list-sources --show-all-files'
+	${TR} start 'ls | list-sources --show-all-files'
 	
 	${TR} cmt 
 	${TR} cmt 'Run: (short form)'
-	${TR} cmt '`smk --list-sources --shows-system-files ../hello.c/Makefile.2`'
+	${TR} cmt '`smk list-sources --shows-system-files ../hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -138,12 +138,12 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk --list-sources --show-all-files ../hello.c/Makefile.2 > out.las1.txt 
+	../../smk list-sources --show-all-files ../hello.c/Makefile.2 > out.las1.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_las1.txt out.las1.txt" 
 
 	${TR} cmt 
 	${TR} cmt 'Run: (long form)'
-	${TR} cmt '`smk -l -ls -sa ../hello.c/Makefile.2`'
+	${TR} cmt '`smk -l ls -sa ../hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -151,7 +151,7 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk -l -ls -sa ../hello.c/Makefile.2 > out.las2.txt 
+	../../smk -l ls -sa ../hello.c/Makefile.2 > out.las2.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_las2.txt out.las2.txt" 
 
 	${TR} end

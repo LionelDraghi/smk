@@ -1,0 +1,8 @@
+run "mkdocs build --clean --quiet" because /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html is missing
+mkdocs build --clean --quiet
+No need to run echo --- clean:
+No need to run rm -rf ./site/*
+No need to run echo OK
+No need to run echo --- clean:
+No need to run rm -rf ./site/*
+No need to run echo OK

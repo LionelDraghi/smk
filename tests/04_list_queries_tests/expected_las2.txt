@@ -1,4 +1,3 @@
-[hello]gcc -o hello hello.o main.o:/etc/ld.so.cache
 [hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/hello.o
 [hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/main.o
 [hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/ld-2.27.so
@@ -18,7 +17,6 @@
 [hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
 [hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/libc.so
 [hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/libc_nonshared.a
-[hello.o]gcc -o hello.o -c hello.c:/etc/ld.so.cache
 [hello.o]gcc -o hello.o -c hello.c:/home/lionel/Proj/smk/tests/hello.c/hello.c
 [hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libc-2.27.so
 [hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libdl-2.27.so
@@ -73,7 +71,6 @@
 [hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/sysmacros.h
 [hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/types.h
 [hello.o]gcc -o hello.o -c hello.c:/usr/lib/locale/locale-archive
-[main.o]gcc -o main.o -c main.c:/etc/ld.so.cache
 [main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/hello.h
 [main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/main.c
 [main.o]gcc -o main.o -c main.c:/lib/x86_64-linux-gnu/libc-2.27.so

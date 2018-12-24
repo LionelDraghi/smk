@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - [0.2.0]
+> - [Added] `whatsnew` / `wn` command added 
+> - [Added] Hard coded ignore list because of /etc/ld.so.cache that changes at each run
 > - [Fixed] line considered as section even when the identifier was not immediately followed by a colon 
 > - [Added] First "add & run" implementation 
 > - [Added] First "section" implementation : `smk smkfile:section`, or `smk :section`. For example `smkfile :mrproper`.

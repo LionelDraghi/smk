@@ -1,4 +1,3 @@
-/etc/ld.so.cache
 /home/lionel/Proj/smk/tests/hello.c/hello.o
 /home/lionel/Proj/smk/tests/hello.c/main.o
 /lib/x86_64-linux-gnu/ld-2.27.so
@@ -18,7 +17,6 @@
 /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
 /usr/lib/x86_64-linux-gnu/libc.so
 /usr/lib/x86_64-linux-gnu/libc_nonshared.a
-/etc/ld.so.cache
 /home/lionel/Proj/smk/tests/hello.c/hello.c
 /lib/x86_64-linux-gnu/libc-2.27.so
 /lib/x86_64-linux-gnu/libdl-2.27.so
@@ -73,7 +71,6 @@
 /usr/include/x86_64-linux-gnu/sys/sysmacros.h
 /usr/include/x86_64-linux-gnu/sys/types.h
 /usr/lib/locale/locale-archive
-/etc/ld.so.cache
 /home/lionel/Proj/smk/tests/hello.c/hello.h
 /home/lionel/Proj/smk/tests/hello.c/main.c
 /lib/x86_64-linux-gnu/libc-2.27.so

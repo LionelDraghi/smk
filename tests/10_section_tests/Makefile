@@ -51,6 +51,7 @@ sections:
 	cat expected_targets6.txt >> testrec.md
 	${TR} cmt '```' 
 	${TR} cmt 
+	sleep 1.0 # Fixme: touch to close to rebuild, not detected othewise
 	touch ../hello.c/main.c
 	../../smk :main.o      > out.6.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_targets6.txt out.6.txt" 

@@ -14,11 +14,11 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
+with Smk.Definitions; use Smk.Definitions;
+with Smk.Files;
+
 with Ada.Calendar;
 with Ada.Containers.Doubly_Linked_Lists;
-with Ada.Strings.Unbounded;              use Ada.Strings.Unbounded;
-
-with Smk.Runfiles;                       use Smk.Runfiles;
 
 private package Smk.Smkfiles is
 
@@ -31,7 +31,7 @@ private package Smk.Smkfiles is
    type Smkfile_Entry is record
       Line    : Positive;
       Section : Section_Names := Default_Section;
-      Command : Command_Lines := Command_Lines (Null_Unbounded_String);
+      Command : Command_Lines := Null_Command_Line;
       Was_Run : Boolean       := False;
       -- used to avoid running the same command for a different reason
       -- during the analysis.
@@ -39,15 +39,19 @@ private package Smk.Smkfiles is
    package Smkfile_Entry_Lists is
      new Ada.Containers.Doubly_Linked_Lists (Smkfile_Entry, "=");
 
+   type Smk_File_Name is new Files.File_Name;
+   function "+" (Name : Smk_File_Name) return String;
+   function "+" (Name : String)        return Smk_File_Name;
+
    -- --------------------------------------------------------------------------
    type Smkfile is record
-      Name     : File_Name;
+      Name     : Smk_File_Name;
       Time_Tag : Ada.Calendar.Time;
       Entries  : Smkfile_Entry_Lists.List;
    end record;
 
    -- --------------------------------------------------------------------------
-   procedure Analyze (Smkfile_Name : in     String;
+   procedure Analyze (Smkfile_Name : in     Smk_File_Name;
                       Line_List    :    out Smkfile);
    -- Analyze the Makefile provided on command line.
 
@@ -60,5 +64,8 @@ private package Smk.Smkfiles is
    function Contains (The_Smkfile : in Smkfile;
                       The_Command : in Command_Lines)
                       return Boolean;
+
+   -- --------------------------------------------------------------------------
+   procedure Add_To_Smkfile (Cmd_Line : String);
 
 end Smk.Smkfiles;

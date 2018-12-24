@@ -75,8 +75,7 @@ And don't forget [`smk help`](cmd_line.md).
    Or get the [GNAT Community Edition](https://www.adacore.com/download).
 
 4. Build it:  
-   if needed, `mkdir obj`
-   > `gprbuild -P smk.gpr`
+   > `gprbuild -p -P smk.gpr`
 
 
 ## Portability

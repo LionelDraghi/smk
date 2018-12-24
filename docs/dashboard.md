@@ -12,7 +12,7 @@ Version
 > date -r ./smk --iso-8601=seconds
 
 ```
-2018-12-22T23:40:06+01:00
+2018-12-24T16:07:18+01:00
 ```
 
 Test results
@@ -28,8 +28,8 @@ Coverage
 --------
 
 ```
-  lines......: 94.3% (901 of 955 lines)
-  functions..: 95.3% (221 of 232 functions)
+  lines......: 95.1% (999 of 1051 lines)
+  functions..: 96.6% (252 of 261 functions)
 ```
 
 [**Coverage details in the sources**](http://lionel.draghi.free.fr/smk/lcov/src/index.html)

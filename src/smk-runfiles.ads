@@ -14,64 +14,16 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
--- -----------------------------------------------------------------------------
--- Package: Smk.Run_Files specification
---
--- Purpose:
---   This package defines a "Run File" and it's storage.
---
--- Effects:
---
--- Performance:
---
--- -----------------------------------------------------------------------------
+with Smk.Definitions;      use Smk.Definitions;
+with Smk.Files;            use Smk.Files;
+with Smk.Files.File_Lists;
 
 with Ada.Calendar;
 with Ada.Containers.Ordered_Maps;
-with Ada.Strings.Unbounded;       use Ada.Strings.Unbounded;
 
 private package Smk.Runfiles is
-
-   -- --------------------------------------------------------------------------
-   type Section_Names is new Unbounded_String;
-   type Command_Lines is new Unbounded_String;
-
-   function "+" (Section : Section_Names) return String is
-     (To_String (Section));
-   function "+" (Command : Command_Lines) return String is
-     (To_String (Command));
-   function "+" (Section : String) return Section_Names is
-     (To_Unbounded_String (Section));
-   function "+" (Command : String) return Command_Lines is
-     (To_Unbounded_String (Command));
-
-   Null_Command_Line : constant Command_Lines
-     := Command_Lines (Null_Unbounded_String);
-
-   Default_Section : constant Section_Names
-     := Section_Names (Null_Unbounded_String);
-
-   -- --------------------------------------------------------------------------
-   type File_Name is new Unbounded_String;
-   function "+" (Name : File_Name) return String;
-   function "+" (Name : String)    return File_Name;
-   function "+" (Name : File_Name) return Unbounded_String;
-
-   -- --------------------------------------------------------------------------
-   type File_Type is record
-      Time_Tag  : Ada.Calendar.Time;
-      Is_System : Boolean;
-   end record;
-   use type Ada.Calendar.Time;
-   package File_Lists is
-     new Ada.Containers.Ordered_Maps (Key_Type     => File_Name,
-                                      Element_Type => File_Type);
-
-   -- --------------------------------------------------------------------------
-   procedure Dump (File_List : in File_Lists.Map);
-   -- Dump files in a one per line bulleted way.
-   -- If Settings.Filter_System_Files, then ignore
-   -- /lib /usr /etc /opt etc. files
+   -- Purpose:
+   --   This package defines a "Run File" and it's storage.
 
    -- --------------------------------------------------------------------------
    type Run is record
@@ -87,7 +39,7 @@ private package Smk.Runfiles is
                                       Element_Type => Run);
    -- --------------------------------------------------------------------------
    type Runfile is record
-      Smkfile_Name : Unbounded_String;
+      Smkfile_Name : Files.File_Name;
       Run_List     : Run_Lists.Map;
    end record;
 
@@ -98,9 +50,15 @@ private package Smk.Runfiles is
 
    -- --------------------------------------------------------------------------
    procedure Dump (Run_List : in Run_Lists.Map);
+   --
    -- Dump each run with the format :
    --
-   -- Time_Tag Command
+   -- Time_Tag [Section] Command (X source(s), Y target(s))
+   -- For example:
+   -- 2018-12-23 01:09:37.77 [main.o] gcc -c main.c (2 source(s), 1 target(s))
+   --
+   -- If --long-listing is used, sources and targets will also be listed
+   -- Time_Tag [Section] Command
    --    Sources (Sources count) :
    --       Time_Tag file1
    --       Time_Tag file2
@@ -119,6 +77,14 @@ private package Smk.Runfiles is
    --       Time_Tag file1
    --       Time_Tag file2
    --       ...
+
+   -- --------------------------------------------------------------------------
+   procedure Update_Files_Status (The_Runfile  : in out Runfile;
+                                  Updated_List : in out File_Lists.Map);
+
+   -- --------------------------------------------------------------------------
+   procedure List_Updated (File_List : in File_Lists.Map);
+   -- List files updated or missing since last run
 
    -- --------------------------------------------------------------------------
    procedure List_Sources (The_Runfile : in Runfile);
@@ -146,7 +112,7 @@ private package Smk.Runfiles is
    -- Run storage management
    -- --------------------------------------------------------------------------
    function Runfiles_Found return Boolean;
-   function Get_Saved_Run (Runfile_Name : in String) return Runfile;
+   function Get_Saved_Run (Runfile_Name : in File_Name) return Runfile;
 
    function Load_Runfile return Runfile;
    -- Get_Saved_Run or create a new runfile if none saved
@@ -157,5 +123,8 @@ private package Smk.Runfiles is
    -- --------------------------------------------------------------------------
    function Get_Run_List return File_Lists.Map;
    procedure Put_Run_List;
+
+private
+   -- --------------------------------------------------------------------------
 
 end Smk.Runfiles;

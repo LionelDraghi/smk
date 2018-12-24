@@ -1,6 +1,5 @@
-YYYY:MM:DD HH:MM:SS.SS [hello] gcc -o hello hello.o main.o
-  Sources (20) :
-  - YYYY:MM:DD HH:MM:SS.SS:/etc/ld.so.cache
+YYYY:MM:DD HH:MM:SS.SS [hello] "gcc -o hello hello.o main.o"
+  Sources (19) :
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.o
   - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/ld-2.27.so
@@ -23,9 +22,8 @@ YYYY:MM:DD HH:MM:SS.SS [hello] gcc -o hello hello.o main.o
   Targets (1) :
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello
 
-YYYY:MM:DD HH:MM:SS.SS [hello.o] gcc -o hello.o -c hello.c
-  Sources (55) :
-  - YYYY:MM:DD HH:MM:SS.SS:/etc/ld.so.cache
+YYYY:MM:DD HH:MM:SS.SS [hello.o] "gcc -o hello.o -c hello.c"
+  Sources (54) :
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.c
   - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libc-2.27.so
   - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libdl-2.27.so
@@ -83,9 +81,8 @@ YYYY:MM:DD HH:MM:SS.SS [hello.o] gcc -o hello.o -c hello.c
   Targets (1) :
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
 
-YYYY:MM:DD HH:MM:SS.SS [main.o] gcc -o main.o -c main.c
-  Sources (56) :
-  - YYYY:MM:DD HH:MM:SS.SS:/etc/ld.so.cache
+YYYY:MM:DD HH:MM:SS.SS [main.o] "gcc -o main.o -c main.c"
+  Sources (55) :
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.h
   - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.c
   - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libc-2.27.so

@@ -14,28 +14,35 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
--- -----------------------------------------------------------------------------
--- Package: Smk.Settings body
---
--- Implementation Notes:
---
--- Portability Issues:
---
--- Anticipated Changes:
--- -----------------------------------------------------------------------------
-
 with Ada.Directories;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 package body Smk.Settings is
 
-   Smkfl_Name      : Unbounded_String := Null_Unbounded_String;
-   Runfl_Name      : Unbounded_String := Null_Unbounded_String;
-   Current_Section : Unbounded_String := Null_Unbounded_String;
+   -- --------------------------------------------------------------------------
+   -- Most of the variable here are "write once, read more".
+   -- To avoid the cost of Unbounded strings manipulation,
+   -- they are implemented as access to String
+   Smkfl_Name      : access String := null;
+   Runfl_Name      : access String := null;
+   Current_Section : access String := null;
+   Current_Target  : access String := null;
+
    Cmd_Line        : Unbounded_String := Null_Unbounded_String;
-   Current_Target  : Unbounded_String := Null_Unbounded_String;
 
    -- --------------------------------------------------------------------------
+   procedure Set_Smkfile_Name (Name : in String) is
+   begin
+      Smkfl_Name := new String'(Name);
+      Runfl_Name := new String'(To_Runfile_Name (Name));
+   end Set_Smkfile_Name;
+
+   function Smkfile_Name return String is
+     (if Smkfl_Name = null then "" else Smkfl_Name.all);
+
+   function Is_Smkfile_Name_Set return Boolean is
+     (Smkfl_Name /= null);
+
    function Run_Dir_Name return String is
      (Ada.Directories.Containing_Directory (Smkfile_Name));
 
@@ -44,33 +51,25 @@ package body Smk.Settings is
       & Strace_Outfile_Suffix);
 
    -- --------------------------------------------------------------------------
-   procedure Set_Smkfile_Name (Name : in String) is
-   begin
-      Smkfl_Name := To_Unbounded_String (Name);
-      Runfl_Name := To_Unbounded_String (To_Runfile_Name (Name));
-   end Set_Smkfile_Name;
-
-   function Smkfile_Name return String is (To_String (Smkfl_Name));
-
-   -- --------------------------------------------------------------------------
    procedure Set_Runfile_Name (Name : in String) is
    begin
-      Runfl_Name := To_Unbounded_String (Name);
+      Runfl_Name := new String'(Name);
    end Set_Runfile_Name;
 
-   function Runfile_Name return String is (To_String (Runfl_Name));
+   function Runfile_Name return String is
+     (if Runfl_Name = null then "" else Runfl_Name.all);
 
-   -- --------------------------------------------------------------------------
    function To_Runfile_Name (Smkfile_Name : in String) return String is
      (Smk_File_Prefix & Ada.Directories.Simple_Name (Smkfile_Name));
 
    -- --------------------------------------------------------------------------
    procedure Set_Section_Name (Name : in String) is
    begin
-      Current_Section := To_Unbounded_String (Name);
+      Current_Section := new String'(Name);
    end Set_Section_Name;
 
-   function Section_Name return String is (To_String (Current_Section));
+   function Section_Name return String is
+     (if Current_Section = null then "" else Current_Section.all);
 
    -- --------------------------------------------------------------------------
    procedure Add_To_Command_Line (Text : in String) is
@@ -87,21 +86,10 @@ package body Smk.Settings is
    -- --------------------------------------------------------------------------
    procedure Set_Target_Name (Target : in String) is
    begin
-      Current_Target := To_Unbounded_String (Target);
+      Current_Target := new String'(Target);
    end Set_Target_Name;
 
-   function Target_Name return String is (To_String (Current_Target));
-
-   -- --------------------------------------------------------------------------
-   function Is_System_File (File_Name : in String) return Boolean is
-   begin
-      return File_Name'Length > 5 and then
-        (File_Name (File_Name'First .. File_Name'First + 4) = "/usr/"
-         or else File_Name (File_Name'First .. File_Name'First + 4) = "/lib/"
-         or else File_Name (File_Name'First .. File_Name'First + 4) = "/opt/"
-         or else File_Name (File_Name'First .. File_Name'First + 4) = "/etc/"
-         or else File_Name (File_Name'First .. File_Name'First + 5) = "/proc/"
-         or else File_Name (File_Name'First .. File_Name'First + 4) = "/sys/");
-   end Is_System_File;
+   function Target_Name return String is
+     (if Current_Target = null then "" else Current_Target.all);
 
 end Smk.Settings;
