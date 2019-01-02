@@ -18,13 +18,13 @@ with Smk.IO;
 
 with GNAT.OS_Lib;
 
+with Ada.Calendar;
 with Ada.Directories;
-with Ada.Text_IO;       use Ada.Text_IO;
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps;
 with Ada.Strings;
 
-separate (Smk.Main)
+separate (Smk.Runs)
 
 -- -----------------------------------------------------------------------------
 procedure Run_Command (E            : in out Smkfiles.Smkfile_Entry;
@@ -84,7 +84,6 @@ is
       -- OK is set to True if the spawn did it well.
 
       use GNAT.OS_Lib;
-      use Ada.Directories;
       Debug       : constant Boolean := False;
       Prefix      : constant String  := "";
       Opt         : constant String  := Settings.Shell_Opt
@@ -100,7 +99,7 @@ is
       Set_Directory (Settings.Run_Dir_Name);
 
       IO.Put_Debug_Line
-        (Msg    => "Spawn " & Shell_Cmd & " " & (Opt) & "...",
+        (Msg    => "Spawn " & Settings.Shell_Cmd & " " & (Opt) & "...",
          Debug  => Debug,
          Prefix => Prefix);
       for A of Spawn_Arg.all loop
@@ -108,7 +107,7 @@ is
       end loop;
 
       IO.Put_Line ((+Cmd));
-      Spawn (Program_Name => Shell_Cmd,
+      Spawn (Program_Name => Settings.Shell_Cmd,
              Args         => Spawn_Arg.all,
              Success      => OK);
       if not OK then
@@ -121,19 +120,19 @@ is
    end Run;
 
    use Smk.Runfiles;
-   OK            : Boolean;
-   Source_Files,
-   Target_Files  : Files.File_Lists.Map;
-   New_Run_Time  : Ada.Calendar.Time;
-   Source_System_File_Count,
-   Target_System_File_Count : Natural;
+   OK                  : Boolean;
+   Sources_And_Targets : Files.File_Lists.Map;
+   New_Run_Time        : Ada.Calendar.Time;
+   Counts              : Runfiles.File_Counts;
+   Dirs                : Files.File_Lists.Map;
 
 begin
+   -- --------------------------------------------------------------------------
    if Must_Be_Run (E.Command, The_Run_List) then
 
       Cmd_To_Run := True;
 
-      if Dry_Run then
+      if Settings.Dry_Run then
          -- don't run, just print the command
          IO.Put_Line ("> " & (+E.Command));
          E.Was_Run    := True;
@@ -148,25 +147,23 @@ begin
          E.Was_Run    := OK;
          Error_In_Run := not OK;
 
-         if not OK and not Keep_Going then
+         if not OK and not Settings.Keep_Going then
             return;
          end if;
 
          if OK then
             -- 2. Analyze the run log
-            Analyze_Run (Source_Files, Source_System_File_Count,
-                         Target_Files, Target_System_File_Count);
+            Analyze_Run (Sources_And_Targets, Dirs, Counts);
 
             -- 3. Store the results
             Insert_Or_Update
               (The_Command => E.Command,
                The_Run     =>
-                 (Section                  => E.Section,
-                  Run_Time                 => New_Run_Time,
-                  Sources                  => Source_Files,
-                  Source_System_File_Count => Source_System_File_Count,
-                  Targets                  => Target_Files,
-                  Target_System_File_Count => Target_System_File_Count),
+                 (Section  => E.Section,
+                  Run_Time => New_Run_Time,
+                  Files    => Sources_And_Targets,
+                  Dirs     => Dirs,
+                  Counts   => Counts),
                In_Run_List => The_Run_List);
          end if;
 
@@ -181,4 +178,5 @@ begin
       Error_In_Run := False;
 
    end if;
+
 end Run_Command;

@@ -14,9 +14,25 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-with Smk.Files.File_Lists;
+with Smk.Settings;
 
-procedure Smk.Files.Dump (File_List : in File_Lists.Map);
--- Dump files in a one per line bulleted way.
--- If Settings.Filter_System_Files, then ignore
--- /lib /usr /etc /opt etc. files
+procedure Smk.Files.Put (File_List     : File_Lists.Map;
+                         Prefix        : String  := "";
+                         Print_Sources : Boolean := False;
+                         Print_Targets : Boolean := False) is
+   use File_Lists;
+   use Smk.Settings;
+begin
+   for F in File_List.Iterate loop
+      if not (Settings.Filter_Sytem_Files and Is_System (Element (F)))
+      then
+         if (Print_Sources and Is_Source (File_List (F)))
+           or else (Print_Targets and Is_Target (File_List (F)))
+         then
+            Put_File_Description (Name   => Key (F),
+                                  File   => Element (F),
+                                  Prefix => Prefix);
+         end if;
+      end if;
+   end loop;
+end Smk.Files.Put;

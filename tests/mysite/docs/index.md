@@ -100,9 +100,6 @@ And obviously, any contribution, including ports, is welcome.
 - [Limitations and bugs](limitations.md)
 - [Changelog](changelog.md)
 - [Build Dashboard](dashboard.md)
-- Tests  
-    * [Tests status](tests/tests_status.md)
-    * [Tests results](tests/testrec.md)
 - [About](about.md)
  
 

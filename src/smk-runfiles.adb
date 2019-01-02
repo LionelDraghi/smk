@@ -18,166 +18,373 @@ with Ada.Directories;
 with Ada.Streams.Stream_IO;
 with Ada.Strings.Fixed;
 
-with Smk.Files.Dump;
+with Smk.Files.Put;
 with Smk.IO;
 with Smk.Settings;
 
 package body Smk.Runfiles is
 
+   -- --------------------------------------------------------------------------
    Run_Fl : Ada.Streams.Stream_IO.File_Type;
 
    -- --------------------------------------------------------------------------
-   procedure Dump (File_List : in File_Lists.Map;
-                   Prefix    : in String) is
-      use File_Lists;
-      use Smk.Settings;
+   function Count (Count             : Counts;
+                   With_System_Files : Boolean := False) return Natural
+   is
+      Sum : Natural := 0;
    begin
-      for F in File_List.Iterate loop
-         if not (Settings.Filter_Sytem_Files and Is_System (Element (F))) then
-            IO.Put_Line (Item => Prefix & (+Key (F)));
-         end if;
-      end loop;
-   end Dump;
+      Sum := Count (False);
+      if With_System_Files  then
+         Sum := Sum + Count (True);
+      end if;
+      return Sum;
+   end Count;
+
+   function Sources_Count (Counts            : File_Counts;
+                           With_System_Files : Boolean := False)
+                           return Natural is
+   begin
+      return Count (Counts.Sources, With_System_Files);
+   end Sources_Count;
+   function Targets_Count (Counts            : File_Counts;
+                           With_System_Files : Boolean := False)
+                           return Natural is
+   begin
+      return Count (Counts.Targets, With_System_Files);
+   end Targets_Count;
 
    -- --------------------------------------------------------------------------
-   function Command_Image (Command : in String;
-                           Run     : in Runfiles.Run) return String
-   is
-      RT_Image : constant String := IO.Image (Run.Run_Time);
-      Section  : constant String := " [" & (+Run.Section) & "] ";
+   function Count_Image (Count : Natural) return String is
+      Raw : constant String := Natural'Image (Count);
    begin
-      return (RT_Image & Section & """" & Command & """");
+      return Raw (2 .. Raw'Last);
+   end Count_Image;
+
+   -- --------------------------------------------------------------------------
+   function Counts_Image (Counts : File_Counts) return String is
+     ("Sources [Ord:" & Count_Image (Sources_Count (Counts, False))
+      & "/ Sys:" & Count_Image (Sources_Count (Counts, True))
+      & "], Targets [Ord:" & Count_Image (Targets_Count (Counts, False))
+      & "/ Sys:" & Count_Image (Targets_Count (Counts, True)) & "]");
+
+   -- --------------------------------------------------------------------------
+   function Section_Image (Section : Section_Names) return String is
+      -- (if (+Section) = "" then "" else "[" & (+Section) & "]");
+     ("[" & (+Section) & "]");
+   function Command_Image (Command : Command_Lines) return String is
+       ("""" & (+Command) & """");
+   function Time_Image (Time : Ada.Calendar.Time) return String is
+     ("[" & IO.Image (Time) & "]");
+
+   -- --------------------------------------------------------------------------
+   function Command_Image (Command : Command_Lines;
+                           Run     : Runfiles.Run) return String is
+   begin
+      if +Run.Section = "" then
+         return ("Command " & Command_Image (Command)
+                 & ", last run " & Time_Image (Run.Run_Time));
+      else
+         return ("Command " & Command_Image (Command)
+                 & " in section " & Section_Image (Run.Section)
+                 & ", last run " & Time_Image (Run.Run_Time));
+      end if;
    end Command_Image;
 
    -- --------------------------------------------------------------------------
-   function Source_Count (Run : in Runfiles.Run) return Natural is
+   procedure Put_Files (The_Runfile   : Runfile;
+                        Print_Sources : Boolean := False;
+                        Print_Targets : Boolean := False) is
+      use Run_Lists;
    begin
-      if Settings.Filter_Sytem_Files then
-         return Natural (Run.Sources.Length) - Run.Source_System_File_Count;
-      else
-         return Natural (Run.Sources.Length);
-      end if;
-   end Source_Count;
+      for R in The_Runfile.Run_List.Iterate loop
+         declare
+            Prefix : constant String :=
+                       (if Settings.Long_Listing_Format
+                        then Command_Image (Key (R)) & " " &
+                          Section_Image (Element (R).Section) & " "
+                        else "");
+         begin
+            Files.Put (File_List   => Element (R).Files,
+                       Prefix      => Prefix,
+                       Print_Sources     => Print_Sources,
+                       Print_Targets     => Print_Targets);
+         end;
+      end loop;
+   end Put_Files;
 
    -- --------------------------------------------------------------------------
-   function Target_Count (Run : in Runfiles.Run) return Natural is
+   procedure Put_Updated (File_List : in File_Lists.Map) is
+      use File_Lists;
    begin
-      if Settings.Filter_Sytem_Files then
-         return Natural (Run.Targets.Length) - Run.Target_System_File_Count;
-      else
-         return Natural (Run.Targets.Length);
+      for I in File_List.Iterate loop
+         declare
+            Name : File_Name renames File_Lists.Key (I);
+            File : File_Type renames File_Lists.Element (I);
+         begin
+            if Role (File) /= Unused and Status (File) /= Identical then
+               -- unused files are ignored
+               if Settings.Long_Listing_Format then
+                  -- normal behavior
+                  Put_File_Description (Name, File, Prefix => "");
+
+               else
+                  -- Even if in short form, we want to print the Status field
+                  Put_File_Description
+                    (Name, File,
+                     Prefix => "[" & Status_Image (Status (File)) & "] ");
+
+               end if;
+
+            end if;
+         end;
+      end loop;
+   end Put_Updated;
+
+   -- --------------------------------------------------------------------------
+   procedure Put_Run (Run_List : in Run_Lists.Map) is
+      use Run_Lists;
+      use type Ada.Containers.Count_Type;
+   begin
+      if Run_List.Length = 0 then
+         IO.Put_Line ("No recorded run");
+         return;
       end if;
-   end Target_Count;
+
+      for L in Run_List.Iterate loop
+         declare
+            Run : constant Runfiles.Run := Element (L);
+            SC  : constant String := Count_Image
+              (Sources_Count (Run.Counts, With_System_Files =>
+                        (not Settings.Filter_Sytem_Files)));
+            TC  : constant String := Count_Image
+              (Targets_Count (Run.Counts, With_System_Files =>
+                        (not Settings.Filter_Sytem_Files)));
+
+         begin
+            IO.Put_Line (Command_Image (Key (L), Run));
+            if Settings.Long_Listing_Format then
+               -- long form:
+               IO.Put_Line ("Sources: (" & SC & ")");
+               Smk.Files.Put (Run.Files, "  - ", Print_Sources => True);
+               IO.Put_Line ("Targets: (" & TC & ")");
+               Smk.Files.Put (Run.Files, "  - ", Print_Targets => True);
+               IO.Put_Line ("");
+            end if;
+
+         end;
+      end loop;
+   end Put_Run;
+
+   -- --------------------------------------------------------------------------
+   procedure Dump (The_Runfile : Runfile) is
+      use type Ada.Containers.Count_Type;
+   begin
+      if The_Runfile.Run_List.Length = 0 then
+         IO.Put_Line ("No recorded run");
+         return;
+      end if;
+
+      -- Force long format and show all
+      Settings.Long_Listing_Format := True;
+      Settings.Filter_Sytem_Files  := False;
+
+      for R in The_Runfile.Run_List.Iterate loop
+         declare
+            use Run_Lists;
+            Run : constant Runfiles.Run := Element (R);
+         begin
+            IO.Put_Line (Command_Image (Key (R), Run));
+            for F in Run.Files.Iterate loop
+               Dump_File_Description (Name   => File_Lists.Key (F),
+                                      File   => File_Lists.Element (F));
+            end loop;
+            for F in Run.Dirs.Iterate  loop
+               Dump_File_Description (Name   => File_Lists.Key (F),
+                                      File   => File_Lists.Element (F));
+            end loop;
+         end;
+      end loop;
+   end Dump;
 
    -- --------------------------------------------------------------------------
    procedure Update_Files_Status (File_List    : in out File_Lists.Map;
                                   Updated_List : in out File_Lists.Map) is
       use Smk.Files.File_Lists;
    begin
+      -- -----------------------------------------------------------------------
       for I in File_List.Iterate loop
          declare
             Previous_Status : File_Status;
             Current_Status  : File_Status;
+            Name            : File_Name renames File_Lists.Key (I);
+            File            : File_Type renames File_List (I);
          begin
-            Files.Update_File_Status (File_Lists.Key (I),
-                                      File_List (I),
-                                      Previous_Status,
-                                      Current_Status);
-            if Current_Status /= Identical then
-               if not Updated_List.Contains (File_Lists.Key (I)) then
-                  Updated_List.Insert (File_Lists.Key (I), File_List (I));
-                  if Previous_Status /= Current_Status then
-                     IO.Put_Line (+File_Lists.Key (I) & " status changed from "
-                            & File_Status'Image (Previous_Status) & " to "
-                            & File_Status'Image (Current_Status),
+            -- Fixme: precond : Is_Dir = False
+            if Is_Dir (File) then
+               IO.Put_Error ("Update_Files_Status:"  & (+Name) & " is a dir");
+            end if;
+
+            Files.Update_File_Status (Name, File,
+                                      Previous_Status, Current_Status);
+            if Current_Status /= Identical
+              and then Role (File) /= Unused
+              and then not Updated_List.Contains (Name)
+              and then not Settings.In_Ignore_List (+Name)
+            then
+               Updated_List.Insert (Name, File);
+               if Previous_Status /= Current_Status then
+                  IO.Put_Line
+                    (+Name & " status changed from "
+                     & Files.Status_Image (Previous_Status) & " to "
+                     & Files.Status_Image (Current_Status),
+                     Level => IO.Debug);
+               end if;
+            end if;
+         end;
+      end loop;
+   end Update_Files_Status;
+
+   --------------------------------------------------------------------------
+   procedure Update_Dirs_Status (The_Run      : in out Run;
+                                 Updated_List : in out File_Lists.Map) is
+      use Smk.Files.File_Lists;
+
+      Dir_List  : File_Lists.Map renames The_Run.Dirs;
+      File_List : File_Lists.Map renames The_Run.Files;
+
+      -----------------------------------------------------------------------
+      function New_Files_In_Dir (Dir : in String) return File_Lists.Map is
+         use Ada.Directories;
+         Search    : Search_Type;
+         File      : Directory_Entry_Type;
+         New_Files : File_Lists.Map;
+      begin
+         IO.Put_Line ("Start searching new files in " & Dir,
+                      Level => IO.Debug);
+         Start_Search (Search,
+                       Directory => Dir,
+                       Pattern   => "*",
+                       Filter    => (Ordinary_File => True,
+                                     others        => False));
+         while More_Entries (Search) loop
+            Get_Next_Entry (Search, File);
+            declare
+               Full_Name   : constant String
+                 := Ada.Directories.Full_Name   (File);
+               Simple_Name : constant String
+                 := Ada.Directories.Simple_Name (File);
+            begin
+               if Updated_List.Contains (+Full_Name) then
+                  IO.Put_Line ("File "
+                               & Simple_Name
+                               & " already known as Updated",
+                               Level => IO.Debug);
+
+               elsif File_List.Contains (+Full_Name) then
+                  IO.Put_Line ("File "
+                               & Simple_Name
+                               & " already known, but not Updated",
+                               Level => IO.Debug);
+
+               else
+                  -- A genuine new file:
+                  IO.Put_Line ("New file " & Simple_Name,
+                               Level => IO.Debug);
+                  if not Settings.In_Ignore_List (Simple_Name) then
+                     New_Files.Insert (+Full_Name,
+                                       Create (File => +Full_Name,
+                                               Role => Unused));
+                  end if;
+               end if;
+            end;
+
+         end loop;
+
+         return New_Files;
+
+      end New_Files_In_Dir;
+
+   begin
+      -----------------------------------------------------------------------
+      for I in Dir_List.Iterate loop
+         declare
+            Previous_Status : File_Status;
+            Current_Status  : File_Status;
+            Name            : File_Name renames File_Lists.Key (I);
+            File            : File_Type renames Dir_List (I);
+            New_Files       : File_Lists.Map;
+         begin
+            if not Is_Dir (File) then
+               IO.Put_Error ("Update_Dirs_Status: " & (+Name)
+                             & " is not a dir");
+            end if;
+
+            Files.Update_File_Status (Name, File,
+                                      Previous_Status, Current_Status);
+            if Current_Status /= Identical
+            -- if Identical, don't need to look for new files
+              and then Current_Status /= Missing
+            -- if Missing, can't look for new files
+              and then not Settings.In_Ignore_List (+Name)
+            then
+               New_Files := Empty_Map;
+               if not Updated_List.Contains (Name) then
+
+                  New_Files := New_Files_In_Dir (+Name);
+
+                  if New_Files.Is_Empty then
+                     -- Updated_List.Insert (Name, File);
+                     IO.Put_Line ("Updated dir " & (+Name)
+                                  & " but no new file",
                                   Level => IO.Debug);
+                     -- Set_Status (Dir_List (I), Identical);
+                     -- Updated Dir are only reported if there is a new file
+                     -- (new meaning that is not in File_List).
+
+                  else
+                     -- it's a dir with new files
+                     Updated_List.Insert (Name, File);
+                     IO.Put_Line ("Dir " & (+Name) & " with new file(s)",
+                                  Level => IO.Debug);
+
+                     -- New_Files are also inserted in the list of known file,
+                     -- with an Unused status
+                     for F in New_Files.Iterate loop
+                        if Settings.In_Ignore_List (+Key (F)) then
+                           IO.Put_Line ("Ignoring " & (+Key (F)),
+                                        Level => IO.Debug);
+                        elsif Is_Dir (New_Files (F)) then
+                           IO.Put_Line ("Adding dir " & (+Key (F))
+                                        & " to dir list",
+                                        Level => IO.Debug);
+                           Dir_List.Insert (Key (F), Element (F));
+                        else
+                           IO.Put_Line ("Adding file "
+                                        & (+Key (F)) & " to file list",
+                                        Level => IO.Debug);
+                           File_List.Insert (Key (F), Element (F));
+                        end if;
+                     end loop;
+
                   end if;
                end if;
             end if;
          end;
       end loop;
-   end Update_Files_Status;
-
-   -- --------------------------------------------------------------------------
-   procedure Update_Files_Status (The_Runfile  : in out Runfile;
-                                  Updated_List : in out File_Lists.Map) is
-   begin
-      for R of The_Runfile.Run_List loop
-         Update_Files_Status (R.Sources, Updated_List);
-         Update_Files_Status (R.Targets, Updated_List);
-      end loop;
-   end Update_Files_Status;
-
-   -- --------------------------------------------------------------------------
-   procedure List_Updated (File_List : in File_Lists.Map) is
-      use File_Lists;
-   begin
-      for I in File_List.Iterate loop
-         declare
-            Name : constant String    := +File_Lists.Key (I);
-            File : constant File_Type := File_Lists.Element (I);
-         begin
-            IO.Put_Line ("[" & Short_Image (Status (File))
-                         & "] " & Name, Level => IO.Debug);
-            if not (Settings.Filter_Sytem_Files and Is_System (File))
-            then
-               if Status (File) /= Identical and not Is_Dir (File) then
-                     IO.Put_Line ("[" & File_Status'Image (Status (File)) & "] "
-                                  & Name);
-               end if;
-            end if;
-         end;
-      end loop;
-   end List_Updated;
-
-   -- --------------------------------------------------------------------------
-   procedure List_Sources (The_Runfile : in Runfile) is
-      use Run_Lists;
-   begin
-      for R in The_Runfile.Run_List.Iterate loop
-         declare
-            Run    : constant Runfiles.Run := Element (R);
-         begin
-            if Settings.Long_Listing_Format then
-               Dump (Run.Sources,
-                     "[" & (+Run.Section) & "]" & (+Key (R)) & ":");
-            else
-               Dump (Run.Sources, "");
-            end if;
-         end;
-      end loop;
-   end List_Sources;
-
-   -- --------------------------------------------------------------------------
-   procedure List_Targets (The_Runfile : in Runfile) is
-      use Run_Lists;
-   begin
-      for R in The_Runfile.Run_List.Iterate loop
-         declare
-            Run    : constant Runfiles.Run := Element (R);
-         begin
-            if Settings.Long_Listing_Format then
-               Dump (Run.Targets,
-                     "[" & (+Run.Section) & "]" & (+Key (R)) & ":");
-            else
-               Dump (Run.Targets, "");
-            end if;
-         end;
-      end loop;
-   end List_Targets;
+   end Update_Dirs_Status;
 
    -- --------------------------------------------------------------------------
    procedure Delete_Targets (The_Runfile : in Runfile) is
       use Ada.Directories;
    begin
       for R of The_Runfile.Run_List loop
-         for F in R.Targets.Iterate loop
+         for F in R.Files.Iterate loop
             declare
                use File_Lists;
                Name : constant String := (+Key (F));
                use Settings;
             begin
-               if Exists (Name) then
+               if Is_Target (R.Files (F)) and then Exists (Name) then
                   IO.Put_Line ("Deleting " & Name);
                   if not Dry_Run then
                      Delete_File (Name);
@@ -199,8 +406,10 @@ package body Smk.Runfiles is
       if Target = "" then return False; end if;
 
       for R of The_Run_List loop
-         for T in R.Targets.Iterate loop
-            if Ada.Strings.Fixed.Tail (+Key (T), Target'Length) = Target then
+         for T in R.Files.Iterate loop
+            if Is_Target (R.Files (T)) and then
+              Ada.Strings.Fixed.Tail (+Key (T), Target'Length) = Target
+            then
                IO.Put_Line ("File " & (+Key (T)) & " match Target "
                             & Target & ".", Level => IO.Verbose);
                return True;
@@ -209,6 +418,30 @@ package body Smk.Runfiles is
       end loop;
       return False;
    end Has_Target;
+
+   -- --------------------------------------------------------------------------
+   procedure Reset (Counts : in out Runfiles.File_Counts) is
+   begin
+      Counts := (others => (others => 0));
+   end Reset;
+
+   -- --------------------------------------------------------------------------
+   procedure Update_Counts (File_list : in     Files.File_Lists.Map;
+                            Counts    : in out Runfiles.File_Counts) is
+   begin
+      for F of File_list  loop
+         declare
+            Sys : constant Boolean := Is_System (F);
+         begin
+            if Is_Source (F) then
+               Counts.Sources (Sys) := Counts.Sources (Sys) + 1;
+            end if;
+            if Is_Target (F) then
+               Counts.Targets (Sys) := Counts.Targets (Sys) + 1;
+            end if;
+         end;
+      end loop;
+   end Update_Counts;
 
    -- --------------------------------------------------------------------------
    procedure Insert_Or_Update (The_Command     : in     Command_Lines;
@@ -224,37 +457,6 @@ package body Smk.Runfiles is
                              New_Item => The_Run);
       end if;
    end Insert_Or_Update;
-
-   -- --------------------------------------------------------------------------
-   procedure Dump (Run_List : in Run_Lists.Map) is
-      use Run_Lists;
-   begin
-      for L in Run_List.Iterate loop
-         declare
-            Run : constant Runfiles.Run := Element (L);
-            SC  : constant String := Natural'Image (Source_Count (Run));
-            TC  : constant String := Natural'Image (Target_Count (Run));
-
-         begin
-            if Settings.Long_Listing_Format then
-               -- long form:
-               IO.Put_Line (Command_Image ((+Key (L)), Run));
-               IO.Put_Line ("  Sources (" & SC (2 .. SC'Last) & ") :");
-               Smk.Files.Dump (Run.Sources);
-               IO.Put_Line ("  Targets (" & TC (2 .. TC'Last) & ") :");
-               Smk.Files.Dump (Run.Targets);
-               IO.Put_Line ("");
-
-            else
-               -- short form:
-               IO.Put_Line (Command_Image ((+Key (L)), Run)
-                            & " (" & SC (2 .. SC'Last) & " source(s),"
-                            & TC & " target(s))");
-
-            end if;
-         end;
-      end loop;
-   end Dump;
 
    -- --------------------------------------------------------------------------
    function Runfiles_Found return Boolean is
@@ -347,7 +549,7 @@ package body Smk.Runfiles is
             -- removing File_Prefix
          begin
             The_List.Insert (Key      => +Smkfile_Name,
-                             New_Item => Create (+Smkfile_Name));
+                             New_Item => Create (+Smkfile_Name, Unused));
          end;
       end loop;
       return The_List;

@@ -22,28 +22,32 @@ Commands :
                        (equivalent to rm .smk.*)
    version           : put Smk version
    help              : this message
+   dump              : list all smk known info on files,
+                       including unused and dir
    list-runs    | lr : list runfiles in current directory
    list-sources | ls : list sources, except system files
-   list-targets | lt
+   list-targets | lt : list targets, except system files
+   list-unused  | lu : list files not involved in build
+
    NB : when no command is given, build is assumed
 
 Options :
-   -a   | --always-make     : unconditionally make all targets
-   -e   | --explain         : explain why each target is made
-   -n   | --dry-run         : print the commands that would be
-                              executed, but do not execute them
-   -sa  | --shows-all-files : prevent -ls and -rl from
-                              ignoring system files
-   -i   | --ignore-errors   : ignore all errors in commands
-                              executed to remake files
-   -l   | --long-listing    : use a long listing format when
-                              listing files
-   -k   | --keep-going      : Do as much work as possible
-   -We  | --Warnings=error  : treat warnings as errors
+   -a   | --always-make    : unconditionally make all targets
+   -e   | --explain        : explain why each target is made
+   -n   | --dry-run        : print the commands that would be
+                             executed, but do not execute them
+   -sa  | --show-all-files : prevent -ls and -rl from
+                             ignoring system files
+   -i   | --ignore-errors  : ignore all errors in commands
+                             executed to remake files
+   -l   | --long-listing   : use a long listing format when
+                             listing files
+   -k   | --keep-going     : Do as much work as possible
+   -We  | --Warnings=error : treat warnings as errors
    -v   | --verbose
-   -q   | --quiet           : no message unless error,
-                              Warning are also ignored
-   -h   | --help            : this message
+   -q   | --quiet          : no message unless error,
+                             Warning are also ignored
+   -h   | --help           : this message
 
 
 http://lionel.draghi.free.fr/smk/

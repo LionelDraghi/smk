@@ -2,7 +2,7 @@ About
 =====
 
 **Status:**  
-`smk` is under active development, but provides usable functionnalities since 0.0.2 version.
+`smk` is under active development, but provides usable functionalities since 0.0.2 version.
 
 **License:**  
 `smk` is licensed under [Apache License, Version 2.0](LICENSE-2.0.md).

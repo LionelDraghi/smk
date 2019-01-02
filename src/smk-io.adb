@@ -14,17 +14,6 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
--- -----------------------------------------------------------------------------
--- Package: Smk.IO body
---
--- Implementation Notes:
---
--- Portability Issues:
---
--- Anticipated Changes:
---
--- -----------------------------------------------------------------------------
-
 with Ada.Calendar.Formatting;
 with Ada.Calendar.Time_Zones;
 with Ada.Strings;

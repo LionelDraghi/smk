@@ -62,7 +62,9 @@ listing:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk ls -l > out.2.txt 
+	../../smk ls -l | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.2.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected2.txt out.2.txt" 
 
 	${TR} cmt 'Run:'
@@ -86,7 +88,9 @@ listing:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk list-targets --long-listing > out.4.txt 
+	../../smk list-targets --long-listing | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.4.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected4.txt out.4.txt" 
 
 	${TR} cmt 'Run:'

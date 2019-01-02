@@ -14,18 +14,6 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
--- -----------------------------------------------------------------------------
--- Package: Smk.IO specification
---
--- Purpose:
---
--- Effects:
---
--- Limitations:
---
--- Performance:
--- -----------------------------------------------------------------------------
-
 with Ada.Calendar;
 
 with Smk.Settings; use Smk.Settings;
@@ -38,10 +26,6 @@ private package Smk.IO is
                              Prefix : in String;
                              File   : in String  := "";
                              Line   : in Integer := 0);
-   -- procedure Put_Debug (Msg    : in String := "";
-   --                      Debug  : in Boolean;
-   --                      Prefix : in String);
-   -- procedure New_Debug_Line (Debug  : in Boolean);
 
    -- --------------------------------------------------------------------------
    subtype Print_Out_Level is Settings.Print_Out_Level;

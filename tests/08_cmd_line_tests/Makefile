@@ -60,7 +60,7 @@ cmd_line:
 	${TR} cmt 'Expected:'
 	${TR} cmt 
 	${TR} cmt '```' 						
-	echo "0.2.0"		> out.expected_version.txt
+	echo "0.3.0"		> out.expected_version.txt
 	cat out.expected_version.txt >> testrec.md					
 	${TR} cmt '```' 						
 	${TR} cmt 

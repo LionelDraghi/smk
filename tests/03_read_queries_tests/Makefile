@@ -95,8 +95,9 @@ read_queries:
 	
 	../../smk -q reset
 	../../smk -q build ../hello.c/Makefile.2 
-	../../smk st -l -sa | sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
-		             sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.lpr1.txt 
+	../../smk st -l -sa | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.lpr1.txt 
 	# to get the comparison working, numbers in date are removed
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr1.txt out.lpr1.txt" 
 

@@ -2,7 +2,7 @@
 
 ## Successful
 
-   34 tests OK
+   39 tests OK
 
   - [Sanity / First `smk`, after `make`, should run no command](testrec.md#)
   - [Sanity / Second `smk`, should not run any command](testrec.md#)
@@ -26,6 +26,7 @@
   - [Targets related functions / Build selected target](testrec.md#)
   - [Implicit naming / Implicit naming](testrec.md#)
   - [Run errors / -k -i](testrec.md#)
+  - [Run errors / `run` command fails](testrec.md#)
   - [Command line / Help options](testrec.md#)
   - [Command line / Version option](testrec.md#)
   - [Command line / Illegal cmd lines](testrec.md#)
@@ -38,11 +39,17 @@
   - [Sections related functions / smkmfile:section notation](testrec.md#)
   - [Command Run features / Add and build](testrec.md#)
   - [Command Run features / Run](testrec.md#)
+  - [Directory update tests / start conversion](testrec.md#)
+  - [Directory update tests / new ogg in dir](testrec.md#)
+  - [Directory update tests / ogg-to-mp3 is modified](testrec.md#)
+  - [Directory update tests / smk clean](testrec.md#)
 
 ## Failed
 
-   0 tests failed
+   2 tests failed
 
+**Directory update tests / start conversion](testrec.md#)
+**Directory update tests / adding a .ogg file in a subdir](testrec.md#)
 
 ## Empty
 

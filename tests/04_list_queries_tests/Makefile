@@ -77,7 +77,9 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk list-targets --long-listing ../hello.c/Makefile.2 > out.lt1.txt 
+	../../smk list-targets --long-listing ../hello.c/Makefile.2 | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.lt1.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_lt1.txt out.lt1.txt" 
 
 	${TR} cmt 'Run:'
@@ -151,7 +153,9 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk -l ls -sa ../hello.c/Makefile.2 > out.las2.txt 
+	../../smk -l ls -sa ../hello.c/Makefile.2 | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.las2.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_las2.txt out.las2.txt" 
 
 	${TR} end

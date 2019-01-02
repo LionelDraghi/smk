@@ -14,20 +14,10 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-with Smk.IO;
-with Smk.Settings;
+with Smk.Files.File_Lists;
 
-procedure Smk.Files.Dump (File_List : in File_Lists.Map) is
-   use File_Lists;
-begin
-   for F in File_List.Iterate loop
-      declare
-         Name : constant String            := +Key (F);
-         TT   : constant Ada.Calendar.Time := Element (F).Time_Tag;
-      begin
-         if not (Settings.Filter_Sytem_Files and Element (F).Is_System) then
-            IO.Put_Line ("  - " & IO.Image (TT) & ":" & Name);
-         end if;
-      end;
-   end loop;
-end Smk.Files.Dump;
+function Smk.Files.Unused (Sources_And_Targets : File_Lists.Map;
+                           Root_Dir            : String := "./";
+                           Recursive           : Boolean)
+                           return File_Lists.Map;
+-- List files in dir that are not known as source or target

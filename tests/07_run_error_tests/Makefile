@@ -18,7 +18,7 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../smk header run_error 
+check: ../../smk header run_errors 
 
 header:
 	@ #-------------------------------------------------------------------------
@@ -26,7 +26,7 @@ header:
 	${TR} create 'Run errors'
 	${TR} cmt 'test -k and -i behavior'
 
-run_error:
+run_errors:
 	@ #-------------------------------------------------------------------------
 	${TR} start 'no option' 
 	${TR} cmt 
@@ -56,14 +56,7 @@ run_error:
 	cat expected_run_error2.txt >> testrec.md
 	${TR} cmt '```' 
 	${TR} cmt 
-	${TR} cmt 'Note that the two command that fail are rerun'
-	${TR} cmt 'during a second loop in case the command' 
-	${TR} cmt 'that run successfully during the first loop' 
-	${TR} cmt 'changed the the situation.'
-	${TR} cmt 'And that is not the case here, nothing is run with'
-	${TR} cmt 'success during the second loop, so full stop.' 
-	${TR} cmt 
-
+	
 	../../smk -q reset
 	test ! `../../smk -k ../hello.c/Wrong_Makefile > out.run_error2.txt 2>&1`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error2.txt out.run_error2.txt" 
@@ -106,7 +99,81 @@ run_error:
 
 	${TR} end
 
+	@ #-------------------------------------------------------------------------
+	${TR} start '`run` command fails' 
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -q reset`'
+	${TR} cmt '`rm *.smk`'
+	${TR} cmt '`smk run non_existing_command`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt 
+	${TR} cmt '```' 
+	cat expected.5 >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	../../smk -q reset
+	@ - rm *.smk
+	test ! `../../smk run non_existing_command > out.5 2>&1`
+	${TR} assert true /usr/bin/sdiff "-sbB expected.5 out.5" 
+
+	${TR} cmt 
+	${TR} cmt 'default.smk should nevertheless contains the failed command'
+	${TR} cmt 
+	${TR} cmt '```' 
+	cat expected.6 >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+
+	${TR} assert true /usr/bin/sdiff "-sbB expected.6 default.smk" 
+
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk read-smkfile`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt 
+	${TR} cmt '```' 
+	cat expected.7 >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	../../smk read-smkfile | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+      sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.7
+	${TR} assert true /usr/bin/sdiff "-sbB expected.7 out.7" 
+
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk status`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt 
+	${TR} cmt '```' 
+	cat expected.8 >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	../../smk status > out.8
+	${TR} assert true /usr/bin/sdiff "-sbB expected.8 out.8" 
+
+	${TR} cmt 'Other commands should return nothing:'
+	${TR} cmt '`smk whatsnew`'
+	${TR} cmt '`smk list-sources`'
+	${TR} cmt '`smk list-targets`'
+	${TR} cmt 
+	
+	> out.null
+	../../smk whatsnew > out.9
+	${TR} assert true /usr/bin/sdiff "-sbB out.null out.9" 
+	../../smk list-sources > out.10
+	${TR} assert true /usr/bin/sdiff "-sbB out.null out.10" 
+	../../smk list-targets > out.11
+	${TR} assert true /usr/bin/sdiff "-sbB out.null out.11" 
+
+	${TR} end
+
 clean:
 	${TR} clean
 	../../smk reset
-	- ${RM} out.*  
+	- ${RM} out.* *.smk 

@@ -20,9 +20,8 @@ with Smk.Files;
 with Smk.Files.File_Lists;
 with Smk.Smkfiles;
 with Smk.Runfiles;
-with Smk.Settings;          use Smk.Settings;
+with Smk.Settings;         use Smk.Settings;
 
-with Ada.Calendar;
 with Ada.Command_Line;
 with Ada.Directories;
 with Ada.Containers;
@@ -44,94 +43,7 @@ procedure Smk.Main is
    -- Cmd line options are then available in the Settings package.
 
    -- --------------------------------------------------------------------------
-   procedure Analyze_Run
-     (Source_Files             : out Files.File_Lists.Map;
-      Source_System_File_Count : out Natural;
-      Target_Files             : out Files.File_Lists.Map;
-      Target_System_File_Count : out Natural) is separate;
-   -- Based on the run log file (that is the strace output), and the run time,
-   -- it identifies Source and Target files.
-   -- Thanks to strace -y option, file names appears clearly between <>
-   -- in the strace output.
-   -- This output is filtered to keep only those file names, and pushed to
-   -- Source_Files list output parameter if the file's time tag is older than
-   -- the execution time, and to Target_Files list otherwise.
-
-   -- --------------------------------------------------------------------------
-   function Must_Be_Run (Command      : Command_Lines;
-                         Previous_Run : in out Runfiles.Run_Lists.Map)
-                         return Boolean is separate;
-   -- This function return True if one of the following condition is met:
-   --    1. the --always-make option is set;
-   --    2. the provided Command is not found in the previous run;
-   --    3. one the files identified as Target during the previous run
-   --       is missing;
-   --    4. one the files identified as Source during the previous run
-   --       has been updated after the previous run.
-
-   -- --------------------------------------------------------------------------
-   procedure Run_Command (E            : in out Smkfiles.Smkfile_Entry;
-                          The_Run_List : in out Runfiles.Run_Lists.Map;
-                          Cmd_To_Run   :    out Boolean;
-                          Error_In_Run :    out Boolean)
-   is separate; -- Fixme: to be moved as a Run_All_Commands separate
-   -- Run_Command is in charge of spawning the Cmd (using strace),
-   -- and analysing the strace log file.
-   -- The_Run_List is updated with this run results
-
-   -- --------------------------------------------------------------------------
-   procedure Run_All_Commands (The_Smkfile   : in out Smkfiles.Smkfile;
-                               The_Run_List  : in out Runfiles.Run_Lists.Map;
-                               Cmd_To_Run    :    out Boolean;
-                               Error_In_Run  :    out Boolean;
-                               Section_Found :    out Boolean;
-                               Target_Found  :    out Boolean)
-   is separate;
-
-   -- --------------------------------------------------------------------------
-   procedure Process_Build is
-      The_Smkfile   : Smkfiles.Smkfile;
-      The_Runfile   : Runfiles.Runfile;
-      Cmd_To_Run    : Boolean;
-      Error_In_Run  : Boolean;
-      Section_Found : Boolean;
-      Target_Found  : Boolean;
-      use Smk.Smkfiles;
-
-   begin
-      Smkfiles.Analyze (+Smkfile_Name, The_Smkfile);
-
-      The_Runfile := Runfiles.Load_Runfile;
-
-      Run_All_Commands (The_Smkfile,
-                        The_Runfile.Run_List,
-                        Cmd_To_Run,
-                        Error_In_Run,
-                        Section_Found,
-                        Target_Found);
-
-      if Settings.Section_Name /= "" and not Section_Found then
-         IO.Put_Line ("No section """ & Settings.Section_Name &
-                        """ in " & (+The_Smkfile.Name));
-
-      elsif Settings.Target_Name /= "" and not Target_Found then
-         IO.Put_Line
-           ("Target """ & Settings.Target_Name & """ not found");
-         IO.Put_Line
-           ("run smk list-targets to get a list of possible target");
-
-      elsif not Cmd_To_Run then
-         IO.Put_Line ("Nothing to run");
-
-      end if;
-
-      if Error_In_Run and not Ignore_Errors then
-         Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
-      end if;
-
-      -- Save the updated run:
-      Runfiles.Save_Run (The_Runfile);
-   end Process_Build;
+   procedure Build is separate;
 
 begin
    -- --------------------------------------------------------------------------
@@ -145,14 +57,7 @@ begin
    end if;
 
    case Current_Command is
-      when Read_Smkfile =>
-         declare
-            The_Smkfile : Smkfiles.Smkfile;
-            use Smkfiles;
-         begin
-            Smkfiles.Analyze (+Smkfile_Name, The_Smkfile);
-            Smkfiles.Dump (The_Smkfile);
-         end;
+      when Read_Smkfile => Smkfiles.Dump;
 
       when Status =>
          declare
@@ -162,20 +67,25 @@ begin
             if Runfiles.Runfiles_Found then
                The_Runfile := Runfiles.Get_Saved_Run
                  (+To_Runfile_Name (Smkfile_Name));
-               Runfiles.Dump (The_Runfile.Run_List);
+               Runfiles.Put_Run (The_Runfile.Run_List);
             else
                Put_Error ("No previous run found.");
             end if;
          end;
 
       when List_Previous_Runs =>
-         Runfiles.Put_Run_List; -- Fixme:
+         Runfiles.Put_Run_List;
 
       when List_Targets =>
-         Runfiles.List_Targets (Runfiles.Load_Runfile);
+         Runfiles.Put_Files (Runfiles.Load_Runfile, Print_Targets => True);
 
       when List_Sources =>
-         Runfiles.List_Sources (Runfiles.Load_Runfile);
+         Runfiles.Put_Files (Runfiles.Load_Runfile, Print_Sources => True);
+
+      when List_Unused =>
+         Runfiles.Put_Files (Runfiles.Load_Runfile,
+                             Print_Sources => False,
+                             Print_Targets => False);
 
       when Whatsnew =>
          declare
@@ -184,32 +94,31 @@ begin
             Updated_List : Files.File_Lists.Map;
          begin
             The_Runfile := Load_Runfile;
-            Update_Files_Status (The_Runfile, Updated_List);
-            List_Updated (Updated_List);
+            for R of The_Runfile.Run_List loop
+               Update_Files_Status (R.Files, Updated_List);
+               Update_Dirs_Status  (R, Updated_List);
+            end loop;
+            Put_Updated (Updated_List);
             Save_Run (The_Runfile);
          end;
 
-      when Clean =>
-         Runfiles.Delete_Targets (Runfiles.Load_Runfile);
+      when Clean => Runfiles.Delete_Targets (Runfiles.Load_Runfile);
 
-      when Reset =>
-         Runfiles.Clean_Run_Files;
+      when Reset => Runfiles.Clean_Run_Files;
 
-      when Version =>
-         IO.Put_Line (Settings.Smk_Version);
+      when Version => IO.Put_Line (Settings.Smk_Version);
 
-      when Build =>
-         Process_Build;
+      when Build => Build;
 
-      when Add =>
-         Smkfiles.Add_To_Smkfile (Command_Line);
+      when Add => Smkfiles.Add_To_Smkfile (Command_Line);
+
+      when Dump => Runfiles.Dump (Runfiles.Load_Runfile);
 
       when Run =>
          Smkfiles.Add_To_Smkfile (Command_Line);
-         Process_Build;
+         Build;
 
-      when Help =>
-         Put_Help;
+      when Help => Put_Help;
 
       when None =>
          Put_Error
@@ -220,5 +129,10 @@ begin
    if IO.Some_Error and not Ignore_Errors then
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
+
+--  exception
+--     when others =>
+--        Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
+--        raise;
 
 end Smk.Main;

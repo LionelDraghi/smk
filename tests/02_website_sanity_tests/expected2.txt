@@ -1,20 +1,18 @@
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/about.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/changelog.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/cmd_line.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/compare_with_make.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/dashboard.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/design_notes.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/fixme.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img/sloc.png
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img/tests.png
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img/tests_ko.svg
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img/tests_ok.svg
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img/version.svg
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/index.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/limitations.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/smkfile_format.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/tutorial.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/mkdocs.yml
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/about.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/changelog.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/cmd_line.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/compare_with_make.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/contributing.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/dashboard.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/design_notes.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/fixme.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/sloc.png
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/tests.png
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/tests_ko.svg
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/tests_ok.svg
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/version.svg
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/index.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/limitations.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/smkfile_format.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/tutorial.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/mkdocs.yml

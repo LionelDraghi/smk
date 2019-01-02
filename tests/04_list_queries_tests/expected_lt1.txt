@@ -1,3 +1,3 @@
-[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/hello
-[hello.o]gcc -o hello.o -c hello.c:/home/lionel/Proj/smk/tests/hello.c/hello.o
-[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/main.o
+"gcc -o hello hello.o main.o" [hello] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello
+"gcc -o hello.o -c hello.c" [hello.o] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
+"gcc -o main.o -c main.c" [main.o] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o

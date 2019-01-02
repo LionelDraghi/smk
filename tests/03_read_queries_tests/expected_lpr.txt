@@ -1,3 +1,3 @@
-YYYY:MM:DD HH:MM:SS.SS [hello] "gcc -o hello hello.o main.o" (2 source(s), 1 target(s))
-YYYY:MM:DD HH:MM:SS.SS [hello.o] "gcc -o hello.o -c hello.c" (1 source(s), 1 target(s))
-YYYY:MM:DD HH:MM:SS.SS [main.o] "gcc -o main.o -c main.c" (2 source(s), 1 target(s))
+Command "gcc -o hello hello.o main.o" in section [hello], last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "gcc -o hello.o -c hello.c" in section [hello.o], last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "gcc -o main.o -c main.c" in section [main.o], last run [YYYY:MM:DD HH:MM:SS.SS]

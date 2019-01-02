@@ -135,9 +135,9 @@ package List_Image is
    generic
       type Container (<>) is limited private;
       type Cursor is private;
-      with function First (Self : Container) return Cursor is <>;
-      with function Has_Element (Pos : Cursor) return Boolean is <>;
-      with function Next        (Pos : Cursor) return Cursor  is <>;
+      with function First       (Self : Container) return Cursor  is <>;
+      with function Has_Element (Pos : Cursor)     return Boolean is <>;
+      with function Next        (Pos : Cursor)     return Cursor  is <>;
    package Cursors_Signature is end Cursors_Signature;
 
    -- --------------------------------------------------------------------------

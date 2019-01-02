@@ -21,7 +21,7 @@
 
 private package Smk.Settings is
 
-   Smk_Version : constant String := "0.2.0";
+   Smk_Version : constant String := "0.3.0";
 
    -- --------------------------------------------------------------------------
    Always_Make         : Boolean := False;
@@ -30,9 +30,8 @@ private package Smk.Settings is
    Keep_Going          : Boolean := False;
    Ignore_Errors       : Boolean := False;
    Long_Listing_Format : Boolean := False;
-   Recursive           : Boolean := False;
+   -- Recursive        : Boolean := False;
    Warnings_As_Errors  : Boolean := False;
-   Create_Template     : Boolean := False;
    Filter_Sytem_Files  : Boolean := True;
 
    type Commands is (Build,
@@ -42,17 +41,19 @@ private package Smk.Settings is
                      List_Previous_Runs,
                      List_Sources,
                      List_Targets,
+                     List_Unused,
                      Clean,
                      Reset,
                      Version,
                      Help,
                      Add,
                      Run,
+                     Dump,
                      None) with Default_Value => None;
    Current_Command : Commands;
 
    -- --------------------------------------------------------------------------
-   Smk_File_Prefix       : constant String := ".smk."; -- used for all Smk files
+   Smk_File_Prefix       : constant String := ".smk.";
    Strace_Outfile_Prefix : constant String := "/tmp/";
    Strace_Outfile_Suffix : constant String := ".strace_output";
    Default_Smkfile_Name  : constant String := "default.smk";
@@ -79,8 +80,17 @@ private package Smk.Settings is
    function Debug_Mode return Boolean is (Verbosity = Debug);
 
    -- --------------------------------------------------------------------------
+   function Is_System      (File_Name : in String) return Boolean;
+   function In_Ignore_List (File_Name : in String) return Boolean;
+   -- Return True for files like /etc/ld.so.cache that are updated
+   -- on each execution, or like /dev/* that are not "normal" files
+   -- in a build context.
 
-   -- -------------------------------------------------------------------------
+   type Filter_List is array (Positive range <>) of access String;
+   function System_Files return Filter_List;
+   function Ignore_List  return Filter_List;
+
+   -- --------------------------------------------------------------------------
    -- Smkfile_Name = "../hello.c/Makefile.txt"
    -- Runfile_Name = ".smk.Makefile.txt"
    --    that is Runfile_Name = "Prefix + Simple_Name (Smkfile_Name)"

@@ -1,0 +1,18 @@
+Command "id3ren -quiet -template=%a-%s.mp3 x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (1)
+  - [Both  ] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+Targets: (1)
+  - [Both  ] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/Luke-Sentinelle.mp3
+
+Command "id3v2 -a Luke -t Sentinelle x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (1)
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+Targets: (1)
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+
+Command "sox x.ogg x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (1)
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.ogg
+Targets: (1)
+  - [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+

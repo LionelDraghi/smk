@@ -34,21 +34,21 @@ pages:
 #  - download.md
   - compare_with_make.md
   - Tests: tests/testrec.md
+  - Limitations and bugs: limitations.md
 
 - Design:
   - design_notes.md
+  - contributing.md
 
 - Current Status:
   - dashboard.md
   - tests/tests_status.md
   - fixme.md
 #  - todo.md
-  - Limitations and bugs: limitations.md
   - changelog.md
 
 - About: 
   - about.md
-#  - contributing.md
   - License: LICENSE-2.0.md
 
 ## - Tools:
@@ -68,7 +68,7 @@ extra_css:
 # extra_javascript:
   
 # ------------------------------------------------------------------------------
-theme: 'bootstrap'
+theme: 'nature'
 # amelia, cerulean, cosmo, cyborg, flatly, journal, readable, simplex, slate, spacelab, united, yeti, bootstrap, mkdocs, readthedocs
 
 ###  theme_dir: '/usr/local/lib/python2.7/dist-packages/mkdocs_windmill'

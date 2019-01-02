@@ -5,9 +5,4 @@ Error : Spawn failed for gcc -o main.o -c main.c --WTF
 gcc -o hello hello.o main.o
 gcc: error: main.o: No such file or directory
 Error : Spawn failed for gcc -o hello hello.o main.o
-gcc -o main.o -c main.c --WTF
-gcc: error: unrecognized command line option '--WTF'
-Error : Spawn failed for gcc -o main.o -c main.c --WTF
-gcc -o hello hello.o main.o
-gcc: error: main.o: No such file or directory
-Error : Spawn failed for gcc -o hello hello.o main.o
+

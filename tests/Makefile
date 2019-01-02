@@ -60,6 +60,9 @@ check: ../smk
 	echo
 	echo 11_command_run_tests
 	$(MAKE) check --directory=11_command_run_tests
+	echo
+	echo 12_mp3_conversions_tests
+	$(MAKE) check --directory=12_mp3_conversions_tests
 
 doc:
 	cat *_tests/testrec.md > testrec.md

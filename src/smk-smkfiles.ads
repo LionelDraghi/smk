@@ -51,12 +51,11 @@ private package Smk.Smkfiles is
    end record;
 
    -- --------------------------------------------------------------------------
-   procedure Analyze (Smkfile_Name : in     Smk_File_Name;
-                      Line_List    :    out Smkfile);
-   -- Analyze the Makefile provided on command line.
+   function Load_Smkfile return Smkfile;
+   -- Load the Makefile provided on command line.
 
    -- --------------------------------------------------------------------------
-   procedure Dump (The_Smkfile : in Smkfile);
+   procedure Dump;
    -- Dump Smk understanding of a Makefile, only the useful part of the
    -- Current Makefile, that is without any comment or blank line.
 

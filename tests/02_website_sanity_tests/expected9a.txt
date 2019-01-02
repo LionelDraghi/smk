@@ -1,1 +1,1 @@
-[UPDATED] /home/lionel/Proj/smk/tests/mysite/docs/about.md
+[Updated] /home/lionel/Proj/smk/tests/mysite/docs/about.md

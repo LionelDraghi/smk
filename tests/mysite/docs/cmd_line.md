@@ -36,7 +36,7 @@ Options :
    -e   | --explain         : explain why each target is made
    -n   | --dry-run         : print the commands that would be
                               executed, but do not execute them
-   -sa  | --shows-all-files : prevent -ls and -rl from
+   -sa  | --show-all-files : prevent -ls and -rl from
                               ignoring system files
    -i   | --ignore-errors   : ignore all errors in commands
                               executed to remake files

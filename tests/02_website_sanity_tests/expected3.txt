@@ -1,12 +1,11 @@
-/home/lionel/Proj/smk/tests/mysite/docs
 /home/lionel/Proj/smk/tests/mysite/docs/about.md
 /home/lionel/Proj/smk/tests/mysite/docs/changelog.md
 /home/lionel/Proj/smk/tests/mysite/docs/cmd_line.md
 /home/lionel/Proj/smk/tests/mysite/docs/compare_with_make.md
+/home/lionel/Proj/smk/tests/mysite/docs/contributing.md
 /home/lionel/Proj/smk/tests/mysite/docs/dashboard.md
 /home/lionel/Proj/smk/tests/mysite/docs/design_notes.md
 /home/lionel/Proj/smk/tests/mysite/docs/fixme.md
-/home/lionel/Proj/smk/tests/mysite/docs/img
 /home/lionel/Proj/smk/tests/mysite/docs/img/sloc.png
 /home/lionel/Proj/smk/tests/mysite/docs/img/tests.png
 /home/lionel/Proj/smk/tests/mysite/docs/img/tests_ko.svg
@@ -17,4 +16,3 @@
 /home/lionel/Proj/smk/tests/mysite/docs/smkfile_format.md
 /home/lionel/Proj/smk/tests/mysite/docs/tutorial.md
 /home/lionel/Proj/smk/tests/mysite/mkdocs.yml
-/home/lionel/Proj/smk/tests/mysite/site

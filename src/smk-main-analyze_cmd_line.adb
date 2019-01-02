@@ -73,8 +73,8 @@ procedure Analyze_Cmd_Line is
             Settings.Set_Smkfile_Name (Smkfile);
             Settings.Set_Section_Name (Section);
          else
-            Put_Error ("Unknown Smkfile " & Smkfile & " in "
-                       & Opt, With_Help => False);
+            Put_Error ("Unknown Smkfile " & Smkfile & " in " & Opt,
+                       With_Help => False);
          end if;
       end if;
 
@@ -94,7 +94,8 @@ procedure Analyze_Cmd_Line is
          -- the unrecognized argument processing depends on the
          -- ongoing command
 
-      when Read_Smkfile | Status | List_Sources | Whatsnew =>
+      when Read_Smkfile | Status | List_Sources | List_Targets |
+           List_Unused | Whatsnew =>
          declare
             Opt : constant String := To_String (Unidentified_Opt);
 
@@ -110,12 +111,12 @@ procedure Analyze_Cmd_Line is
             end if;
          end;
 
-      when List_Previous_Runs | Reset | Version | Help | None =>
+      when List_Previous_Runs | Reset | Version | Help | None | Dump =>
          -- no more argument expected
          Put_Error ("Unknown option " & To_String (Unidentified_Opt),
                     With_Help => True);
 
-      when List_Targets | Clean | Build =>
+      when Clean | Build =>
          declare
             Opt : constant String := To_String (Unidentified_Opt);
 
@@ -136,7 +137,7 @@ procedure Analyze_Cmd_Line is
             end if;
          end;
 
-         when Add | Run =>
+         when Add | Settings.Run =>
             -- the Add case is already process at the beginning of the if,
             -- this line can't be executed!
             Put_Error ("Unknown error in command line on :" &
@@ -168,7 +169,6 @@ procedure Analyze_Cmd_Line is
 
          begin
             if Run_List.Length = 1 then
-               IO.Put_Line ("Run_List.Length = 1", Level => IO.Debug);
                -- implicit smkfile: if there's only one in the
                -- current directory, then, go with it!
                declare
@@ -176,14 +176,13 @@ procedure Analyze_Cmd_Line is
                     := To_Runfile_Name (+Key (Run_List.First));
                   Run          : Runfile;
                begin
+                  -- Put_Error ("1 ***********************");
                   Settings.Set_Runfile_Name (Runfile_Name);
-                  IO.Put_Line ("Implicit runfile = " & (Runfile_Name),
-                               Level => Debug);
-
+                  -- Put_Error ("2 ***********************");
                   Run := Get_Saved_Run (+Runfile_Name);
+                  -- Put_Error ("3 ***********************");
                   Settings.Set_Smkfile_Name (+Run.Smkfile_Name);
-                  IO.Put_Line ("Implicit smkfile = " & (+Run.Smkfile_Name),
-                               Level => Debug);
+                  -- Put_Error ("4 ***********************");
                end;
 
             elsif Run_List.Length > 1 then
@@ -212,7 +211,57 @@ procedure Analyze_Cmd_Line is
 
    end Implicit_Smkfile_Processing;
 
+   -- --------------------------------------------------------------------------
+   procedure Put_Settings is
+      function Checkbox (Switch : Boolean) return String is
+        (if Switch then "[X]" else "[ ]");
+   begin
+      IO.Put_Line ("");
+      IO.Put_Line ("Settings / Command line analysis:");
+      IO.Put_Line ("---------------------------------");
+      IO.Put_Line ("");
+      IO.Put_Line ("   Verbosity        : "
+                   & Print_Out_Level'Image (Verbosity));
+      IO.Put_Line ("   Command          : " & Commands'Image (Current_Command));
+      IO.Put_Line ("   Smkfile name     : " & Smkfile_Name);
+      IO.Put_Line ("   Runfile name     : " & Runfile_Name);
+      IO.Put_Line ("   Strace out file  : " & Strace_Outfile_Name);
+      IO.Put_Line ("   Section name     : " & Section_Name);
+      IO.Put_Line ("   Cmd Line         : " & Command_Line);
+      IO.Put_Line ("   Target name      : " & Target_Name);
+      IO.Put_Line ("   Unidentified Opt : " & To_String (Unidentified_Opt));
+      IO.Put_Line ("");
+
+      IO.Put_Line ("   System Files     : ");
+      for F of System_Files loop
+         IO.Put_Line ("   - " & F.all);
+      end loop;
+      IO.Put_Line ("");
+      IO.Put_Line ("   Ignore list      : ");
+      for F of Ignore_List loop
+         IO.Put_Line ("   - " & F.all);
+      end loop;
+      IO.Put_Line ("");
+
+      IO.Put_Line ("   " & Checkbox (Always_Make) & " Always_Make");
+      IO.Put_Line ("   " & Checkbox (Explain) & " Explain");
+      IO.Put_Line ("   " & Checkbox (Dry_Run) & " Dry_Run");
+      IO.Put_Line ("   " & Checkbox (Keep_Going) & " Keep_Going");
+      IO.Put_Line ("   " & Checkbox (Ignore_Errors) & " Ignore_Errors");
+      IO.Put_Line ("   " & Checkbox (Long_Listing_Format)
+                   & " Long_Listing_Format");
+      -- Put_Line ("   " & Checkbox (Recursive) & " Recursive");
+      IO.Put_Line ("   " & Checkbox (Warnings_As_Errors)
+                   & " Warnings_As_Errors");
+      IO.Put_Line ("   " & Checkbox (Filter_Sytem_Files)
+                   & " Filter_Sytem_Files");
+      IO.Put_Line ("");
+      IO.Put_Line ("---------------------------------");
+      IO.Put_Line ("");
+   end Put_Settings;
+
 begin
+   -- --------------------------------------------------------------------------
    -- NB: command line, including arguments should comply with GNU Coding
    -- standards
    -- (https://www.gnu.org/software/libc/manual/html_node/Argument-Syntax.html)
@@ -223,8 +272,7 @@ begin
          Opt : constant String := Ada.Command_Line.Argument (Arg_Counter);
 
       begin
-         -- 1/3 Commands:
-
+         -- Commands:
          if Current_Command = Add or Current_Command = Run then
             -- all parameters following "add" are considered as part of the
             -- command line, so there is no analysis of the content
@@ -260,6 +308,9 @@ begin
          elsif Opt = "lt" or Opt = "list-targets" then
             Set_If_Not_Already_Set (List_Targets);
 
+         elsif Opt = "list-unused" or Opt = "lu" then
+            Set_If_Not_Already_Set (List_Unused);
+
          elsif Opt = "wn" or Opt = "whatsnew" then
             Set_If_Not_Already_Set (Whatsnew);
 
@@ -269,7 +320,10 @@ begin
          elsif Opt = "run" then
             Set_If_Not_Already_Set (Run);
 
-            -- 2/3 Options:
+         elsif Opt = "dump" then
+            Set_If_Not_Already_Set (Dump);
+
+            -- Options:
          elsif Opt = "-a" or Opt = "--always-make" then
             Settings.Always_Make := True;
 
@@ -341,15 +395,8 @@ begin
    Implicit_Smkfile_Processing;
 
    -- --------------------------------------------------------------------------
-   IO.Put_Line ("Command line analysis:",                Level => Debug);
-   IO.Put_Line ("   Command          : "
-                & Commands'Image (Current_Command),      Level => Debug);
-   IO.Put_Line ("   Smkfile name     : " & Smkfile_Name, Level => Debug);
-   IO.Put_Line ("   Runfile name     : " & Runfile_Name, Level => Debug);
-   IO.Put_Line ("   Section name     : " & Section_Name, Level => Debug);
-   IO.Put_Line ("   Cmd Line         : " & Command_Line, Level => Debug);
-   IO.Put_Line ("   Target name      : " & Target_Name,  Level => Debug);
-   IO.Put_Line ("   Unidentified Opt : "
-                & To_String (Unidentified_Opt),          Level => Debug);
+   if Debug_Mode then
+      Put_Settings;
+   end if;
 
 end Analyze_Cmd_Line;

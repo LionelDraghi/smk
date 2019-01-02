@@ -19,6 +19,7 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 private package Smk.Files is
 
+   -- --------------------------------------------------------------------------
    -- Purpose:
    --   This package defines a File and related operations
 
@@ -28,12 +29,29 @@ private package Smk.Files is
                         Updated,
                         Missing,
                         Unknown) with Default_Value => Unknown;
-   Short_Image : array (File_Status) of Character :=
-                   (Created   => 'C',
-                    Identical => '=',
-                    Updated   => 'U',
-                    Missing   => 'M',
-                    Unknown   => '?');
+   Status_Image : constant array (File_Status) of String (1 .. 7) :=
+                    (Created   => "Created",
+                     Identical => "Identic", -- Identical
+                     Updated   => "Updated",
+                     Missing   => "Missing",
+                     Unknown   => "Unknown");
+   Short_Status_Image : constant array (File_Status) of Character :=
+                          (Created   => 'C',
+                           Identical => '=',
+                           Updated   => 'U',
+                           Missing   => 'M',
+                           Unknown   => '?');
+
+   -- --------------------------------------------------------------------------
+   type File_Role is (Source,
+                      Target,
+                      Both,
+                      Unused) with Default_Value => Unused;
+   Role_Image : constant array (File_Role) of String (1 .. 6) :=
+                  (Source => "Source",
+                   Target => "Target",
+                   Both   => "Both  ",
+                   Unused => "Unused");
 
    -- --------------------------------------------------------------------------
    type File_Name is private;
@@ -45,22 +63,39 @@ private package Smk.Files is
    type File_Type is private;
 
    -- --------------------------------------------------------------------------
-   function Create (File : File_Name) return File_Type;
+   function Create (File : File_Name;
+                    Role : File_Role) return File_Type;
+
+   -- --------------------------------------------------------------------------
+   -- procedure Set_Role   (File : in out File_Type; Role   : File_Role);
+   procedure Set_Status (File : in out File_Type; Status : File_Status);
+   procedure Set_Source (File : in out File_Type);
+   procedure Set_Target (File : in out File_Type);
 
    -- --------------------------------------------------------------------------
    function Time_Tag  (File : File_Type) return Ada.Calendar.Time;
+   function Is_Dir    (File : File_Type) return Boolean;
    function Is_System (File : File_Type) return Boolean;
    -- Is_System returns True if the File_Name starts with "/usr/, "/lib/", etc.
-   function Is_Dir    (File : File_Type) return Boolean;
+   function Role      (File : File_Type) return File_Role;
    function Status    (File : File_Type) return File_Status;
+   function Is_Source (File : File_Type) return Boolean;
+   function Is_Target (File : File_Type) return Boolean;
 
    -- --------------------------------------------------------------------------
-   function Is_System      (File_Name : in String) return Boolean;
+   procedure Put_File_Description (Name   : File_Name;
+                                   File   : File_Type;
+                                   Prefix : String := "");
+   -- Print a one line File description,
+   -- with a format variable according to Long_Listing_Format setting
 
    -- --------------------------------------------------------------------------
-   function In_Ignore_List (File_Name : in String) return Boolean;
-   -- Return True for files like /etc/ld.so.cache that are updated
-   -- on each execution
+   procedure Dump_File_Description (Name : File_Name;
+                                    File : File_Type);
+   -- Print all about the File, no filtering
+
+   -- --------------------------------------------------------------------------
+   function Is_Dir (File_Name : in String) return Boolean;
 
    -- --------------------------------------------------------------------------
    procedure Update_File_Status (Name            : in     File_Name;
@@ -70,10 +105,12 @@ private package Smk.Files is
 
 private
    type File_Type is record
-      Time_Tag  : Ada.Calendar.Time; -- := Ada.Calendar.Clock;
-      Is_System : Boolean;           -- := False;
-      Is_Dir    : Boolean;           -- := False;
-      Status    : File_Status;       -- := Unknown;
+      Time_Tag  : Ada.Calendar.Time;
+      Is_System : Boolean;
+      Is_Dir    : Boolean;
+      Is_Source : Boolean;
+      Is_Target : Boolean;
+      Status    : File_Status;
    end record;
 
    type File_Name is new Unbounded_String;

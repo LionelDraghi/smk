@@ -95,7 +95,7 @@ Sanity / `smk -a`, should run all commands even if not needed [Successful](tests
 
   Expected:  
 ```  
-run "gcc -o main.o -c main.c" because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
+run "gcc -o main.o -c main.c" because Target /home/lionel/Proj/smk/tests/hello.c/main.o is missing
 gcc -o main.o -c main.c
 run "gcc -o hello hello.o main.o" because /home/lionel/Proj/smk/tests/hello.c/main.o (-- ::.) has been updated since last run (-- ::.)
 gcc -o hello hello.o main.o
@@ -151,26 +151,24 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 
   Expected:  
 ```  
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/about.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/changelog.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/cmd_line.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/compare_with_make.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/dashboard.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/design_notes.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/fixme.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img/sloc.png
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img/tests.png
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img/tests_ko.svg
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img/tests_ok.svg
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/img/version.svg
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/index.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/limitations.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/smkfile_format.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/docs/tutorial.md
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/mkdocs.yml
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/about.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/changelog.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/cmd_line.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/compare_with_make.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/contributing.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/dashboard.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/design_notes.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/fixme.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/sloc.png
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/tests.png
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/tests_ko.svg
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/tests_ok.svg
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/version.svg
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/index.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/limitations.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/smkfile_format.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/tutorial.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/mkdocs.yml
 ```  
 
   Run:  
@@ -178,15 +176,14 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 
   Expected:  
 ```  
-/home/lionel/Proj/smk/tests/mysite/docs
 /home/lionel/Proj/smk/tests/mysite/docs/about.md
 /home/lionel/Proj/smk/tests/mysite/docs/changelog.md
 /home/lionel/Proj/smk/tests/mysite/docs/cmd_line.md
 /home/lionel/Proj/smk/tests/mysite/docs/compare_with_make.md
+/home/lionel/Proj/smk/tests/mysite/docs/contributing.md
 /home/lionel/Proj/smk/tests/mysite/docs/dashboard.md
 /home/lionel/Proj/smk/tests/mysite/docs/design_notes.md
 /home/lionel/Proj/smk/tests/mysite/docs/fixme.md
-/home/lionel/Proj/smk/tests/mysite/docs/img
 /home/lionel/Proj/smk/tests/mysite/docs/img/sloc.png
 /home/lionel/Proj/smk/tests/mysite/docs/img/tests.png
 /home/lionel/Proj/smk/tests/mysite/docs/img/tests_ko.svg
@@ -197,7 +194,6 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 /home/lionel/Proj/smk/tests/mysite/docs/smkfile_format.md
 /home/lionel/Proj/smk/tests/mysite/docs/tutorial.md
 /home/lionel/Proj/smk/tests/mysite/mkdocs.yml
-/home/lionel/Proj/smk/tests/mysite/site
 ```  
 
   Run:  
@@ -205,44 +201,49 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 
   Expected:  
 ```  
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/about/index.html
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/changelog/index.html
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/cmd_line/index.html
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/compare_with_make/index.html
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/css/base.css
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/css/bootstrap-3.3.7.min.css
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/css/font-awesome.min.css
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/css/highlight.css
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/dashboard/index.html
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/design_notes/index.html
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/fixme/index.html
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.eot
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.svg
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.ttf
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.woff
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.woff2
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/img/favicon.ico
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/img/sloc.png
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/img/tests.png
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/img/tests_ko.svg
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/img/tests_ok.svg
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/img/version.svg
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/index.html
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/js/base.js
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/js/bootstrap-3.3.7.min.js
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/js/highlight.pack.js
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/js/jquery-1.10.2.min.js
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/limitations/index.html
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/search/lunr.min.js
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/search/mustache.min.js
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/search/require.js
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/search/search-results-template.mustache
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/search/search.js
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/search/search_index.json
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/search/text.js
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/sitemap.xml
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/smkfile_format/index.html
-[doc]mkdocs build --clean --quiet:/home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/404.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/about/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/changelog/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/cmd_line/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/compare_with_make/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/contributing/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/css/base.css
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/css/bootstrap-custom.min.css
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/css/font-awesome.min.css
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/dashboard/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/design_notes/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fixme/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/FontAwesome.otf
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.eot
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.svg
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.ttf
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.woff
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.woff2
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.eot
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.svg
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.ttf
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.woff
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.woff2
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/favicon.ico
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/grid.png
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/sloc.png
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/tests.png
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/tests_ko.svg
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/tests_ok.svg
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/version.svg
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/js/base.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/js/bootstrap-3.0.3.min.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/js/jquery-1.10.2.min.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/limitations/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/search/lunr.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/search/main.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/search/search_index.json
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/search/worker.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/sitemap.xml
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/sitemap.xml.gz
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/smkfile_format/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
 ```  
 
   Run:  
@@ -285,8 +286,7 @@ OK
 
   Expected:  
 ```  
-
-run "mkdocs build --clean --quiet" because /home/lionel/Proj/smk/tests/mysite/site/about/index.html is missing
+run "mkdocs build --clean --quiet" because Target /home/lionel/Proj/smk/tests/mysite/site/404.html is missing
 mkdocs build --clean --quiet
 ```  
 
@@ -315,7 +315,7 @@ Website building sanity tests / building without section [Successful](tests_stat
 
   Expected:  
 ```  
-[UPDATED] /home/lionel/Proj/smk/tests/mysite/docs/about.md
+[Updated] /home/lionel/Proj/smk/tests/mysite/docs/about.md
 ```  
 
   Run:  
@@ -324,8 +324,8 @@ Website building sanity tests / building without section [Successful](tests_stat
 
   Expected:  
 ```  
-[UPDATED] /home/lionel/Proj/smk/tests/mysite/docs/about.md
-[MISSING] /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
+[Updated] /home/lionel/Proj/smk/tests/mysite/docs/about.md
+[Missing] /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
 ```  
 
   Run:  
@@ -333,14 +333,12 @@ Website building sanity tests / building without section [Successful](tests_stat
 
   Expected:  
 ```  
-run "mkdocs build --clean --quiet" because /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html is missing
+run "mkdocs build --clean --quiet" because Target /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html is missing
 mkdocs build --clean --quiet
 No need to run echo --- clean:
 No need to run rm -rf ./site/*
 No need to run echo OK
-No need to run echo --- clean:
-No need to run rm -rf ./site/*
-No need to run echo OK
+
 ```  
 
 
@@ -355,23 +353,31 @@ Website building sanity tests / re-building [Successful](tests_status.md#success
   Expected:  
 ```  
 
+Deleting /home/lionel/Proj/smk/tests/mysite/site/404.html
 Deleting /home/lionel/Proj/smk/tests/mysite/site/about/index.html
 Deleting /home/lionel/Proj/smk/tests/mysite/site/changelog/index.html
 Deleting /home/lionel/Proj/smk/tests/mysite/site/cmd_line/index.html
 Deleting /home/lionel/Proj/smk/tests/mysite/site/compare_with_make/index.html
+Deleting /home/lionel/Proj/smk/tests/mysite/site/contributing/index.html
 Deleting /home/lionel/Proj/smk/tests/mysite/site/css/base.css
-Deleting /home/lionel/Proj/smk/tests/mysite/site/css/bootstrap-3.3.7.min.css
+Deleting /home/lionel/Proj/smk/tests/mysite/site/css/bootstrap-custom.min.css
 Deleting /home/lionel/Proj/smk/tests/mysite/site/css/font-awesome.min.css
-Deleting /home/lionel/Proj/smk/tests/mysite/site/css/highlight.css
 Deleting /home/lionel/Proj/smk/tests/mysite/site/dashboard/index.html
 Deleting /home/lionel/Proj/smk/tests/mysite/site/design_notes/index.html
 Deleting /home/lionel/Proj/smk/tests/mysite/site/fixme/index.html
+Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/FontAwesome.otf
 Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.eot
 Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.svg
 Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.ttf
 Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.woff
 Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.woff2
+Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.eot
+Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.svg
+Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.ttf
+Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.woff
+Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.woff2
 Deleting /home/lionel/Proj/smk/tests/mysite/site/img/favicon.ico
+Deleting /home/lionel/Proj/smk/tests/mysite/site/img/grid.png
 Deleting /home/lionel/Proj/smk/tests/mysite/site/img/sloc.png
 Deleting /home/lionel/Proj/smk/tests/mysite/site/img/tests.png
 Deleting /home/lionel/Proj/smk/tests/mysite/site/img/tests_ko.svg
@@ -379,18 +385,15 @@ Deleting /home/lionel/Proj/smk/tests/mysite/site/img/tests_ok.svg
 Deleting /home/lionel/Proj/smk/tests/mysite/site/img/version.svg
 Deleting /home/lionel/Proj/smk/tests/mysite/site/index.html
 Deleting /home/lionel/Proj/smk/tests/mysite/site/js/base.js
-Deleting /home/lionel/Proj/smk/tests/mysite/site/js/bootstrap-3.3.7.min.js
-Deleting /home/lionel/Proj/smk/tests/mysite/site/js/highlight.pack.js
+Deleting /home/lionel/Proj/smk/tests/mysite/site/js/bootstrap-3.0.3.min.js
 Deleting /home/lionel/Proj/smk/tests/mysite/site/js/jquery-1.10.2.min.js
 Deleting /home/lionel/Proj/smk/tests/mysite/site/limitations/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/search/lunr.min.js
-Deleting /home/lionel/Proj/smk/tests/mysite/site/search/mustache.min.js
-Deleting /home/lionel/Proj/smk/tests/mysite/site/search/require.js
-Deleting /home/lionel/Proj/smk/tests/mysite/site/search/search-results-template.mustache
-Deleting /home/lionel/Proj/smk/tests/mysite/site/search/search.js
+Deleting /home/lionel/Proj/smk/tests/mysite/site/search/lunr.js
+Deleting /home/lionel/Proj/smk/tests/mysite/site/search/main.js
 Deleting /home/lionel/Proj/smk/tests/mysite/site/search/search_index.json
-Deleting /home/lionel/Proj/smk/tests/mysite/site/search/text.js
+Deleting /home/lionel/Proj/smk/tests/mysite/site/search/worker.js
 Deleting /home/lionel/Proj/smk/tests/mysite/site/sitemap.xml
+Deleting /home/lionel/Proj/smk/tests/mysite/site/sitemap.xml.gz
 Deleting /home/lionel/Proj/smk/tests/mysite/site/smkfile_format/index.html
 Deleting /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
 ```  
@@ -406,8 +409,7 @@ Website building sanity tests / cleaning [Successful](tests_status.md#successful
 
   Expected:  
 ```  
-
-run "mkdocs build --clean --quiet" because /home/lionel/Proj/smk/tests/mysite/site/about/index.html is missing
+run "mkdocs build --clean --quiet" because Target /home/lionel/Proj/smk/tests/mysite/site/.html is missing
 mkdocs build --clean --quiet
 ```  
 
@@ -473,9 +475,9 @@ Read queries / read-smkfile [Successful](tests_status.md#successful)
   Expected:  
   (note that to ease comparison, dates are removed)  
 ```  
-YYYY:MM:DD HH:MM:SS.SS [hello] "gcc -o hello hello.o main.o" (2 source(s), 1 target(s))
-YYYY:MM:DD HH:MM:SS.SS [hello.o] "gcc -o hello.o -c hello.c" (1 source(s), 1 target(s))
-YYYY:MM:DD HH:MM:SS.SS [main.o] "gcc -o main.o -c main.c" (2 source(s), 1 target(s))
+Command "gcc -o hello hello.o main.o" in section [hello], last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "gcc -o hello.o -c hello.c" in section [hello.o], last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "gcc -o main.o -c main.c" in section [main.o], last run [YYYY:MM:DD HH:MM:SS.SS]
 ```  
 
   Run: (same with system files not ignored and long form)   
@@ -486,148 +488,144 @@ YYYY:MM:DD HH:MM:SS.SS [main.o] "gcc -o main.o -c main.c" (2 source(s), 1 target
   Expected:  
   (note that to ease comparison, dates are removed)  
 ```  
-YYYY:MM:DD HH:MM:SS.SS [hello] "gcc -o hello hello.o main.o"
-  Sources (19) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.o
-  - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/ld-2.27.so
-  - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libc-2.27.so
-  - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libdl-2.27.so
-  - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libm-2.27.so
-  - YYYY:MM:DD HH:MM:SS.SS:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtbegin.o
-  - YYYY:MM:DD HH:MM:SS.SS:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtend.o
-  - YYYY:MM:DD HH:MM:SS.SS:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a
-  - YYYY:MM:DD HH:MM:SS.SS:/opt/GNAT/2018/lib64/libgcc_s.so
-  - YYYY:MM:DD HH:MM:SS.SS:/opt/GNAT/2018/lib64/libgcc_s.so.1
-  - YYYY:MM:DD HH:MM:SS.SS:/opt/GNAT/2018/libexec/gcc/x86_64-pc-linux-gnu/7.3.1/liblto_plugin.so.0.0.0
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/lib/locale/locale-archive
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/lib/x86_64-linux-gnu/crt1.o
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/lib/x86_64-linux-gnu/crti.o
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/lib/x86_64-linux-gnu/crtn.o
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/lib/x86_64-linux-gnu/libc.so
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/lib/x86_64-linux-gnu/libc_nonshared.a
-  Targets (1) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello
+Command "gcc -o hello hello.o main.o" in section [hello], last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (19)
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/ld-2.28.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtbegin.o
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtend.o
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib64/libgcc_s.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib64/libgcc_s.so.1
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/libexec/gcc/x86_64-pc-linux-gnu/7.3.1/liblto_plugin.so.0.0.0
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/crt1.o
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/crti.o
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/crtn.o
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc_nonshared.a
+Targets: (1)
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello
 
-YYYY:MM:DD HH:MM:SS.SS [hello.o] "gcc -o hello.o -c hello.c"
-  Sources (54) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.c
-  - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libc-2.27.so
-  - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libdl-2.27.so
-  - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libm-2.27.so
-  - YYYY:MM:DD HH:MM:SS.SS:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
-  - YYYY:MM:DD HH:MM:SS.SS:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/alloca.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/endian.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/features.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/stdc-predef.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/stdio.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/stdlib.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/_G_config.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/byteswap-16.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/byteswap.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/endian.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/floatn-common.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/floatn.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/libc-header-start.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/libio.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/long-double.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/select.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/stdint-intn.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/stdio_lim.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/stdlib-float.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/sys_errlist.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/sysmacros.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/FILE.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/__FILE.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/clock_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/time_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/timer_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/typesizes.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/uintn-identity.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/waitflags.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/waitstatus.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/wordsize.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/gnu/stubs-64.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/gnu/stubs.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/sys/cdefs.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/sys/select.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/sys/sysmacros.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/sys/types.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/lib/locale/locale-archive
-  Targets (1) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.o
+Command "gcc -o hello.o -c hello.c" in section [hello.o], last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (52)
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.c
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/alloca.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/endian.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/features.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdc-predef.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdio.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdlib.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/byteswap.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/endian.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/floatn-common.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/floatn.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/long-double.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/select.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdio_lim.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdlib-float.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/sys_errlist.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/FILE.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__FILE.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/clock_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/time_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/timer_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/typesizes.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/uintn-identity.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/waitflags.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/waitstatus.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/wordsize.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/gnu/stubs.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/cdefs.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/select.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/types.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
+Targets: (1)
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
 
-YYYY:MM:DD HH:MM:SS.SS [main.o] "gcc -o main.o -c main.c"
-  Sources (55) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/hello.h
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.c
-  - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libc-2.27.so
-  - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libdl-2.27.so
-  - YYYY:MM:DD HH:MM:SS.SS:/lib/x86_64-linux-gnu/libm-2.27.so
-  - YYYY:MM:DD HH:MM:SS.SS:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
-  - YYYY:MM:DD HH:MM:SS.SS:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/alloca.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/endian.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/features.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/stdc-predef.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/stdio.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/stdlib.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/_G_config.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/byteswap-16.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/byteswap.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/endian.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/floatn-common.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/floatn.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/libc-header-start.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/libio.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/long-double.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/select.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/stdint-intn.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/stdio_lim.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/stdlib-float.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/sys_errlist.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/sysmacros.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/FILE.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/__FILE.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/clock_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/time_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/types/timer_t.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/typesizes.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/uintn-identity.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/waitflags.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/waitstatus.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/bits/wordsize.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/gnu/stubs-64.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/gnu/stubs.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/sys/cdefs.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/sys/select.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/sys/sysmacros.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/include/x86_64-linux-gnu/sys/types.h
-  - YYYY:MM:DD HH:MM:SS.SS:/usr/lib/locale/locale-archive
-  Targets (1) :
-  - YYYY:MM:DD HH:MM:SS.SS:/home/lionel/Proj/smk/tests/hello.c/main.o
+Command "gcc -o main.o -c main.c" in section [main.o], last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (53)
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.c
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/alloca.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/endian.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/features.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdc-predef.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdio.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdlib.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/byteswap.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/endian.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/floatn-common.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/floatn.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/long-double.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/select.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdio_lim.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdlib-float.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/sys_errlist.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/FILE.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__FILE.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/clock_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/time_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/timer_t.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/typesizes.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/uintn-identity.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/waitflags.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/waitstatus.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/wordsize.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/gnu/stubs.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/cdefs.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/select.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/types.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
+Targets: (1)
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o
 
 ```  
 
@@ -692,9 +690,9 @@ List queries / lr | list-runs [Successful](tests_status.md#successful)
 
   Expected: (long form)  
 ```  
-[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/hello
-[hello.o]gcc -o hello.o -c hello.c:/home/lionel/Proj/smk/tests/hello.c/hello.o
-[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/main.o
+"gcc -o hello hello.o main.o" [hello] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello
+"gcc -o hello.o -c hello.c" [hello.o] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
+"gcc -o main.o -c main.c" [main.o] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o
 ```  
 
   Run:  
@@ -751,10 +749,10 @@ List queries / ls | list-sources [Successful](tests_status.md#successful)
 ```  
 /home/lionel/Proj/smk/tests/hello.c/hello.o
 /home/lionel/Proj/smk/tests/hello.c/main.o
-/lib/x86_64-linux-gnu/ld-2.27.so
-/lib/x86_64-linux-gnu/libc-2.27.so
-/lib/x86_64-linux-gnu/libdl-2.27.so
-/lib/x86_64-linux-gnu/libm-2.27.so
+/lib/x86_64-linux-gnu/ld-2.28.so
+/lib/x86_64-linux-gnu/libc-2.28.so
+/lib/x86_64-linux-gnu/libdl-2.28.so
+/lib/x86_64-linux-gnu/libm-2.28.so
 /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtbegin.o
 /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtend.o
 /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a
@@ -769,9 +767,9 @@ List queries / ls | list-sources [Successful](tests_status.md#successful)
 /usr/lib/x86_64-linux-gnu/libc.so
 /usr/lib/x86_64-linux-gnu/libc_nonshared.a
 /home/lionel/Proj/smk/tests/hello.c/hello.c
-/lib/x86_64-linux-gnu/libc-2.27.so
-/lib/x86_64-linux-gnu/libdl-2.27.so
-/lib/x86_64-linux-gnu/libm-2.27.so
+/lib/x86_64-linux-gnu/libc-2.28.so
+/lib/x86_64-linux-gnu/libdl-2.28.so
+/lib/x86_64-linux-gnu/libm-2.28.so
 /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
 /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
 /usr/include/alloca.h
@@ -780,14 +778,11 @@ List queries / ls | list-sources [Successful](tests_status.md#successful)
 /usr/include/stdc-predef.h
 /usr/include/stdio.h
 /usr/include/stdlib.h
-/usr/include/x86_64-linux-gnu/bits/_G_config.h
-/usr/include/x86_64-linux-gnu/bits/byteswap-16.h
 /usr/include/x86_64-linux-gnu/bits/byteswap.h
 /usr/include/x86_64-linux-gnu/bits/endian.h
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h
 /usr/include/x86_64-linux-gnu/bits/floatn.h
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
-/usr/include/x86_64-linux-gnu/bits/libio.h
 /usr/include/x86_64-linux-gnu/bits/long-double.h
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
@@ -796,16 +791,18 @@ List queries / ls | list-sources [Successful](tests_status.md#successful)
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h
 /usr/include/x86_64-linux-gnu/bits/sys_errlist.h
-/usr/include/x86_64-linux-gnu/bits/sysmacros.h
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
 /usr/include/x86_64-linux-gnu/bits/types.h
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
+/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h
@@ -819,14 +816,13 @@ List queries / ls | list-sources [Successful](tests_status.md#successful)
 /usr/include/x86_64-linux-gnu/gnu/stubs.h
 /usr/include/x86_64-linux-gnu/sys/cdefs.h
 /usr/include/x86_64-linux-gnu/sys/select.h
-/usr/include/x86_64-linux-gnu/sys/sysmacros.h
 /usr/include/x86_64-linux-gnu/sys/types.h
 /usr/lib/locale/locale-archive
 /home/lionel/Proj/smk/tests/hello.c/hello.h
 /home/lionel/Proj/smk/tests/hello.c/main.c
-/lib/x86_64-linux-gnu/libc-2.27.so
-/lib/x86_64-linux-gnu/libdl-2.27.so
-/lib/x86_64-linux-gnu/libm-2.27.so
+/lib/x86_64-linux-gnu/libc-2.28.so
+/lib/x86_64-linux-gnu/libdl-2.28.so
+/lib/x86_64-linux-gnu/libm-2.28.so
 /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
 /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
 /usr/include/alloca.h
@@ -835,14 +831,11 @@ List queries / ls | list-sources [Successful](tests_status.md#successful)
 /usr/include/stdc-predef.h
 /usr/include/stdio.h
 /usr/include/stdlib.h
-/usr/include/x86_64-linux-gnu/bits/_G_config.h
-/usr/include/x86_64-linux-gnu/bits/byteswap-16.h
 /usr/include/x86_64-linux-gnu/bits/byteswap.h
 /usr/include/x86_64-linux-gnu/bits/endian.h
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h
 /usr/include/x86_64-linux-gnu/bits/floatn.h
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
-/usr/include/x86_64-linux-gnu/bits/libio.h
 /usr/include/x86_64-linux-gnu/bits/long-double.h
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
@@ -851,16 +844,18 @@ List queries / ls | list-sources [Successful](tests_status.md#successful)
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h
 /usr/include/x86_64-linux-gnu/bits/sys_errlist.h
-/usr/include/x86_64-linux-gnu/bits/sysmacros.h
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
 /usr/include/x86_64-linux-gnu/bits/types.h
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
+/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h
@@ -874,7 +869,6 @@ List queries / ls | list-sources [Successful](tests_status.md#successful)
 /usr/include/x86_64-linux-gnu/gnu/stubs.h
 /usr/include/x86_64-linux-gnu/sys/cdefs.h
 /usr/include/x86_64-linux-gnu/sys/select.h
-/usr/include/x86_64-linux-gnu/sys/sysmacros.h
 /usr/include/x86_64-linux-gnu/sys/types.h
 /usr/lib/locale/locale-archive
 ```  
@@ -885,134 +879,130 @@ List queries / ls | list-sources [Successful](tests_status.md#successful)
 
   Expected:  
 ```  
-[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/hello.o
-[hello]gcc -o hello hello.o main.o:/home/lionel/Proj/smk/tests/hello.c/main.o
-[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/ld-2.27.so
-[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/libc-2.27.so
-[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/libdl-2.27.so
-[hello]gcc -o hello hello.o main.o:/lib/x86_64-linux-gnu/libm-2.27.so
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtbegin.o
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtend.o
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib64/libgcc_s.so
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/lib64/libgcc_s.so.1
-[hello]gcc -o hello hello.o main.o:/opt/GNAT/2018/libexec/gcc/x86_64-pc-linux-gnu/7.3.1/liblto_plugin.so.0.0.0
-[hello]gcc -o hello hello.o main.o:/usr/lib/locale/locale-archive
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/crt1.o
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/crti.o
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/crtn.o
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/libc.so
-[hello]gcc -o hello hello.o main.o:/usr/lib/x86_64-linux-gnu/libc_nonshared.a
-[hello.o]gcc -o hello.o -c hello.c:/home/lionel/Proj/smk/tests/hello.c/hello.c
-[hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libc-2.27.so
-[hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libdl-2.27.so
-[hello.o]gcc -o hello.o -c hello.c:/lib/x86_64-linux-gnu/libm-2.27.so
-[hello.o]gcc -o hello.o -c hello.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
-[hello.o]gcc -o hello.o -c hello.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/alloca.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/endian.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/features.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/stdc-predef.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/stdio.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/stdlib.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/_G_config.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/byteswap-16.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/byteswap.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/endian.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/floatn-common.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/floatn.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/libc-header-start.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/libio.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/long-double.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/select.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/stdint-intn.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/stdio_lim.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/stdlib-float.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/sys_errlist.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/sysmacros.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/FILE.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/__FILE.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/clock_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/time_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/types/timer_t.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/typesizes.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/uintn-identity.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/waitflags.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/waitstatus.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/bits/wordsize.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/gnu/stubs-64.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/gnu/stubs.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/cdefs.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/select.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/sysmacros.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/include/x86_64-linux-gnu/sys/types.h
-[hello.o]gcc -o hello.o -c hello.c:/usr/lib/locale/locale-archive
-[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/hello.h
-[main.o]gcc -o main.o -c main.c:/home/lionel/Proj/smk/tests/hello.c/main.c
-[main.o]gcc -o main.o -c main.c:/lib/x86_64-linux-gnu/libc-2.27.so
-[main.o]gcc -o main.o -c main.c:/lib/x86_64-linux-gnu/libdl-2.27.so
-[main.o]gcc -o main.o -c main.c:/lib/x86_64-linux-gnu/libm-2.27.so
-[main.o]gcc -o main.o -c main.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
-[main.o]gcc -o main.o -c main.c:/opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
-[main.o]gcc -o main.o -c main.c:/usr/include/alloca.h
-[main.o]gcc -o main.o -c main.c:/usr/include/endian.h
-[main.o]gcc -o main.o -c main.c:/usr/include/features.h
-[main.o]gcc -o main.o -c main.c:/usr/include/stdc-predef.h
-[main.o]gcc -o main.o -c main.c:/usr/include/stdio.h
-[main.o]gcc -o main.o -c main.c:/usr/include/stdlib.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/_G_config.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/byteswap-16.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/byteswap.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/endian.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/floatn-common.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/floatn.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/libc-header-start.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/libio.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/long-double.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/select.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/stdint-intn.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/stdio_lim.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/stdlib-float.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/sys_errlist.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/sysmacros.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/FILE.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/__FILE.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/clock_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/time_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/types/timer_t.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/typesizes.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/uintn-identity.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/waitflags.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/waitstatus.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/bits/wordsize.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/gnu/stubs-64.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/gnu/stubs.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/cdefs.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/select.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/sysmacros.h
-[main.o]gcc -o main.o -c main.c:/usr/include/x86_64-linux-gnu/sys/types.h
-[main.o]gcc -o main.o -c main.c:/usr/lib/locale/locale-archive
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/ld-2.28.so
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtbegin.o
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtend.o
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib64/libgcc_s.so
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib64/libgcc_s.so.1
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/libexec/gcc/x86_64-pc-linux-gnu/7.3.1/liblto_plugin.so.0.0.0
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/crt1.o
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/crti.o
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/crtn.o
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc.so
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc_nonshared.a
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.c
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/alloca.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/endian.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/features.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdc-predef.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdio.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdlib.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/byteswap.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/endian.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/floatn-common.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/floatn.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/long-double.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/select.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdio_lim.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdlib-float.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/sys_errlist.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/FILE.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__FILE.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/clock_t.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/time_t.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/timer_t.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/typesizes.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/uintn-identity.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/waitflags.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/waitstatus.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/wordsize.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/gnu/stubs.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/cdefs.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/select.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/types.h
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.c
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stdarg.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include/stddef.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/alloca.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/endian.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/features.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdc-predef.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdio.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/stdlib.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/byteswap.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/endian.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/floatn-common.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/floatn.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/long-double.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/select.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdio_lim.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/stdlib-float.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/sys_errlist.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/FILE.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__FILE.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/clock_t.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/time_t.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/types/timer_t.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/typesizes.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/uintn-identity.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/waitflags.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/waitstatus.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/bits/wordsize.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/gnu/stubs.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/cdefs.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/select.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/types.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
 ```  
 
 
@@ -1058,11 +1048,11 @@ Deleting /home/lionel/Proj/smk/tests/hello.c/main.o
 
   Expected:  
 ```  
-run "gcc -o hello.o -c hello.c" because /home/lionel/Proj/smk/tests/hello.c/hello.o is missing
+run "gcc -o hello.o -c hello.c" because Target /home/lionel/Proj/smk/tests/hello.c/hello.o is missing
 gcc -o hello.o -c hello.c
-run "gcc -o main.o -c main.c" because /home/lionel/Proj/smk/tests/hello.c/main.o is missing
+run "gcc -o main.o -c main.c" because Target /home/lionel/Proj/smk/tests/hello.c/main.o is missing
 gcc -o main.o -c main.c
-run "gcc -o hello hello.o main.o" because /home/lionel/Proj/smk/tests/hello.c/hello is missing
+run "gcc -o hello hello.o main.o" because Target /home/lionel/Proj/smk/tests/hello.c/hello is missing
 gcc -o hello hello.o main.o
 ```  
 
@@ -1177,20 +1167,8 @@ Error : Spawn failed for gcc -o main.o -c main.c --WTF
 gcc -o hello hello.o main.o
 gcc: error: main.o: No such file or directory
 Error : Spawn failed for gcc -o hello hello.o main.o
-gcc -o main.o -c main.c --WTF
-gcc: error: unrecognized command line option '--WTF'
-Error : Spawn failed for gcc -o main.o -c main.c --WTF
-gcc -o hello hello.o main.o
-gcc: error: main.o: No such file or directory
-Error : Spawn failed for gcc -o hello hello.o main.o
-```  
 
-  Note that the two command that fail are rerun  
-  during a second loop in case the command  
-  that run successfully during the first loop  
-  changed the the situation.  
-  And that is not the case here, nothing is run with  
-  success during the second loop, so full stop.  
+```  
 
 
 ##  Run errors / -i
@@ -1228,16 +1206,61 @@ Error : Spawn failed for gcc -o main.o -c main.c --WTF
 gcc -o hello hello.o main.o
 gcc: error: main.o: No such file or directory
 Error : Spawn failed for gcc -o hello hello.o main.o
-gcc -o main.o -c main.c --WTF
-gcc: error: unrecognized command line option '--WTF'
-Error : Spawn failed for gcc -o main.o -c main.c --WTF
-gcc -o hello hello.o main.o
-gcc: error: main.o: No such file or directory
-Error : Spawn failed for gcc -o hello hello.o main.o
+
 ```  
 
 
 Run errors / -k -i [Successful](tests_status.md#successful)
+
+##  Run errors / `run` command fails
+
+
+  Run:  
+  `smk -q reset`  
+  `rm *.smk`  
+  `smk run non_existing_command`  
+
+  Expected:  
+
+```  
+non_existing_command
+/usr/bin/strace: Can't stat 'non_existing_command': No such file or directory
+Error : Spawn failed for non_existing_command
+```  
+
+
+  default.smk should nevertheless contains the failed command  
+
+```  
+non_existing_command
+```  
+
+  Run:  
+  `smk read-smkfile`  
+
+  Expected:  
+
+```  
+default.smk (YYYY:MM:DD HH:MM:SS.SS) :
+1: [] non_existing_command
+```  
+
+  Run:  
+  `smk status`  
+
+  Expected:  
+
+```  
+No recorded run
+```  
+
+  Other commands should return nothing:  
+  `smk whatsnew`  
+  `smk list-sources`  
+  `smk list-targets`  
+
+
+Run errors / `run` command fails [Successful](tests_status.md#successful)
 
 # Command line
 
@@ -1278,29 +1301,32 @@ Commands :
                        (equivalent to rm .smk.*)
    version           : put Smk version
    help              : this message
+   dump              : list all smk known info on files,
+                       including unused and dir
    list-runs    | lr : list runfiles in current directory
    list-sources | ls : list sources, except system files
-   list-targets | lt
+   list-targets | lt : list targets, except system files
+   list-unused  | lu : list files not involved in build
 
    NB : when no command is given, build is assumed
 
 Options :
-   -a   | --always-make     : unconditionally make all targets
-   -e   | --explain         : explain why each target is made
-   -n   | --dry-run         : print the commands that would be
-                              executed, but do not execute them
-   -sa  | --shows-all-files : prevent -ls and -rl from
-                              ignoring system files
-   -i   | --ignore-errors   : ignore all errors in commands
-                              executed to remake files
-   -l   | --long-listing    : use a long listing format when
-                              listing files
-   -k   | --keep-going      : Do as much work as possible
-   -We  | --Warnings=error  : treat warnings as errors
+   -a   | --always-make    : unconditionally make all targets
+   -e   | --explain        : explain why each target is made
+   -n   | --dry-run        : print the commands that would be
+                             executed, but do not execute them
+   -sa  | --show-all-files : prevent -ls and -rl from
+                             ignoring system files
+   -i   | --ignore-errors  : ignore all errors in commands
+                             executed to remake files
+   -l   | --long-listing   : use a long listing format when
+                             listing files
+   -k   | --keep-going     : Do as much work as possible
+   -We  | --Warnings=error : treat warnings as errors
    -v   | --verbose
-   -q   | --quiet           : no message unless error,
-                              Warning are also ignored
-   -h   | --help            : this message
+   -q   | --quiet          : no message unless error,
+                             Warning are also ignored
+   -h   | --help           : this message
 
 http://lionel.draghi.free.fr/smk/
 
@@ -1320,7 +1346,7 @@ Command line / Help options [Successful](tests_status.md#successful)
   Expected:  
 
 ```  
-0.2.0
+0.3.0
 ```  
 
 
@@ -1359,28 +1385,32 @@ Commands :
                        (equivalent to rm .smk.*)
    version           : put Smk version
    help              : this message
+   dump              : list all smk known info on files,
+                       including unused and dir
    list-runs    | lr : list runfiles in current directory
    list-sources | ls : list sources, except system files
-   list-targets | lt
+   list-targets | lt : list targets, except system files
+   list-unused  | lu : list files not involved in build
+
    NB : when no command is given, build is assumed
 
 Options :
-   -a   | --always-make     : unconditionally make all targets
-   -e   | --explain         : explain why each target is made
-   -n   | --dry-run         : print the commands that would be
-                              executed, but do not execute them
-   -sa  | --shows-all-files : prevent -ls and -rl from
-                              ignoring system files
-   -i   | --ignore-errors   : ignore all errors in commands
-                              executed to remake files
-   -l   | --long-listing    : use a long listing format when
-                              listing files
-   -k   | --keep-going      : Do as much work as possible
-   -We  | --Warnings=error  : treat warnings as errors
+   -a   | --always-make    : unconditionally make all targets
+   -e   | --explain        : explain why each target is made
+   -n   | --dry-run        : print the commands that would be
+                             executed, but do not execute them
+   -sa  | --show-all-files : prevent -ls and -rl from
+                             ignoring system files
+   -i   | --ignore-errors  : ignore all errors in commands
+                             executed to remake files
+   -l   | --long-listing   : use a long listing format when
+                             listing files
+   -k   | --keep-going     : Do as much work as possible
+   -We  | --Warnings=error : treat warnings as errors
    -v   | --verbose
-   -q   | --quiet           : no message unless error,
-                              Warning are also ignored
-   -h   | --help            : this message
+   -q   | --quiet          : no message unless error,
+                             Warning are also ignored
+   -h   | --help           : this message
 
 
 http://lionel.draghi.free.fr/smk/
@@ -1600,3 +1630,255 @@ gcc -o hello hello.o main.o
 
 
 Command Run features / Run [Successful](tests_status.md#successful)
+
+# Directory update tests
+
+
+
+##  Directory update tests / start conversion
+
+
+  Run:  
+  `smk -q reset`  
+  `sox x.ogg x.mp3`  
+  `id3v2 -a Luke -t Sentinelle x.mp3`  
+  `id3ren -template=%a  
+
+  Expected:  
+```  
+sox x.ogg x.mp3
+id3v2 -a Luke -t Sentinelle x.mp3
+id3ren -quiet -template=%a-%s.mp3 x.mp3
+```  
+
+  Run:  
+  `smk st -l`  
+
+  Expected:  
+```  
+Command "id3ren -quiet -template=%a-%s.mp3 x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (1)
+  - [Both  ] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+Targets: (1)
+  - [Both  ] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/Luke-Sentinelle.mp3
+
+Command "id3v2 -a Luke -t Sentinelle x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (1)
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+Targets: (1)
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+
+Command "sox x.ogg x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (1)
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.ogg
+Targets: (1)
+  - [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+
+```  
+
+  Run: (same with system files)  
+  `smk st -l -sa`  
+
+  Expected:  
+```  
+Command "id3ren -quiet -template=%a-%s.mp3 x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (1)
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
+Targets: (0)
+
+Command "id3v2 -a Luke -t Sentinelle x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (10)
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libgcc_s.so.1
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libz.so.1.2.11
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/gconv/ISO8859-1.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libid3-3.8.so.3.0.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+Targets: (1)
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+
+Command "sox x.ogg x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (46)
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.ogg
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libpthread-2.28.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/librt-2.28.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libz.so.1.2.11
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libFLAC.so.8.3.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libasound.so.2.0.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libgsm.so.1.0.12
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libid3tag.so.0.3.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libltdl.so.7.3.1
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libmad.so.0.2.1
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libmagic.so.1.0.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libmp3lame.so.0.0.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libogg.so.0.8.2
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libopencore-amrnb.so.0.0.3
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libopencore-amrwb.so.0.0.3
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libpng16.so.16.34.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libsndfile.so.1.0.28
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libsox.so.3.0.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libtwolame.so.0.0.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libvorbis.so.0.4.8
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libvorbisenc.so.2.0.11
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libvorbisfile.so.3.3.7
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libwavpack.so.1.2.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_alsa.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_amr_nb.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_amr_wb.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_caf.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_fap.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_flac.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_gsm.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_lpc10.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_mat4.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_mat5.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_mp3.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_paf.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_pvf.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_sd2.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_sndfile.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_vorbis.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_w64.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_wavpack.so
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_xi.so
+Targets: (1)
+  - [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+
+```  
+
+
+**Directory update tests / start conversion [Failed](tests_status.md#failed)**
+
+##  Directory update tests / start conversion
+
+
+  Run:  
+  `rm default.smk`  
+  `smk -q reset`  
+
+
+  Expected:  
+```  
+./ogg-to-mp3.sh
+sox ./y.ogg ./y.mp3
+sox ./x.ogg ./x.mp3
+```  
+
+  Run:  
+  `smk st -l`  
+
+  Expected:  
+```  
+Command "./ogg-to-mp3.sh", last run [YYYY:MM:DD HH:MM:SS.SS]
+Sources: (4)
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/ogg-to-mp3.sh
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/to-mp3.sh
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.ogg
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/y.ogg
+Targets: (2)
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/y.mp3
+
+```  
+
+
+Directory update tests / start conversion [Successful](tests_status.md#successful)
+
+##  Directory update tests / new ogg in dir
+
+
+  Run:  
+  `cp x.ogg z.ogg`  
+
+
+  Expected:  
+```  
+[Updated] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests
+[Missing] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+[Updated] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/y.ogg
+[Created] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/z.ogg
+```  
+
+
+Directory update tests / new ogg in dir [Successful](tests_status.md#successful)
+
+##  Directory update tests / ogg-to-mp3 is modified
+
+
+  Run:  
+
+  `touch ogg-to-mp3`  
+
+
+  Expected:  
+```  
+
+run "./ogg-to-mp3.sh" because /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/ogg-to-mp3.sh (YYYY:MM:DD HH:MM:SS.SS) has been updated since last run (YYYY:MM:DD HH:MM:SS.SS)
+./ogg-to-mp3.sh
+```  
+
+
+Directory update tests / ogg-to-mp3 is modified [Successful](tests_status.md#successful)
+
+##  Directory update tests / adding a .ogg file in a subdir
+
+
+  Run:  
+
+
+
+  Expected:  
+```  
+[Updated] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests
+```  
+
+  Run:  
+
+
+  Expected:  
+```  
+[Created] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/t.ogg
+```  
+
+  Run:  
+
+
+
+  Expected:  
+```  
+[Created] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/t.ogg
+```  
+
+  Run:  
+
+
+  Expected:  
+```  
+```  
+
+
+**Directory update tests / adding a .ogg file in a subdir [Failed](tests_status.md#failed)**
+
+##  Directory update tests / smk clean
+
+
+  Run:  
+
+
+  Expected:  
+```  
+Deleting /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+Deleting /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/y.mp3
+Deleting /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/z.mp3
+```  
+
+
+Directory update tests / smk clean [Successful](tests_status.md#successful)
