@@ -1,7 +1,7 @@
 [smk (SmartMake)](http://lionel.draghi.free.fr/smk/index.html)
 ==============================================================
 
-------------------------------------------------------------------------
+
 
 **`smk` is a devastatingly simple and powerful make. So simple that you don't even have to write a Makefile.  
 Just run your commands once through `smk`, and then, all you'll have to type is `smk`!  
@@ -34,6 +34,7 @@ Table of contents
 Let's start with a basic example : converting an audio file, changing tags, and renaming it according to the tag.
 
 This is done thanks to those commands : 
+
 ```bash
 # converting ogg to mp3:
 sox x.ogg x.mp3
@@ -42,26 +43,48 @@ id3v2 -a Luke -t Sentinelle x.mp3
 # renaming according to tags:
 id3ren -template='%a-%s.mp3' x.mp3
 ```
+
 and will transform the `x.ogg` file into `Luke-Sentinelle.mp3`.
 
 Let's run this through `smk`, thanks to the `run` command:
+
 ```bash
 smk run sox x.ogg x.mp3
 smk run id3v2 -a Luke -t Sentinelle x.mp3
 smk run id3ren -template='%a-%s.mp3' x.mp3
 ```
 
-This test case yet simple is interesting, because the first command has a different input and output file, the second as the same file, and the third is deleting the input file. 
+Note that this test case, yet simple, is already fairly representative:  
+- the first command is reading an input file and creating an output file,
+- the second has the same file as input and output, 
+- and the third is "moving" a file, that is deleting the input file. 
 
-Once it's done, run it once more with just: 
-```
+The uggly part of of the work is over, now all you have to do to get the things done is: 
+
+```bash
 smk
 ```
-You don't have to repeat the command line, unless there's more than one runfile in the directory.  
+
+Note that you don't have to repeat the command line, unless there's more than one runfile in the directory.  
+
 The result will be:
+
 > Nothing to run
 
+But if you modify an involved file:  
 
+```bash
+touch x.ogg
+smk 
+```
+
+For more information on why is a command run, just give the `--explain` option (`-e` in short form).  
+For instance:
+
+```bash
+rm Luke-Sentinelle.mp3
+smk -e
+```
 
 
 ## How is this possible? 
