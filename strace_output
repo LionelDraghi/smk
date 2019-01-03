@@ -1,0 +1,281 @@
+26331 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7fffd5ae6020 /* 45 vars */) = 0
+26331 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+26331 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+26331 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+26331 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+26331 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libm-2.28.so>
+26331 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+26331 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+26331 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+26331 stat("/opt/GNAT/2018/bin/gcc", {st_mode=S_IFREG|0755, st_size=977288, ...}) = 0
+26331 lstat("/opt", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 lstat("/opt/GNAT", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 lstat("/opt/GNAT/2018", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 lstat("/opt/GNAT/2018/bin", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 lstat("/opt/GNAT/2018/bin/gcc", {st_mode=S_IFREG|0755, st_size=977288, ...}) = 0
+26331 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+26331 stat("/opt/GNAT/2018/bin/gcc", {st_mode=S_IFREG|0755, st_size=977288, ...}) = 0
+26331 lstat("/opt", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 lstat("/opt/GNAT", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 lstat("/opt/GNAT/2018", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 lstat("/opt/GNAT/2018/bin", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 lstat("/opt/GNAT/2018/bin/gcc", {st_mode=S_IFREG|0755, st_size=977288, ...}) = 0
+26331 access("/opt/GNAT/2018/bin/", X_OK) = 0
+26331 access("/opt/GNAT/2018/bin/", X_OK) = 0
+26331 access("hello.o", F_OK)           = 0
+26331 access("main.o", F_OK)            = 0
+26331 getcwd("/home/lionel/Proj/smk/tests/hello.c", 4096) = 36
+26331 lstat("/home/lionel/Proj/smk/tests/hello.c/hello.o", {st_mode=S_IFREG|0644, st_size=1512, ...}) = 0
+26331 getcwd("/home/lionel/Proj/smk/tests/hello.c", 4096) = 36
+26331 lstat("/home/lionel/Proj/smk/tests/hello.c/hello", {st_mode=S_IFREG|0755, st_size=8200, ...}) = 0
+26331 getcwd("/home/lionel/Proj/smk/tests/hello.c", 4096) = 36
+26331 lstat("/home/lionel/Proj/smk/tests/hello.c/main.o", {st_mode=S_IFREG|0644, st_size=1376, ...}) = 0
+26331 getcwd("/home/lionel/Proj/smk/tests/hello.c", 4096) = 36
+26331 lstat("/home/lionel/Proj/smk/tests/hello.c/hello", {st_mode=S_IFREG|0755, st_size=8200, ...}) = 0
+26331 access("/opt/GNAT/2018/bin/", X_OK) = 0
+26331 access("/opt/GNAT/2018/bin/", X_OK) = 0
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/specs", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/specs", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/x86_64-pc-linux-gnu/7.3.1/specs", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/specs", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/boron.a/gnatmail/sandbox/community/x86_64-linux/gcc_current-c/pkg/lib/gcc/x86_64-pc-linux-gnu/specs", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/", X_OK) = 0
+26331 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/lto-wrapper", {st_mode=S_IFREG|0755, st_size=872288, ...}) = 0
+26331 access("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/lto-wrapper", X_OK) = 0
+26331 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/collect2", {st_mode=S_IFREG|0755, st_size=565000, ...}) = 0
+26331 access("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/collect2", X_OK) = 0
+26331 access("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/liblto_plugin.so", R_OK) = 0
+26331 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/opt/GNAT/2018/bin/../libexec/gcc/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/bin/x86_64-pc-linux-gnu/7.3.1/.", 0x7ffff1fd0300) = -1 ENOENT (No such file or directory)
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/bin/.", 0x7ffff1fd0300) = -1 ENOENT (No such file or directory)
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/x86_64-pc-linux-gnu/7.3.1/.", 0x7ffff1fd0300) = -1 ENOENT (No such file or directory)
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/../lib64/.", 0x7ffff1fd0300) = -1 ENOENT (No such file or directory)
+26331 stat("/usr/lib/x86_64-linux-gnu/x86_64-pc-linux-gnu/7.3.1/.", 0x7ffff1fd0300) = -1 ENOENT (No such file or directory)
+26331 stat("/usr/lib/x86_64-linux-gnu/../lib64/.", 0x7ffff1fd0300) = -1 ENOENT (No such file or directory)
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../x86_64-pc-linux-gnu/7.3.1/.", 0x7ffff1fd0300) = -1 ENOENT (No such file or directory)
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/lib/x86_64-pc-linux-gnu/7.3.1/.", 0x7ffff1fd0300) = -1 ENOENT (No such file or directory)
+26331 stat("/lib/../lib64/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/usr/lib/x86_64-pc-linux-gnu/7.3.1/.", 0x7ffff1fd0300) = -1 ENOENT (No such file or directory)
+26331 stat("/usr/lib/../lib64/.", 0x7ffff1fd0300) = -1 ENOENT (No such file or directory)
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/usr/lib/x86_64-linux-gnu/.", {st_mode=S_IFDIR|0755, st_size=131072, ...}) = 0
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/lib/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/usr/lib/.", {st_mode=S_IFDIR|0755, st_size=12288, ...}) = 0
+26331 access("/tmp", R_OK|W_OK|X_OK)    = 0
+26331 openat(AT_FDCWD, "/tmp/ccQ7k779.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccQ7k779.res>
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/x86_64-pc-linux-gnu/7.3.1/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/../lib64/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-linux-gnu/x86_64-pc-linux-gnu/7.3.1/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-linux-gnu/../lib64/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../x86_64-pc-linux-gnu/7.3.1/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/lib/x86_64-pc-linux-gnu/7.3.1/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/lib/../lib64/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-pc-linux-gnu/7.3.1/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/../lib64/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/crt1.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-linux-gnu/crt1.o", R_OK) = 0
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/x86_64-pc-linux-gnu/7.3.1/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/../lib64/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-linux-gnu/x86_64-pc-linux-gnu/7.3.1/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-linux-gnu/../lib64/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../x86_64-pc-linux-gnu/7.3.1/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/lib/x86_64-pc-linux-gnu/7.3.1/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/lib/../lib64/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-pc-linux-gnu/7.3.1/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/../lib64/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/crti.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-linux-gnu/crti.o", R_OK) = 0
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtbegin.o", R_OK) = 0
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/x86_64-pc-linux-gnu/7.3.1/.", 0x7ffff1fcf610) = -1 ENOENT (No such file or directory)
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/../lib64/.", 0x7ffff1fcf610) = -1 ENOENT (No such file or directory)
+26331 stat("/usr/lib/x86_64-linux-gnu/x86_64-pc-linux-gnu/7.3.1/.", 0x7ffff1fcf610) = -1 ENOENT (No such file or directory)
+26331 stat("/usr/lib/x86_64-linux-gnu/../lib64/.", 0x7ffff1fcf610) = -1 ENOENT (No such file or directory)
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../x86_64-pc-linux-gnu/7.3.1/.", 0x7ffff1fcf610) = -1 ENOENT (No such file or directory)
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/lib/x86_64-pc-linux-gnu/7.3.1/.", 0x7ffff1fcf610) = -1 ENOENT (No such file or directory)
+26331 stat("/lib/../lib64/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/usr/lib/x86_64-pc-linux-gnu/7.3.1/.", 0x7ffff1fcf610) = -1 ENOENT (No such file or directory)
+26331 stat("/usr/lib/../lib64/.", 0x7ffff1fcf610) = -1 ENOENT (No such file or directory)
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 stat("/usr/lib/x86_64-linux-gnu/.", {st_mode=S_IFDIR|0755, st_size=131072, ...}) = 0
+26331 stat("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../.", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtend.o", R_OK) = 0
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/x86_64-pc-linux-gnu/7.3.1/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/../lib64/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-linux-gnu/x86_64-pc-linux-gnu/7.3.1/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-linux-gnu/../lib64/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../x86_64-pc-linux-gnu/7.3.1/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/lib/x86_64-pc-linux-gnu/7.3.1/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/lib/../lib64/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-pc-linux-gnu/7.3.1/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/../lib64/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/crtn.o", R_OK) = -1 ENOENT (No such file or directory)
+26331 access("/usr/lib/x86_64-linux-gnu/crtn.o", R_OK) = 0
+26331 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/collect2", {st_mode=S_IFREG|0755, st_size=565000, ...}) = 0
+26331 access("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/collect2", X_OK) = 0
+26332 execve("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/collect2", ["/opt/GNAT/2018/bin/../libexec/gc"..., "-plugin", "/opt/GNAT/2018/bin/../libexec/gc"..., "-plugin-opt=/opt/GNAT/2018/bin/."..., "-plugin-opt=-fresolution=/tmp/cc"..., "-plugin-opt=-pass-through=-lgcc", "-plugin-opt=-pass-through=-lgcc_"..., "-plugin-opt=-pass-through=-lc", "-plugin-opt=-pass-through=-lgcc", "-plugin-opt=-pass-through=-lgcc_"..., "--eh-frame-hdr", "-m", "elf_x86_64", "-dynamic-linker", "/lib64/ld-linux-x86-64.so.2", "-o", "hello", "/usr/lib/x86_64-linux-gnu/crt1.o", "/usr/lib/x86_64-linux-gnu/crti.o", "/opt/GNAT/2018/bin/../lib/gcc/x8"..., "-L/opt/GNAT/2018/bin/../lib/gcc/"..., "-L/opt/GNAT/2018/bin/../lib/gcc", "-L/opt/GNAT/2018/bin/../lib/gcc/"..., "-L/lib/../lib64", "-L/opt/GNAT/2018/bin/../lib/gcc/"..., "-L/usr/lib/x86_64-linux-gnu", "-L/opt/GNAT/2018/bin/../lib/gcc/"..., "hello.o", "main.o", "-lgcc", "--as-needed", "-lgcc_s", ...], 0x1b986a0 /* 51 vars */) = 0
+26332 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+26332 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+26332 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+26332 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+26332 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libm-2.28.so>
+26332 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+26332 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/real-ld", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/real-ld", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/collect-ld", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/collect-ld", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/ld", {st_mode=S_IFREG|0755, st_size=2048928, ...}) = 0
+26332 access("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/ld", X_OK) = 0
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/home/lionel/bin/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/local/sbin/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/sbin/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/local/bin/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/bin/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/sbin/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/bin/gnm", 0x7ffc232e4b40)  = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/local/games/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/games/gnm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/nm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/nm", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/nm", {st_mode=S_IFREG|0755, st_size=1082768, ...}) = 0
+26332 access("/opt/GNAT/2018/bin/nm", X_OK) = 0
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/home/lionel/bin/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/local/sbin/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/sbin/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/local/bin/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/bin/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/sbin/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/bin/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/local/games/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/usr/games/gstrip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/strip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/strip", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/strip", {st_mode=S_IFREG|0755, st_size=1262096, ...}) = 0
+26332 access("/opt/GNAT/2018/bin/strip", X_OK) = 0
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/gcc", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/../libexec/gcc/gcc", 0x7ffc232e4b40) = -1 ENOENT (No such file or directory)
+26332 stat("/opt/GNAT/2018/bin/gcc", {st_mode=S_IFREG|0755, st_size=977288, ...}) = 0
+26332 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+26332 access("/tmp", R_OK|W_OK|X_OK)    = 0
+26332 openat(AT_FDCWD, "/tmp/ccpyXS5c.c", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccpyXS5c.c>
+26332 openat(AT_FDCWD, "/tmp/ccQQ4A2f.o", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccQQ4A2f.o>
+26332 openat(AT_FDCWD, "/tmp/ccVFgOZi.ld", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccVFgOZi.ld>
+26332 openat(AT_FDCWD, "/tmp/ccIzv7Wl.le", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccIzv7Wl.le>
+26332 openat(AT_FDCWD, "/tmp/ccVFgOZi.ld", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3</tmp/ccVFgOZi.ld>
+26332 openat(AT_FDCWD, "/tmp/ccIzv7Wl.le", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 4</tmp/ccIzv7Wl.le>
+26333 execve("/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/ld", ["/opt/GNAT/2018/bin/../libexec/gc"..., "-plugin", "/opt/GNAT/2018/bin/../libexec/gc"..., "-plugin-opt=/opt/GNAT/2018/bin/."..., "-plugin-opt=-fresolution=/tmp/cc"..., "-plugin-opt=-pass-through=-lgcc", "-plugin-opt=-pass-through=-lgcc_"..., "-plugin-opt=-pass-through=-lc", "-plugin-opt=-pass-through=-lgcc", "-plugin-opt=-pass-through=-lgcc_"..., "--eh-frame-hdr", "-m", "elf_x86_64", "-dynamic-linker", "/lib64/ld-linux-x86-64.so.2", "-o", "hello", "/usr/lib/x86_64-linux-gnu/crt1.o", "/usr/lib/x86_64-linux-gnu/crti.o", "/opt/GNAT/2018/bin/../lib/gcc/x8"..., "-L/opt/GNAT/2018/bin/../lib/gcc/"..., "-L/opt/GNAT/2018/bin/../lib/gcc", "-L/opt/GNAT/2018/bin/../lib/gcc/"..., "-L/lib/../lib64", "-L/opt/GNAT/2018/bin/../lib/gcc/"..., "-L/usr/lib/x86_64-linux-gnu", "-L/opt/GNAT/2018/bin/../lib/gcc/"..., "hello.o", "main.o", "-lgcc", "--as-needed", "-lgcc_s", ...], 0x7ffc232e4f00 /* 51 vars */) = 0
+26333 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+26333 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+26333 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+26333 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+26333 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+26333 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../libexec/gcc/x86_64-pc-linux-gnu/7.3.1/liblto_plugin.so", O_RDONLY|O_CLOEXEC) = 3</opt/GNAT/2018/libexec/gcc/x86_64-pc-linux-gnu/7.3.1/liblto_plugin.so.0.0.0>
+26333 stat("hello", {st_mode=S_IFREG|0755, st_size=8200, ...}) = 0
+26333 lstat("hello", {st_mode=S_IFREG|0755, st_size=8200, ...}) = 0
+26333 unlink("hello")                   = 0
+26333 openat(AT_FDCWD, "hello", O_RDWR|O_CREAT|O_TRUNC, 0666) = 3</home/lionel/Proj/smk/tests/hello.c/hello>
+26333 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/crt1.o", O_RDONLY) = 4</usr/lib/x86_64-linux-gnu/crt1.o>
+26333 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/crti.o", O_RDONLY) = 5</usr/lib/x86_64-linux-gnu/crti.o>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtbegin.o", O_RDONLY) = 6</opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtbegin.o>
+26333 openat(AT_FDCWD, "hello.o", O_RDONLY) = 7</home/lionel/Proj/smk/tests/hello.c/hello.o>
+26333 openat(AT_FDCWD, "main.o", O_RDONLY) = 8</home/lionel/Proj/smk/tests/hello.c/main.o>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a", O_RDONLY) = 9</opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc_s.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc_s.a", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/libgcc_s.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/libgcc_s.a", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/libgcc_s.so", O_RDONLY) = 10</opt/GNAT/2018/lib64/libgcc_s.so>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/libgcc_s.so", O_RDONLY) = 12</opt/GNAT/2018/lib64/libgcc_s.so>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/libgcc_s.so", O_RDONLY) = 10</opt/GNAT/2018/lib64/libgcc_s.so>
+26333 openat(AT_FDCWD, "libgcc_s.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc_s.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/libgcc_s.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/libgcc_s.so.1", O_RDONLY) = 10</opt/GNAT/2018/lib64/libgcc_s.so.1>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a", O_RDONLY) = 12</opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libc.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libc.a", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/libc.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/libc.a", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/libc.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/libc.a", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/lib/../lib64/libc.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/lib/../lib64/libc.a", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/libc.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../x86_64-pc-linux-gnu/lib/libc.a", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/libc.so", O_RDONLY) = 13</usr/lib/x86_64-linux-gnu/libc.so>
+26333 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/libc.so", O_RDONLY) = 15</usr/lib/x86_64-linux-gnu/libc.so>
+26333 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/libc.so", O_RDONLY) = 13</usr/lib/x86_64-linux-gnu/libc.so>
+26333 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY) = 13</lib/x86_64-linux-gnu/libc-2.28.so>
+26333 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/libc_nonshared.a", O_RDONLY) = 15</usr/lib/x86_64-linux-gnu/libc_nonshared.a>
+26333 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2", O_RDONLY) = 16</lib/x86_64-linux-gnu/ld-2.28.so>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a", O_RDONLY) = 17</opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc_s.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc_s.a", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/libgcc_s.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/libgcc_s.a", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/libgcc_s.so", O_RDONLY) = 18</opt/GNAT/2018/lib64/libgcc_s.so>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/libgcc_s.so", O_RDONLY) = 20</opt/GNAT/2018/lib64/libgcc_s.so>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/libgcc_s.so", O_RDONLY) = 18</opt/GNAT/2018/lib64/libgcc_s.so>
+26333 openat(AT_FDCWD, "libgcc_s.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc_s.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/libgcc_s.so.1", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/../../../../lib64/libgcc_s.so.1", O_RDONLY) = 18</opt/GNAT/2018/lib64/libgcc_s.so.1>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.so", O_RDONLY) = -1 ENOENT (No such file or directory)
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a", O_RDONLY) = 20</opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/libgcc.a>
+26333 openat(AT_FDCWD, "/opt/GNAT/2018/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtend.o", O_RDONLY) = 21</opt/GNAT/2018/lib/gcc/x86_64-pc-linux-gnu/7.3.1/crtend.o>
+26333 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/crtn.o", O_RDONLY) = 22</usr/lib/x86_64-linux-gnu/crtn.o>
+26333 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2", O_RDONLY) = 23</lib/x86_64-linux-gnu/ld-2.28.so>
+26333 stat("hello", {st_mode=S_IFREG|0644, st_size=8200, ...}) = 0
+26333 chmod("hello", 0755)              = 0
+26332 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=26333, si_uid=1000, si_status=0, si_utime=1, si_stime=1} ---
+26332 stat("/home/lionel/Proj/smk/tests/hello.c", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26332 stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+26332 openat(AT_FDCWD, "/tmp/ccVFgOZi.ld", O_RDONLY) = 3</tmp/ccVFgOZi.ld>
+26332 unlink("/tmp/ccVFgOZi.ld")        = 0
+26332 openat(AT_FDCWD, "/tmp/ccIzv7Wl.le", O_RDONLY) = 3</tmp/ccIzv7Wl.le>
+26332 unlink("/tmp/ccIzv7Wl.le")        = 0
+26332 lstat("/tmp/ccpyXS5c.c", {st_mode=S_IFREG|0600, st_size=0, ...}) = 0
+26332 unlink("/tmp/ccpyXS5c.c")         = 0
+26332 lstat("/tmp/ccQQ4A2f.o", {st_mode=S_IFREG|0600, st_size=0, ...}) = 0
+26332 unlink("/tmp/ccQQ4A2f.o")         = 0
+26332 lstat("/tmp/ccpyXS5c.c", 0x7ffc232e4bc0) = -1 ENOENT (No such file or directory)
+26332 lstat("/tmp/ccQQ4A2f.o", 0x7ffc232e4bc0) = -1 ENOENT (No such file or directory)
+26332 openat(AT_FDCWD, "/tmp/ccVFgOZi.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
+26332 lstat("/tmp/ccVFgOZi.ld", 0x7ffc232e4bc0) = -1 ENOENT (No such file or directory)
+26332 openat(AT_FDCWD, "/tmp/ccIzv7Wl.le", O_RDONLY) = -1 ENOENT (No such file or directory)
+26332 lstat("/tmp/ccIzv7Wl.le", 0x7ffc232e4be0) = -1 ENOENT (No such file or directory)
+26331 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=26332, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+26331 stat("/tmp/ccQ7k779.res", {st_mode=S_IFREG|0600, st_size=0, ...}) = 0
+26331 unlink("/tmp/ccQ7k779.res")       = 0

@@ -1,0 +1,1497 @@
+15163 execve("/usr/bin/sloccount", ["sloccount", "../hello.c/Makefile", "../hello.c/Makefile.1", "../hello.c/Makefile.2", "../hello.c/Makefile.3", "../hello.c/Makefile.4", "../hello.c/Wrong_Makefile", "../hello.c/hello.c", "../hello.c/hello.h", "../hello.c/hello.o", "../hello.c/main.c"], 0x7ffd4a11e760 /* 45 vars */) = 0
+15163 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15163 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15163 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15163 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15163 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15163 stat("/home/lionel/Proj/smk/tests/09_multiline_tests", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15163 stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15163 openat(AT_FDCWD, "/usr/bin/sloccount", O_RDONLY) = 3</usr/bin/sloccount>
+15163 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15164, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15163 faccessat(AT_FDCWD, "/home/lionel/.slocdata/sloc_noerase", R_OK) = -1 ENOENT (No such file or directory)
+15163 stat("/opt/GNAT/2018/bin/rm", 0x7ffdfc004c60) = -1 ENOENT (No such file or directory)
+15163 stat("/home/lionel/bin/rm", 0x7ffdfc004c60) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/sbin/rm", 0x7ffdfc004c60) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/sbin/rm", 0x7ffdfc004c60) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/bin/rm", 0x7ffdfc004c60) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/bin/rm", 0x7ffdfc004c60) = -1 ENOENT (No such file or directory)
+15163 stat("/sbin/rm", 0x7ffdfc004c60)  = -1 ENOENT (No such file or directory)
+15163 stat("/bin/rm", {st_mode=S_IFREG|0755, st_size=68416, ...}) = 0
+15165 execve("/bin/rm", ["rm", "-fr", "/home/lionel/.slocdata"], 0x5625a5a7b4e8 /* 45 vars */) = 0
+15165 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15165 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15165 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15165 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15165 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15165 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15165 lstat("/", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15165 newfstatat(AT_FDCWD, "/home/lionel/.slocdata", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_SYMLINK_NOFOLLOW) = 0
+15165 openat(AT_FDCWD, "/home/lionel/.slocdata", O_RDONLY|O_NOCTTY|O_NONBLOCK|O_NOFOLLOW|O_DIRECTORY) = 3</home/lionel/.slocdata>
+15165 openat(AT_FDCWD, "/home/lionel/.slocdata", O_RDONLY|O_NOCTTY|O_NONBLOCK|O_NOFOLLOW|O_CLOEXEC|O_DIRECTORY) = 3</home/lionel/.slocdata>
+15165 newfstatat(4</home/lionel/.slocdata>, "top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_SYMLINK_NOFOLLOW) = 0
+15165 openat(4</home/lionel/.slocdata>, "top_dir", O_RDONLY|O_NOCTTY|O_NONBLOCK|O_NOFOLLOW|O_DIRECTORY) = 3</home/lionel/.slocdata/top_dir>
+15165 openat(4</home/lionel/.slocdata>, "top_dir", O_RDONLY|O_NOCTTY|O_NONBLOCK|O_NOFOLLOW|O_CLOEXEC|O_DIRECTORY) = 3</home/lionel/.slocdata/top_dir>
+15165 unlinkat(5</home/lionel/.slocdata/top_dir>, "not_list.dat", 0) = 0
+15165 unlinkat(5</home/lionel/.slocdata/top_dir>, "makefile_list.dat", 0) = 0
+15165 unlinkat(5</home/lionel/.slocdata/top_dir>, "all-physical.sloc", 0) = 0
+15165 unlinkat(5</home/lionel/.slocdata/top_dir>, "makefile_outfile.dat", 0) = 0
+15165 unlinkat(5</home/lionel/.slocdata/top_dir>, "unknown_list.dat", 0) = 0
+15165 unlinkat(5</home/lionel/.slocdata/top_dir>, "ansic_outfile.dat", 0) = 0
+15165 unlinkat(5</home/lionel/.slocdata/top_dir>, "h_list.dat", 0) = 0
+15165 unlinkat(5</home/lionel/.slocdata/top_dir>, "all.filecount", 0) = 0
+15165 unlinkat(5</home/lionel/.slocdata/top_dir>, "filelist", 0) = 0
+15165 unlinkat(5</home/lionel/.slocdata/top_dir>, "ansic_list.dat", 0) = 0
+15165 unlinkat(4</home/lionel/.slocdata>, "top_dir", AT_REMOVEDIR) = 0
+15165 unlinkat(4</home/lionel/.slocdata>, "sloc_hashes", 0) = 0
+15165 unlinkat(4</home/lionel/.slocdata>, ".wctestfile", 0) = 0
+15165 unlinkat(AT_FDCWD, "/home/lionel/.slocdata", AT_REMOVEDIR) = 0
+15163 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15165, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15163 stat("/opt/GNAT/2018/bin/mkdir", 0x7ffdfc004c80) = -1 ENOENT (No such file or directory)
+15163 stat("/home/lionel/bin/mkdir", 0x7ffdfc004c80) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/sbin/mkdir", 0x7ffdfc004c80) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/sbin/mkdir", 0x7ffdfc004c80) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/bin/mkdir", 0x7ffdfc004c80) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/bin/mkdir", 0x7ffdfc004c80) = -1 ENOENT (No such file or directory)
+15163 stat("/sbin/mkdir", 0x7ffdfc004c80) = -1 ENOENT (No such file or directory)
+15163 stat("/bin/mkdir", {st_mode=S_IFREG|0755, st_size=89088, ...}) = 0
+15166 execve("/bin/mkdir", ["mkdir", "/home/lionel/.slocdata"], 0x5625a5a7b518 /* 45 vars */) = 0
+15166 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15166 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15166 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15166 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15166 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libselinux.so.1>
+15166 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15166 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15166 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15166 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpcre.so.3.13.3>
+15166 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15166 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15166 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15166 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15166 statfs("/sys/fs/selinux", 0x7ffc8ced11c0) = -1 ENOENT (No such file or directory)
+15166 statfs("/selinux", 0x7ffc8ced11c0) = -1 ENOENT (No such file or directory)
+15166 openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3</proc/filesystems>
+15166 access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+15166 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15166 mkdir("/home/lionel/.slocdata", 0777) = 0
+15163 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15166, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15163 openat(AT_FDCWD, "/home/lionel/.slocdata/.wctestfile", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3</home/lionel/.slocdata/.wctestfile>
+15163 openat(AT_FDCWD, "/home/lionel/.slocdata/.wctestfile", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/.wctestfile>
+15163 openat(AT_FDCWD, "/home/lionel/.slocdata/.wctestfile", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/.wctestfile>
+15163 openat(AT_FDCWD, "/home/lionel/.slocdata/.wctestfile", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/.wctestfile>
+15167 stat("/opt/GNAT/2018/bin/wc", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/home/lionel/bin/wc", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/usr/local/sbin/wc", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/usr/sbin/wc", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/usr/local/bin/wc", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/usr/bin/wc", {st_mode=S_IFREG|0755, st_size=47880, ...}) = 0
+15167 stat("/opt/GNAT/2018/bin/sed", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/home/lionel/bin/sed", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/usr/local/sbin/sed", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/usr/sbin/sed", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/usr/local/bin/sed", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/usr/bin/sed", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/sbin/sed", 0x7ffdfc004b30) = -1 ENOENT (No such file or directory)
+15167 stat("/bin/sed",  <unfinished ...>
+15168 openat(AT_FDCWD, "/home/lionel/.slocdata/.wctestfile", O_RDONLY <unfinished ...>
+15167 <... stat resumed> {st_mode=S_IFREG|0755, st_size=122224, ...}) = 0
+15168 <... openat resumed> )            = 3</home/lionel/.slocdata/.wctestfile>
+15168 execve("/usr/bin/wc", ["wc", "-l"], 0x5625a5a7d688 /* 45 vars */ <unfinished ...>
+15169 execve("/bin/sed", ["sed", "-e", "s/ //g"], 0x5625a5a7d6b8 /* 45 vars */ <unfinished ...>
+15168 <... execve resumed> )            = 0
+15169 <... execve resumed> )            = 0
+15168 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15169 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15168 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15169 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15168 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15169 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15168 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15169 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15168 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+15169 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+15168 <... openat resumed> )            = 3</etc/ld.so.cache>
+15169 <... openat resumed> )            = 3</etc/ld.so.cache>
+15168 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15169 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15168 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15169 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15168 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+15169 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libacl.so.1", O_RDONLY|O_CLOEXEC <unfinished ...>
+15168 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15169 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libacl.so.1.1.0>
+15169 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15169 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libselinux.so.1>
+15169 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15168 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC <unfinished ...>
+15169 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+15168 <... openat resumed> )            = 3</usr/lib/locale/locale-archive>
+15169 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15168 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3</etc/locale.alias>
+15168 openat(AT_FDCWD, "/usr/share/locale/fr_FR.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15168 openat(AT_FDCWD, "/usr/share/locale/fr_FR.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY <unfinished ...>
+15169 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15168 <... openat resumed> )            = -1 ENOENT (No such file or directory)
+15169 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15168 openat(AT_FDCWD, "/usr/share/locale/fr_FR/LC_MESSAGES/coreutils.mo", O_RDONLY <unfinished ...>
+15169 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libattr.so.1", O_RDONLY|O_CLOEXEC <unfinished ...>
+15168 <... openat resumed> )            = -1 ENOENT (No such file or directory)
+15169 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libattr.so.1.1.0>
+15168 openat(AT_FDCWD, "/usr/share/locale/fr.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15168 openat(AT_FDCWD, "/usr/share/locale/fr.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15168 openat(AT_FDCWD, "/usr/share/locale/fr/LC_MESSAGES/coreutils.mo", O_RDONLY) = 3</usr/share/locale/fr/LC_MESSAGES/coreutils.mo>
+15168 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY <unfinished ...>
+15169 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15168 <... openat resumed> )            = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15169 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15169 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpcre.so.3.13.3>
+15169 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15169 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15167 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15168, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15169 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15169 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15169 statfs("/sys/fs/selinux", 0x7ffdfebdce30) = -1 ENOENT (No such file or directory)
+15169 statfs("/selinux", 0x7ffdfebdce30) = -1 ENOENT (No such file or directory)
+15169 openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3</proc/filesystems>
+15169 access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+15169 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15169 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15167 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15169, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15163 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15167, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15163 stat("/opt/GNAT/2018/bin/make_filelists", 0x7ffdfc004d60) = -1 ENOENT (No such file or directory)
+15163 stat("/home/lionel/bin/make_filelists", 0x7ffdfc004d60) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/sbin/make_filelists", 0x7ffdfc004d60) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/sbin/make_filelists", 0x7ffdfc004d60) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/bin/make_filelists", 0x7ffdfc004d60) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/bin/make_filelists", {st_mode=S_IFREG|0755, st_size=5377, ...}) = 0
+15170 execve("/usr/bin/make_filelists", ["make_filelists", "--datadir", "/home/lionel/.slocdata", "../hello.c/Makefile", "../hello.c/Makefile.1", "../hello.c/Makefile.2", "../hello.c/Makefile.3", "../hello.c/Makefile.4", "../hello.c/Wrong_Makefile", "../hello.c/hello.c", "../hello.c/hello.h", "../hello.c/hello.o", "../hello.c/main.c"], 0x5625a5a7d960 /* 45 vars */) = 0
+15170 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15170 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15170 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15170 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15170 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15170 stat("/home/lionel/Proj/smk/tests/09_multiline_tests", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 openat(AT_FDCWD, "/usr/bin/make_filelists", O_RDONLY) = 3</usr/bin/make_filelists>
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15171, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15172, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 stat("/home/lionel/.slocdata", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 chdir("/home/lionel/.slocdata")   = 0
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15173, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 chdir("/home/lionel/Proj/smk/tests/09_multiline_tests") = 0
+15170 chdir("/home/lionel/Proj/smk/tests/09_multiline_tests") = 0
+15174 stat("/opt/GNAT/2018/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15174 stat("/home/lionel/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15174 stat("/usr/local/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15174 stat("/usr/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15174 stat("/usr/local/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15174 stat("/usr/bin/basename", {st_mode=S_IFREG|0755, st_size=39520, ...}) = 0
+15174 execve("/usr/bin/basename", ["basename", "../hello.c/Makefile"], 0x55fa864855d8 /* 45 vars */) = 0
+15174 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15174 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15174 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15174 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15174 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15174 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15174, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 stat("../hello.c/Makefile", {st_mode=S_IFREG|0644, st_size=959, ...}) = 0
+15170 stat("../hello.c/Makefile", {st_mode=S_IFREG|0644, st_size=959, ...}) = 0
+15170 chdir("/home/lionel/.slocdata")   = 0
+15170 stat("top_dir", 0x7ffd2945c5d0)   = -1 ENOENT (No such file or directory)
+15170 stat("/opt/GNAT/2018/bin/mkdir", 0x7ffd2945c730) = -1 ENOENT (No such file or directory)
+15170 stat("/home/lionel/bin/mkdir", 0x7ffd2945c730) = -1 ENOENT (No such file or directory)
+15170 stat("/usr/local/sbin/mkdir", 0x7ffd2945c730) = -1 ENOENT (No such file or directory)
+15170 stat("/usr/sbin/mkdir", 0x7ffd2945c730) = -1 ENOENT (No such file or directory)
+15170 stat("/usr/local/bin/mkdir", 0x7ffd2945c730) = -1 ENOENT (No such file or directory)
+15170 stat("/usr/bin/mkdir", 0x7ffd2945c730) = -1 ENOENT (No such file or directory)
+15170 stat("/sbin/mkdir", 0x7ffd2945c730) = -1 ENOENT (No such file or directory)
+15170 stat("/bin/mkdir", {st_mode=S_IFREG|0755, st_size=89088, ...}) = 0
+15175 execve("/bin/mkdir", ["mkdir", "top_dir"], 0x55fa864855b8 /* 45 vars */) = 0
+15175 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15175 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15175 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15175 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15175 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libselinux.so.1>
+15175 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15175 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15175 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15175 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpcre.so.3.13.3>
+15175 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15175 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15175 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15175 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15175 statfs("/sys/fs/selinux", 0x7ffc4023f420) = -1 ENOENT (No such file or directory)
+15175 statfs("/selinux", 0x7ffc4023f420) = -1 ENOENT (No such file or directory)
+15175 openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3</proc/filesystems>
+15175 access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+15175 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15175 mkdir("top_dir", 0777)            = 0
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15175, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 openat(AT_FDCWD, "top_dir/filelist", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/filelist>
+15170 chdir("/home/lionel/Proj/smk/tests/09_multiline_tests") = 0
+15176 stat("/opt/GNAT/2018/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15176 stat("/home/lionel/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15176 stat("/usr/local/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15176 stat("/usr/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15176 stat("/usr/local/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15176 stat("/usr/bin/basename", {st_mode=S_IFREG|0755, st_size=39520, ...}) = 0
+15176 execve("/usr/bin/basename", ["basename", "../hello.c/Makefile.1"], 0x55fa864855d8 /* 45 vars */) = 0
+15176 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15176 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15176 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15176 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15176 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15176 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15176, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 stat("../hello.c/Makefile.1", {st_mode=S_IFREG|0644, st_size=77, ...}) = 0
+15170 stat("../hello.c/Makefile.1", {st_mode=S_IFREG|0644, st_size=77, ...}) = 0
+15170 chdir("/home/lionel/.slocdata")   = 0
+15170 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 openat(AT_FDCWD, "top_dir/filelist", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/filelist>
+15170 chdir("/home/lionel/Proj/smk/tests/09_multiline_tests") = 0
+15177 stat("/opt/GNAT/2018/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15177 stat("/home/lionel/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15177 stat("/usr/local/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15177 stat("/usr/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15177 stat("/usr/local/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15177 stat("/usr/bin/basename", {st_mode=S_IFREG|0755, st_size=39520, ...}) = 0
+15177 execve("/usr/bin/basename", ["basename", "../hello.c/Makefile.2"], 0x55fa864855d8 /* 45 vars */) = 0
+15177 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15177 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15177 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15177 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15177 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15177 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15177, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 stat("../hello.c/Makefile.2", {st_mode=S_IFREG|0644, st_size=157, ...}) = 0
+15170 stat("../hello.c/Makefile.2", {st_mode=S_IFREG|0644, st_size=157, ...}) = 0
+15170 chdir("/home/lionel/.slocdata")   = 0
+15170 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 openat(AT_FDCWD, "top_dir/filelist", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/filelist>
+15170 chdir("/home/lionel/Proj/smk/tests/09_multiline_tests") = 0
+15178 stat("/opt/GNAT/2018/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15178 stat("/home/lionel/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15178 stat("/usr/local/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15178 stat("/usr/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15178 stat("/usr/local/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15178 stat("/usr/bin/basename", {st_mode=S_IFREG|0755, st_size=39520, ...}) = 0
+15178 execve("/usr/bin/basename", ["basename", "../hello.c/Makefile.3"], 0x55fa864855d8 /* 45 vars */) = 0
+15178 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15178 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15178 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15178 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15178 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15178 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15178, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 stat("../hello.c/Makefile.3", {st_mode=S_IFREG|0644, st_size=269, ...}) = 0
+15170 stat("../hello.c/Makefile.3", {st_mode=S_IFREG|0644, st_size=269, ...}) = 0
+15170 chdir("/home/lionel/.slocdata")   = 0
+15170 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 openat(AT_FDCWD, "top_dir/filelist", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/filelist>
+15170 chdir("/home/lionel/Proj/smk/tests/09_multiline_tests") = 0
+15179 stat("/opt/GNAT/2018/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15179 stat("/home/lionel/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15179 stat("/usr/local/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15179 stat("/usr/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15179 stat("/usr/local/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15179 stat("/usr/bin/basename", {st_mode=S_IFREG|0755, st_size=39520, ...}) = 0
+15179 execve("/usr/bin/basename", ["basename", "../hello.c/Makefile.4"], 0x55fa864855d8 /* 45 vars */) = 0
+15179 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15179 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15179 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15179 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15179 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15179 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15179, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 stat("../hello.c/Makefile.4", {st_mode=S_IFREG|0644, st_size=249, ...}) = 0
+15170 stat("../hello.c/Makefile.4", {st_mode=S_IFREG|0644, st_size=249, ...}) = 0
+15170 chdir("/home/lionel/.slocdata")   = 0
+15170 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 openat(AT_FDCWD, "top_dir/filelist", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/filelist>
+15170 chdir("/home/lionel/Proj/smk/tests/09_multiline_tests") = 0
+15180 stat("/opt/GNAT/2018/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15180 stat("/home/lionel/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15180 stat("/usr/local/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15180 stat("/usr/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15180 stat("/usr/local/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15180 stat("/usr/bin/basename", {st_mode=S_IFREG|0755, st_size=39520, ...}) = 0
+15180 execve("/usr/bin/basename", ["basename", "../hello.c/Wrong_Makefile"], 0x55fa864855d8 /* 45 vars */) = 0
+15180 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15180 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15180 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15180 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15180 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15180 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15180, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 stat("../hello.c/Wrong_Makefile", {st_mode=S_IFREG|0644, st_size=83, ...}) = 0
+15170 stat("../hello.c/Wrong_Makefile", {st_mode=S_IFREG|0644, st_size=83, ...}) = 0
+15170 chdir("/home/lionel/.slocdata")   = 0
+15170 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 openat(AT_FDCWD, "top_dir/filelist", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/filelist>
+15170 chdir("/home/lionel/Proj/smk/tests/09_multiline_tests") = 0
+15181 stat("/opt/GNAT/2018/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15181 stat("/home/lionel/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15181 stat("/usr/local/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15181 stat("/usr/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15181 stat("/usr/local/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15181 stat("/usr/bin/basename", {st_mode=S_IFREG|0755, st_size=39520, ...}) = 0
+15181 execve("/usr/bin/basename", ["basename", "../hello.c/hello.c"], 0x55fa864855d8 /* 45 vars */) = 0
+15181 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15181 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15181 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15181 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15181 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15181 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15181, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 stat("../hello.c/hello.c", {st_mode=S_IFREG|0644, st_size=87, ...}) = 0
+15170 stat("../hello.c/hello.c", {st_mode=S_IFREG|0644, st_size=87, ...}) = 0
+15170 chdir("/home/lionel/.slocdata")   = 0
+15170 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 openat(AT_FDCWD, "top_dir/filelist", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/filelist>
+15170 chdir("/home/lionel/Proj/smk/tests/09_multiline_tests") = 0
+15182 stat("/opt/GNAT/2018/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15182 stat("/home/lionel/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15182 stat("/usr/local/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15182 stat("/usr/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15182 stat("/usr/local/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15182 stat("/usr/bin/basename", {st_mode=S_IFREG|0755, st_size=39520, ...}) = 0
+15182 execve("/usr/bin/basename", ["basename", "../hello.c/hello.h"], 0x55fa864855d8 /* 45 vars */) = 0
+15182 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15182 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15182 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15182 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15182 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15182 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15182, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 stat("../hello.c/hello.h", {st_mode=S_IFREG|0644, st_size=65, ...}) = 0
+15170 stat("../hello.c/hello.h", {st_mode=S_IFREG|0644, st_size=65, ...}) = 0
+15170 chdir("/home/lionel/.slocdata")   = 0
+15170 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 openat(AT_FDCWD, "top_dir/filelist", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/filelist>
+15170 chdir("/home/lionel/Proj/smk/tests/09_multiline_tests") = 0
+15183 stat("/opt/GNAT/2018/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15183 stat("/home/lionel/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15183 stat("/usr/local/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15183 stat("/usr/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15183 stat("/usr/local/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15183 stat("/usr/bin/basename", {st_mode=S_IFREG|0755, st_size=39520, ...}) = 0
+15183 execve("/usr/bin/basename", ["basename", "../hello.c/hello.o"], 0x55fa864855d8 /* 45 vars */) = 0
+15183 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15183 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15183 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15183 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15183 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15183 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15183, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 stat("../hello.c/hello.o", {st_mode=S_IFREG|0644, st_size=1512, ...}) = 0
+15170 stat("../hello.c/hello.o", {st_mode=S_IFREG|0644, st_size=1512, ...}) = 0
+15170 chdir("/home/lionel/.slocdata")   = 0
+15170 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 openat(AT_FDCWD, "top_dir/filelist", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/filelist>
+15170 chdir("/home/lionel/Proj/smk/tests/09_multiline_tests") = 0
+15184 stat("/opt/GNAT/2018/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15184 stat("/home/lionel/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15184 stat("/usr/local/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15184 stat("/usr/sbin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15184 stat("/usr/local/bin/basename", 0x7ffd2945c540) = -1 ENOENT (No such file or directory)
+15184 stat("/usr/bin/basename", {st_mode=S_IFREG|0755, st_size=39520, ...}) = 0
+15184 execve("/usr/bin/basename", ["basename", "../hello.c/main.c"], 0x55fa864855d8 /* 45 vars */) = 0
+15184 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15184 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15184 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15184 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15184 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15184 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15170 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15184, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15170 stat("../hello.c/main.c", {st_mode=S_IFREG|0644, st_size=109, ...}) = 0
+15170 stat("../hello.c/main.c", {st_mode=S_IFREG|0644, st_size=109, ...}) = 0
+15170 chdir("/home/lionel/.slocdata")   = 0
+15170 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15170 openat(AT_FDCWD, "top_dir/filelist", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/filelist>
+15163 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15170, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15163 chdir("/home/lionel/.slocdata")   = 0
+15163 openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3</home/lionel/.slocdata>
+15163 stat("/opt/GNAT/2018/bin/break_filelist", 0x7ffdfc004dc0) = -1 ENOENT (No such file or directory)
+15163 stat("/home/lionel/bin/break_filelist", 0x7ffdfc004dc0) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/sbin/break_filelist", 0x7ffdfc004dc0) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/sbin/break_filelist", 0x7ffdfc004dc0) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/bin/break_filelist", 0x7ffdfc004dc0) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/bin/break_filelist", {st_mode=S_IFREG|0755, st_size=45362, ...}) = 0
+15185 execve("/usr/bin/break_filelist", ["break_filelist", "--duplistfile", "sloc_hashes", "top_dir"], 0x5625a5a7d708 /* 45 vars */) = 0
+15185 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15185 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15185 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15185 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libm-2.28.so>
+15185 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15185 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15185 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libcrypt.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libcrypt-2.28.so>
+15185 openat(AT_FDCWD, "/dev/urandom", O_RDONLY|O_CLOEXEC) = 3</dev/urandom>
+15185 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15185 readlink("/proc/self/exe", "/usr/bin/perl", 4095) = 13
+15185 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.1/x86_64-linux-gnu-thread-multi", 0x7ffcba48bb40) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.1", 0x7ffcba48bb40) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/site_perl/5.28.1/x86_64-linux-gnu-thread-multi", 0x7ffcba48bb40) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/site_perl/5.28.1", 0x7ffcba48bb40) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/site_perl/x86_64-linux-gnu-thread-multi", 0x7ffcba48bb40) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.0", 0x7ffcba48bd70) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.0", 0x7ffcba48bd70) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.0", 0x7ffcba48bb40) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.0/x86_64-linux-gnu-thread-multi", 0x7ffcba48bb40) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl-base/x86_64-linux-gnu-thread-multi", 0x7ffcba48bb40) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/usr/bin/break_filelist", O_RDONLY|O_CLOEXEC) = 3</usr/bin/break_filelist>
+15185 stat("/etc/perl/FileHandle.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/FileHandle.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/FileHandle.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/FileHandle.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/FileHandle.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/FileHandle.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/FileHandle.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/FileHandle.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/FileHandle.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/FileHandle.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/FileHandle.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/FileHandle.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/FileHandle.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/FileHandle.pm", {st_mode=S_IFREG|0644, st_size=2111, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/share/perl/5.28/FileHandle.pm", O_RDONLY|O_CLOEXEC) = 4</usr/share/perl/5.28.1/FileHandle.pm>
+15185 stat("/etc/perl/strict.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/strict.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/strict.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/strict.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/strict.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/strict.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/strict.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/strict.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/strict.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/strict.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/strict.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/strict.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/strict.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/strict.pm", {st_mode=S_IFREG|0644, st_size=1606, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/share/perl/5.28/strict.pm", O_RDONLY|O_CLOEXEC) = 5</usr/share/perl/5.28.1/strict.pm>
+15185 stat("/etc/perl/IO/File.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/IO/File.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/IO/File.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/IO/File.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/IO/File.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/IO/File.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/IO/File.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/IO/File.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/IO/File.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/IO/File.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/IO/File.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/IO/File.pm", {st_mode=S_IFREG|0644, st_size=1636, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/perl/5.28/IO/File.pm", O_RDONLY|O_CLOEXEC) = 4</usr/lib/x86_64-linux-gnu/perl/5.28.1/IO/File.pm>
+15185 stat("/etc/perl/Carp.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/Carp.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/Carp.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/Carp.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/Carp.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/Carp.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/Carp.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/Carp.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/Carp.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/Carp.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/Carp.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/Carp.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/Carp.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/Carp.pm", {st_mode=S_IFREG|0644, st_size=25388, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/share/perl/5.28/Carp.pm", O_RDONLY|O_CLOEXEC) = 5</usr/share/perl/5.28.1/Carp.pm>
+15185 stat("/etc/perl/warnings.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/warnings.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/warnings.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/warnings.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/warnings.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/warnings.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/warnings.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/warnings.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/warnings.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/warnings.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/warnings.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/warnings.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/warnings.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/warnings.pm", {st_mode=S_IFREG|0644, st_size=24517, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/share/perl/5.28/warnings.pm", O_RDONLY|O_CLOEXEC) = 6</usr/share/perl/5.28.1/warnings.pm>
+15185 stat("/etc/perl/overloading.pmc", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/overloading.pm", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/overloading.pmc", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/overloading.pm", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/overloading.pmc", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/overloading.pm", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/overloading.pmc", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/overloading.pm", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/overloading.pmc", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/overloading.pm", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/overloading.pmc", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/overloading.pm", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/overloading.pmc", 0x7ffcba48a750) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/overloading.pm", {st_mode=S_IFREG|0644, st_size=964, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/share/perl/5.28/overloading.pm", O_RDONLY|O_CLOEXEC) = 6</usr/share/perl/5.28.1/overloading.pm>
+15185 stat("/etc/perl/Exporter.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/Exporter.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/Exporter.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/Exporter.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/Exporter.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/Exporter.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/Exporter.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/Exporter.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/Exporter.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/Exporter.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/Exporter.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/Exporter.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/Exporter.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/Exporter.pm", {st_mode=S_IFREG|0644, st_size=2367, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/share/perl/5.28/Exporter.pm", O_RDONLY|O_CLOEXEC) = 5</usr/share/perl/5.28.1/Exporter.pm>
+15185 stat("/etc/perl/Symbol.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/Symbol.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/Symbol.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/Symbol.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/Symbol.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/Symbol.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/Symbol.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/Symbol.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/Symbol.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/Symbol.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/Symbol.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/Symbol.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/Symbol.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/Symbol.pm", {st_mode=S_IFREG|0644, st_size=2099, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/share/perl/5.28/Symbol.pm", O_RDONLY|O_CLOEXEC) = 5</usr/share/perl/5.28.1/Symbol.pm>
+15185 stat("/etc/perl/SelectSaver.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/SelectSaver.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/SelectSaver.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/SelectSaver.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/SelectSaver.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/SelectSaver.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/SelectSaver.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/SelectSaver.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/SelectSaver.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/SelectSaver.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/SelectSaver.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/SelectSaver.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/SelectSaver.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/SelectSaver.pm", {st_mode=S_IFREG|0644, st_size=344, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/share/perl/5.28/SelectSaver.pm", O_RDONLY|O_CLOEXEC) = 5</usr/share/perl/5.28.1/SelectSaver.pm>
+15185 stat("/etc/perl/IO/Seekable.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/IO/Seekable.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/IO/Seekable.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/IO/Seekable.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/IO/Seekable.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/IO/Seekable.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/IO/Seekable.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/IO/Seekable.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/IO/Seekable.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/IO/Seekable.pm", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/IO/Seekable.pmc", 0x7ffcba48ae00) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/IO/Seekable.pm", {st_mode=S_IFREG|0644, st_size=642, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/perl/5.28/IO/Seekable.pm", O_RDONLY|O_CLOEXEC) = 5</usr/lib/x86_64-linux-gnu/perl/5.28.1/IO/Seekable.pm>
+15185 stat("/etc/perl/IO/Handle.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/IO/Handle.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/IO/Handle.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/IO/Handle.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/IO/Handle.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/IO/Handle.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/IO/Handle.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/IO/Handle.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/IO/Handle.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/IO/Handle.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/IO/Handle.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/IO/Handle.pm", {st_mode=S_IFREG|0644, st_size=8201, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/perl/5.28/IO/Handle.pm", O_RDONLY|O_CLOEXEC) = 6</usr/lib/x86_64-linux-gnu/perl/5.28.1/IO/Handle.pm>
+15185 stat("/etc/perl/IO.pmc", 0x7ffcba48a000) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/IO.pm", 0x7ffcba48a000) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/IO.pmc", 0x7ffcba48a000) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/IO.pm", 0x7ffcba48a000) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/IO.pmc", 0x7ffcba48a000) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/IO.pm", 0x7ffcba48a000) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/IO.pmc", 0x7ffcba48a000) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/IO.pm", 0x7ffcba48a000) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/IO.pmc", 0x7ffcba48a000) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/IO.pm", 0x7ffcba48a000) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/IO.pmc", 0x7ffcba48a000) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/IO.pm", {st_mode=S_IFREG|0644, st_size=469, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/perl/5.28/IO.pm", O_RDONLY|O_CLOEXEC) = 7</usr/lib/x86_64-linux-gnu/perl/5.28.1/IO.pm>
+15185 stat("/etc/perl/XSLoader.pmc", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/XSLoader.pm", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/XSLoader.pmc", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/XSLoader.pm", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/XSLoader.pmc", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/XSLoader.pm", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/XSLoader.pmc", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/XSLoader.pm", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/XSLoader.pmc", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/XSLoader.pm", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/XSLoader.pmc", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/XSLoader.pm", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/XSLoader.pmc", 0x7ffcba489900) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/XSLoader.pm", {st_mode=S_IFREG|0644, st_size=3967, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/share/perl/5.28/XSLoader.pm", O_RDONLY|O_CLOEXEC) = 8</usr/share/perl/5.28.1/XSLoader.pm>
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/auto/IO/IO.so", {st_mode=S_IFREG|0644, st_size=22800, ...}) = 0
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/auto/IO/IO.bs", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/perl/5.28/auto/IO/IO.so", O_RDONLY|O_CLOEXEC) = 7</usr/lib/x86_64-linux-gnu/perl/5.28.1/auto/IO/IO.so>
+15185 stat("/etc/perl/Fcntl.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/Fcntl.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/Fcntl.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/Fcntl.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/Fcntl.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/Fcntl.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/Fcntl.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/Fcntl.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/Fcntl.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/Fcntl.pm", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/Fcntl.pmc", 0x7ffcba48a700) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/Fcntl.pm", {st_mode=S_IFREG|0644, st_size=2156, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/perl/5.28/Fcntl.pm", O_RDONLY|O_CLOEXEC) = 6</usr/lib/x86_64-linux-gnu/perl/5.28.1/Fcntl.pm>
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/auto/Fcntl/Fcntl.so", {st_mode=S_IFREG|0644, st_size=22704, ...}) = 0
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/auto/Fcntl/Fcntl.bs", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/perl/5.28/auto/Fcntl/Fcntl.so", O_RDONLY|O_CLOEXEC) = 6</usr/lib/x86_64-linux-gnu/perl/5.28.1/auto/Fcntl/Fcntl.so>
+15185 stat("/etc/perl/Exporter/Heavy.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/etc/perl/Exporter/Heavy.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/Exporter/Heavy.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.1/Exporter/Heavy.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/Exporter/Heavy.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/local/share/perl/5.28.1/Exporter/Heavy.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/Exporter/Heavy.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl5/5.28/Exporter/Heavy.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/Exporter/Heavy.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl5/Exporter/Heavy.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/Exporter/Heavy.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/lib/x86_64-linux-gnu/perl/5.28/Exporter/Heavy.pm", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/Exporter/Heavy.pmc", 0x7ffcba48b500) = -1 ENOENT (No such file or directory)
+15185 stat("/usr/share/perl/5.28/Exporter/Heavy.pm", {st_mode=S_IFREG|0644, st_size=6406, ...}) = 0
+15185 openat(AT_FDCWD, "/usr/share/perl/5.28/Exporter/Heavy.pm", O_RDONLY|O_CLOEXEC) = 4</usr/share/perl/5.28.1/Exporter/Heavy.pm>
+15185 stat("sloc_hashes", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "sloc_hashes", O_WRONLY|O_CREAT|O_APPEND|O_CLOEXEC, 0666) = 3</home/lionel/.slocdata/sloc_hashes>
+15185 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15185 openat(AT_FDCWD, "top_dir/filelist", O_RDONLY|O_CLOEXEC) = 4</home/lionel/.slocdata/top_dir/filelist>
+15185 stat("top_dir/all-physical.sloc", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.in", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.MASTER", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile", O_RDONLY|O_CLOEXEC) = 5</home/lionel/Proj/smk/tests/hello.c/Makefile>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile", {st_mode=S_IFREG|0644, st_size=959, ...}) = 0
+15186 execve("/opt/GNAT/2018/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15186 execve("/home/lionel/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15186 execve("/usr/local/sbin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15186 execve("/usr/sbin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15186 execve("/usr/local/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15186 execve("/usr/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = 0
+15186 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15186 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15186 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15186 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15186 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15186 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15186 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile", O_RDONLY) = 3</home/lionel/Proj/smk/tests/hello.c/Makefile>
+15185 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15186, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15185 openat(AT_FDCWD, "top_dir/makefile_list.dat", O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 6</home/lionel/.slocdata/top_dir/makefile_list.dat>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.1.in", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.1.MASTER", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.1", O_RDONLY|O_CLOEXEC) = 5</home/lionel/Proj/smk/tests/hello.c/Makefile.1>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.1", {st_mode=S_IFREG|0644, st_size=77, ...}) = 0
+15185 openat(AT_FDCWD, "top_dir/not_list.dat", O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 7</home/lionel/.slocdata/top_dir/not_list.dat>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.2.in", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.2.MASTER", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.2", O_RDONLY|O_CLOEXEC) = 5</home/lionel/Proj/smk/tests/hello.c/Makefile.2>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.2", {st_mode=S_IFREG|0644, st_size=157, ...}) = 0
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.3.in", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.3.MASTER", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.3", O_RDONLY|O_CLOEXEC) = 5</home/lionel/Proj/smk/tests/hello.c/Makefile.3>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.3", {st_mode=S_IFREG|0644, st_size=269, ...}) = 0
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.4.in", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.4.MASTER", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.4", O_RDONLY|O_CLOEXEC) = 5</home/lionel/Proj/smk/tests/hello.c/Makefile.4>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile.4", {st_mode=S_IFREG|0644, st_size=249, ...}) = 0
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Wrong_Makefile.in", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Wrong_Makefile.MASTER", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Wrong_Makefile", O_RDONLY|O_CLOEXEC) = 5</home/lionel/Proj/smk/tests/hello.c/Wrong_Makefile>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Wrong_Makefile", {st_mode=S_IFREG|0644, st_size=83, ...}) = 0
+15185 openat(AT_FDCWD, "top_dir/unknown_list.dat", O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 8</home/lionel/.slocdata/top_dir/unknown_list.dat>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.c.in", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.l", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.c.MASTER", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.c", O_RDONLY|O_CLOEXEC) = 5</home/lionel/Proj/smk/tests/hello.c/hello.c>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.pc", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.pgc", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.c", {st_mode=S_IFREG|0644, st_size=87, ...}) = 0
+15187 execve("/opt/GNAT/2018/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15187 execve("/home/lionel/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15187 execve("/usr/local/sbin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15187 execve("/usr/sbin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15187 execve("/usr/local/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15187 execve("/usr/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = 0
+15187 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15187 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15187 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15187 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15187 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15187 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15187 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.c", O_RDONLY) = 3</home/lionel/Proj/smk/tests/hello.c/hello.c>
+15185 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15187, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15185 openat(AT_FDCWD, "top_dir/ansic_list.dat", O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 9</home/lionel/.slocdata/top_dir/ansic_list.dat>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.h.in", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.h.MASTER", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.h", O_RDONLY|O_CLOEXEC) = 5</home/lionel/Proj/smk/tests/hello.c/hello.h>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.h", {st_mode=S_IFREG|0644, st_size=65, ...}) = 0
+15188 execve("/opt/GNAT/2018/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15188 execve("/home/lionel/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15188 execve("/usr/local/sbin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15188 execve("/usr/sbin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15188 execve("/usr/local/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15188 execve("/usr/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = 0
+15188 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15188 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15188 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15188 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15188 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15188 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15188 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.h", O_RDONLY) = 3</home/lionel/Proj/smk/tests/hello.c/hello.h>
+15185 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15188, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15185 openat(AT_FDCWD, "top_dir/h_list.dat", O_WRONLY|O_CREAT|O_TRUNC|O_CLOEXEC, 0666) = 10</home/lionel/.slocdata/top_dir/h_list.dat>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.o.in", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.o.MASTER", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.o", O_RDONLY|O_CLOEXEC) = 5</home/lionel/Proj/smk/tests/hello.c/hello.o>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.o", {st_mode=S_IFREG|0644, st_size=1512, ...}) = 0
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/main.c.in", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/main.l", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/main.c.MASTER", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/main.c", O_RDONLY|O_CLOEXEC) = 5</home/lionel/Proj/smk/tests/hello.c/main.c>
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/main.pc", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/main.pgc", 0x561847577478) = -1 ENOENT (No such file or directory)
+15185 stat("/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/main.c", {st_mode=S_IFREG|0644, st_size=109, ...}) = 0
+15189 execve("/opt/GNAT/2018/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15189 execve("/home/lionel/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15189 execve("/usr/local/sbin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15189 execve("/usr/sbin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15189 execve("/usr/local/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = -1 ENOENT (No such file or directory)
+15189 execve("/usr/bin/md5sum", ["md5sum", "/home/lionel/Proj/smk/tests/09_m"...], 0x561847592de0 /* 45 vars */) = 0
+15189 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15189 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15189 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15189 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15189 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15189 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15189 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/main.c", O_RDONLY) = 3</home/lionel/Proj/smk/tests/hello.c/main.c>
+15185 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15189, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15185 openat(AT_FDCWD, "top_dir/h_list.dat", O_RDONLY|O_CLOEXEC) = 10</home/lionel/.slocdata/top_dir/h_list.dat>
+15163 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15185, si_uid=1000, si_status=0, si_utime=3, si_stime=0} ---
+15163 openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3</home/lionel/.slocdata>
+15163 stat("/opt/GNAT/2018/bin/compute_all", 0x7ffdfc004e00) = -1 ENOENT (No such file or directory)
+15163 stat("/home/lionel/bin/compute_all", 0x7ffdfc004e00) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/sbin/compute_all", 0x7ffdfc004e00) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/sbin/compute_all", 0x7ffdfc004e00) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/bin/compute_all", 0x7ffdfc004e00) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/bin/compute_all", {st_mode=S_IFREG|0755, st_size=2429, ...}) = 0
+15190 execve("/usr/bin/compute_all", ["compute_all", "sloc_hashes", "top_dir"], 0x5625a5a7d6d8 /* 45 vars */) = 0
+15190 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15190 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15190 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15190 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15190 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15190 stat("/home/lionel/.slocdata", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15190 stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15190 openat(AT_FDCWD, "/usr/bin/compute_all", O_RDONLY) = 3</usr/bin/compute_all>
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15191, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 stat("sloc_hashes", {st_mode=S_IFREG|0644, st_size=397, ...}) = 0
+15190 faccessat(AT_FDCWD, "sloc_hashes/filelist", R_OK) = -1 ENOTDIR (Not a directory)
+15190 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15190 faccessat(AT_FDCWD, "top_dir/filelist", R_OK) = 0
+15190 chdir("/home/lionel/.slocdata/top_dir") = 0
+15190 faccessat(AT_FDCWD, "all.filecount", R_OK) = -1 ENOENT (No such file or directory)
+15190 openat(AT_FDCWD, "all.filecount.new", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3</home/lionel/.slocdata/top_dir/all.filecount.new>
+15190 openat(AT_FDCWD, "all-physical.sloc.new", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3</home/lionel/.slocdata/top_dir/all-physical.sloc.new>
+15190 openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3</home/lionel/.slocdata/top_dir>
+15192 stat("/opt/GNAT/2018/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15192 stat("/home/lionel/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15192 stat("/usr/local/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15192 stat("/usr/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15192 stat("/usr/local/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15192 stat("/usr/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15192 stat("/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15192 stat("/bin/sed", {st_mode=S_IFREG|0755, st_size=122224, ...}) = 0
+15192 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15193, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15194 execve("/bin/sed", ["sed", "-e", "s/_list\\.dat$//"], 0x563821e847c8 /* 45 vars */) = 0
+15194 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15194 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15194 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15194 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15194 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libacl.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libacl.so.1.1.0>
+15194 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15194 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libselinux.so.1>
+15194 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15194 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15194 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15194 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libattr.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libattr.so.1.1.0>
+15194 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15194 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpcre.so.3.13.3>
+15194 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15194 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15194 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15194 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15194 statfs("/sys/fs/selinux", 0x7ffce0b94780) = -1 ENOENT (No such file or directory)
+15194 statfs("/selinux", 0x7ffce0b94780) = -1 ENOENT (No such file or directory)
+15194 openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3</proc/filesystems>
+15194 access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+15194 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15194 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15192 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15194, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15192, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15195 stat("/opt/GNAT/2018/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15195 stat("/home/lionel/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15195 stat("/usr/local/sbin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15195 stat("/usr/sbin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15195 stat("/usr/local/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15195 stat("/usr/bin/wc", {st_mode=S_IFREG|0755, st_size=47880, ...}) = 0
+15195 stat("/opt/GNAT/2018/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15195 stat("/home/lionel/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15195 stat("/usr/local/sbin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15195 stat("/usr/sbin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15195 stat("/usr/local/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15195 stat("/usr/bin/tr", {st_mode=S_IFREG|0755, st_size=51904, ...}) = 0
+15196 openat(AT_FDCWD, "ansic_list.dat", O_RDONLY) = 3</home/lionel/.slocdata/top_dir/ansic_list.dat>
+15197 execve("/usr/bin/tr", ["tr", "-d", " "], 0x563821e84818 /* 45 vars */ <unfinished ...>
+15196 execve("/usr/bin/wc", ["wc", "-l"], 0x563821e847e8 /* 45 vars */ <unfinished ...>
+15197 <... execve resumed> )            = 0
+15196 <... execve resumed> )            = 0
+15197 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15196 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15197 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15196 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15197 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15196 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15197 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+15196 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15197 <... openat resumed> )            = 3</etc/ld.so.cache>
+15196 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15197 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15196 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15197 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+15196 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15197 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15196 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15197 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15196 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15196 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3</etc/locale.alias>
+15196 openat(AT_FDCWD, "/usr/share/locale/fr_FR.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15196 openat(AT_FDCWD, "/usr/share/locale/fr_FR.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15196 openat(AT_FDCWD, "/usr/share/locale/fr_FR/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15196 openat(AT_FDCWD, "/usr/share/locale/fr.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15196 openat(AT_FDCWD, "/usr/share/locale/fr.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15196 openat(AT_FDCWD, "/usr/share/locale/fr/LC_MESSAGES/coreutils.mo", O_RDONLY) = 3</usr/share/locale/fr/LC_MESSAGES/coreutils.mo>
+15196 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15195 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15196, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15195 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15197, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15195, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 openat(AT_FDCWD, "all.filecount.new", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/all.filecount.new>
+15198 stat("/opt/GNAT/2018/bin/compute_sloc_lang", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15198 stat("/home/lionel/bin/compute_sloc_lang", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15198 stat("/usr/local/sbin/compute_sloc_lang", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15198 stat("/usr/sbin/compute_sloc_lang", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15198 stat("/usr/local/bin/compute_sloc_lang", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15198 stat("/usr/bin/compute_sloc_lang", {st_mode=S_IFREG|0755, st_size=1755, ...}) = 0
+15198 stat("/opt/GNAT/2018/bin/tr", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15198 stat("/home/lionel/bin/tr", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15198 stat("/usr/local/sbin/tr", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15198 stat("/usr/sbin/tr", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15198 stat("/usr/local/bin/tr", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15198 stat("/usr/bin/tr", {st_mode=S_IFREG|0755, st_size=51904, ...}) = 0
+15199 execve("/usr/bin/compute_sloc_lang", ["compute_sloc_lang", "ansic", "."], 0x563821e86848 /* 45 vars */ <unfinished ...>
+15200 execve("/usr/bin/tr", ["tr", "-d", " "], 0x563821e86878 /* 45 vars */ <unfinished ...>
+15199 <... execve resumed> )            = 0
+15200 <... execve resumed> )            = 0
+15199 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15200 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15199 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15200 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15199 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15200 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15199 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15200 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15199 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+15200 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+15199 <... openat resumed> )            = 3</etc/ld.so.cache>
+15200 <... openat resumed> )            = 3</etc/ld.so.cache>
+15200 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15199 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15200 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15199 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15200 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+15199 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+15200 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15199 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15200 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15199 stat("/home/lionel/.slocdata/top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15199 stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15199 openat(AT_FDCWD, "/usr/bin/compute_sloc_lang", O_RDONLY) = 3</usr/bin/compute_sloc_lang>
+15199 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15201, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15199 stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15199 faccessat(AT_FDCWD, "./filelist", R_OK) = 0
+15199 chdir("/home/lionel/.slocdata/top_dir") = 0
+15199 stat("ansic_list.dat", {st_mode=S_IFREG|0644, st_size=197, ...}) = 0
+15199 openat(AT_FDCWD, "ansic_outfile.dat", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3</home/lionel/.slocdata/top_dir/ansic_outfile.dat>
+15199 stat("/opt/GNAT/2018/bin/c_count", 0x7ffcc8d06cf0) = -1 ENOENT (No such file or directory)
+15199 stat("/home/lionel/bin/c_count", 0x7ffcc8d06cf0) = -1 ENOENT (No such file or directory)
+15199 stat("/usr/local/sbin/c_count", 0x7ffcc8d06cf0) = -1 ENOENT (No such file or directory)
+15199 stat("/usr/sbin/c_count", 0x7ffcc8d06cf0) = -1 ENOENT (No such file or directory)
+15199 stat("/usr/local/bin/c_count", 0x7ffcc8d06cf0) = -1 ENOENT (No such file or directory)
+15199 stat("/usr/bin/c_count", {st_mode=S_IFREG|0755, st_size=10504, ...}) = 0
+15202 execve("/usr/bin/c_count", ["c_count", "-f", "ansic_list.dat"], 0x564ae4daad88 /* 45 vars */) = 0
+15202 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15202 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15202 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15202 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15202 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15202 openat(AT_FDCWD, "ansic_list.dat", O_RDONLY) = 3</home/lionel/.slocdata/top_dir/ansic_list.dat>
+15202 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.c", O_RDONLY) = 4</home/lionel/Proj/smk/tests/hello.c/hello.c>
+15202 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/main.c", O_RDONLY) = 4</home/lionel/Proj/smk/tests/hello.c/main.c>
+15202 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/hello.h", O_RDONLY) = 4</home/lionel/Proj/smk/tests/hello.c/hello.h>
+15199 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15202, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15199 openat(AT_FDCWD, "ansic_outfile.dat", O_RDONLY) = 3</home/lionel/.slocdata/top_dir/ansic_outfile.dat>
+15199 stat("/opt/GNAT/2018/bin/tail", 0x7ffcc8d06d90) = -1 ENOENT (No such file or directory)
+15199 stat("/home/lionel/bin/tail", 0x7ffcc8d06d90) = -1 ENOENT (No such file or directory)
+15199 stat("/usr/local/sbin/tail", 0x7ffcc8d06d90) = -1 ENOENT (No such file or directory)
+15199 stat("/usr/sbin/tail", 0x7ffcc8d06d90) = -1 ENOENT (No such file or directory)
+15199 stat("/usr/local/bin/tail", 0x7ffcc8d06d90) = -1 ENOENT (No such file or directory)
+15199 stat("/usr/bin/tail", {st_mode=S_IFREG|0755, st_size=72608, ...}) = 0
+15203 execve("/usr/bin/tail", ["tail", "-1"], 0x564ae4daaa88 /* 45 vars */) = 0
+15203 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15203 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15203 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15203 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15203 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15203 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15203 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3</etc/locale.alias>
+15203 openat(AT_FDCWD, "/usr/share/locale/fr_FR.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15203 openat(AT_FDCWD, "/usr/share/locale/fr_FR.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15203 openat(AT_FDCWD, "/usr/share/locale/fr_FR/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15203 openat(AT_FDCWD, "/usr/share/locale/fr.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15203 openat(AT_FDCWD, "/usr/share/locale/fr.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15203 openat(AT_FDCWD, "/usr/share/locale/fr/LC_MESSAGES/coreutils.mo", O_RDONLY) = 3</usr/share/locale/fr/LC_MESSAGES/coreutils.mo>
+15203 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15199 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15203, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15199 chdir("/home/lionel/.slocdata/top_dir") = 0
+15198 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15199, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15198 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15200, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15198, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 openat(AT_FDCWD, "all-physical.sloc.new", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/all-physical.sloc.new>
+15204 stat("/opt/GNAT/2018/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15204 stat("/home/lionel/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15204 stat("/usr/local/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15204 stat("/usr/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15204 stat("/usr/local/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15204 stat("/usr/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15204 stat("/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15204 stat("/bin/sed", {st_mode=S_IFREG|0755, st_size=122224, ...}) = 0
+15204 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15205, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15206 execve("/bin/sed", ["sed", "-e", "s/_list\\.dat$//"], 0x563821e868c8 /* 45 vars */) = 0
+15206 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15206 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15206 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15206 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15206 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libacl.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libacl.so.1.1.0>
+15206 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15206 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libselinux.so.1>
+15206 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15206 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15206 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15206 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libattr.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libattr.so.1.1.0>
+15206 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15206 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpcre.so.3.13.3>
+15206 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15206 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15206 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15206 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15206 statfs("/sys/fs/selinux", 0x7ffd25d43af0) = -1 ENOENT (No such file or directory)
+15206 statfs("/selinux", 0x7ffd25d43af0) = -1 ENOENT (No such file or directory)
+15206 openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3</proc/filesystems>
+15206 access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+15206 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15206 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15204 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15206, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15204, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15207 stat("/opt/GNAT/2018/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15207 stat("/home/lionel/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15207 stat("/usr/local/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15207 stat("/usr/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15207 stat("/usr/local/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15207 stat("/usr/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15207 stat("/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15207 stat("/bin/sed", {st_mode=S_IFREG|0755, st_size=122224, ...}) = 0
+15207 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15208, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15209 execve("/bin/sed", ["sed", "-e", "s/_list\\.dat$//"], 0x563821e86928 /* 45 vars */) = 0
+15209 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15209 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15209 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15209 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15209 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libacl.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libacl.so.1.1.0>
+15209 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15209 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libselinux.so.1>
+15209 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15209 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15209 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15209 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libattr.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libattr.so.1.1.0>
+15209 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15209 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpcre.so.3.13.3>
+15209 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15209 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15209 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15209 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15209 statfs("/sys/fs/selinux", 0x7fff4d769ba0) = -1 ENOENT (No such file or directory)
+15209 statfs("/selinux", 0x7fff4d769ba0) = -1 ENOENT (No such file or directory)
+15209 openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3</proc/filesystems>
+15209 access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+15209 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15209 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15207 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15209, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15207, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15210 stat("/opt/GNAT/2018/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15210 stat("/home/lionel/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15210 stat("/usr/local/sbin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15210 stat("/usr/sbin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15210 stat("/usr/local/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15210 stat("/usr/bin/wc", {st_mode=S_IFREG|0755, st_size=47880, ...}) = 0
+15210 stat("/opt/GNAT/2018/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15210 stat("/home/lionel/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15210 stat("/usr/local/sbin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15210 stat("/usr/sbin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15210 stat("/usr/local/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15210 stat("/usr/bin/tr", {st_mode=S_IFREG|0755, st_size=51904, ...}) = 0
+15211 openat(AT_FDCWD, "makefile_list.dat", O_RDONLY) = 3</home/lionel/.slocdata/top_dir/makefile_list.dat>
+15211 execve("/usr/bin/wc", ["wc", "-l"], 0x563821e86928 /* 45 vars */ <unfinished ...>
+15212 execve("/usr/bin/tr", ["tr", "-d", " "], 0x563821e86958 /* 45 vars */ <unfinished ...>
+15211 <... execve resumed> )            = 0
+15212 <... execve resumed> )            = 0
+15211 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15212 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15211 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15212 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15211 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15212 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15211 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15212 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15211 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+15212 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+15211 <... openat resumed> )            = 3</etc/ld.so.cache>
+15212 <... openat resumed> )            = 3</etc/ld.so.cache>
+15211 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15212 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15211 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15212 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15211 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+15212 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+15211 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15212 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15211 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC <unfinished ...>
+15212 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC <unfinished ...>
+15211 <... openat resumed> )            = 3</usr/lib/locale/locale-archive>
+15212 <... openat resumed> )            = 3</usr/lib/locale/locale-archive>
+15211 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3</etc/locale.alias>
+15211 openat(AT_FDCWD, "/usr/share/locale/fr_FR.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15211 openat(AT_FDCWD, "/usr/share/locale/fr_FR.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15211 openat(AT_FDCWD, "/usr/share/locale/fr_FR/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15211 openat(AT_FDCWD, "/usr/share/locale/fr.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15211 openat(AT_FDCWD, "/usr/share/locale/fr.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15211 openat(AT_FDCWD, "/usr/share/locale/fr/LC_MESSAGES/coreutils.mo", O_RDONLY) = 3</usr/share/locale/fr/LC_MESSAGES/coreutils.mo>
+15211 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15210 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15211, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15210 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15212, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15210, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 openat(AT_FDCWD, "all.filecount.new", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/all.filecount.new>
+15213 stat("/opt/GNAT/2018/bin/compute_sloc_lang", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15213 stat("/home/lionel/bin/compute_sloc_lang", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15213 stat("/usr/local/sbin/compute_sloc_lang", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15213 stat("/usr/sbin/compute_sloc_lang", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15213 stat("/usr/local/bin/compute_sloc_lang", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15213 stat("/usr/bin/compute_sloc_lang", {st_mode=S_IFREG|0755, st_size=1755, ...}) = 0
+15213 stat("/opt/GNAT/2018/bin/tr", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15213 stat("/home/lionel/bin/tr", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15213 stat("/usr/local/sbin/tr", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15213 stat("/usr/sbin/tr", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15213 stat("/usr/local/bin/tr", 0x7ffe0d61c450) = -1 ENOENT (No such file or directory)
+15213 stat("/usr/bin/tr", {st_mode=S_IFREG|0755, st_size=51904, ...}) = 0
+15214 execve("/usr/bin/compute_sloc_lang", ["compute_sloc_lang", "makefile", "."], 0x563821e868f8 /* 45 vars */ <unfinished ...>
+15215 execve("/usr/bin/tr", ["tr", "-d", " "], 0x563821e86928 /* 45 vars */ <unfinished ...>
+15214 <... execve resumed> )            = 0
+15215 <... execve resumed> )            = 0
+15214 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15215 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15214 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15215 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15214 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15215 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15214 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15215 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15214 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+15215 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+15214 <... openat resumed> )            = 3</etc/ld.so.cache>
+15215 <... openat resumed> )            = 3</etc/ld.so.cache>
+15214 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15215 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15214 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15215 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15214 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+15215 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+15214 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15215 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15215 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15214 stat("/home/lionel/.slocdata/top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15214 stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15214 openat(AT_FDCWD, "/usr/bin/compute_sloc_lang", O_RDONLY) = 3</usr/bin/compute_sloc_lang>
+15214 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15216, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15214 stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15214 faccessat(AT_FDCWD, "./filelist", R_OK) = 0
+15214 chdir("/home/lionel/.slocdata/top_dir") = 0
+15214 stat("makefile_list.dat", {st_mode=S_IFREG|0644, st_size=67, ...}) = 0
+15214 openat(AT_FDCWD, "makefile_outfile.dat", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3</home/lionel/.slocdata/top_dir/makefile_outfile.dat>
+15214 stat("/opt/GNAT/2018/bin/makefile_count", 0x7fff8ad04790) = -1 ENOENT (No such file or directory)
+15214 stat("/home/lionel/bin/makefile_count", 0x7fff8ad04790) = -1 ENOENT (No such file or directory)
+15214 stat("/usr/local/sbin/makefile_count", 0x7fff8ad04790) = -1 ENOENT (No such file or directory)
+15214 stat("/usr/sbin/makefile_count", 0x7fff8ad04790) = -1 ENOENT (No such file or directory)
+15214 stat("/usr/local/bin/makefile_count", 0x7fff8ad04790) = -1 ENOENT (No such file or directory)
+15214 stat("/usr/bin/makefile_count", {st_mode=S_IFREG|0755, st_size=957, ...}) = 0
+15217 execve("/usr/bin/makefile_count", ["makefile_count", "-f", "makefile_list.dat"], 0x561a1d3fed88 /* 45 vars */) = 0
+15217 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15217 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15217 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15217 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15217 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15217 stat("/home/lionel/.slocdata/top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15217 stat(".", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15217 openat(AT_FDCWD, "/usr/bin/makefile_count", O_RDONLY) = 3</usr/bin/makefile_count>
+15217 stat("/opt/GNAT/2018/bin/generic_count", 0x7ffd54825890) = -1 ENOENT (No such file or directory)
+15217 stat("/home/lionel/bin/generic_count", 0x7ffd54825890) = -1 ENOENT (No such file or directory)
+15217 stat("/usr/local/sbin/generic_count", 0x7ffd54825890) = -1 ENOENT (No such file or directory)
+15217 stat("/usr/sbin/generic_count", 0x7ffd54825890) = -1 ENOENT (No such file or directory)
+15217 stat("/usr/local/bin/generic_count", 0x7ffd54825890) = -1 ENOENT (No such file or directory)
+15217 stat("/usr/bin/generic_count", {st_mode=S_IFREG|0755, st_size=2310, ...}) = 0
+15218 execve("/usr/bin/generic_count", ["generic_count", "#", "-f", "makefile_list.dat"], 0x555c4a3f6c38 /* 45 vars */) = 0
+15218 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15218 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15218 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15218 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15218 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15218 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15218 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libm-2.28.so>
+15218 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15218 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15218 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15218 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15218 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15218 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libcrypt.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libcrypt-2.28.so>
+15218 openat(AT_FDCWD, "/dev/urandom", O_RDONLY|O_CLOEXEC) = 3</dev/urandom>
+15218 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15218 readlink("/proc/self/exe", "/usr/bin/perl", 4095) = 13
+15218 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.1/x86_64-linux-gnu-thread-multi", 0x7fff759cf960) = -1 ENOENT (No such file or directory)
+15218 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.1", 0x7fff759cf960) = -1 ENOENT (No such file or directory)
+15218 stat("/usr/local/lib/site_perl/5.28.1/x86_64-linux-gnu-thread-multi", 0x7fff759cf960) = -1 ENOENT (No such file or directory)
+15218 stat("/usr/local/lib/site_perl/5.28.1", 0x7fff759cf960) = -1 ENOENT (No such file or directory)
+15218 stat("/usr/local/lib/site_perl/x86_64-linux-gnu-thread-multi", 0x7fff759cf960) = -1 ENOENT (No such file or directory)
+15218 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.0", 0x7fff759cfb90) = -1 ENOENT (No such file or directory)
+15218 stat("/usr/local/share/perl/5.28.0", 0x7fff759cfb90) = -1 ENOENT (No such file or directory)
+15218 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.0", 0x7fff759cf960) = -1 ENOENT (No such file or directory)
+15218 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.0/x86_64-linux-gnu-thread-multi", 0x7fff759cf960) = -1 ENOENT (No such file or directory)
+15218 stat("/usr/lib/x86_64-linux-gnu/perl-base/x86_64-linux-gnu-thread-multi", 0x7fff759cf960) = -1 ENOENT (No such file or directory)
+15218 openat(AT_FDCWD, "/usr/bin/generic_count", O_RDONLY|O_CLOEXEC) = 3</usr/bin/generic_count>
+15218 openat(AT_FDCWD, "makefile_list.dat", O_RDONLY|O_CLOEXEC) = 3</home/lionel/.slocdata/top_dir/makefile_list.dat>
+15218 openat(AT_FDCWD, "/home/lionel/Proj/smk/tests/09_multiline_tests/../hello.c/Makefile", O_RDONLY|O_CLOEXEC) = 4</home/lionel/Proj/smk/tests/hello.c/Makefile>
+15217 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15218, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15214 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15217, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15214 openat(AT_FDCWD, "makefile_outfile.dat", O_RDONLY) = 3</home/lionel/.slocdata/top_dir/makefile_outfile.dat>
+15214 stat("/opt/GNAT/2018/bin/tail", 0x7fff8ad04830) = -1 ENOENT (No such file or directory)
+15214 stat("/home/lionel/bin/tail", 0x7fff8ad04830) = -1 ENOENT (No such file or directory)
+15214 stat("/usr/local/sbin/tail", 0x7fff8ad04830) = -1 ENOENT (No such file or directory)
+15214 stat("/usr/sbin/tail", 0x7fff8ad04830) = -1 ENOENT (No such file or directory)
+15214 stat("/usr/local/bin/tail", 0x7fff8ad04830) = -1 ENOENT (No such file or directory)
+15214 stat("/usr/bin/tail", {st_mode=S_IFREG|0755, st_size=72608, ...}) = 0
+15219 execve("/usr/bin/tail", ["tail", "-1"], 0x561a1d3fea88 /* 45 vars */) = 0
+15219 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15219 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15219 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15219 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15219 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15219 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15219 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3</etc/locale.alias>
+15219 openat(AT_FDCWD, "/usr/share/locale/fr_FR.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15219 openat(AT_FDCWD, "/usr/share/locale/fr_FR.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15219 openat(AT_FDCWD, "/usr/share/locale/fr_FR/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15219 openat(AT_FDCWD, "/usr/share/locale/fr.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15219 openat(AT_FDCWD, "/usr/share/locale/fr.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15219 openat(AT_FDCWD, "/usr/share/locale/fr/LC_MESSAGES/coreutils.mo", O_RDONLY) = 3</usr/share/locale/fr/LC_MESSAGES/coreutils.mo>
+15219 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15214 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15219, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15214 chdir("/home/lionel/.slocdata/top_dir") = 0
+15213 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15214, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15213 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15215, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15213, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 openat(AT_FDCWD, "all-physical.sloc.new", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/all-physical.sloc.new>
+15220 stat("/opt/GNAT/2018/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15220 stat("/home/lionel/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15220 stat("/usr/local/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15220 stat("/usr/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15220 stat("/usr/local/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15220 stat("/usr/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15220 stat("/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15220 stat("/bin/sed", {st_mode=S_IFREG|0755, st_size=122224, ...}) = 0
+15220 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15221, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15222 execve("/bin/sed", ["sed", "-e", "s/_list\\.dat$//"], 0x563821e868f8 /* 45 vars */) = 0
+15222 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15222 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15222 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15222 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15222 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libacl.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libacl.so.1.1.0>
+15222 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15222 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libselinux.so.1>
+15222 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15222 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15222 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15222 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libattr.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libattr.so.1.1.0>
+15222 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15222 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpcre.so.3.13.3>
+15222 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15222 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15222 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15222 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15222 statfs("/sys/fs/selinux", 0x7ffd43b326c0) = -1 ENOENT (No such file or directory)
+15222 statfs("/selinux", 0x7ffd43b326c0) = -1 ENOENT (No such file or directory)
+15222 openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3</proc/filesystems>
+15222 access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+15222 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15222 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15220 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15222, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15220, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15223 stat("/opt/GNAT/2018/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15223 stat("/home/lionel/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15223 stat("/usr/local/sbin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15223 stat("/usr/sbin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15223 stat("/usr/local/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15223 stat("/usr/bin/wc", {st_mode=S_IFREG|0755, st_size=47880, ...}) = 0
+15223 stat("/opt/GNAT/2018/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15223 stat("/home/lionel/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15223 stat("/usr/local/sbin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15223 stat("/usr/sbin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15223 stat("/usr/local/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15223 stat("/usr/bin/tr", {st_mode=S_IFREG|0755, st_size=51904, ...}) = 0
+15224 openat(AT_FDCWD, "not_list.dat", O_RDONLY) = 3</home/lionel/.slocdata/top_dir/not_list.dat>
+15224 execve("/usr/bin/wc", ["wc", "-l"], 0x563821e868f8 /* 45 vars */) = 0
+15225 execve("/usr/bin/tr", ["tr", "-d", " "], 0x563821e86928 /* 45 vars */ <unfinished ...>
+15224 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15225 <... execve resumed> )            = 0
+15224 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15224 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15225 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15224 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+15225 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15224 <... openat resumed> )            = 3</etc/ld.so.cache>
+15225 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15225 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15224 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15224 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15225 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15225 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15224 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15225 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15224 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3</etc/locale.alias>
+15224 openat(AT_FDCWD, "/usr/share/locale/fr_FR.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15224 openat(AT_FDCWD, "/usr/share/locale/fr_FR.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15224 openat(AT_FDCWD, "/usr/share/locale/fr_FR/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15224 openat(AT_FDCWD, "/usr/share/locale/fr.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15224 openat(AT_FDCWD, "/usr/share/locale/fr.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15224 openat(AT_FDCWD, "/usr/share/locale/fr/LC_MESSAGES/coreutils.mo", O_RDONLY) = 3</usr/share/locale/fr/LC_MESSAGES/coreutils.mo>
+15224 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15223 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15224, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15223 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15225, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15223, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 openat(AT_FDCWD, "all.filecount.new", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/all.filecount.new>
+15226 stat("/opt/GNAT/2018/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15226 stat("/home/lionel/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15226 stat("/usr/local/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15226 stat("/usr/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15226 stat("/usr/local/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15226 stat("/usr/bin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15226 stat("/sbin/sed", 0x7ffe0d61c470) = -1 ENOENT (No such file or directory)
+15226 stat("/bin/sed", {st_mode=S_IFREG|0755, st_size=122224, ...}) = 0
+15226 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15227, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15228 execve("/bin/sed", ["sed", "-e", "s/_list\\.dat$//"], 0x563821e86958 /* 45 vars */) = 0
+15228 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15228 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15228 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15228 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15228 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libacl.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libacl.so.1.1.0>
+15228 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15228 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libselinux.so.1>
+15228 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15228 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15228 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15228 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libattr.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libattr.so.1.1.0>
+15228 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15228 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpcre.so.3.13.3>
+15228 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15228 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15228 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15228 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15228 statfs("/sys/fs/selinux", 0x7ffdba5d2880) = -1 ENOENT (No such file or directory)
+15228 statfs("/selinux", 0x7ffdba5d2880) = -1 ENOENT (No such file or directory)
+15228 openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3</proc/filesystems>
+15228 access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+15228 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15228 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15226 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15228, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15226, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15229 stat("/opt/GNAT/2018/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15229 stat("/home/lionel/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15229 stat("/usr/local/sbin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15229 stat("/usr/sbin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15229 stat("/usr/local/bin/wc", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15229 stat("/usr/bin/wc", {st_mode=S_IFREG|0755, st_size=47880, ...}) = 0
+15229 stat("/opt/GNAT/2018/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15229 stat("/home/lionel/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15229 stat("/usr/local/sbin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15229 stat("/usr/sbin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15229 stat("/usr/local/bin/tr", 0x7ffe0d61c4b0) = -1 ENOENT (No such file or directory)
+15229 stat("/usr/bin/tr", {st_mode=S_IFREG|0755, st_size=51904, ...}) = 0
+15230 openat(AT_FDCWD, "unknown_list.dat", O_RDONLY) = 3</home/lionel/.slocdata/top_dir/unknown_list.dat>
+15231 execve("/usr/bin/tr", ["tr", "-d", " "], 0x563821e86988 /* 45 vars */ <unfinished ...>
+15230 execve("/usr/bin/wc", ["wc", "-l"], 0x563821e86958 /* 45 vars */ <unfinished ...>
+15231 <... execve resumed> )            = 0
+15230 <... execve resumed> )            = 0
+15231 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15230 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15231 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15230 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15231 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15230 access("/etc/ld.so.preload", R_OK <unfinished ...>
+15231 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC <unfinished ...>
+15230 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15231 <... openat resumed> )            = 3</etc/ld.so.cache>
+15230 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15231 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15230 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+15231 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15230 <... access resumed> )            = -1 ENOENT (No such file or directory)
+15231 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+15230 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC <unfinished ...>
+15231 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15230 <... openat resumed> )            = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15231 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC <unfinished ...>
+15230 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC <unfinished ...>
+15231 <... openat resumed> )            = 3</usr/lib/locale/locale-archive>
+15230 <... openat resumed> )            = 3</usr/lib/locale/locale-archive>
+15230 openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3</etc/locale.alias>
+15230 openat(AT_FDCWD, "/usr/share/locale/fr_FR.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15230 openat(AT_FDCWD, "/usr/share/locale/fr_FR.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15230 openat(AT_FDCWD, "/usr/share/locale/fr_FR/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15230 openat(AT_FDCWD, "/usr/share/locale/fr.UTF-8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15230 openat(AT_FDCWD, "/usr/share/locale/fr.utf8/LC_MESSAGES/coreutils.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+15230 openat(AT_FDCWD, "/usr/share/locale/fr/LC_MESSAGES/coreutils.mo", O_RDONLY) = 3</usr/share/locale/fr/LC_MESSAGES/coreutils.mo>
+15230 openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3</usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache>
+15229 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15230, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15229 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15231, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15229, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 openat(AT_FDCWD, "all.filecount.new", O_WRONLY|O_CREAT|O_APPEND, 0666) = 3</home/lionel/.slocdata/top_dir/all.filecount.new>
+15190 stat("/opt/GNAT/2018/bin/mv", 0x7ffe0d61c7f0) = -1 ENOENT (No such file or directory)
+15190 stat("/home/lionel/bin/mv", 0x7ffe0d61c7f0) = -1 ENOENT (No such file or directory)
+15190 stat("/usr/local/sbin/mv", 0x7ffe0d61c7f0) = -1 ENOENT (No such file or directory)
+15190 stat("/usr/sbin/mv", 0x7ffe0d61c7f0) = -1 ENOENT (No such file or directory)
+15190 stat("/usr/local/bin/mv", 0x7ffe0d61c7f0) = -1 ENOENT (No such file or directory)
+15190 stat("/usr/bin/mv", 0x7ffe0d61c7f0) = -1 ENOENT (No such file or directory)
+15190 stat("/sbin/mv", 0x7ffe0d61c7f0)  = -1 ENOENT (No such file or directory)
+15190 stat("/bin/mv", {st_mode=S_IFREG|0755, st_size=142824, ...}) = 0
+15232 execve("/bin/mv", ["mv", "all.filecount.new", "all.filecount"], 0x563821e84408 /* 45 vars */) = 0
+15232 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15232 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15232 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15232 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15232 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libselinux.so.1>
+15232 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15232 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libacl.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libacl.so.1.1.0>
+15232 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15232 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libattr.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libattr.so.1.1.0>
+15232 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15232 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15232 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15232 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpcre.so.3.13.3>
+15232 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15232 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15232 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15232 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15232 statfs("/sys/fs/selinux", 0x7fff17741c10) = -1 ENOENT (No such file or directory)
+15232 statfs("/selinux", 0x7fff17741c10) = -1 ENOENT (No such file or directory)
+15232 openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3</proc/filesystems>
+15232 access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+15232 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15232 renameat2(AT_FDCWD, "all.filecount.new", AT_FDCWD, "all.filecount", RENAME_NOREPLACE) = 0
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15232, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15233 execve("/bin/mv", ["mv", "all-physical.sloc.new", "all-physical.sloc"], 0x563821e84408 /* 45 vars */) = 0
+15233 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15233 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15233 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15233 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15233 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libselinux.so.1>
+15233 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15233 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libacl.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libacl.so.1.1.0>
+15233 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15233 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libattr.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libattr.so.1.1.0>
+15233 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15233 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15233 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15233 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpcre.so.3.13.3>
+15233 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15233 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15233 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15233 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15233 statfs("/sys/fs/selinux", 0x7fff1238d970) = -1 ENOENT (No such file or directory)
+15233 statfs("/selinux", 0x7fff1238d970) = -1 ENOENT (No such file or directory)
+15233 openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3</proc/filesystems>
+15233 access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+15233 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15233 renameat2(AT_FDCWD, "all-physical.sloc.new", AT_FDCWD, "all-physical.sloc", RENAME_NOREPLACE) = 0
+15190 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15233, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15190 chdir("/home/lionel/.slocdata")   = 0
+15163 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15190, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+15163 chdir("/home/lionel/.slocdata")   = 0
+15163 openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3</home/lionel/.slocdata>
+15163 stat("/opt/GNAT/2018/bin/get_sloc", 0x7ffdfc004e00) = -1 ENOENT (No such file or directory)
+15163 stat("/home/lionel/bin/get_sloc", 0x7ffdfc004e00) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/sbin/get_sloc", 0x7ffdfc004e00) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/sbin/get_sloc", 0x7ffdfc004e00) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/local/bin/get_sloc", 0x7ffdfc004e00) = -1 ENOENT (No such file or directory)
+15163 stat("/usr/bin/get_sloc", {st_mode=S_IFREG|0755, st_size=16671, ...}) = 0
+15234 execve("/usr/bin/get_sloc", ["get_sloc", "--oneprogram", "sloc_hashes", "top_dir"], 0x5625a5a7ae88 /* 45 vars */) = 0
+15234 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15234 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15234 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+15234 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15234 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libdl-2.28.so>
+15234 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15234 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libm-2.28.so>
+15234 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15234 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libpthread-2.28.so>
+15234 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15234 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libc-2.28.so>
+15234 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+15234 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libcrypt.so.1", O_RDONLY|O_CLOEXEC) = 3</lib/x86_64-linux-gnu/libcrypt-2.28.so>
+15234 openat(AT_FDCWD, "/dev/urandom", O_RDONLY|O_CLOEXEC) = 3</dev/urandom>
+15234 openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3</usr/lib/locale/locale-archive>
+15234 readlink("/proc/self/exe", "/usr/bin/perl", 4095) = 13
+15234 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.1/x86_64-linux-gnu-thread-multi", 0x7fffb2d29fd0) = -1 ENOENT (No such file or directory)
+15234 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.1", 0x7fffb2d29fd0) = -1 ENOENT (No such file or directory)
+15234 stat("/usr/local/lib/site_perl/5.28.1/x86_64-linux-gnu-thread-multi", 0x7fffb2d29fd0) = -1 ENOENT (No such file or directory)
+15234 stat("/usr/local/lib/site_perl/5.28.1", 0x7fffb2d29fd0) = -1 ENOENT (No such file or directory)
+15234 stat("/usr/local/lib/site_perl/x86_64-linux-gnu-thread-multi", 0x7fffb2d29fd0) = -1 ENOENT (No such file or directory)
+15234 stat("/usr/local/lib/x86_64-linux-gnu/perl/5.28.0", 0x7fffb2d2a200) = -1 ENOENT (No such file or directory)
+15234 stat("/usr/local/share/perl/5.28.0", 0x7fffb2d2a200) = -1 ENOENT (No such file or directory)
+15234 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.0", 0x7fffb2d29fd0) = -1 ENOENT (No such file or directory)
+15234 stat("/usr/lib/x86_64-linux-gnu/perl-base/5.28.0/x86_64-linux-gnu-thread-multi", 0x7fffb2d29fd0) = -1 ENOENT (No such file or directory)
+15234 stat("/usr/lib/x86_64-linux-gnu/perl-base/x86_64-linux-gnu-thread-multi", 0x7fffb2d29fd0) = -1 ENOENT (No such file or directory)
+15234 openat(AT_FDCWD, "/usr/bin/get_sloc", O_RDONLY|O_CLOEXEC) = 3</usr/bin/get_sloc>
+15234 stat("sloc_hashes", {st_mode=S_IFREG|0644, st_size=397, ...}) = 0
+15234 stat("top_dir", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+15234 stat("top_dir/filelist", {st_mode=S_IFREG|0644, st_size=679, ...}) = 0
+15234 openat(AT_FDCWD, "top_dir/all-physical.sloc", O_RDONLY|O_CLOEXEC) = 3</home/lionel/.slocdata/top_dir/all-physical.sloc>
+15234 openat(AT_FDCWD, "top_dir/PROGRAM_LICENSE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+15163 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=15234, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---

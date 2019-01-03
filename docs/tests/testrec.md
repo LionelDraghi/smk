@@ -304,7 +304,7 @@ Nothing to run
 ```  
 
 
-Website building sanity tests / building without section [Successful](tests_status.md#successful)
+**Website building sanity tests / building without section [Failed](tests_status.md#failed)**
 
 ##  Website building sanity tests / re-building
 
@@ -342,7 +342,7 @@ No need to run echo OK
 ```  
 
 
-Website building sanity tests / re-building [Successful](tests_status.md#successful)
+**Website building sanity tests / re-building [Failed](tests_status.md#failed)**
 
 ##  Website building sanity tests / cleaning
 
@@ -399,7 +399,7 @@ Deleting /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
 ```  
 
 
-Website building sanity tests / cleaning [Successful](tests_status.md#successful)
+**Website building sanity tests / cleaning [Failed](tests_status.md#failed)**
 
 ##  Website building sanity tests / re-building after a clean
 
@@ -414,7 +414,7 @@ mkdocs build --clean --quiet
 ```  
 
 
-Website building sanity tests / re-building after a clean [Successful](tests_status.md#successful)
+**Website building sanity tests / re-building after a clean [Failed](tests_status.md#failed)**
 
 # Read queries
 
@@ -681,7 +681,7 @@ Makefile.3
 ```  
 
 
-List queries / lr | list-runs [Successful](tests_status.md#successful)
+**List queries / lr | list-runs [Failed](tests_status.md#failed)**
 
 ##  List queries / lt | list-targets
 
@@ -1128,7 +1128,7 @@ Error : No smkfile given, and more than one runfile in dir
 ```  
 
 
-Implicit naming / Implicit naming [Successful](tests_status.md#successful)
+**Implicit naming / Implicit naming [Failed](tests_status.md#failed)**
 
 # Run errors
 
@@ -1210,7 +1210,7 @@ Error : Spawn failed for gcc -o hello hello.o main.o
 ```  
 
 
-Run errors / -k -i [Successful](tests_status.md#successful)
+**Run errors / -k -i [Failed](tests_status.md#failed)**
 
 ##  Run errors / `run` command fails
 
@@ -1581,7 +1581,7 @@ rm -rf hello
 ```  
 
 
-Sections related functions / smkmfile:section notation [Successful](tests_status.md#successful)
+**Sections related functions / smkmfile:section notation [Failed](tests_status.md#failed)**
 
 # Command Run features
 
@@ -1881,4 +1881,4 @@ Deleting /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/z.mp3
 ```  
 
 
-Directory update tests / smk clean [Successful](tests_status.md#successful)
+**Directory update tests / smk clean [Failed](tests_status.md#failed)**

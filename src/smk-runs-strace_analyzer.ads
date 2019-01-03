@@ -16,8 +16,10 @@
 
 private package Smk.Runs.Strace_Analyzer is
 
+   -- --------------------------------------------------------------------------
    type File is access String;
-   No_File : constant File := null;
+   function Is_Null (The_File : File) return Boolean is
+     (The_File = null or else The_File.all = "");
 
    -- --------------------------------------------------------------------------
    procedure Analyze_Line (Line       : in     String;

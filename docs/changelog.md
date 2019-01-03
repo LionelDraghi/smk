@@ -6,10 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - [Unreleased]
+
+- [0.3.0] - 2019-01-02
 > - [Added] `list-unused` / `lu` command added
 > - [Added] `dump` command added, that dump `smk` internal data without any filtering
 
-- [0.2.0]
+- [0.2.0] - 2018-12-24
 > - [Added] `whatsnew` / `wn` command added 
 > - [Added] Hard coded ignore list because of /etc/ld.so.cache that changes at each run
 > - [Fixed] line considered as section even when the identifier was not immediately followed by a colon 

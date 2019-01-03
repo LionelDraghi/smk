@@ -20,6 +20,7 @@ with Smk.Runs.Strace_Analyzer;
 with Smk.Settings;      use Smk.Settings;
 
 with Ada.Strings.Fixed;
+with Ada.Text_IO;
 
 separate (Smk.Runs)
 
@@ -32,7 +33,7 @@ is
    Prefix       : constant String  := ""; -- smk-main-analyze_run.adb ";
    Strace_Ouput : Ada.Text_IO.File_Type;
 
-   -- -----------------------------------------------------------------------
+   -- --------------------------------------------------------------------------
    procedure Update_List (List      : in out Files.File_Lists.Map;
                           Name      : in     File_Name;
                           With_Role : in     File_Role) is
@@ -76,10 +77,10 @@ begin
          -- Let's ignore :
          -- 1. no more existing files after run, that is temporary file
          -- 2. special file, e. g. /dev/something,
-         if not (Read_File = No_File)
+         if not Is_Null (Read_File)
            and then not In_Ignore_List (Read_File.all)
-           and then Exists (Read_File.all)
-           and then Kind   (Read_File.all) /= Special_File
+           and then (not Exists (Read_File.all)
+                     or else Kind (Read_File.all) /= Special_File)
          then
             -- Special_File are filtered, meanning that directories and
             -- Ordinary_File files are recorded.
@@ -93,10 +94,11 @@ begin
          end if;
 
          -- Same for Targets:
-         if not (Write_File = No_File) -- Fixme: duplicated code
+         if not Is_Null (Write_File)
+           -- Fixme: duplicated code
            and then not In_Ignore_List (Write_File.all)
-           and then Exists (Write_File.all)
-           and then Kind   (Write_File.all) /= Special_File
+           and then (not Exists (Write_File.all)
+                     or else Kind (Write_File.all) /= Special_File)
          then
             -- Special_File are filtered, meanning that directories and
             -- Ordinary_File files are recorded.
@@ -109,7 +111,20 @@ begin
             end if;
          end if;
 
+      exception
+         when others =>
+            IO.Put_Line (Line);
+            IO.Put_Line ("Read_File  """
+                         & (if Is_Null (Read_File) then ""
+                           else Read_File.all) & """");
+            IO.Put_Line ("Write_File """
+                         & (if Is_Null (Write_File) then ""
+                           else Write_File.all) & """");
+            Ada.Text_IO.Flush;
+            raise;
+
       end File_Filter;
+
    end loop;
 
    -- Add directories informations: if a directory was open, it may be

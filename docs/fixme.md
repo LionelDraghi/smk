@@ -12,12 +12,12 @@ docs/smkfile_format.md:158|   **Fixme: Not yet implemented, as of v0.0.4**
 src/smk-runfiles.adb:222|            -- Fixme: precond : Is_Dir = False
 src/smk-runfiles.ads:39|   -- Fixme: File_Counts should be encapsulated within File_Lists
 src/smk-runfiles.ads:109|   -- [section]Command:file name --Fixme: to be updated
-src/smk-runs-analyze_run.adb:96|         if not (Write_File = No_File) -- Fixme: duplicated code
-src/smk-runs-analyze_run.adb:154|            else -- Fixme: partial code duplication
-src/smk-runs-analyze_run.adb:184|   -- Fixme: no dir in counts   Runfiles.Update_Counts (Dirs, Counts);
+src/smk-runs-analyze_run.adb:97|         if not (Write_File = No_File) -- Fixme: duplicated code
+src/smk-runs-analyze_run.adb:168|            else -- Fixme: partial code duplication
+src/smk-runs-analyze_run.adb:198|   -- Fixme: no dir in counts   Runfiles.Update_Counts (Dirs, Counts);
 src/smk-runs-run_command.adb:49|      -- Fixme: this escaping is not portable
-src/smk-runs-strace_analyzer.adb:80|   -- Fixme: to increase performances, those List should be ordered with
-src/smk-runs-strace_analyzer.adb:222|                            else File_Name); -- Fixme: & '/' & File_Name);
+src/smk-runs-strace_analyzer.adb:82|   -- Fixme: to increase performances, those List should be ordered with
+src/smk-runs-strace_analyzer.adb:240|                            else File_Name); -- Fixme: & '/' & File_Name);
 tests/01_sanity_tests/Makefile:103|	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
 tests/01_sanity_tests/Makefile:124|	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
 tests/02_website_sanity_tests/Makefile:173|	sleep 1.0 # Fixme: if "touched" just after being build, the change is not detected

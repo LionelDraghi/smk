@@ -33,6 +33,8 @@ package body Smk.Settings is
    Ignored         : constant Filter_List := (new String'("/sys/*"),
                                               new String'("/proc/*"),
                                               new String'("/dev/*"),
+                                              new String'("/tmp/*"),
+                                              -- Fixme: can't ignore /tmp/* ???
                                               new String'("/etc/ld.so.cache"));
    System_Dir      : constant Filter_List := (new String'("/usr/*"),
                                               new String'("/lib/*"),
@@ -75,14 +77,6 @@ package body Smk.Settings is
    function Is_System (File_Name : in String) return Boolean is
      (for some D of System_Dir =>
          Is_File_In (File => File_Name, Dir => D.all));
-   --     begin
-   --        for D of System_Dir loop
-   --           if Is_File_In (File => File_Name, Dir => D.all) then
-   --              return True;
-   --           end if;
-   --        end loop;
-   --        return False;
-   --     end Is_System;
 
    -- --------------------------------------------------------------------------
    function System_Files return Filter_List is (System_Dir);
