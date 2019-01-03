@@ -103,25 +103,9 @@ And above all, smkfiles are not mandatory to use `smk`!
 
 - **runfile** : runfiles are the internal files created by `smk` to store information about the various run, that is mainly : executed commands, when, source and target files and related time stamps. 
 
-## Quick start tuto
+## A little more on usage
 
-Lest's imagine you convert on a regular basis audio files:
-```
-ffmpeg -i x.mp3 x.ogg
-```
-Just run it through `smk`:
-```
-smk run ffmpeg -i x.mp3 x.ogg
-```
-Once it's done, run it once more with just: 
-```
-smk
-```
-You don't have to repeat the command line, unless there's more than one runfile in the directory.  
-The result will be:
-> Nothing to run
-
-Check what `smk` stored from this run:
+Check what `smk` stored from the previous run:
 ```
 smk status --long-listing
 ```
@@ -134,17 +118,17 @@ smk st -l
 (More on commands and options with the usual `smk -h`)
 
 Let's be back to the status:
-> 2018-12-25 03:09:54.99 [] "ffmpeg -i x.mp3 x.ogg"  
+> 2018-12-25 03:09:54.99 [] "sox x.mp3 x.ogg"  
 >  Sources (1) :  
 >  - 2018-12-25 02:06:10.00:/home/lionel/Proj/smk/tests/15_mp3_conversions/x.mp3  
 >  Targets (1) :  
 >  - 2018-12-25 03:09:59.00:/home/lionel/Proj/smk/tests/15_mp3_conversions/x.ogg  
 
-Sources, targets and time stamp are obvious.  
+The first time stamp is the command run time, other time stamps are files modification time.  
 (and yes, this example was written during christmas night!)
 
 > **Cool feature #1** : `smk` output focus on useful files, system files are filtered by default.  
-> (On my system, 166 system files are read by ffmpeg during this conversion, that you generally don't care!)  
+> (On my system, 166 system files are read by ffmpeg during such a conversion, that you generally don't care!)  
 > Note that this is only an output filter. `smk` manage all dependencies, and if whatever lib.so changes in /usr/lib, the command will be re-run.  
 > To see system files involved, add the `-sa` (`--show-all-files`) option. 
 
@@ -161,14 +145,13 @@ ffmpeg -i x.mp3 x.ogg
 etc.
 
 
-
-
-
-## Cool features
+## Cool features TBD
 ### using `smk` without `smkfile`
 ### Whats new?
 ### Auto-clean
+### Working with files: smkfiles, Makefiles or shell scripts 
 
+## Next Step:
 A short, but highly recommended, [`smk` tutorial](tutorial.md) is the best way to quickly start.  
 
 And don't forget [`smk help`](cmd_line.md).
