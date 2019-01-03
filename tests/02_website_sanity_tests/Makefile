@@ -53,6 +53,10 @@ listing:
 	${TR} start 'listing'
 	${TR} cmt	
 
+	${TR} cmt 'Sources are all md files in docs directory, and the mkdocs.yml file'
+	${TR} cmt 'Targets are all files in site directory (the directory is fully build by mkdocs)'
+	${TR} cmt ''
+
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk ls -l`   (long listing format)'
 	${TR} cmt 
