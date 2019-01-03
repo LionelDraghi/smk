@@ -22,7 +22,7 @@ separate (Smk.Main)
 procedure Put_Help is
 begin
    New_Line;
-   Put_Line ("Usage : smk Command [Options]* [Smkfile][:target]");
+   Put_Line ("Usage : smk [Options]* Command [Smkfile][:target]");
    New_Line;
    Put_Line ("Use example :");
    Put_Line ("   when run the first time   : smk MyBuild.txt");
