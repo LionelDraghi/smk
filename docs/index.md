@@ -179,26 +179,27 @@ And don't forget [`smk help`](cmd_line.md).
 
 ## Further reading
 
-- [More on the `smkfile` format](smkfile_format.md)
-- [Not sure to understand what is the difference with `make`...](compare_with_make.md)
+* [More on the `smkfile` format](smkfile_format.md)
 
-- Documentation
+* [Not sure to understand what is the difference with `make`...](compare_with_make.md)
+
+* Documentation
   - [Tutorial](tutorial.md)
   - [Command line](cmd_line.md)
   - [Tests](tests/testrec.md)
   - [Limitations and bugs](limitations.md)
 
-- Design:
+* Design:
   - [Design notes](design_notes.md)
   - [Contributing](contributing.md)
 
-- Current Status:
+* Current Status:
   - [Build Dashboard](dashboard.md)
   - [Tests status](tests/tests_status.md)
   - [Fixme](fixme.md)
   - [Changelog](changelog.md)
 
-- [About](about.md)
+* [About](about.md)
 
 -------------------------------------------------------------------------- 
 **`smk`** is released under 
