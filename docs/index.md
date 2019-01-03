@@ -65,8 +65,6 @@ The uggly part of of the work is over, now all you have to do to get the things 
 smk
 ```
 
-Note that you don't have to repeat the command line, unless there's more than one runfile in the directory.  
-
 The result will be:
 
 > Nothing to run
