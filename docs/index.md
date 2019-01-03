@@ -10,7 +10,6 @@ Just run your commands once through `smk`, and then, all you'll have to type is 
 ------------------------------------------------------------------------
 ![](img/version.svg) ![](img/tests_ok.svg) ![](img/tests_ko.svg)
 
-------------------------------------------------------------------------
 
 Table of contents  
 - [smk (SmartMake)](#smk-smartmake)
