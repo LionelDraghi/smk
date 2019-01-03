@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # smk, the smart make (http://lionel.draghi.free.fr/smk/)
-#  © 2018 Lionel Draghi <lionel.draghi@free.fr>
+#  © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 # SPDX-License-Identifier: APSL-2.0
 # ------------------------------------------------------------------------------
 # Licensed under the Apache License, Version 2.0 (the "License");

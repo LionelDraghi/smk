@@ -7,7 +7,7 @@ smk -h
 
 ```
 
-Usage : smk Command [Options]* [Smkfile][:target]
+Usage : smk [Options]* Command [Smkfile][:target]
 
 Use example :
    when run the first time   : smk MyBuild.txt

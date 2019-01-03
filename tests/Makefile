@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # smk, the smart make (http://lionel.draghi.free.fr/smk/)
-#  © 2018 Lionel Draghi <lionel.draghi@free.fr>
+#  © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 # SPDX-License-Identifier: APSL-2.0
 # ------------------------------------------------------------------------------
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@ TESTS=$(wildcard *_tests)
 
 all: check doc
 
-check: ../smk
+check: ../smk 
 	@ #-------------------------------------------------------------------------
 	# for test in $(TESTS); do				\
 		# 	echo ;								\
@@ -63,6 +63,10 @@ check: ../smk
 	echo
 	echo 12_mp3_conversions_tests
 	$(MAKE) check --directory=12_mp3_conversions_tests
+	echo
+	echo 13_file_utilities_tests
+	$(MAKE) check --directory=13_file_utilities_tests
+	echo
 
 doc:
 	cat *_tests/testrec.md > testrec.md
@@ -103,7 +107,7 @@ doc:
 	mv testrec.md ../docs/tests/
 
 clean:
-	- ${RM} tests_count.txt *.lst
+	- ${RM} tests_count.txt *.lst 
 	for test in $(TESTS); do \
 		$(MAKE) -i clean --directory=$$test; \
 	done

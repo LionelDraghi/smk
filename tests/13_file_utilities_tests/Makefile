@@ -14,13 +14,23 @@
 # limitations under the License.
 # ------------------------------------------------------------------------------
 
-.SILENT:
-all: doc
 
-doc: 
-	mkdocs build --clean --quiet
+.PHONY : clean
+
+all: check doc
+
+test_file_utilities:
+	gprbuild --create-missing-dirs -P test_file_utilities.gpr
+
+check: ./test_file_utilities
+	echo
+	echo test_file_utilities
+	./test_file_utilities >> testrec.md
+	echo [Successful]
+	echo
+
+doc:
 
 clean:
-	echo --- clean:
-	rm -rf ./site/*
-	echo OK
+	- gprclean -q -P test_file_utilities.gpr
+	- rm testrec.md 

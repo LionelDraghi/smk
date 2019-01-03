@@ -2,7 +2,7 @@
 
 ## Successful
 
-   30 tests OK
+   29 tests OK
 
   - [Sanity / First `smk`, after `make`, should run no command](testrec.md#)
   - [Sanity / Second `smk`, should not run any command](testrec.md#)
@@ -22,7 +22,6 @@
   - [Run errors / `run` command fails](testrec.md#)
   - [Command line / Help options](testrec.md#)
   - [Command line / Version option](testrec.md#)
-  - [Command line / Illegal cmd lines](testrec.md#)
   - [Command line / Unknow Makefile](testrec.md#)
   - [Multiline Commands / multiline single command](testrec.md#)
   - [Multiline Commands / multiline with more commands and pipes](testrec.md#)
@@ -37,7 +36,7 @@
 
 ## Failed
 
-   11 tests failed
+   12 tests failed
 
 **Website building sanity tests / building without section](testrec.md#)
 **Website building sanity tests / re-building](testrec.md#)
@@ -46,6 +45,7 @@
 **List queries / lr | list-runs](testrec.md#)
 **Implicit naming / Implicit naming](testrec.md#)
 **Run errors / -k -i](testrec.md#)
+**Command line / Illegal cmd lines](testrec.md#)
 **Sections related functions / smkmfile:section notation](testrec.md#)
 **Directory update tests / start conversion](testrec.md#)
 **Directory update tests / adding a .ogg file in a subdir](testrec.md#)

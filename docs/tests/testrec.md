@@ -146,6 +146,9 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 ##  Website building sanity tests / listing
 
 
+  Sources are all md files in docs directory, and the mkdocs.yml file  
+  Targets are all files in site directory (the directory is fully build by mkdocs)  
+
   Run:  
   `smk ls -l`   (long listing format)  
 
@@ -1279,7 +1282,7 @@ Run errors / `run` command fails [Successful](tests_status.md#successful)
 
 ```  
 
-Usage : smk Command [Options]* [Smkfile][:target]
+Usage : smk [Options]* Command [Smkfile][:target]
 
 Use example :
    when run the first time   : smk MyBuild.txt
@@ -1418,7 +1421,7 @@ http://lionel.draghi.free.fr/smk/
 ```  
 
 
-Command line / Illegal cmd lines [Successful](tests_status.md#successful)
+**Command line / Illegal cmd lines [Failed](tests_status.md#failed)**
 
 ##  Command line / Unknow Makefile
 
@@ -1882,3 +1885,107 @@ Deleting /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/z.mp3
 
 
 **Directory update tests / smk clean [Failed](tests_status.md#failed)**
+# File_Utilities unit tests
+
+## Short_Path
+
+
+1. Subdir with default Prefix
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+2. Dir with final /
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+3. subdir with Prefix
+Expected :
+"./mysite/site/d1/idx.txt"
+OK
+
+4. Sibling subdir
+Expected :
+"../../mysite/site/d1/idx.txt"
+OK
+
+5. Parent dir
+Expected :
+"../../idx.txt"
+OK
+
+6. Other Prefix
+Expected :
+"$PWD/../mysite/site/d1/idx.txt"
+OK
+
+7. Root dir
+Expected :
+"/home/tests/mysite/site/d1/idx.txt"
+OK
+
+8. File is over dir
+Expected :
+"../../../../readme.txt"
+OK
+
+9. File is over Dir, Dir with final /
+Expected :
+"../../../../readme.txt"
+OK
+
+--------------------------------------------------------------------------------
+All tests OK.
+# File_Utilities unit tests
+
+## Short_Path
+
+
+1. Subdir with default Prefix
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+2. Dir with final /
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+3. subdir with Prefix
+Expected :
+"./mysite/site/d1/idx.txt"
+OK
+
+4. Sibling subdir
+Expected :
+"../../mysite/site/d1/idx.txt"
+OK
+
+5. Parent dir
+Expected :
+"../../idx.txt"
+OK
+
+6. Other Prefix
+Expected :
+"$PWD/../mysite/site/d1/idx.txt"
+OK
+
+7. Root dir
+Expected :
+"/home/tests/mysite/site/d1/idx.txt"
+OK
+
+8. File is over dir
+Expected :
+"../../../../readme.txt"
+OK
+
+9. File is over Dir, Dir with final /
+Expected :
+"../../../../readme.txt"
+OK
+
+--------------------------------------------------------------------------------
+All tests OK.
