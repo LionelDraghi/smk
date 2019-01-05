@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - [Unreleased]
+> - [Added] file name shortening, and `-ds` / `--dont-shorten` option added
 
 - [0.3.0] - 2019-01-02
 > - [Added] `list-unused` / `lu` command added

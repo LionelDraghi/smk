@@ -67,6 +67,9 @@ check: ../smk
 	echo 13_file_utilities_tests
 	$(MAKE) check --directory=13_file_utilities_tests
 	echo
+	echo 14_strace_analysis_tests
+	$(MAKE) check --directory=14_strace_analysis_tests
+	echo
 
 doc:
 	cat *_tests/testrec.md > testrec.md

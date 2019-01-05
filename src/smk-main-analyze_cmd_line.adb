@@ -220,24 +220,26 @@ procedure Analyze_Cmd_Line is
       IO.Put_Line ("Settings / Command line analysis:");
       IO.Put_Line ("---------------------------------");
       IO.Put_Line ("");
-      IO.Put_Line ("   Verbosity        : "
+      IO.Put_Line ("   Verbosity         : "
                    & Print_Out_Level'Image (Verbosity));
-      IO.Put_Line ("   Command          : " & Commands'Image (Current_Command));
-      IO.Put_Line ("   Smkfile name     : " & Smkfile_Name);
-      IO.Put_Line ("   Runfile name     : " & Runfile_Name);
-      IO.Put_Line ("   Strace out file  : " & Strace_Outfile_Name);
-      IO.Put_Line ("   Section name     : " & Section_Name);
-      IO.Put_Line ("   Cmd Line         : " & Command_Line);
-      IO.Put_Line ("   Target name      : " & Target_Name);
-      IO.Put_Line ("   Unidentified Opt : " & To_String (Unidentified_Opt));
+      IO.Put_Line ("   Command           : "
+                   & Commands'Image (Current_Command));
+      IO.Put_Line ("   Smkfile name      : " & Smkfile_Name);
+      IO.Put_Line ("   Runfile name      : " & Runfile_Name);
+      IO.Put_Line ("   Strace out file   : " & Strace_Outfile_Name);
+      IO.Put_Line ("   Section name      : " & Section_Name);
+      IO.Put_Line ("   Cmd Line          : " & Command_Line);
+      IO.Put_Line ("   Target name       : " & Target_Name);
+      IO.Put_Line ("   Unidentified Opt  : " & To_String (Unidentified_Opt));
+      IO.Put_Line ("   Initial directory : " & Initial_Directory);
       IO.Put_Line ("");
 
-      IO.Put_Line ("   System Files     : ");
+      IO.Put_Line ("   System Files      : ");
       for F of System_Files loop
          IO.Put_Line ("   - " & F.all);
       end loop;
       IO.Put_Line ("");
-      IO.Put_Line ("   Ignore list      : ");
+      IO.Put_Line ("   Ignore list       : ");
       for F of Ignore_List loop
          IO.Put_Line ("   - " & F.all);
       end loop;
@@ -253,6 +255,8 @@ procedure Analyze_Cmd_Line is
       -- Put_Line ("   " & Checkbox (Recursive) & " Recursive");
       IO.Put_Line ("   " & Checkbox (Warnings_As_Errors)
                    & " Warnings_As_Errors");
+      IO.Put_Line ("   " & Checkbox (Shorten_File_Names)
+                   & " Shorten_File_Names");
       IO.Put_Line ("   " & Checkbox (Filter_Sytem_Files)
                    & " Filter_Sytem_Files");
       IO.Put_Line ("");
@@ -335,6 +339,9 @@ begin
 
          elsif Opt = "-sa" or Opt = "--show-all-files" then
             Settings.Filter_Sytem_Files := False;
+
+         elsif Opt = "-ds" or Opt = "--dont-shorten" then
+            Settings.Shorten_File_Names := False;
 
          elsif Opt = "-i" or Opt = "--ignore-errors" then
             Settings.Ignore_Errors := True;

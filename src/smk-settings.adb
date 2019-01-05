@@ -30,6 +30,9 @@ package body Smk.Settings is
 
    Cmd_Line        : Unbounded_String := Null_Unbounded_String;
 
+   WD              : constant access String
+     := new String'(Ada.Directories.Current_Directory);
+
    Ignored         : constant Filter_List := (new String'("/sys/*"),
                                               new String'("/proc/*"),
                                               new String'("/dev/*"),
@@ -81,6 +84,9 @@ package body Smk.Settings is
    -- --------------------------------------------------------------------------
    function System_Files return Filter_List is (System_Dir);
    function Ignore_List  return Filter_List is (Ignored);
+
+   -- --------------------------------------------------------------------------
+   function Initial_Directory return String is (WD.all);
 
    -- --------------------------------------------------------------------------
    procedure Set_Smkfile_Name (Name : in String) is

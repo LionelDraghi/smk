@@ -100,8 +100,8 @@ list_queries:
 	${TR} start 'ls | list-sources'
 	
 	${TR} cmt 
-	${TR} cmt 'Run: (long form)'
-	${TR} cmt '`smk ls -l ../hello.c/Makefile.2`'
+	${TR} cmt 'Run: ls without shortening file names'
+	${TR} cmt '`smk ls -ds ../hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -109,8 +109,8 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk ls ../hello.c/Makefile.2 > out.ls1.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_ls1.txt out.ls1.txt" 
+	../../smk ls -ds ../hello.c/Makefile.2 > out.ls1.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_ls1.txt out.ls1.txt" || meld expected_ls1.txt out.ls1.txt
 
 	${TR} cmt 
 	${TR} cmt 'Run:'
@@ -140,8 +140,8 @@ list_queries:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk list-sources --show-all-files ../hello.c/Makefile.2 > out.las1.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_las1.txt out.las1.txt" 
+	../../smk list-sources --show-all-files ../hello.c/Makefile.2 > out.las1.txt
+	${TR} assert true /usr/bin/sdiff "-sbB expected_las1.txt out.las1.txt" || meld expected_las1.txt out.las1.txt
 
 	${TR} cmt 
 	${TR} cmt 'Run: (long form)'

@@ -1,0 +1,50 @@
+execve, should be ignored
+11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
+ignored
+
+
+SIGCHLD line
+11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+ignored
+
+
+Read openat
+11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+Read_Call
+/etc/ld.so.cache
+
+Write openat
+11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
+Write_Call
+
+/tmp/ccvHeGYq.res
+openat but ENOENT
+11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
+ignored
+
+
+access for exec
+11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+Ignored
+
+
+access file with no dir
+11750 access("hello.o", F_OK)           = 0
+Ignored
+
+
+RW access to a dir
+11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
+Ignored
+
+
+unlink (rm)
+11750 unlink("/tmp/ccvHeGYq.res")       = 0
+Write_Call
+
+/tmp/ccvHeGYq.res
+Read AND Write test
+30461 rename("x.mp3", "unknown-unknown.mp3") = 0
+Read_Write_Call
+/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3
+/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3

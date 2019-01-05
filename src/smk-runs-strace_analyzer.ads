@@ -21,8 +21,15 @@ private package Smk.Runs.Strace_Analyzer is
    function Is_Null (The_File : File) return Boolean is
      (The_File = null or else The_File.all = "");
 
+   type Line_Type is (Read_Call,
+                      Write_Call,
+                      Read_Write_Call,
+                      Exec_Call,
+                      Ignored);
+
    -- --------------------------------------------------------------------------
    procedure Analyze_Line (Line       : in     String;
+                           Call_Type  :    out Line_Type;
                            Read_File  :    out File;
                            Write_File :    out File);
 

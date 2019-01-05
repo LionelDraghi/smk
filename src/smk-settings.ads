@@ -32,6 +32,7 @@ private package Smk.Settings is
    Long_Listing_Format : Boolean := False;
    -- Recursive        : Boolean := False;
    Warnings_As_Errors  : Boolean := False;
+   Shorten_File_Names  : Boolean := True;
    Filter_Sytem_Files  : Boolean := True;
 
    type Commands is (Build,
@@ -65,6 +66,10 @@ private package Smk.Settings is
    -- -q  : suppress messages about attaching, detaching, etc.
    -- -qq : suppress messages about process exit status.
    -- -f  : follow forks
+
+   -- --------------------------------------------------------------------------
+   function Initial_Directory return String;
+   -- returns Ada.Directories.Current_Directory at smk launch.
 
    -- --------------------------------------------------------------------------
    type Print_Out_Level is (Debug, Verbose, Normal, Quiet);

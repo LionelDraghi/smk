@@ -19,15 +19,15 @@
 
 all: check doc
 
-test_file_utilities:
-	gprbuild --create-missing-dirs -P test_file_utilities.gpr
+test_strace_analysis:
+	gprbuild --create-missing-dirs -P test_strace_analysis.gpr
 
-check: ./test_file_utilities
-	./test_file_utilities >> testrec.md
+check: ./test_strace_analysis
+	./test_strace_analysis >> testrec.md
 	@ echo OK
 	
 doc:
 
 clean:
-	- gprclean -q -P test_file_utilities.gpr
+	- gprclean -q -P test_strace_analysis.gpr
 	- rm testrec.md 

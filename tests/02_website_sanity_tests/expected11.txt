@@ -1,2 +1,2 @@
-run "mkdocs build --clean --quiet" because Target /home/lionel/Proj/smk/tests/mysite/site/.html is missing
+run "mkdocs build --clean --quiet" because Target ../mysite/site/.html is missing
 mkdocs build --clean --quiet

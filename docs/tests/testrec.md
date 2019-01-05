@@ -154,24 +154,24 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 
   Expected:  
 ```  
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/about.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/changelog.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/cmd_line.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/compare_with_make.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/contributing.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/dashboard.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/design_notes.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/fixme.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/sloc.png
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/tests.png
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/tests_ko.svg
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/tests_ok.svg
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/img/version.svg
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/index.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/limitations.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/smkfile_format.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/docs/tutorial.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/mkdocs.yml
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/about.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/changelog.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/cmd_line.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/compare_with_make.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/contributing.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/dashboard.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/design_notes.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/fixme.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/sloc.png
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/tests.png
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/tests_ko.svg
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/tests_ok.svg
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/version.svg
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/index.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/limitations.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/smkfile_format.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/tutorial.md
+"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/mkdocs.yml
 ```  
 
   Run:  
@@ -179,24 +179,24 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 
   Expected:  
 ```  
-/home/lionel/Proj/smk/tests/mysite/docs/about.md
-/home/lionel/Proj/smk/tests/mysite/docs/changelog.md
-/home/lionel/Proj/smk/tests/mysite/docs/cmd_line.md
-/home/lionel/Proj/smk/tests/mysite/docs/compare_with_make.md
-/home/lionel/Proj/smk/tests/mysite/docs/contributing.md
-/home/lionel/Proj/smk/tests/mysite/docs/dashboard.md
-/home/lionel/Proj/smk/tests/mysite/docs/design_notes.md
-/home/lionel/Proj/smk/tests/mysite/docs/fixme.md
-/home/lionel/Proj/smk/tests/mysite/docs/img/sloc.png
-/home/lionel/Proj/smk/tests/mysite/docs/img/tests.png
-/home/lionel/Proj/smk/tests/mysite/docs/img/tests_ko.svg
-/home/lionel/Proj/smk/tests/mysite/docs/img/tests_ok.svg
-/home/lionel/Proj/smk/tests/mysite/docs/img/version.svg
-/home/lionel/Proj/smk/tests/mysite/docs/index.md
-/home/lionel/Proj/smk/tests/mysite/docs/limitations.md
-/home/lionel/Proj/smk/tests/mysite/docs/smkfile_format.md
-/home/lionel/Proj/smk/tests/mysite/docs/tutorial.md
-/home/lionel/Proj/smk/tests/mysite/mkdocs.yml
+../mysite/docs/about.md
+../mysite/docs/changelog.md
+../mysite/docs/cmd_line.md
+../mysite/docs/compare_with_make.md
+../mysite/docs/contributing.md
+../mysite/docs/dashboard.md
+../mysite/docs/design_notes.md
+../mysite/docs/fixme.md
+../mysite/docs/img/sloc.png
+../mysite/docs/img/tests.png
+../mysite/docs/img/tests_ko.svg
+../mysite/docs/img/tests_ok.svg
+../mysite/docs/img/version.svg
+../mysite/docs/index.md
+../mysite/docs/limitations.md
+../mysite/docs/smkfile_format.md
+../mysite/docs/tutorial.md
+../mysite/mkdocs.yml
 ```  
 
   Run:  
@@ -204,49 +204,49 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 
   Expected:  
 ```  
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/404.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/about/index.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/changelog/index.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/cmd_line/index.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/compare_with_make/index.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/contributing/index.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/css/base.css
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/css/bootstrap-custom.min.css
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/css/font-awesome.min.css
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/dashboard/index.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/design_notes/index.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fixme/index.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/FontAwesome.otf
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.eot
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.svg
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.ttf
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.woff
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.woff2
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.eot
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.svg
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.ttf
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.woff
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.woff2
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/favicon.ico
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/grid.png
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/sloc.png
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/tests.png
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/tests_ko.svg
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/tests_ok.svg
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/img/version.svg
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/index.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/js/base.js
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/js/bootstrap-3.0.3.min.js
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/js/jquery-1.10.2.min.js
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/limitations/index.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/search/lunr.js
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/search/main.js
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/search/search_index.json
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/search/worker.js
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/sitemap.xml
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/sitemap.xml.gz
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/smkfile_format/index.html
-"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/404.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/about/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/changelog/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/cmd_line/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/compare_with_make/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/contributing/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/css/base.css
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/css/bootstrap-custom.min.css
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/css/font-awesome.min.css
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/dashboard/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/design_notes/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fixme/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fonts/FontAwesome.otf
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fonts/fontawesome-webfont.eot
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fonts/fontawesome-webfont.svg
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fonts/fontawesome-webfont.ttf
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fonts/fontawesome-webfont.woff
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fonts/fontawesome-webfont.woff2
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fonts/glyphicons-halflings-regular.eot
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fonts/glyphicons-halflings-regular.svg
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fonts/glyphicons-halflings-regular.ttf
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fonts/glyphicons-halflings-regular.woff
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/fonts/glyphicons-halflings-regular.woff2
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/img/favicon.ico
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/img/grid.png
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/img/sloc.png
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/img/tests.png
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/img/tests_ko.svg
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/img/tests_ok.svg
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/img/version.svg
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/js/base.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/js/bootstrap-3.0.3.min.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/js/jquery-1.10.2.min.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/limitations/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/search/lunr.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/search/main.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/search/search_index.json
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/search/worker.js
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/sitemap.xml
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/sitemap.xml.gz
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/smkfile_format/index.html
+"mkdocs build --clean --quiet" [doc] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/site/tutorial/index.html
 ```  
 
   Run:  
@@ -262,7 +262,7 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 ```  
 
 
-Website building sanity tests / listing [Successful](tests_status.md#successful)
+**Website building sanity tests / listing [Failed](tests_status.md#failed)**
 
 ##  Website building sanity tests / building without section
 
@@ -289,7 +289,7 @@ OK
 
   Expected:  
 ```  
-run "mkdocs build --clean --quiet" because Target /home/lionel/Proj/smk/tests/mysite/site/404.html is missing
+run "mkdocs build --clean --quiet" because Target ../mysite/site/404.html is missing
 mkdocs build --clean --quiet
 ```  
 
@@ -318,7 +318,7 @@ Nothing to run
 
   Expected:  
 ```  
-[Updated] /home/lionel/Proj/smk/tests/mysite/docs/about.md
+[Updated] ../mysite/docs/about.md
 ```  
 
   Run:  
@@ -327,8 +327,8 @@ Nothing to run
 
   Expected:  
 ```  
-[Updated] /home/lionel/Proj/smk/tests/mysite/docs/about.md
-[Missing] /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
+[Updated] ../mysite/docs/about.md
+[Missing] ../mysite/site/tutorial/index.html
 ```  
 
   Run:  
@@ -336,7 +336,7 @@ Nothing to run
 
   Expected:  
 ```  
-run "mkdocs build --clean --quiet" because Target /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html is missing
+run "mkdocs build --clean --quiet" because Target ../mysite/site/tutorial/index.html is missing
 mkdocs build --clean --quiet
 No need to run echo --- clean:
 No need to run rm -rf ./site/*
@@ -356,49 +356,49 @@ No need to run echo OK
   Expected:  
 ```  
 
-Deleting /home/lionel/Proj/smk/tests/mysite/site/404.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/about/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/changelog/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/cmd_line/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/compare_with_make/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/contributing/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/css/base.css
-Deleting /home/lionel/Proj/smk/tests/mysite/site/css/bootstrap-custom.min.css
-Deleting /home/lionel/Proj/smk/tests/mysite/site/css/font-awesome.min.css
-Deleting /home/lionel/Proj/smk/tests/mysite/site/dashboard/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/design_notes/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fixme/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/FontAwesome.otf
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.eot
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.svg
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.ttf
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.woff
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/fontawesome-webfont.woff2
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.eot
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.svg
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.ttf
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.woff
-Deleting /home/lionel/Proj/smk/tests/mysite/site/fonts/glyphicons-halflings-regular.woff2
-Deleting /home/lionel/Proj/smk/tests/mysite/site/img/favicon.ico
-Deleting /home/lionel/Proj/smk/tests/mysite/site/img/grid.png
-Deleting /home/lionel/Proj/smk/tests/mysite/site/img/sloc.png
-Deleting /home/lionel/Proj/smk/tests/mysite/site/img/tests.png
-Deleting /home/lionel/Proj/smk/tests/mysite/site/img/tests_ko.svg
-Deleting /home/lionel/Proj/smk/tests/mysite/site/img/tests_ok.svg
-Deleting /home/lionel/Proj/smk/tests/mysite/site/img/version.svg
-Deleting /home/lionel/Proj/smk/tests/mysite/site/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/js/base.js
-Deleting /home/lionel/Proj/smk/tests/mysite/site/js/bootstrap-3.0.3.min.js
-Deleting /home/lionel/Proj/smk/tests/mysite/site/js/jquery-1.10.2.min.js
-Deleting /home/lionel/Proj/smk/tests/mysite/site/limitations/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/search/lunr.js
-Deleting /home/lionel/Proj/smk/tests/mysite/site/search/main.js
-Deleting /home/lionel/Proj/smk/tests/mysite/site/search/search_index.json
-Deleting /home/lionel/Proj/smk/tests/mysite/site/search/worker.js
-Deleting /home/lionel/Proj/smk/tests/mysite/site/sitemap.xml
-Deleting /home/lionel/Proj/smk/tests/mysite/site/sitemap.xml.gz
-Deleting /home/lionel/Proj/smk/tests/mysite/site/smkfile_format/index.html
-Deleting /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
+Deleting ../mysite/site/404.html
+Deleting ../mysite/site/about/index.html
+Deleting ../mysite/site/changelog/index.html
+Deleting ../mysite/site/cmd_line/index.html
+Deleting ../mysite/site/compare_with_make/index.html
+Deleting ../mysite/site/contributing/index.html
+Deleting ../mysite/site/css/base.css
+Deleting ../mysite/site/css/bootstrap-custom.min.css
+Deleting ../mysite/site/css/font-awesome.min.css
+Deleting ../mysite/site/dashboard/index.html
+Deleting ../mysite/site/design_notes/index.html
+Deleting ../mysite/site/fixme/index.html
+Deleting ../mysite/site/fonts/FontAwesome.otf
+Deleting ../mysite/site/fonts/fontawesome-webfont.eot
+Deleting ../mysite/site/fonts/fontawesome-webfont.svg
+Deleting ../mysite/site/fonts/fontawesome-webfont.ttf
+Deleting ../mysite/site/fonts/fontawesome-webfont.woff
+Deleting ../mysite/site/fonts/fontawesome-webfont.woff2
+Deleting ../mysite/site/fonts/glyphicons-halflings-regular.eot
+Deleting ../mysite/site/fonts/glyphicons-halflings-regular.svg
+Deleting ../mysite/site/fonts/glyphicons-halflings-regular.ttf
+Deleting ../mysite/site/fonts/glyphicons-halflings-regular.woff
+Deleting ../mysite/site/fonts/glyphicons-halflings-regular.woff2
+Deleting ../mysite/site/img/favicon.ico
+Deleting ../mysite/site/img/grid.png
+Deleting ../mysite/site/img/sloc.png
+Deleting ../mysite/site/img/tests.png
+Deleting ../mysite/site/img/tests_ko.svg
+Deleting ../mysite/site/img/tests_ok.svg
+Deleting ../mysite/site/img/version.svg
+Deleting ../mysite/site/index.html
+Deleting ../mysite/site/js/base.js
+Deleting ../mysite/site/js/bootstrap-3.0.3.min.js
+Deleting ../mysite/site/js/jquery-1.10.2.min.js
+Deleting ../mysite/site/limitations/index.html
+Deleting ../mysite/site/search/lunr.js
+Deleting ../mysite/site/search/main.js
+Deleting ../mysite/site/search/search_index.json
+Deleting ../mysite/site/search/worker.js
+Deleting ../mysite/site/sitemap.xml
+Deleting ../mysite/site/sitemap.xml.gz
+Deleting ../mysite/site/smkfile_format/index.html
+Deleting ../mysite/site/tutorial/index.html
 ```  
 
 
@@ -412,7 +412,7 @@ Deleting /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
 
   Expected:  
 ```  
-run "mkdocs build --clean --quiet" because Target /home/lionel/Proj/smk/tests/mysite/site/.html is missing
+run "mkdocs build --clean --quiet" because Target ../mysite/site/.html is missing
 mkdocs build --clean --quiet
 ```  
 
@@ -684,7 +684,7 @@ Makefile.3
 ```  
 
 
-**List queries / lr | list-runs [Failed](tests_status.md#failed)**
+List queries / lr | list-runs [Successful](tests_status.md#successful)
 
 ##  List queries / lt | list-targets
 
@@ -709,7 +709,7 @@ Makefile.3
 ```  
 
 
-List queries / lt | list-targets [Successful](tests_status.md#successful)
+**List queries / lt | list-targets [Failed](tests_status.md#failed)**
 
 ##  List queries / ls | list-sources
 
@@ -740,7 +740,7 @@ List queries / lt | list-targets [Successful](tests_status.md#successful)
 ```  
 
 
-List queries / ls | list-sources [Successful](tests_status.md#successful)
+**List queries / ls | list-sources [Failed](tests_status.md#failed)**
 
 ##  List queries / ls | list-sources --show-all-files
 
@@ -1131,7 +1131,7 @@ Error : No smkfile given, and more than one runfile in dir
 ```  
 
 
-**Implicit naming / Implicit naming [Failed](tests_status.md#failed)**
+Implicit naming / Implicit naming [Successful](tests_status.md#successful)
 
 # Run errors
 
@@ -1213,7 +1213,7 @@ Error : Spawn failed for gcc -o hello hello.o main.o
 ```  
 
 
-**Run errors / -k -i [Failed](tests_status.md#failed)**
+Run errors / -k -i [Successful](tests_status.md#successful)
 
 ##  Run errors / `run` command fails
 
@@ -1584,7 +1584,7 @@ rm -rf hello
 ```  
 
 
-**Sections related functions / smkmfile:section notation [Failed](tests_status.md#failed)**
+Sections related functions / smkmfile:section notation [Successful](tests_status.md#successful)
 
 # Command Run features
 
@@ -1661,9 +1661,9 @@ id3ren -quiet -template=%a-%s.mp3 x.mp3
 ```  
 Command "id3ren -quiet -template=%a-%s.mp3 x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (1)
-  - [Both  ] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
 Targets: (1)
-  - [Both  ] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/Luke-Sentinelle.mp3
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/Luke-Sentinelle.mp3
 
 Command "id3v2 -a Luke -t Sentinelle x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (1)
@@ -1811,7 +1811,7 @@ Directory update tests / start conversion [Successful](tests_status.md#successfu
 ```  
 
 
-Directory update tests / new ogg in dir [Successful](tests_status.md#successful)
+**Directory update tests / new ogg in dir [Failed](tests_status.md#failed)**
 
 ##  Directory update tests / ogg-to-mp3 is modified
 
@@ -1884,8 +1884,10 @@ Deleting /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/z.mp3
 ```  
 
 
-**Directory update tests / smk clean [Failed](tests_status.md#failed)**
+Directory update tests / smk clean [Successful](tests_status.md#successful)
+
 # File_Utilities unit tests
+
 
 ## Short_Path
 
@@ -1937,7 +1939,9 @@ OK
 
 --------------------------------------------------------------------------------
 All tests OK.
+
 # File_Utilities unit tests
+
 
 ## Short_Path
 
@@ -1989,3 +1993,733 @@ OK
 
 --------------------------------------------------------------------------------
 All tests OK.
+
+# File_Utilities unit tests
+
+
+## Short_Path
+
+
+1. Subdir with default Prefix
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+2. Dir with final /
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+3. subdir with Prefix
+Expected :
+"./mysite/site/d1/idx.txt"
+OK
+
+4. Sibling subdir
+Expected :
+"../../mysite/site/d1/idx.txt"
+OK
+
+5. Parent dir
+Expected :
+"../../idx.txt"
+OK
+
+6. Other Prefix
+Expected :
+"$PWD/../mysite/site/d1/idx.txt"
+OK
+
+7. Root dir
+Expected :
+"/home/tests/mysite/site/d1/idx.txt"
+OK
+
+8. File is over dir
+Expected :
+"../../../../readme.txt"
+OK
+
+9. File is over Dir, Dir with final /
+Expected :
+"../../../../readme.txt"
+OK
+
+--------------------------------------------------------------------------------
+All tests OK.
+
+# File_Utilities unit tests
+
+
+## Short_Path
+
+
+1. Subdir with default Prefix
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+2. Dir with final /
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+3. subdir with Prefix
+Expected :
+"./mysite/site/d1/idx.txt"
+OK
+
+4. Sibling subdir
+Expected :
+"../../mysite/site/d1/idx.txt"
+OK
+
+5. Parent dir
+Expected :
+"../../idx.txt"
+OK
+
+6. Other Prefix
+Expected :
+"$PWD/../mysite/site/d1/idx.txt"
+OK
+
+7. Root dir
+Expected :
+"/home/tests/mysite/site/d1/idx.txt"
+OK
+
+8. File is over dir
+Expected :
+"../../../../readme.txt"
+OK
+
+9. File is over Dir, Dir with final /
+Expected :
+"../../../../readme.txt"
+OK
+
+--------------------------------------------------------------------------------
+All tests OK.
+
+# File_Utilities unit tests
+
+
+## Short_Path
+
+
+1. Subdir with default Prefix
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+2. Dir with final /
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+3. subdir with Prefix
+Expected :
+"./mysite/site/d1/idx.txt"
+OK
+
+4. Sibling subdir
+Expected :
+"../../mysite/site/d1/idx.txt"
+OK
+
+5. Parent dir
+Expected :
+"../../idx.txt"
+OK
+
+6. Other Prefix
+Expected :
+"$PWD/../mysite/site/d1/idx.txt"
+OK
+
+7. Root dir
+Expected :
+"/home/tests/mysite/site/d1/idx.txt"
+OK
+
+8. File is over dir
+Expected :
+"../../../../readme.txt"
+OK
+
+9. File is over Dir, Dir with final /
+Expected :
+"../../../../readme.txt"
+OK
+
+--------------------------------------------------------------------------------
+All tests OK.
+
+# File_Utilities unit tests
+
+
+## Short_Path
+
+
+1. Subdir with default Prefix
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+2. Dir with final /
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+3. subdir with Prefix
+Expected :
+"./mysite/site/d1/idx.txt"
+OK
+
+4. Sibling subdir
+Expected :
+"../../mysite/site/d1/idx.txt"
+OK
+
+5. Parent dir
+Expected :
+"../../idx.txt"
+OK
+
+6. Other Prefix
+Expected :
+"$PWD/../mysite/site/d1/idx.txt"
+OK
+
+7. Root dir
+Expected :
+"/home/tests/mysite/site/d1/idx.txt"
+OK
+
+8. File is over dir
+Expected :
+"../../../../readme.txt"
+OK
+
+9. File is over Dir, Dir with final /
+Expected :
+"../../../../readme.txt"
+OK
+
+--------------------------------------------------------------------------------
+All tests OK.
+
+# File_Utilities unit tests
+
+
+## Short_Path
+
+
+1. Subdir with default Prefix
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+2. Dir with final /
+Expected :
+"mysite/site/d1/idx.txt"
+OK
+
+3. subdir with Prefix
+Expected :
+"./mysite/site/d1/idx.txt"
+OK
+
+4. Sibling subdir
+Expected :
+"../../mysite/site/d1/idx.txt"
+OK
+
+5. Parent dir
+Expected :
+"../../idx.txt"
+OK
+
+6. Other Prefix
+Expected :
+"$PWD/../mysite/site/d1/idx.txt"
+OK
+
+7. Root dir
+Expected :
+"/home/tests/mysite/site/d1/idx.txt"
+OK
+
+8. File is over dir
+Expected :
+"../../../../readme.txt"
+OK
+
+9. File is over Dir, Dir with final /
+Expected :
+"../../../../readme.txt"
+OK
+
+--------------------------------------------------------------------------------
+All tests OK.
+
+# Strace_Analyzer unit tests
+
+
+## execve, should be ignored
+   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## SIGCHLD line
+   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## Read openat
+   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+   - Expected Call_Type: "Read_Call", OK
+   - Expected Read file: "/etc/ld.so.cache", OK
+   - Expected Write file: "", OK
+
+## Write openat
+   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## openat but ENOENT
+   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access for exec
+   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access file with no dir
+   Line: 11750 access("hello.o", F_OK)           = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## RW access to a dir
+   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## unlink (rm)
+   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## Read AND Write test
+   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
+   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
+
+--------------------------------------------------------------------------------
+All tests OK.
+
+# Strace_Analyzer unit tests
+
+
+## execve, should be ignored
+   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## SIGCHLD line
+   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## Read openat
+   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+   - Expected Call_Type: "Read_Call", OK
+   - Expected Read file: "/etc/ld.so.cache", OK
+   - Expected Write file: "", OK
+
+## Write openat
+   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## openat but ENOENT
+   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access for exec
+   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access file with no dir
+   Line: 11750 access("hello.o", F_OK)           = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## RW access to a dir
+   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## unlink (rm)
+   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## Read AND Write test
+   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
+   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
+
+--------------------------------------------------------------------------------
+All tests OK.
+
+# Strace_Analyzer unit tests
+
+
+## execve, should be ignored
+   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## SIGCHLD line
+   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## Read openat
+   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+   - Expected Call_Type: "Read_Call", OK
+   - Expected Read file: "/etc/ld.so.cache", OK
+   - Expected Write file: "", OK
+
+## Write openat
+   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## openat but ENOENT
+   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access for exec
+   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access file with no dir
+   Line: 11750 access("hello.o", F_OK)           = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## RW access to a dir
+   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## unlink (rm)
+   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## Read AND Write test
+   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
+   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
+
+--------------------------------------------------------------------------------
+All tests OK.
+
+# Strace_Analyzer unit tests
+
+
+## execve, should be ignored
+   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## SIGCHLD line
+   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## Read openat
+   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+   - Expected Call_Type: "Read_Call", OK
+   - Expected Read file: "/etc/ld.so.cache", OK
+   - Expected Write file: "", OK
+
+## Write openat
+   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## openat but ENOENT
+   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access for exec
+   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access file with no dir
+   Line: 11750 access("hello.o", F_OK)           = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## RW access to a dir
+   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## unlink (rm)
+   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## Read AND Write test
+   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
+   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
+
+--------------------------------------------------------------------------------
+All tests OK.
+
+# Strace_Analyzer unit tests
+
+
+## execve, should be ignored
+   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## SIGCHLD line
+   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## Read openat
+   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+   - Expected Call_Type: "Read_Call", OK
+   - Expected Read file: "/etc/ld.so.cache", OK
+   - Expected Write file: "", OK
+
+## Write openat
+   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## openat but ENOENT
+   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access for exec
+   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access file with no dir
+   Line: 11750 access("hello.o", F_OK)           = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## RW access to a dir
+   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## unlink (rm)
+   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## Read AND Write test
+   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
+   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
+
+--------------------------------------------------------------------------------
+All tests OK.
+
+# Strace_Analyzer unit tests
+
+
+## execve, should be ignored
+   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## SIGCHLD line
+   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## Read openat
+   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+   - Expected Call_Type: "Read_Call", OK
+   - Expected Read file: "/etc/ld.so.cache", OK
+   - Expected Write file: "", OK
+
+## Write openat
+   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## openat but ENOENT
+   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access for exec
+   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access file with no dir
+   Line: 11750 access("hello.o", F_OK)           = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## RW access to a dir
+   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## unlink (rm)
+   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## Read AND Write test
+   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
+   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
+
+All tests OK [Successful](tests_status.md#successful)
+
+# Strace_Analyzer unit tests
+
+
+## execve, should be ignored
+   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## SIGCHLD line
+   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## Read openat
+   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+   - Expected Call_Type: "Read_Call", OK
+   - Expected Read file: "/etc/ld.so.cache", OK
+   - Expected Write file: "", OK
+
+## Write openat
+   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## openat but ENOENT
+   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access for exec
+   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access file with no dir
+   Line: 11750 access("hello.o", F_OK)           = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## RW access to a dir
+   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## unlink (rm)
+   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## Read AND Write test
+   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
+   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
+
+All tests OK [Successful](tests_status.md#successful)

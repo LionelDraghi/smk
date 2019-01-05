@@ -1,2 +1,2 @@
-[Updated] /home/lionel/Proj/smk/tests/mysite/docs/about.md
-[Missing] /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html
+[Updated] ../mysite/docs/about.md
+[Missing] ../mysite/site/tutorial/index.html

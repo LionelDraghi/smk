@@ -1,4 +1,4 @@
-run "mkdocs build --clean --quiet" because Target /home/lionel/Proj/smk/tests/mysite/site/tutorial/index.html is missing
+run "mkdocs build --clean --quiet" because Target ../mysite/site/tutorial/index.html is missing
 mkdocs build --clean --quiet
 No need to run echo --- clean:
 No need to run rm -rf ./site/*

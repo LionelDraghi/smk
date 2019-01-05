@@ -14,6 +14,7 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
+with File_Utilities;
 with Smk.IO;
 with Smk.Settings;
 
@@ -102,7 +103,14 @@ package body Smk.Files is
                       & "[" & IO.Image (File.Time_Tag)    & "] "
                       & (+Name));
       else
-         IO.Put_Line (Item => Prefix & (+Name));
+         if Settings.Shorten_File_Names then
+            IO.Put_Line (Item => Prefix & File_Utilities.Short_Path
+                         (From_Dir => Settings.Initial_Directory,
+                          To_File  => (+Name)));
+         else
+            IO.Put_Line (Item => +Name);
+
+         end if;
       end if;
    end Put_File_Description;
 

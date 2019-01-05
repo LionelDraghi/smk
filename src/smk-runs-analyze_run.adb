@@ -14,10 +14,10 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-with Smk.IO;            use Smk.IO;
+with Smk.IO;                   use Smk.IO;
 with Smk.Runfiles;
 with Smk.Runs.Strace_Analyzer;
-with Smk.Settings;      use Smk.Settings;
+with Smk.Settings;             use Smk.Settings;
 
 with Ada.Strings.Fixed;
 with Ada.Text_IO;
@@ -29,8 +29,6 @@ procedure Analyze_Run (Sources_And_Targets : out Files.File_Lists.Map;
                        Dirs                : out Files.File_Lists.Map;
                        Counts              : out Runfiles.File_Counts)
 is
-   Debug        : constant Boolean := False;
-   Prefix       : constant String  := ""; -- smk-main-analyze_run.adb ";
    Strace_Ouput : Ada.Text_IO.File_Type;
 
    -- --------------------------------------------------------------------------
@@ -57,9 +55,32 @@ is
       end if;
    end Update_List;
 
+   use Smk.Runs.Strace_Analyzer;
+
+   -- --------------------------------------------------------------------------
+   procedure Update_Lists (Write_File : File;
+                           With_Role  : File_Role) is
+   begin
+      if not Is_Null (Write_File)
+        and then not In_Ignore_List (Write_File.all)
+        and then (not Exists (Write_File.all)
+                  or else Kind (Write_File.all) /= Special_File)
+      then
+         -- Special_File are filtered, meanning that directories and
+         -- Ordinary_File files are recorded.
+         if Is_Dir (Write_File.all) then
+            Update_List (Dirs, +Write_File.all, With_Role);
+
+         else
+            Update_List (Sources_And_Targets, +Write_File.all, With_Role);
+
+         end if;
+      end if;
+
+   end Update_Lists;
+
 begin
    -- --------------------------------------------------------------------------
-   IO.Put_Debug_Line ("Openning " & Strace_Outfile_Name, Debug, Prefix);
    Open (File => Strace_Ouput,
          Name => Strace_Outfile_Name,
          Mode => In_File);
@@ -67,61 +88,39 @@ begin
    while not End_Of_File (Strace_Ouput) loop
       File_Filter : declare
          Line  : constant String  := Get_Line (Strace_Ouput);
-         use Smk.Runs.Strace_Analyzer;
          Read_File  : File;
          Write_File : File;
+         Call_Type  : Line_Type;
 
       begin
-         Analyze_Line (Line, Read_File, Write_File);
+         Analyze_Line (Line, Call_Type, Read_File, Write_File);
 
-         -- Let's ignore :
-         -- 1. no more existing files after run, that is temporary file
-         -- 2. special file, e. g. /dev/something,
-         if not Is_Null (Read_File)
-           and then not In_Ignore_List (Read_File.all)
-           and then (not Exists (Read_File.all)
-                     or else Kind (Read_File.all) /= Special_File)
-         then
-            -- Special_File are filtered, meanning that directories and
-            -- Ordinary_File files are recorded.
-            if Is_Dir (Read_File.all) then
-               Update_List (Dirs, +Read_File.all, Source);
+         case Call_Type is
+            when Read_Call           => Update_Lists (Read_File,  Source);
 
-            else
-               Update_List (Sources_And_Targets, +Read_File.all, Source);
+            when Write_Call          => Update_Lists (Write_File, Target);
 
-            end if;
-         end if;
+            when Read_Write_Call     =>
+               Update_Lists (Read_File,  Source);
+               Update_Lists (Write_File, Target);
 
-         -- Same for Targets:
-         if not Is_Null (Write_File)
-           -- Fixme: duplicated code
-           and then not In_Ignore_List (Write_File.all)
-           and then (not Exists (Write_File.all)
-                     or else Kind (Write_File.all) /= Special_File)
-         then
-            -- Special_File are filtered, meanning that directories and
-            -- Ordinary_File files are recorded.
-            if Is_Dir (Write_File.all) then
-               Update_List (Dirs, +Write_File.all, Target);
+            when Exec_Call | Ignored => null;
 
-            else
-               Update_List (Sources_And_Targets, +Write_File.all, Target);
+         end case;
 
-            end if;
-         end if;
 
-      exception
-         when others =>
-            IO.Put_Line (Line);
-            IO.Put_Line ("Read_File  """
-                         & (if Is_Null (Read_File) then ""
-                           else Read_File.all) & """");
-            IO.Put_Line ("Write_File """
-                         & (if Is_Null (Write_File) then ""
-                           else Write_File.all) & """");
-            Ada.Text_IO.Flush;
-            raise;
+
+--        exception
+--           when others =>
+--              IO.Put_Line (Line);
+--              IO.Put_Line ("Read_File  """
+--                           & (if Is_Null (Read_File) then ""
+--                             else Read_File.all) & """");
+--              IO.Put_Line ("Write_File """
+--                           & (if Is_Null (Write_File) then ""
+--                             else Write_File.all) & """");
+--              Ada.Text_IO.Flush;
+--              raise;
 
       end File_Filter;
 
