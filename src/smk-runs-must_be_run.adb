@@ -48,8 +48,8 @@ is
               and then Status (Element (File)) = Missing
             -- and then not Exists (Name)
             then
-               Put_Explanation ("because " & Role_Image (Role) & " " & Name
-                            & " is missing");
+               Put_Explanation ("because " & Role_Image (Role) & " "
+                                & Shorten (Name) & " is missing");
                return True;
             end if;
          end;
@@ -64,7 +64,7 @@ is
       for I in The_Run.Files.Iterate loop
          if Is_Source (Element (I)) and Status (Element (I)) = Updated
          then
-            Put_Explanation ("because " & (+Key (I)) & " ("
+            Put_Explanation ("because " & Shorten (Key (I)) & " ("
                              & IO.Image (Time_Tag (Element (I)))
                              & ") has been updated since last run ("
                              & IO.Image (The_Run.Run_Time) & ")");
@@ -85,7 +85,8 @@ is
             if Role (Element (File)) = Source and
               Status (Element (File)) = Updated
             then
-               Put_Explanation ("because dir " & Name & " is updated");
+               Put_Explanation ("because dir " & Shorten (Name)
+                                & " is updated");
                return True;
             end if;
          end;

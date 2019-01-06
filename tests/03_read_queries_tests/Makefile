@@ -51,7 +51,7 @@ read_queries:
 	../../smk read-smkfile ../hello.c/Makefile.3 | sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 		         sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.read_smkfile.txt 
 	# to get the comparison working, numbers in date are removed
-	${TR} assert true /usr/bin/sdiff "-sbB expected_read_smkfile.txt out.read_smkfile.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_read_smkfile.txt out.read_smkfile.txt" || meld expected_read_smkfile.txt out.read_smkfile.txt 
 
 	${TR} end
 
@@ -79,7 +79,7 @@ read_queries:
 	../../smk status | sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 		         sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.lpr.txt 
 	# to get the comparison working, numbers in date are removed
-	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr.txt out.lpr.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr.txt out.lpr.txt" || meld expected_lpr.txt out.lpr.txt 
 
 	${TR} cmt 'Run: (same with system files not ignored and long form) '
 	${TR} cmt '`smk -q reset`'
@@ -99,7 +99,7 @@ read_queries:
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.lpr1.txt 
 	# to get the comparison working, numbers in date are removed
-	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr1.txt out.lpr1.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr1.txt out.lpr1.txt" || meld expected_lpr1.txt out.lpr1.txt 
 
 	${TR} cmt 
 	${TR} cmt 'Run:'
@@ -114,7 +114,7 @@ read_queries:
 
 	../../smk -q reset
 	test ! `../../smk status ../hello.c/Makefile.2 > out.lpr2.txt`
-	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr2.txt out.lpr2.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr2.txt out.lpr2.txt" || meld expected_lpr2.txt out.lpr2.txt 
 
 	${TR} cmt 
 	${TR} cmt 'Run:'
@@ -128,11 +128,12 @@ read_queries:
 	
 	../../smk -q reset
 	test ! `../../smk status > out.lpr3.txt`
-	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr3.txt out.lpr3.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_lpr3.txt out.lpr3.txt" || meld expected_lpr3.txt out.lpr3.txt 
 
 	${TR} end
 
 clean:
 	${TR} clean
-	../../smk reset
+	../../smk -q clean
+	../../smk -q reset
 	- ${RM} out.*

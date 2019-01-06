@@ -39,7 +39,7 @@ sections:
 	../../smk -q reset
 	../../smk build -q ../hello.c/Makefile.2
 	../../smk :main.o > out.5.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets5.txt out.5.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets5.txt out.5.txt" || meld expected_targets5.txt out.5.txt 
 
 	@ #-------------------------------------------------------------------------
 	${TR} cmt 'Run:'
@@ -54,7 +54,7 @@ sections:
 	sleep 1.0 # Fixme: touch to close to rebuild, not detected othewise
 	touch ../hello.c/main.c
 	../../smk :main.o      > out.6.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets6.txt out.6.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets6.txt out.6.txt" || meld expected_targets6.txt out.6.txt 
 
 	${TR} end
 
@@ -69,7 +69,7 @@ sections:
 	${TR} cmt '```' 
 	${TR} cmt 
 	../../smk :qzdsqdq.o      > out.7.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets7.txt out.7.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets7.txt out.7.txt" || meld expected_targets7.txt out.7.txt 
 
 	${TR} end
 
@@ -88,7 +88,7 @@ sections:
 	../../smk build -q ../hello.c/Makefile.4
 	touch ../hello.c/hello.c
 	../../smk ../hello.c/Makefile.4:hello.o      > out.8.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets8.txt out.8.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets8.txt out.8.txt" || meld expected_targets8.txt out.8.txt 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -a ../hello.c/Makefile.4:mrproper`'
@@ -99,7 +99,7 @@ sections:
 	${TR} cmt '```' 
 	${TR} cmt 
 	../../smk -a ../hello.c/Makefile.4:mrproper      > out.9.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets9.txt out.9.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets9.txt out.9.txt" || meld expected_targets9.txt out.9.txt 
 
 	${TR} end
 

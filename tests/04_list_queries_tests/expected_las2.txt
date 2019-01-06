@@ -1,5 +1,5 @@
-"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
-"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.o
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.o
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/ld-2.28.so
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
@@ -17,7 +17,7 @@
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc.so
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc_nonshared.a
-"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.c
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.c
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
@@ -69,8 +69,8 @@
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/select.h
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/types.h
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
-"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.h
-"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.c
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.c
 "gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
 "gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
 "gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so

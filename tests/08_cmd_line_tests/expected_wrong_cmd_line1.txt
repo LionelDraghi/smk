@@ -1,6 +1,6 @@
 Error : More than one command on command line : STATUS and READ_SMKFILE
 
-Usage : smk Command [Options]* [Smkfile][:target]
+Usage : smk [Options]* Command [Smkfile][:target]
 
 Use example :
    when run the first time   : smk MyBuild.txt
@@ -36,8 +36,8 @@ Options :
    -e   | --explain        : explain why each target is made
    -n   | --dry-run        : print the commands that would be
                              executed, but do not execute them
-   -sa  | --show-all-files : prevent -ls and -rl from
-                             ignoring system files
+   -sa  | --show-all-files : show also system files
+   -ds  | --dont-shorten   : print files with full path
    -i   | --ignore-errors  : ignore all errors in commands
                              executed to remake files
    -l   | --long-listing   : use a long listing format when

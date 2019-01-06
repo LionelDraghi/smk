@@ -32,6 +32,15 @@ package body Smk.Files is
      ("<" (+Left, +Right));
 
    -- --------------------------------------------------------------------------
+   function Shorten (Name : String)    return String is
+     (if Settings.Shorten_File_Names
+      then File_Utilities.Short_Path (From_Dir => Settings.Initial_Directory,
+                                      To_File  => Name)
+      else Name);
+   function Shorten (Name : File_Name) return String is
+          (Shorten (+Name));
+
+   -- --------------------------------------------------------------------------
    function Modification_Time (File_Name : String) return Time is
    begin
       if Ada.Directories.Exists (File_Name) then
@@ -94,24 +103,17 @@ package body Smk.Files is
    -- --------------------------------------------------------------------------
    procedure Put_File_Description (Name   : File_Name;
                                    File   : File_Type;
-                                   Prefix : String := "") is
+                                   Prefix : String := "")
+   is
+      Left : constant String :=
+               (if Settings.Long_Listing_Format
+                then Prefix
+                & "[" & Role_Image (To_Role (File)) & "] "
+                & "[" & Status_Image (File.Status)  & "] "
+                & "[" & IO.Image (File.Time_Tag)    & "] "
+                else Prefix);
    begin
-      if Settings.Long_Listing_Format then
-         IO.Put_Line (Item => Prefix
-                      & "[" & Role_Image (To_Role (File)) & "] "
-                      & "[" & Status_Image (File.Status)  & "] "
-                      & "[" & IO.Image (File.Time_Tag)    & "] "
-                      & (+Name));
-      else
-         if Settings.Shorten_File_Names then
-            IO.Put_Line (Item => Prefix & File_Utilities.Short_Path
-                         (From_Dir => Settings.Initial_Directory,
-                          To_File  => (+Name)));
-         else
-            IO.Put_Line (Item => +Name);
-
-         end if;
-      end if;
+      IO.Put_Line (Item => Left & Shorten (Name));
    end Put_File_Description;
 
    -- --------------------------------------------------------------------------
@@ -123,7 +125,7 @@ package body Smk.Files is
                    & "[" & Role_Image (To_Role (File))     & "] "
                    & "[" & Status_Image (File.Status) & "] "
                    & "[" & IO.Image (File.Time_Tag)   & "] "
-                   & (+Name));
+                   & Shorten (Name));
    end Dump_File_Description;
 
    -- --------------------------------------------------------------------------
@@ -158,7 +160,8 @@ package body Smk.Files is
       Current_Status := File.Status;
 
       IO.Put_Line (Item => "[" & Short_Status_Image (Previous_Status) & " -> "
-                   & Short_Status_Image (Current_Status) & "] " & (+Name),
+                   & Short_Status_Image (Current_Status) & "] "
+                   & (+Name),
                    Level => IO.Debug);
 
    end Update_File_Status;

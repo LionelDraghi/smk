@@ -99,7 +99,6 @@ begin
                Update_Dirs_Status  (R, Updated_List);
             end loop;
             Put_Updated (Updated_List);
-            Save_Run (The_Runfile);
          end;
 
       when Clean => Runfiles.Delete_Targets (Runfiles.Load_Runfile);

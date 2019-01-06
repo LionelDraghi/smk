@@ -1,14 +1,12 @@
-with File_Utilities;    use File_Utilities;
+with File_Utilities;   use File_Utilities;
 
 with Ada.Command_Line;
-with Ada.Strings.Fixed; use Ada.Strings.Fixed;
-with Ada.Text_IO;       use Ada.Text_IO;
+with Ada.Text_IO;      use Ada.Text_IO;
 
 procedure Test_File_Utilities is
 
    Failure_Count : Natural   := 0;
    Check_Idx     : Positive  := 1;
-   Rule          : constant String := 80 * '-';
 
    -- --------------------------------------------------------------------------
    procedure New_Test (Title : String) is
@@ -105,7 +103,7 @@ begin
    -- --------------------------------------------------------------------------
    New_Line;
    if Failure_Count /= 0 then
-      Put_Line (Natural'Image (Failure_Count) 
+      Put_Line (Natural'Image (Failure_Count)
       & " tests fails [Failed](tests_status.md#failed)");
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    else

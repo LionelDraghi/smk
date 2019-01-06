@@ -26,8 +26,9 @@ begin
    for F in File_List.Iterate loop
       if not (Settings.Filter_Sytem_Files and Is_System (Element (F)))
       then
-         if (Print_Sources and Is_Source (File_List (F)))
-           or else (Print_Targets and Is_Target (File_List (F)))
+         if (not Print_Sources or else Is_Source (File_List (F)))
+           and
+             (not Print_Targets or else Is_Target (File_List (F)))
          then
             Put_File_Description (Name   => Key (F),
                                   File   => Element (F),

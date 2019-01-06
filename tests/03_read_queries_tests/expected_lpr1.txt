@@ -1,7 +1,7 @@
 Command "gcc -o hello hello.o main.o" in section [hello], last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (19)
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.o
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.o
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/ld-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
@@ -20,11 +20,11 @@ Sources: (19)
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc_nonshared.a
 Targets: (1)
-  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello
 
 Command "gcc -o hello.o -c hello.c" in section [hello.o], last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (52)
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.c
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.c
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
@@ -77,12 +77,12 @@ Sources: (52)
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/types.h
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
 Targets: (1)
-  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.o
 
 Command "gcc -o main.o -c main.c" in section [main.o], last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (53)
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.h
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.c
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.c
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
@@ -135,5 +135,5 @@ Sources: (53)
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/types.h
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
 Targets: (1)
-  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.o
 

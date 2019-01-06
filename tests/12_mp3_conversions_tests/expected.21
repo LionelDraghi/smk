@@ -1,1 +1,2 @@
-[Created] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/t.ogg
+run "./ogg-to-mp3.sh" because dir ../12_mp3_conversions_tests is updated
+./ogg-to-mp3.sh

@@ -18,7 +18,17 @@ Write openat
 Write_Call
 
 /tmp/ccvHeGYq.res
-openat but ENOENT
+Dir openat 
+2918  openat(AT_FDCWD, "./site/about", O_RDONLY|O_NOCTTY|O_NONBLOCK|O_NOFOLLOW|O_CLOEXEC|O_DIRECTORY) = 3</home/lionel/Proj/smk/tests/mysite/site/about>
+Ignored
+
+
+Access Error (EACCES)
+25242 mkdir("/usr/lib/python3/dist-packages/click/__pycache__", 0777) = -1 EACCES (Permission denied)
+ignored
+
+
+File not found (ENOENT)
 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
 ignored
 
@@ -40,11 +50,26 @@ Ignored
 
 unlink (rm)
 11750 unlink("/tmp/ccvHeGYq.res")       = 0
-Write_Call
+Ignored
 
-/tmp/ccvHeGYq.res
+
+unlinkat AT_REMOVEDIR
+29164 unlinkat(AT_FDCWD, "./site/about", AT_REMOVEDIR) = 0
+Ignored
+
+
 Read AND Write test
 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
 Read_Write_Call
-/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3
-/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3
+x.mp3
+unknown-unknown.mp3
+Rename with two AT_FDCWD
+15232 renameat2(AT_FDCWD, "all.filecount.new", AT_FDCWD, "all.filecount", RENAME_NOREPLACE) = 0
+Read_Write_Call
+./all.filecount.new
+./all.filecount
+renameat with explicit dir (and not AT_FDCWD), with and without final /
+15165 renameat(5</home/lionel/.slocdata>, "old", 5</home/lionel/.slocdata/>, "new")...
+Read_Write_Call
+/home/lionel/.slocdata/old
+/home/lionel/.slocdata/new

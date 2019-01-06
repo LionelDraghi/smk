@@ -50,7 +50,7 @@ sanity:
 	# let's do it with smk:
 	../../smk -q ../hello.c/Makefile.2
 	../../smk -e ../hello.c/Makefile.2 > out.1
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.1 out.1" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.1 out.1" || meld expected_sanity.1 out.1 
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
@@ -65,7 +65,7 @@ sanity:
 	${TR} cmt '```' 						
 	${TR} cmt 
 	../../smk -e ../hello.c/Makefile.2 > out.2
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.2 out.2" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.2 out.2" || meld expected_sanity.2 out.2 
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
@@ -82,7 +82,7 @@ sanity:
 	${TR} cmt 
 	../../smk reset --quiet
 	../../smk -e ../hello.c/Makefile.2 > out.3 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.3 out.3" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.3 out.3" || meld expected_sanity.3 out.3 
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
@@ -97,7 +97,7 @@ sanity:
 	${TR} cmt '```' 						
 	${TR} cmt 
 	../../smk -e -a ../hello.c/Makefile.2 > out.4 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.4 out.4" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.4 out.4" || meld expected_sanity.4 out.4 
 	${TR} end
 	
 	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
@@ -118,7 +118,7 @@ sanity:
 	rm ../hello.c/main.o
 	../../smk -e ../hello.c/Makefile.2 | sed "s/[0-9]//g" > out.5
 	# Time tag neutralized
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.5 out.5" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.5 out.5" || meld expected_sanity.5 out.5 
 	${TR} end
 
 	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
@@ -139,10 +139,11 @@ sanity:
 	touch ../hello.c/hello.c
 	../../smk -e ../hello.c/Makefile.2 | sed "s/[0-9]//g" > out.6
 	# Time tag neutralized
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.6 out.6" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.6 out.6" || meld expected_sanity.6 out.6 
 	${TR} end
 
 clean:
 	${TR} clean
-	../../smk reset
+	../../smk -q clean
+	../../smk -q reset
 	- ${RM} out.*

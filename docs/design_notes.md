@@ -14,6 +14,8 @@ Table of contents
     - [Read operations (that cause the file to be considered as `Source`)](#read-operations-that-cause-the-file-to-be-considered-as-source)
     - [_I don't know_ operations (that are currently ignored!)](#i-dont-know-operations-that-are-currently-ignored)
     - [Ignored](#ignored)
+    - [On AT_FDCWD](#on-atfdcwd)
+    - [On at sufixed operations](#on-at-sufixed-operations)
 
 ---
 
@@ -239,6 +241,35 @@ Pretend that the target file has just been modified. When used with the -n flag,
 
 - getcwd, getwd, get_current_dir_name - get current working directory
 
- 
+### On AT_FDCWD
 
+The openat() system call operates in exactly the same way as open(2), except for the differences described in this manual page.
+If the pathname given in pathname is relative, then it is interpreted relative to the directory referred to by the file descriptor dirfd (rather than relative to the current working directory of the calling process, as is done by open(2) for a relative pathname).
+
+If the pathname given in pathname is relative and dirfd is the special value AT_FDCWD, then pathname is interpreted relative to the current working directory of the calling process (like open(2)).
+
+If the pathname given in pathname is absolute, then dirfd is ignored.
+ 
+### On at sufixed operations
+
+openat() and other similar system calls suffixed "at" are supported for two reasons.
+First, openat() allows an application to avoid race conditions that could occur when using open(2) to open files in directories other than the current working directory. These race conditions result from the fact that some component of the directory prefix given to open() could be changed in parallel with the call to open(). Such races can be avoided by opening a file descriptor for the target directory, and then specifying that file descriptor as the dirfd argument of openat().
+
+Second, openat() allows the implementation of a per-thread "current working directory", via file descriptor(s) maintained by the application. (This functionality can also be obtained by tricks based on the use of /proc/self/fd/dirfd, but less efficiently.)
+
+- faccessat
+- fchmodat 
+- fchownat
+- fstatat 
+- futimesat (obsolete)
+- linkat
+- mkdirat
+- mknodat
+- openat
+- readlinkat
+- renameat
+- symlinkat 
+- unlinkat
+- utimensat
+- 
  

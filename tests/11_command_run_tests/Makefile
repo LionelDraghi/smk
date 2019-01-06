@@ -51,7 +51,7 @@ add:
 	../../smk add gcc -c ../hello.c/hello.c
 	../../smk add gcc -o hello hello.o main.o
 	../../smk build > out.1.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected1.txt out.1.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected1.txt out.1.txt" || meld expected1.txt out.1.txt 
 	${TR} end
 
 run:
@@ -78,7 +78,7 @@ run:
 	../../smk run gcc -c ../hello.c/main.c		>  out.2.txt
 	../../smk run gcc -c ../hello.c/hello.c		>> out.2.txt
 	../../smk run gcc -o hello hello.o main.o	>> out.2.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected2.txt out.2.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected2.txt out.2.txt" || meld expected2.txt out.2.txt 
 	${TR} end
 
 clean:

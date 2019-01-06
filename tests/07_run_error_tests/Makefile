@@ -42,7 +42,7 @@ run_errors:
 	
 	../../smk -q reset
 	test ! `../../smk ../hello.c/Wrong_Makefile > out.run_error1.txt  2>&1`
-	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error1.txt out.run_error1.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error1.txt out.run_error1.txt" || meld expected_run_error1.txt out.run_error1.txt 
 
 	@ #-------------------------------------------------------------------------
 	${TR} start '-k' 
@@ -59,7 +59,7 @@ run_errors:
 	
 	../../smk -q reset
 	test ! `../../smk -k ../hello.c/Wrong_Makefile > out.run_error2.txt 2>&1`
-	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error2.txt out.run_error2.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error2.txt out.run_error2.txt" || meld expected_run_error2.txt out.run_error2.txt 
 	
 	@ #-------------------------------------------------------------------------
 	${TR} start '-i' 
@@ -77,7 +77,7 @@ run_errors:
 	
 	../../smk -q reset
 	../../smk -i ../hello.c/Wrong_Makefile > out.run_error3.txt 2>&1
-	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error3.txt out.run_error3.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error3.txt out.run_error3.txt" || meld expected_run_error3.txt out.run_error3.txt 
 
 	@ #-------------------------------------------------------------------------
 	${TR} start '-k -i' 
@@ -95,7 +95,7 @@ run_errors:
 	
 	../../smk -q reset
 	../../smk --keep-going --ignore-errors ../hello.c/Wrong_Makefile > out.run_error4.txt 2>&1
-	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error4.txt out.run_error4.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_run_error4.txt out.run_error4.txt" || meld expected_run_error4.txt out.run_error4.txt 
 
 	${TR} end
 
@@ -117,7 +117,7 @@ run_errors:
 	../../smk -q reset
 	@ - rm *.smk
 	test ! `../../smk run non_existing_command > out.5 2>&1`
-	${TR} assert true /usr/bin/sdiff "-sbB expected.5 out.5" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.5 out.5" || meld expected.5 out.5 
 
 	${TR} cmt 
 	${TR} cmt 'default.smk should nevertheless contains the failed command'
@@ -127,7 +127,7 @@ run_errors:
 	${TR} cmt '```' 
 	${TR} cmt 
 
-	${TR} assert true /usr/bin/sdiff "-sbB expected.6 default.smk" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.6 default.smk" || meld expected.6 default.smk 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk read-smkfile`'
@@ -142,7 +142,7 @@ run_errors:
 	../../smk read-smkfile | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.7
-	${TR} assert true /usr/bin/sdiff "-sbB expected.7 out.7" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.7 out.7" || meld expected.7 out.7 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk status`'
@@ -155,7 +155,7 @@ run_errors:
 	${TR} cmt 
 	
 	../../smk status > out.8
-	${TR} assert true /usr/bin/sdiff "-sbB expected.8 out.8" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.8 out.8" || meld expected.8 out.8 
 
 	${TR} cmt 'Other commands should return nothing:'
 	${TR} cmt '`smk whatsnew`'
@@ -165,11 +165,11 @@ run_errors:
 	
 	> out.null
 	../../smk whatsnew > out.9
-	${TR} assert true /usr/bin/sdiff "-sbB out.null out.9" 
+	${TR} assert true /usr/bin/sdiff "-sbB out.null out.9" || meld out.null out.9 
 	../../smk list-sources > out.10
-	${TR} assert true /usr/bin/sdiff "-sbB out.null out.10" 
+	${TR} assert true /usr/bin/sdiff "-sbB out.null out.10" || meld out.null out.10 
 	../../smk list-targets > out.11
-	${TR} assert true /usr/bin/sdiff "-sbB out.null out.11" 
+	${TR} assert true /usr/bin/sdiff "-sbB out.null out.11" || meld out.null out.11 
 
 	${TR} end
 

@@ -60,6 +60,13 @@ private package Smk.Files is
    function "<" (Left, Right : File_Name) return Boolean;
 
    -- --------------------------------------------------------------------------
+   function Shorten (Name : String)    return String;
+   function Shorten (Name : File_Name) return String;
+   -- returns Name if Settings.Shorten_File_Names = False,
+   -- or a short path from current dir the the file.
+   -- NB : Name must be a Full_Name (a rooted path)
+
+   -- --------------------------------------------------------------------------
    type File_Type is private;
 
    -- --------------------------------------------------------------------------

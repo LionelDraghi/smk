@@ -59,7 +59,7 @@ begin
    Put_Line ("   -n   | --dry-run        : print the commands that would be");
    Put_Line ("                             executed, but do not execute them");
    Put_Line ("   -sa  | --show-all-files : show also system files");
-   Put_Line ("   -ds  | --dont-shorten   : print all files with full path");
+   Put_Line ("   -ds  | --dont-shorten   : print files with full path");
    Put_Line ("   -i   | --ignore-errors  : ignore all errors in commands");
    Put_Line ("                             executed to remake files");
    Put_Line ("   -l   | --long-listing   : use a long listing format when");

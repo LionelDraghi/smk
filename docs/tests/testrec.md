@@ -95,9 +95,9 @@ Sanity / `smk -a`, should run all commands even if not needed [Successful](tests
 
   Expected:  
 ```  
-run "gcc -o main.o -c main.c" because Target /home/lionel/Proj/smk/tests/hello.c/main.o is missing
+run "gcc -o main.o -c main.c" because Target ../hello.c/main.o is missing
 gcc -o main.o -c main.c
-run "gcc -o hello hello.o main.o" because /home/lionel/Proj/smk/tests/hello.c/main.o (-- ::.) has been updated since last run (-- ::.)
+run "gcc -o hello hello.o main.o" because ../hello.c/main.o (-- ::.) has been updated since last run (-- ::.)
 gcc -o hello hello.o main.o
 ```  
 
@@ -113,9 +113,9 @@ Sanity / `rm main.o` (missing file) [Successful](tests_status.md#successful)
 
   Expected:  
 ```  
-run "gcc -o hello.o -c hello.c" because /home/lionel/Proj/smk/tests/hello.c/hello.c (-- ::.) has been updated since last run (-- ::.)
+run "gcc -o hello.o -c hello.c" because ../hello.c/hello.c (-- ::.) has been updated since last run (-- ::.)
 gcc -o hello.o -c hello.c
-run "gcc -o hello hello.o main.o" because /home/lionel/Proj/smk/tests/hello.c/hello.o (-- ::.) has been updated since last run (-- ::.)
+run "gcc -o hello hello.o main.o" because ../hello.c/hello.o (-- ::.) has been updated since last run (-- ::.)
 gcc -o hello hello.o main.o
 ```  
 
@@ -254,7 +254,7 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 
   Expected:  
 ```  
-../mysite/Makefile (2018-12-22 00:17:20.00) :
+../mysite/Makefile (YYYY:MM:DD HH:MM:SS.SS) :
 21: [doc] mkdocs build --clean --quiet
 24: [clean] echo --- clean:
 25: [clean] rm -rf ./site/*
@@ -262,7 +262,7 @@ Website building sanity tests / cleaning and building using clean and doc sectio
 ```  
 
 
-**Website building sanity tests / listing [Failed](tests_status.md#failed)**
+Website building sanity tests / listing [Successful](tests_status.md#successful)
 
 ##  Website building sanity tests / building without section
 
@@ -307,7 +307,7 @@ Nothing to run
 ```  
 
 
-**Website building sanity tests / building without section [Failed](tests_status.md#failed)**
+Website building sanity tests / building without section [Successful](tests_status.md#successful)
 
 ##  Website building sanity tests / re-building
 
@@ -345,7 +345,7 @@ No need to run echo OK
 ```  
 
 
-**Website building sanity tests / re-building [Failed](tests_status.md#failed)**
+Website building sanity tests / re-building [Successful](tests_status.md#successful)
 
 ##  Website building sanity tests / cleaning
 
@@ -402,7 +402,7 @@ Deleting ../mysite/site/tutorial/index.html
 ```  
 
 
-**Website building sanity tests / cleaning [Failed](tests_status.md#failed)**
+Website building sanity tests / cleaning [Successful](tests_status.md#successful)
 
 ##  Website building sanity tests / re-building after a clean
 
@@ -417,7 +417,7 @@ mkdocs build --clean --quiet
 ```  
 
 
-**Website building sanity tests / re-building after a clean [Failed](tests_status.md#failed)**
+Website building sanity tests / re-building after a clean [Successful](tests_status.md#successful)
 
 # Read queries
 
@@ -493,8 +493,8 @@ Command "gcc -o main.o -c main.c" in section [main.o], last run [YYYY:MM:DD HH:M
 ```  
 Command "gcc -o hello hello.o main.o" in section [hello], last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (19)
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.o
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.o
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/ld-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
@@ -513,11 +513,11 @@ Sources: (19)
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc_nonshared.a
 Targets: (1)
-  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello
 
 Command "gcc -o hello.o -c hello.c" in section [hello.o], last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (52)
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.c
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.c
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
@@ -570,12 +570,12 @@ Sources: (52)
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/types.h
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
 Targets: (1)
-  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.o
 
 Command "gcc -o main.o -c main.c" in section [main.o], last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (53)
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.h
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.c
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.h
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.c
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
@@ -628,7 +628,7 @@ Sources: (53)
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/types.h
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
 Targets: (1)
-  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.o
 
 ```  
 
@@ -693,9 +693,9 @@ List queries / lr | list-runs [Successful](tests_status.md#successful)
 
   Expected: (long form)  
 ```  
-"gcc -o hello hello.o main.o" [hello] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello
-"gcc -o hello.o -c hello.c" [hello.o] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
-"gcc -o main.o -c main.c" [main.o] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o
+"gcc -o hello hello.o main.o" [hello] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello
+"gcc -o hello.o -c hello.c" [hello.o] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.o
+"gcc -o main.o -c main.c" [main.o] [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.o
 ```  
 
   Run:  
@@ -703,19 +703,19 @@ List queries / lr | list-runs [Successful](tests_status.md#successful)
 
   Expected: (short form)  
 ```  
-/home/lionel/Proj/smk/tests/hello.c/hello
-/home/lionel/Proj/smk/tests/hello.c/hello.o
-/home/lionel/Proj/smk/tests/hello.c/main.o
+../hello.c/hello
+../hello.c/hello.o
+../hello.c/main.o
 ```  
 
 
-**List queries / lt | list-targets [Failed](tests_status.md#failed)**
+List queries / lt | list-targets [Successful](tests_status.md#successful)
 
 ##  List queries / ls | list-sources
 
 
-  Run: (long form)  
-  `smk ls -l ../hello.c/Makefile.2`  
+  Run: ls without shortening file names  
+  `smk ls -ds ../hello.c/Makefile.2`  
 
   Expected:  
 ```  
@@ -732,15 +732,15 @@ List queries / lr | list-runs [Successful](tests_status.md#successful)
 
   Expected:  
 ```  
-/home/lionel/Proj/smk/tests/hello.c/hello.o
-/home/lionel/Proj/smk/tests/hello.c/main.o
-/home/lionel/Proj/smk/tests/hello.c/hello.c
-/home/lionel/Proj/smk/tests/hello.c/hello.h
-/home/lionel/Proj/smk/tests/hello.c/main.c
+../hello.c/hello.o
+../hello.c/main.o
+../hello.c/hello.c
+../hello.c/hello.h
+../hello.c/main.c
 ```  
 
 
-**List queries / ls | list-sources [Failed](tests_status.md#failed)**
+List queries / ls | list-sources [Successful](tests_status.md#successful)
 
 ##  List queries / ls | list-sources --show-all-files
 
@@ -750,8 +750,8 @@ List queries / lr | list-runs [Successful](tests_status.md#successful)
 
   Expected:  
 ```  
-/home/lionel/Proj/smk/tests/hello.c/hello.o
-/home/lionel/Proj/smk/tests/hello.c/main.o
+../hello.c/hello.o
+../hello.c/main.o
 /lib/x86_64-linux-gnu/ld-2.28.so
 /lib/x86_64-linux-gnu/libc-2.28.so
 /lib/x86_64-linux-gnu/libdl-2.28.so
@@ -769,7 +769,7 @@ List queries / lr | list-runs [Successful](tests_status.md#successful)
 /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
 /usr/lib/x86_64-linux-gnu/libc.so
 /usr/lib/x86_64-linux-gnu/libc_nonshared.a
-/home/lionel/Proj/smk/tests/hello.c/hello.c
+../hello.c/hello.c
 /lib/x86_64-linux-gnu/libc-2.28.so
 /lib/x86_64-linux-gnu/libdl-2.28.so
 /lib/x86_64-linux-gnu/libm-2.28.so
@@ -821,8 +821,8 @@ List queries / lr | list-runs [Successful](tests_status.md#successful)
 /usr/include/x86_64-linux-gnu/sys/select.h
 /usr/include/x86_64-linux-gnu/sys/types.h
 /usr/lib/locale/locale-archive
-/home/lionel/Proj/smk/tests/hello.c/hello.h
-/home/lionel/Proj/smk/tests/hello.c/main.c
+../hello.c/hello.h
+../hello.c/main.c
 /lib/x86_64-linux-gnu/libc-2.28.so
 /lib/x86_64-linux-gnu/libdl-2.28.so
 /lib/x86_64-linux-gnu/libm-2.28.so
@@ -882,8 +882,8 @@ List queries / lr | list-runs [Successful](tests_status.md#successful)
 
   Expected:  
 ```  
-"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.o
-"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.o
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.o
+"gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.o
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/ld-2.28.so
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
@@ -901,7 +901,7 @@ List queries / lr | list-runs [Successful](tests_status.md#successful)
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc.so
 "gcc -o hello hello.o main.o" [hello] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libc_nonshared.a
-"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.c
+"gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.c
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
@@ -953,8 +953,8 @@ List queries / lr | list-runs [Successful](tests_status.md#successful)
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/select.h
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/x86_64-linux-gnu/sys/types.h
 "gcc -o hello.o -c hello.c" [hello.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/locale-archive
-"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/hello.h
-"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/hello.c/main.c
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.h
+"gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.c
 "gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
 "gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
 "gcc -o main.o -c main.c" [main.o] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
@@ -1028,9 +1028,9 @@ List queries / ls | list-sources --show-all-files [Successful](tests_status.md#s
 
   Expected:  
 ```  
-Deleting /home/lionel/Proj/smk/tests/hello.c/hello
-Deleting /home/lionel/Proj/smk/tests/hello.c/hello.o
-Deleting /home/lionel/Proj/smk/tests/hello.c/main.o
+Deleting ../hello.c/hello
+Deleting ../hello.c/hello.o
+Deleting ../hello.c/main.o
 ```  
 
 
@@ -1041,9 +1041,9 @@ Deleting /home/lionel/Proj/smk/tests/hello.c/main.o
 
   Expected:  
 ```  
-Deleting /home/lionel/Proj/smk/tests/hello.c/hello
-Deleting /home/lionel/Proj/smk/tests/hello.c/hello.o
-Deleting /home/lionel/Proj/smk/tests/hello.c/main.o
+Deleting ../hello.c/hello
+Deleting ../hello.c/hello.o
+Deleting ../hello.c/main.o
 ```  
 
   Run:  
@@ -1051,11 +1051,11 @@ Deleting /home/lionel/Proj/smk/tests/hello.c/main.o
 
   Expected:  
 ```  
-run "gcc -o hello.o -c hello.c" because Target /home/lionel/Proj/smk/tests/hello.c/hello.o is missing
+run "gcc -o hello.o -c hello.c" because Target ../hello.c/hello.o is missing
 gcc -o hello.o -c hello.c
-run "gcc -o main.o -c main.c" because Target /home/lionel/Proj/smk/tests/hello.c/main.o is missing
+run "gcc -o main.o -c main.c" because Target ../hello.c/main.o is missing
 gcc -o main.o -c main.c
-run "gcc -o hello hello.o main.o" because Target /home/lionel/Proj/smk/tests/hello.c/hello is missing
+run "gcc -o hello hello.o main.o" because Target ../hello.c/hello is missing
 gcc -o hello hello.o main.o
 ```  
 
@@ -1318,8 +1318,8 @@ Options :
    -e   | --explain        : explain why each target is made
    -n   | --dry-run        : print the commands that would be
                              executed, but do not execute them
-   -sa  | --show-all-files : prevent -ls and -rl from
-                             ignoring system files
+   -sa  | --show-all-files : show also system files
+   -ds  | --dont-shorten   : print files with full path
    -i   | --ignore-errors  : ignore all errors in commands
                              executed to remake files
    -l   | --long-listing   : use a long listing format when
@@ -1366,7 +1366,7 @@ Command line / Version option [Successful](tests_status.md#successful)
 ```  
 Error : More than one command on command line : STATUS and READ_SMKFILE
 
-Usage : smk Command [Options]* [Smkfile][:target]
+Usage : smk [Options]* Command [Smkfile][:target]
 
 Use example :
    when run the first time   : smk MyBuild.txt
@@ -1402,8 +1402,8 @@ Options :
    -e   | --explain        : explain why each target is made
    -n   | --dry-run        : print the commands that would be
                              executed, but do not execute them
-   -sa  | --show-all-files : prevent -ls and -rl from
-                             ignoring system files
+   -sa  | --show-all-files : show also system files
+   -ds  | --dont-shorten   : print files with full path
    -i   | --ignore-errors  : ignore all errors in commands
                              executed to remake files
    -l   | --long-listing   : use a long listing format when
@@ -1421,7 +1421,7 @@ http://lionel.draghi.free.fr/smk/
 ```  
 
 
-**Command line / Illegal cmd lines [Failed](tests_status.md#failed)**
+Command line / Illegal cmd lines [Successful](tests_status.md#successful)
 
 ##  Command line / Unknow Makefile
 
@@ -1661,21 +1661,21 @@ id3ren -quiet -template=%a-%s.mp3 x.mp3
 ```  
 Command "id3ren -quiet -template=%a-%s.mp3 x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (1)
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
 Targets: (1)
-  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/Luke-Sentinelle.mp3
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] Luke-Sentinelle.mp3
 
 Command "id3v2 -a Luke -t Sentinelle x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (1)
-  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
 Targets: (1)
-  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
 
 Command "sox x.ogg x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (1)
-  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.ogg
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.ogg
 Targets: (1)
-  - [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
 
 ```  
 
@@ -1685,13 +1685,15 @@ Targets: (1)
   Expected:  
 ```  
 Command "id3ren -quiet -template=%a-%s.mp3 x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
-Sources: (1)
+Sources: (2)
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
-Targets: (0)
+Targets: (1)
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] Luke-Sentinelle.mp3
 
 Command "id3v2 -a Luke -t Sentinelle x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (10)
-  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libgcc_s.so.1
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
@@ -1702,11 +1704,11 @@ Sources: (10)
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libid3-3.8.so.3.0.0
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
 Targets: (1)
-  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
 
 Command "sox x.ogg x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (46)
-  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.ogg
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.ogg
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
@@ -1725,7 +1727,7 @@ Sources: (46)
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libogg.so.0.8.2
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libopencore-amrnb.so.0.0.3
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libopencore-amrwb.so.0.0.3
-  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libpng16.so.16.34.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libpng16.so.16.36.0
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libsndfile.so.1.0.28
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libsox.so.3.0.0
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libtwolame.so.0.0.0
@@ -1753,12 +1755,12 @@ Sources: (46)
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_wavpack.so
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_xi.so
 Targets: (1)
-  - [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
 
 ```  
 
 
-**Directory update tests / start conversion [Failed](tests_status.md#failed)**
+Directory update tests / start conversion [Successful](tests_status.md#successful)
 
 ##  Directory update tests / start conversion
 
@@ -1771,8 +1773,7 @@ Targets: (1)
   Expected:  
 ```  
 ./ogg-to-mp3.sh
-sox ./y.ogg ./y.mp3
-sox ./x.ogg ./x.mp3
+
 ```  
 
   Run:  
@@ -1782,13 +1783,13 @@ sox ./x.ogg ./x.mp3
 ```  
 Command "./ogg-to-mp3.sh", last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (4)
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/ogg-to-mp3.sh
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/to-mp3.sh
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.ogg
-  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/y.ogg
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ogg-to-mp3.sh
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] to-mp3.sh
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] x.ogg
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] y.ogg
 Targets: (2)
-  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
-  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/y.mp3
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] y.mp3
 
 ```  
 
@@ -1811,7 +1812,7 @@ Directory update tests / start conversion [Successful](tests_status.md#successfu
 ```  
 
 
-**Directory update tests / new ogg in dir [Failed](tests_status.md#failed)**
+Directory update tests / new ogg in dir [Successful](tests_status.md#successful)
 
 ##  Directory update tests / ogg-to-mp3 is modified
 
@@ -1823,8 +1824,7 @@ Directory update tests / start conversion [Successful](tests_status.md#successfu
 
   Expected:  
 ```  
-
-run "./ogg-to-mp3.sh" because /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/ogg-to-mp3.sh (YYYY:MM:DD HH:MM:SS.SS) has been updated since last run (YYYY:MM:DD HH:MM:SS.SS)
+run "./ogg-to-mp3.sh" because ogg-to-mp3.sh (YYYY:MM:DD HH:MM:SS.SS) has been updated since last run (YYYY:MM:DD HH:MM:SS.SS)
 ./ogg-to-mp3.sh
 ```  
 
@@ -1840,7 +1840,7 @@ Directory update tests / ogg-to-mp3 is modified [Successful](tests_status.md#suc
 
   Expected:  
 ```  
-[Updated] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests
+[Updated] ../12_mp3_conversions_tests
 ```  
 
   Run:  
@@ -1848,19 +1848,12 @@ Directory update tests / ogg-to-mp3 is modified [Successful](tests_status.md#suc
 
   Expected:  
 ```  
-[Created] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/t.ogg
+run "./ogg-to-mp3.sh" because dir ../12_mp3_conversions_tests is updated
+./ogg-to-mp3.sh
 ```  
 
   Run:  
 
-
-
-  Expected:  
-```  
-[Created] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/t.ogg
-```  
-
-  Run:  
 
 
   Expected:  
@@ -1878,13 +1871,14 @@ Directory update tests / ogg-to-mp3 is modified [Successful](tests_status.md#suc
 
   Expected:  
 ```  
-Deleting /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
-Deleting /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/y.mp3
-Deleting /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/z.mp3
+Deleting dir1/t.mp3
+Deleting x.mp3
+Deleting y.mp3
+Deleting z.mp3
 ```  
 
 
-Directory update tests / smk clean [Successful](tests_status.md#successful)
+**Directory update tests / smk clean [Failed](tests_status.md#failed)**
 
 # File_Utilities unit tests
 
@@ -1936,726 +1930,6 @@ OK
 Expected :
 "../../../../readme.txt"
 OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# File_Utilities unit tests
-
-
-## Short_Path
-
-
-1. Subdir with default Prefix
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-2. Dir with final /
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-3. subdir with Prefix
-Expected :
-"./mysite/site/d1/idx.txt"
-OK
-
-4. Sibling subdir
-Expected :
-"../../mysite/site/d1/idx.txt"
-OK
-
-5. Parent dir
-Expected :
-"../../idx.txt"
-OK
-
-6. Other Prefix
-Expected :
-"$PWD/../mysite/site/d1/idx.txt"
-OK
-
-7. Root dir
-Expected :
-"/home/tests/mysite/site/d1/idx.txt"
-OK
-
-8. File is over dir
-Expected :
-"../../../../readme.txt"
-OK
-
-9. File is over Dir, Dir with final /
-Expected :
-"../../../../readme.txt"
-OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# File_Utilities unit tests
-
-
-## Short_Path
-
-
-1. Subdir with default Prefix
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-2. Dir with final /
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-3. subdir with Prefix
-Expected :
-"./mysite/site/d1/idx.txt"
-OK
-
-4. Sibling subdir
-Expected :
-"../../mysite/site/d1/idx.txt"
-OK
-
-5. Parent dir
-Expected :
-"../../idx.txt"
-OK
-
-6. Other Prefix
-Expected :
-"$PWD/../mysite/site/d1/idx.txt"
-OK
-
-7. Root dir
-Expected :
-"/home/tests/mysite/site/d1/idx.txt"
-OK
-
-8. File is over dir
-Expected :
-"../../../../readme.txt"
-OK
-
-9. File is over Dir, Dir with final /
-Expected :
-"../../../../readme.txt"
-OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# File_Utilities unit tests
-
-
-## Short_Path
-
-
-1. Subdir with default Prefix
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-2. Dir with final /
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-3. subdir with Prefix
-Expected :
-"./mysite/site/d1/idx.txt"
-OK
-
-4. Sibling subdir
-Expected :
-"../../mysite/site/d1/idx.txt"
-OK
-
-5. Parent dir
-Expected :
-"../../idx.txt"
-OK
-
-6. Other Prefix
-Expected :
-"$PWD/../mysite/site/d1/idx.txt"
-OK
-
-7. Root dir
-Expected :
-"/home/tests/mysite/site/d1/idx.txt"
-OK
-
-8. File is over dir
-Expected :
-"../../../../readme.txt"
-OK
-
-9. File is over Dir, Dir with final /
-Expected :
-"../../../../readme.txt"
-OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# File_Utilities unit tests
-
-
-## Short_Path
-
-
-1. Subdir with default Prefix
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-2. Dir with final /
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-3. subdir with Prefix
-Expected :
-"./mysite/site/d1/idx.txt"
-OK
-
-4. Sibling subdir
-Expected :
-"../../mysite/site/d1/idx.txt"
-OK
-
-5. Parent dir
-Expected :
-"../../idx.txt"
-OK
-
-6. Other Prefix
-Expected :
-"$PWD/../mysite/site/d1/idx.txt"
-OK
-
-7. Root dir
-Expected :
-"/home/tests/mysite/site/d1/idx.txt"
-OK
-
-8. File is over dir
-Expected :
-"../../../../readme.txt"
-OK
-
-9. File is over Dir, Dir with final /
-Expected :
-"../../../../readme.txt"
-OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# File_Utilities unit tests
-
-
-## Short_Path
-
-
-1. Subdir with default Prefix
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-2. Dir with final /
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-3. subdir with Prefix
-Expected :
-"./mysite/site/d1/idx.txt"
-OK
-
-4. Sibling subdir
-Expected :
-"../../mysite/site/d1/idx.txt"
-OK
-
-5. Parent dir
-Expected :
-"../../idx.txt"
-OK
-
-6. Other Prefix
-Expected :
-"$PWD/../mysite/site/d1/idx.txt"
-OK
-
-7. Root dir
-Expected :
-"/home/tests/mysite/site/d1/idx.txt"
-OK
-
-8. File is over dir
-Expected :
-"../../../../readme.txt"
-OK
-
-9. File is over Dir, Dir with final /
-Expected :
-"../../../../readme.txt"
-OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# File_Utilities unit tests
-
-
-## Short_Path
-
-
-1. Subdir with default Prefix
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-2. Dir with final /
-Expected :
-"mysite/site/d1/idx.txt"
-OK
-
-3. subdir with Prefix
-Expected :
-"./mysite/site/d1/idx.txt"
-OK
-
-4. Sibling subdir
-Expected :
-"../../mysite/site/d1/idx.txt"
-OK
-
-5. Parent dir
-Expected :
-"../../idx.txt"
-OK
-
-6. Other Prefix
-Expected :
-"$PWD/../mysite/site/d1/idx.txt"
-OK
-
-7. Root dir
-Expected :
-"/home/tests/mysite/site/d1/idx.txt"
-OK
-
-8. File is over dir
-Expected :
-"../../../../readme.txt"
-OK
-
-9. File is over Dir, Dir with final /
-Expected :
-"../../../../readme.txt"
-OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# Strace_Analyzer unit tests
-
-
-## execve, should be ignored
-   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## SIGCHLD line
-   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## Read openat
-   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
-   - Expected Call_Type: "Read_Call", OK
-   - Expected Read file: "/etc/ld.so.cache", OK
-   - Expected Write file: "", OK
-
-## Write openat
-   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## openat but ENOENT
-   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access for exec
-   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access file with no dir
-   Line: 11750 access("hello.o", F_OK)           = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## RW access to a dir
-   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## unlink (rm)
-   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## Read AND Write test
-   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
-   - Expected Call_Type: "Read_Write_Call", OK
-   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
-   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# Strace_Analyzer unit tests
-
-
-## execve, should be ignored
-   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## SIGCHLD line
-   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## Read openat
-   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
-   - Expected Call_Type: "Read_Call", OK
-   - Expected Read file: "/etc/ld.so.cache", OK
-   - Expected Write file: "", OK
-
-## Write openat
-   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## openat but ENOENT
-   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access for exec
-   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access file with no dir
-   Line: 11750 access("hello.o", F_OK)           = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## RW access to a dir
-   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## unlink (rm)
-   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## Read AND Write test
-   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
-   - Expected Call_Type: "Read_Write_Call", OK
-   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
-   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# Strace_Analyzer unit tests
-
-
-## execve, should be ignored
-   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## SIGCHLD line
-   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## Read openat
-   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
-   - Expected Call_Type: "Read_Call", OK
-   - Expected Read file: "/etc/ld.so.cache", OK
-   - Expected Write file: "", OK
-
-## Write openat
-   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## openat but ENOENT
-   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access for exec
-   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access file with no dir
-   Line: 11750 access("hello.o", F_OK)           = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## RW access to a dir
-   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## unlink (rm)
-   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## Read AND Write test
-   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
-   - Expected Call_Type: "Read_Write_Call", OK
-   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
-   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# Strace_Analyzer unit tests
-
-
-## execve, should be ignored
-   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## SIGCHLD line
-   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## Read openat
-   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
-   - Expected Call_Type: "Read_Call", OK
-   - Expected Read file: "/etc/ld.so.cache", OK
-   - Expected Write file: "", OK
-
-## Write openat
-   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## openat but ENOENT
-   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access for exec
-   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access file with no dir
-   Line: 11750 access("hello.o", F_OK)           = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## RW access to a dir
-   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## unlink (rm)
-   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## Read AND Write test
-   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
-   - Expected Call_Type: "Read_Write_Call", OK
-   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
-   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# Strace_Analyzer unit tests
-
-
-## execve, should be ignored
-   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## SIGCHLD line
-   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## Read openat
-   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
-   - Expected Call_Type: "Read_Call", OK
-   - Expected Read file: "/etc/ld.so.cache", OK
-   - Expected Write file: "", OK
-
-## Write openat
-   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## openat but ENOENT
-   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access for exec
-   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access file with no dir
-   Line: 11750 access("hello.o", F_OK)           = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## RW access to a dir
-   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## unlink (rm)
-   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## Read AND Write test
-   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
-   - Expected Call_Type: "Read_Write_Call", OK
-   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
-   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
-
---------------------------------------------------------------------------------
-All tests OK.
-
-# Strace_Analyzer unit tests
-
-
-## execve, should be ignored
-   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## SIGCHLD line
-   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## Read openat
-   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
-   - Expected Call_Type: "Read_Call", OK
-   - Expected Read file: "/etc/ld.so.cache", OK
-   - Expected Write file: "", OK
-
-## Write openat
-   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## openat but ENOENT
-   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
-   - Expected Call_Type: "ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access for exec
-   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## access file with no dir
-   Line: 11750 access("hello.o", F_OK)           = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## RW access to a dir
-   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
-   - Expected Call_Type: "Ignored", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "", OK
-
-## unlink (rm)
-   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
-   - Expected Call_Type: "Write_Call", OK
-   - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
-
-## Read AND Write test
-   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
-   - Expected Call_Type: "Read_Write_Call", OK
-   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
-   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
 
 All tests OK [Successful](tests_status.md#successful)
 
@@ -2686,7 +1960,19 @@ All tests OK [Successful](tests_status.md#successful)
    - Expected Read file: "", OK
    - Expected Write file: "/tmp/ccvHeGYq.res", OK
 
-## openat but ENOENT
+## Dir openat 
+   Line: 2918  openat(AT_FDCWD, "./site/about", O_RDONLY|O_NOCTTY|O_NONBLOCK|O_NOFOLLOW|O_CLOEXEC|O_DIRECTORY) = 3</home/lionel/Proj/smk/tests/mysite/site/about>
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## Access Error (EACCES)
+   Line: 25242 mkdir("/usr/lib/python3/dist-packages/click/__pycache__", 0777) = -1 EACCES (Permission denied)
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## File not found (ENOENT)
    Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
    - Expected Call_Type: "ignored", OK
    - Expected Read file: "", OK
@@ -2712,14 +1998,127 @@ All tests OK [Successful](tests_status.md#successful)
 
 ## unlink (rm)
    Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
-   - Expected Call_Type: "Write_Call", OK
+   - Expected Call_Type: "Ignored", OK
    - Expected Read file: "", OK
-   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+   - Expected Write file: "", OK
+
+## unlinkat AT_REMOVEDIR
+   Line: 29164 unlinkat(AT_FDCWD, "./site/about", AT_REMOVEDIR) = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
 
 ## Read AND Write test
    Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
    - Expected Call_Type: "Read_Write_Call", OK
-   - Expected Read file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", OK
-   - Expected Write file: "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", OK
+   - Expected Read file: "x.mp3", got "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", **Failed**
+   - Expected Write file: "unknown-unknown.mp3", got "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", **Failed**
 
-All tests OK [Successful](tests_status.md#successful)
+## Rename with two AT_FDCWD
+   Line: 15232 renameat2(AT_FDCWD, "all.filecount.new", AT_FDCWD, "all.filecount", RENAME_NOREPLACE) = 0
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "./all.filecount.new", got "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/all.filecount.new", **Failed**
+   - Expected Write file: "./all.filecount", got "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/all.filecount", **Failed**
+
+## renameat with explicit dir (and not AT_FDCWD), with and without final /
+   Line: 15165 renameat(5</home/lionel/.slocdata>, "old", 5</home/lionel/.slocdata/>, "new")...
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "/home/lionel/.slocdata/old", OK
+   - Expected Write file: "/home/lionel/.slocdata/new", OK
+
+ 4 tests fails [Failed](tests_status.md#failed)
+
+# Strace_Analyzer unit tests
+
+
+## execve, should be ignored
+   Line: 11750 execve("/opt/GNAT/2018/bin/gcc", ["gcc", "-o", "hello", "hello.o", "main.o"], 0x7ffd629baf60 /* 45 vars */) = 0
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## SIGCHLD line
+   Line: 11751 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=11752, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## Read openat
+   Line: 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3</etc/ld.so.cache>
+   - Expected Call_Type: "Read_Call", OK
+   - Expected Read file: "/etc/ld.so.cache", OK
+   - Expected Write file: "", OK
+
+## Write openat
+   Line: 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL, 0600) = 3</tmp/ccvHeGYq.res>
+   - Expected Call_Type: "Write_Call", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "/tmp/ccvHeGYq.res", OK
+
+## Dir openat 
+   Line: 2918  openat(AT_FDCWD, "./site/about", O_RDONLY|O_NOCTTY|O_NONBLOCK|O_NOFOLLOW|O_CLOEXEC|O_DIRECTORY) = 3</home/lionel/Proj/smk/tests/mysite/site/about>
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## Access Error (EACCES)
+   Line: 25242 mkdir("/usr/lib/python3/dist-packages/click/__pycache__", 0777) = -1 EACCES (Permission denied)
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## File not found (ENOENT)
+   Line: 11751 openat(AT_FDCWD, "/tmp/ccQ493FX.ld", O_RDONLY) = -1 ENOENT (No such file or directory)
+   - Expected Call_Type: "ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access for exec
+   Line: 11750 access("/opt/GNAT/2018/bin/gcc", X_OK) = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## access file with no dir
+   Line: 11750 access("hello.o", F_OK)           = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## RW access to a dir
+   Line: 11750 access("/tmp", R_OK|W_OK|X_OK)    = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## unlink (rm)
+   Line: 11750 unlink("/tmp/ccvHeGYq.res")       = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## unlinkat AT_REMOVEDIR
+   Line: 29164 unlinkat(AT_FDCWD, "./site/about", AT_REMOVEDIR) = 0
+   - Expected Call_Type: "Ignored", OK
+   - Expected Read file: "", OK
+   - Expected Write file: "", OK
+
+## Read AND Write test
+   Line: 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "x.mp3", got "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/x.mp3", **Failed**
+   - Expected Write file: "unknown-unknown.mp3", got "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/unknown-unknown.mp3", **Failed**
+
+## Rename with two AT_FDCWD
+   Line: 15232 renameat2(AT_FDCWD, "all.filecount.new", AT_FDCWD, "all.filecount", RENAME_NOREPLACE) = 0
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "./all.filecount.new", got "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/all.filecount.new", **Failed**
+   - Expected Write file: "./all.filecount", got "/home/lionel/Proj/smk/tests/14_strace_analysis_tests/all.filecount", **Failed**
+
+## renameat with explicit dir (and not AT_FDCWD), with and without final /
+   Line: 15165 renameat(5</home/lionel/.slocdata>, "old", 5</home/lionel/.slocdata/>, "new")...
+   - Expected Call_Type: "Read_Write_Call", OK
+   - Expected Read file: "/home/lionel/.slocdata/old", OK
+   - Expected Write file: "/home/lionel/.slocdata/new", OK
+
+ 4 tests fails [Failed](tests_status.md#failed)

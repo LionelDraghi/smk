@@ -14,11 +14,15 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
+with File_Utilities;
 with Smk.IO;
+with Smk.Settings;
 
-with Ada.Directories;
-with Ada.Strings.Fixed;     use Ada.Strings.Fixed;
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Strings.Fixed;          use Ada.Strings.Fixed;
+with Ada.Strings.Maps.Constants;
+with Ada.Strings.Unbounded;      use Ada.Strings.Unbounded;
+with Ada.Strings.Maps;
+with Ada.Strings;
 -- with Ada.Strings.Maps.Constants; use Ada.Strings.Maps.Constants;
 -- with Ada.Strings.Maps;
 
@@ -29,7 +33,8 @@ package body Smk.Runs.Strace_Analyzer is
    -- defines char that are expected in the command name ("access", "read",
    -- "write", etc.)
 
-   Current_Dir         : Unbounded_String := Null_Unbounded_String;
+   Current_Dir         : Unbounded_String := To_Unbounded_String
+     (Smk.Settings.Initial_Directory);
 
    -- --------------------------------------------------------------------------
    type Function_List is array (Positive range <>) of access String;
@@ -58,6 +63,20 @@ package body Smk.Runs.Strace_Analyzer is
                                                 new String'("fstatat"),
                                                 new String'("newfstatat"),
                                                 new String'("freopen"),
+                                                new String'("utimensat"),
+                                                new String'("futimens"),
+                                                new String'("chmod"),
+                                                new String'("fchmod"),
+                                                new String'("fchmodat"),
+                                                new String'("chown"),
+                                                new String'("lchown"),
+                                                new String'("fchown"),
+                                                new String'("fchownat"),
+                                                new String'("unlink"),
+                                                new String'("unlinkat"),
+                                                new String'("remove"),
+                                                new String'("mkdir"),
+                                                new String'("rmdir"),
                                                 new String'("chdir"));
    Read_Only_List  : constant Function_List := (new String'("readlink"),
                                                 new String'("readlinkat"));
@@ -66,17 +85,7 @@ package body Smk.Runs.Strace_Analyzer is
                                                 new String'("rename"),
                                                 new String'("renameat"),
                                                 new String'("renameat2"),
-                                                new String'("link"),
-                                                new String'("unlink"),
-                                                new String'("unlinkat"),
-                                                new String'("remove"),
-                                                new String'("chmod"),
-                                                new String'("fchmod"),
-                                                new String'("chown"),
-                                                new String'("fchown"),
-                                                new String'("mkdir"),
-                                                new String'("rmdir"),
-                                                new String'("lchown"));
+                                                new String'("link"));
    Read_Or_Write_List : constant Function_List := (new String'("open"),
                                                    new String'("fopen"),
                                                    new String'("openat"));
@@ -113,7 +122,7 @@ package body Smk.Runs.Strace_Analyzer is
                            Read_File  :    out File;
                            Write_File :    out File) is
 
-      -- Previous (good) simple algo:
+      -- The previous, fairly good and very simple algo:
       --        if Index (Line, "O_WRONLY") /= 0
       --          or else Index (Line, "O_RDWR") /= 0
       --          or else Index (Line, "write", From => 7) /= 0
@@ -141,11 +150,32 @@ package body Smk.Runs.Strace_Analyzer is
       end Get_Function_Name;
 
       -- -----------------------------------------------------------------------
-      function Add_Dir (Name : String) return String is
+      function Add_Dir (To_Name   : String;
+                        Dir       : String := To_String (Current_Dir))
+                        return String
+      is
+         Prefix : constant String := (if Dir (Dir'Last) = '/'
+                                      then Dir
+                                      else Dir & '/');
+      begin
+         -- IO.Put_Line ("Current Dir = " & To_String (Current_Dir));
          -- if Name is not a Full_Name, add the known CWD
-        (if Name (Name'First) = '/'
-         then Name
-         else To_String (Current_Dir & '/' & Name));
+         if To_Name (To_Name'First) = '/'
+         then
+            -- IO.Put_Line ("Add_Dir returns " & To_Name);
+            return To_Name;
+         else
+            -- IO.Put_Line ("Add_Dir returns " & Prefix & To_Name);
+            return Prefix & To_Name;
+         end if;
+      end Add_Dir;
+
+      -- -----------------------------------------------------------------------
+      function Remove_Dot_Slash (Name : String) return String is
+         -- if Name starts with "./", remove it
+        (if Name (Name'First .. Name'First + 1) = "./"
+         then Name (Name'First + 2 .. Name'Last)
+         else Name);
 
       -- -----------------------------------------------------------------------
       function Write_Access (From : in Positive) return Boolean is
@@ -161,6 +191,41 @@ package body Smk.Runs.Strace_Analyzer is
             return Index (Line, RDWR, From) /= 0;
          end if;
       end Write_Access;
+
+      -- -----------------------------------------------------------------------
+      function Get_Parameter (Idx : in out Natural) return String is
+         Separator_Set         : constant Ada.Strings.Maps.Character_Set
+           := Ada.Strings.Maps.To_Set (",()");
+         use Ada.Strings.Maps;
+         use Ada.Strings.Maps.Constants;
+         Postfix_Ignore_Set    : constant Ada.Strings.Maps.Character_Set
+           := Ada.Strings.Maps.To_Set (" <>") or To_Set ('"');
+         Prefix_Ignore_Set     : constant Ada.Strings.Maps.Character_Set
+           := Postfix_Ignore_Set or Decimal_Digit_Set;
+         -- File descriptor number should be also removed in:
+         -- 5</home/lionel/.slocdata/x.mp3>
+         -- but only on the left side.
+         --
+         First                 : Positive;
+         Last                  : Natural;
+
+      begin
+         Find_Token (Source => Line,
+                     Set    => Separator_Set,
+                     From   => Idx,
+                     Test   => Ada.Strings.Outside,
+                     First  => First,
+                     Last   => Last);
+         Idx := Last + 1;
+         declare
+            Token : constant String := Trim (Line (First .. Last),
+                                             Left  => Prefix_Ignore_Set,
+                                             Right => Postfix_Ignore_Set);
+         begin
+            IO.Put_Line ("Token : >" & Token & "<", Level => IO.Debug);
+            return Token;
+         end;
+      end Get_Parameter;
 
       -- -----------------------------------------------------------------------
       function File_Name_In_Box (Idx : in out Natural) return String is
@@ -188,7 +253,17 @@ package body Smk.Runs.Strace_Analyzer is
                IO.Put_Line ("File_Name_In_Box = "
                             & Line (First + 1 .. Local_Idx - 1),
                             Level => IO.Debug);
-               return Add_Dir (Line (First + 1 .. Local_Idx - 1));
+               declare
+                  Full_Name : constant String := Add_Dir
+                    (Remove_Dot_Slash (Line (First + 1 .. Local_Idx - 1)));
+                  -- we do not use Ada.Directories.Full_Name because it
+                  -- cause link to be modified into there target
+               begin
+                  IO.Put_Line ("File_Name_In_Box returns " & Full_Name,
+                               Level => IO.Debug);
+                  return Full_Name;
+               end;
+
             end if;
 
          end if;
@@ -198,7 +273,6 @@ package body Smk.Runs.Strace_Analyzer is
       function File_Name_In_Doublequote (Idx : in out Natural) return String is
          First     : Natural;
          Local_Idx : Natural;
-         use Ada.Directories;
 
       begin
          First := Index (Line, """", From => Idx);
@@ -223,9 +297,19 @@ package body Smk.Runs.Strace_Analyzer is
             else
                Idx := Local_Idx + 1;
                IO.Put_Line ("File_Name_In_Doublequote = "
-                            & Full_Name (Line (First + 1 .. Local_Idx - 1)),
+                            & Line (First + 1 .. Local_Idx - 1),
                             Level => IO.Debug);
-               return (Add_Dir (Line (First + 1 .. Local_Idx - 1)));
+               declare
+                  Full_Name : constant String := Add_Dir
+                    (Remove_Dot_Slash (Line (First + 1 .. Local_Idx - 1)));
+                  -- we do not use Ada.Directories.Full_Name because it
+                  -- cause link to be modified into there target
+               begin
+                  IO.Put_Line ("File_Name_In_Doublequote returns " & Full_Name,
+                               Level => IO.Debug);
+                  return Full_Name;
+               end;
+
             end if;
 
          end if;
@@ -269,7 +353,13 @@ package body Smk.Runs.Strace_Analyzer is
       -- or call that don't find a file (ENOENT)
       if Line'Length = 0
         or else Not_A_Function_Call (Line)
-        or else Index (Line, "ENOENT", Going => Ada.Strings.Backward) /= 0
+        -- file not found:
+        or else Index (Line, "ENOENT",       Going => Ada.Strings.Backward) /= 0
+      -- error accessing file:
+        or else Index (Line, "EACCES",       Going => Ada.Strings.Backward) /= 0
+      -- Ignore operation on Dir (used by open or unlink):
+        or else Index (Line, "O_DIRECTORY",  Going => Ada.Strings.Backward) /= 0
+        or else Index (Line, "AT_REMOVEDIR", Going => Ada.Strings.Backward) /= 0
       then
          -- IO.Put_Line ("Ignoring line : " & Line, Level => IO.Debug);
          return;
@@ -291,72 +381,142 @@ package body Smk.Runs.Strace_Analyzer is
          if Is_Ignored (Function_Name) then
             -- Ignored ---------------------------------------------------------
             IO.Put_Line ("Ignoring " & Function_Name, Level => IO.Debug);
-            null;
 
          elsif Is_GetCWD (Function_Name) then
             -- CWD processing --------------------------------------------------
             Current_Dir := To_Unbounded_String (File_Name (Idx));
-            -- IO.Put_Line ("Current Dir = " & To_String (Current_Dir));
+            IO.Put_Line ("Current Dir = " & To_String (Current_Dir),
+                         Level => IO.Debug);
 
          elsif Is_Read_Cmd (Function_Name) then
             -- Read ------------------------------------------------------------
             Call_Type := Read_Call;
-            Read_File := new String'(File_Name (Idx));
-            IO.Put_Line (Function_Name & " Read " & Read_File.all,
-                         Level => IO.Debug);
+            IO.Put_Line (Function_Name, Level => IO.Debug);
+
+            if Function_Name = "readlinkat" then -- two parameters
+               declare
+                  P1 : constant String := Get_Parameter (Idx);
+                  P2 : constant String := Get_Parameter (Idx);
+               begin
+                  if P2 (P2'First) = File_Utilities.Separator then
+                     -- absolute path, no need to read P1
+                     Read_File := new String'(P2);
+
+                  elsif P1 = "AT_FDCWD" then
+                     Read_File := new String'
+                       (Add_Dir (Dir     => To_String (Current_Dir),
+                                 To_Name => P2));
+                  else
+                     Read_File := new String'(Add_Dir (Dir     => P1,
+                                                       To_Name => P2));
+                  end if;
+               end;
+
+            else -- one parameter
+               Read_File := new String'(File_Name (Idx));
+               IO.Put_Line (Function_Name & " Read " & Read_File.all,
+                            Level => IO.Debug);
+            end if;
 
          elsif Is_Write_Cmd (Function_Name) then
             -- Write -----------------------------------------------------------
-            if Function_Name        = "rename"
-              or else Function_Name = "renameat"
-              or else Function_Name = "renameat2"
+            if Function_Name = "rename"
+            -- two parameters renames:
+            -- 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
             then
-               IO.Put_Line ("Renaming: " & Function_Name, Level => IO.Debug);
+               declare
+                  P1 : constant String := Get_Parameter (Idx);
+                  P2 : constant String := Get_Parameter (Idx);
+               begin
+                  IO.Put_Line (Function_Name, Level => IO.Debug);
+                  Call_Type := Read_Write_Call;
+
+                  Read_File := new String'
+                    (Add_Dir (Dir     => To_String (Current_Dir),
+                              To_Name => P1));
+                  Write_File := new String'
+                    (Add_Dir (Dir     => To_String (Current_Dir),
+                              To_Name => P2));
+
+                  IO.Put_Line (Function_Name & " from " & Read_File.all
+                               & " to " & Write_File.all,
+                               Level => IO.Debug);
+               end;
+
+            elsif Function_Name = "renameat" or else Function_Name = "renameat2"
+               -- four parameters renames
+            then -- Fixme: processing of "at" call and AT_FDCDW, cf. unlinkat
+               IO.Put_Line (Function_Name, Level => IO.Debug);
 
                -- 15232 renameat2(AT_FDCWD, "all.filecount.new", \
                --              AT_FDCWD, "all.filecount", RENAME_NOREPLACE) = 0
 
-               Call_Type := Read_Write_Call;
-               Read_File := new String'(File_Name (Idx));
-               -- First file is the read one
-               Idx := Idx + 1; -- jump over the ',' following the first file
-               Write_File := new String'(File_Name (Idx));
-               IO.Put_Line (Function_Name & " from " & Read_File.all
-                            & " to " & Write_File.all,
-                            Level => IO.Debug);
-
-            elsif Function_Name = "unlinkat" and
-              Index (Line, "AT_REMOVEDIR", From => Idx) /= 0
-            then
-               -- process a special form of unlink, that gives first the dir as
-               -- file descriptor, and then the file name:
-               -- 15165 unlinkat(5</home/lionel/.slocdata/dir>, "filelist" ...
-               -- (File name is actually /home/lionel/.slocdata/dir/filelist)
-               -- other form of unlinkat seem's to fall down in the
-               -- 1277  unlinkat(AT_FDCWD, "./site/404.html", 0) = 0
-               -- common processing.
-               IO.Put_Line (Function_Name, Level => IO.Debug);
-
                declare
-                  Dir  : constant String := File_Name_In_Box (Idx);
-                  File : constant String := File_Name_In_Doublequote (Idx);
+                  P1 : constant String := Get_Parameter (Idx);
+                  P2 : constant String := Get_Parameter (Idx);
+                  P3 : constant String := Get_Parameter (Idx);
+                  P4 : constant String := Get_Parameter (Idx);
                begin
-                  Call_Type := Write_Call;
-                  Write_File := new String'(Dir & "/" & File);
-                  IO.Put_Line (Function_Name & " " & Dir & "/" & File,
+                  Call_Type := Read_Write_Call;
+
+                  if P2 (P2'First) = File_Utilities.Separator then
+                     -- absolute path, no need to read P1
+                     Read_File := new String'(P2);
+
+                  elsif P1 = "AT_FDCWD" then
+                     Read_File := new String'
+                       (Add_Dir (Dir     => To_String (Current_Dir),
+                                 To_Name => P2));
+                  else
+                     Read_File := new String'(Add_Dir (Dir     => P1,
+                                                       To_Name => P2));
+                  end if;
+
+                  if P4 (P4'First) = File_Utilities.Separator then
+                     -- absolute path, no need to read P3
+                     Write_File := new String'(P4);
+
+                  elsif P3 = "AT_FDCWD" then
+                     Write_File := new String'
+                       (Add_Dir (Dir     => To_String (Current_Dir),
+                                 To_Name => P4));
+                  else
+                     Write_File := new String'(Add_Dir (Dir     => P3,
+                                                        To_Name => P4));
+                  end if;
+
+                  IO.Put_Line (Function_Name & " from " & Read_File.all
+                               & " to " & Write_File.all,
                                Level => IO.Debug);
                end;
 
-            elsif Function_Name = "unlinkat" then
-
-               declare
-                  Name : constant String := File_Name (Idx);
-               begin
-                  Call_Type  := Write_Call;
-                  Write_File := new String'(Name);
-                  IO.Put_Line (Function_Name & " " & Name,
-                               Level => IO.Debug);
-               end;
+--              elsif Function_Name = "unlinkat"
+--                and then Index (Line, "AT_REMOVEDIR", From => Idx) /= 0
+--              -- process a special form of unlink, that gives first the dir as
+--              -- file descriptor, and then the file name:
+--              -- 15165 unlinkat(5</home/lionel/.slocdata/dir>, "filelist" ...
+--              -- (File name is actually /home/lionel/.slocdata/dir/filelist)
+--              -- or
+--              -- 1277  unlinkat(AT_FDCWD, "./site/404.html", 0) = 0
+--
+--                and then Index (Line, "AT_FDCWD", From => Idx) = 0
+--              -- Note that this code processes only the first case : if the
+--              -- first parameter is not AT_FDCWD, then the dir is
+--              -- explicitly given as a file descriptor, and is
+--              -- excluded here because we are in the normal processing.
+--
+--              then
+--                 IO.Put_Line (Function_Name, Level => IO.Debug);
+--
+--                 declare
+--                    Dir  : constant String := File_Name_In_Box (Idx);
+--                    File : constant String := File_Name_In_Doublequote (Idx);
+--                 begin
+--                    Call_Type := Write_Call;
+--                    Write_File := new String'(Dir & "/" & File);
+--                    IO.Put_Line (Function_Name & " " & Dir & "/" & File,
+--                                 Level => IO.Debug);
+--                 end;
 
             else
                Call_Type  := Write_Call;
@@ -388,7 +548,7 @@ package body Smk.Runs.Strace_Analyzer is
             IO.Put_Line ("Non identified file related call in strace line : >"
                          & Line & "<");
             IO.Put_Line ("Please submit this message to "
-                         & "https://github.com/LionelDraghi/smk/issues/new"
+                         & "https://github.com/LionelDraghi/smk/issues/new "
                          & "with title ""Non identified call in strace "
                          & "output""");
 
@@ -396,12 +556,27 @@ package body Smk.Runs.Strace_Analyzer is
 
       end;
 
+--        if not Is_Null (Read_File) and then
+--          Ada.Directories.Full_Name (Read_File.all) /= Read_File.all
+--        then
+--           IO.Put_Line ("Read_File (" & Read_File.all
+--              & ") /= Full_Name (" & Full_Name (Read_File.all) & ")");
+--        end if;
+--
+--        if not Is_Null (Write_File) and then
+--          Ada.Directories.Full_Name (Write_File.all) /= Write_File.all
+--        then
+--           IO.Put_Line ("Write_File (" & Write_File.all
+--             & ") /= Full_Name (" & Full_Name (Write_File.all) & ")");
+--        end if;
+
+
    exception
       when others =>
          Call_Type := Ignored;
          IO.Put_Line ("Error while analyzing : >" & Line & "<");
          IO.Put_Line ("Please submit this message to "
-                      & "https://github.com/LionelDraghi/smk/issues/new"
+                      & "https://github.com/LionelDraghi/smk/issues/new "
                       & "with title ""Error analyzing strace output""");
 
    end Analyze_Line;

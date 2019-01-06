@@ -27,12 +27,12 @@ private package Smk.Runs.Strace_Analyzer is
                       Exec_Call,
                       Ignored);
 
+
    -- --------------------------------------------------------------------------
    procedure Analyze_Line (Line       : in     String;
                            Call_Type  :    out Line_Type;
                            Read_File  :    out File;
                            Write_File :    out File);
-
    -- Here is the kind of output from strace that we process here:
    --
    -- 19171 rename("x.mp3", "Luke-Sentinelle.mp3") = 0

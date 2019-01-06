@@ -104,10 +104,10 @@ package body Smk.Runfiles is
                           Section_Image (Element (R).Section) & " "
                         else "");
          begin
-            Files.Put (File_List   => Element (R).Files,
-                       Prefix      => Prefix,
-                       Print_Sources     => Print_Sources,
-                       Print_Targets     => Print_Targets);
+            Files.Put (File_List     => Element (R).Files,
+                       Prefix        => Prefix,
+                       Print_Sources => Print_Sources,
+                       Print_Targets => Print_Targets);
          end;
       end loop;
    end Put_Files;
@@ -184,8 +184,9 @@ package body Smk.Runfiles is
          return;
       end if;
 
-      -- Force long format and show all
+      -- Force long format, show all and don't shorten
       Settings.Long_Listing_Format := True;
+      Settings.Shorten_File_Names  := False;
       Settings.Filter_Sytem_Files  := False;
 
       for R in The_Runfile.Run_List.Iterate loop
@@ -254,6 +255,7 @@ package body Smk.Runfiles is
 
       -----------------------------------------------------------------------
       function New_Files_In_Dir (Dir : in String) return File_Lists.Map is
+         -- returns the list of new files and dirs in Dir
          use Ada.Directories;
          Search    : Search_Type;
          File      : Directory_Entry_Type;
@@ -265,6 +267,7 @@ package body Smk.Runfiles is
                        Directory => Dir,
                        Pattern   => "*",
                        Filter    => (Ordinary_File => True,
+                                     Directory     => True,
                                      others        => False));
          while More_Entries (Search) loop
             Get_Next_Entry (Search, File);
@@ -274,7 +277,12 @@ package body Smk.Runfiles is
                Simple_Name : constant String
                  := Ada.Directories.Simple_Name (File);
             begin
-               if Updated_List.Contains (+Full_Name) then
+               if Simple_Name = ".." or Simple_Name = "." then
+                  IO.Put_Line ("Ignoring "
+                               & Simple_Name,
+                               Level => IO.Debug);
+
+               elsif Updated_List.Contains (+Full_Name) then
                   IO.Put_Line ("File "
                                & Simple_Name
                                & " already known as Updated",
@@ -282,6 +290,12 @@ package body Smk.Runfiles is
 
                elsif File_List.Contains (+Full_Name) then
                   IO.Put_Line ("File "
+                               & Simple_Name
+                               & " already known, but not Updated",
+                               Level => IO.Debug);
+
+               elsif Dir_List.Contains (+Full_Name) then
+                  IO.Put_Line ("Dir "
                                & Simple_Name
                                & " already known, but not Updated",
                                Level => IO.Debug);
@@ -304,6 +318,8 @@ package body Smk.Runfiles is
 
       end New_Files_In_Dir;
 
+      New_Files : File_Lists.Map;
+
    begin
       -----------------------------------------------------------------------
       for I in Dir_List.Iterate loop
@@ -312,7 +328,6 @@ package body Smk.Runfiles is
             Current_Status  : File_Status;
             Name            : File_Name renames File_Lists.Key (I);
             File            : File_Type renames Dir_List (I);
-            New_Files       : File_Lists.Map;
          begin
             if not Is_Dir (File) then
                IO.Put_Error ("Update_Dirs_Status: " & (+Name)
@@ -347,30 +362,45 @@ package body Smk.Runfiles is
                      IO.Put_Line ("Dir " & (+Name) & " with new file(s)",
                                   Level => IO.Debug);
 
-                     -- New_Files are also inserted in the list of known file,
-                     -- with an Unused status
-                     for F in New_Files.Iterate loop
-                        if Settings.In_Ignore_List (+Key (F)) then
-                           IO.Put_Line ("Ignoring " & (+Key (F)),
-                                        Level => IO.Debug);
-                        elsif Is_Dir (New_Files (F)) then
-                           IO.Put_Line ("Adding dir " & (+Key (F))
-                                        & " to dir list",
-                                        Level => IO.Debug);
-                           Dir_List.Insert (Key (F), Element (F));
-                        else
-                           IO.Put_Line ("Adding file "
-                                        & (+Key (F)) & " to file list",
-                                        Level => IO.Debug);
-                           File_List.Insert (Key (F), Element (F));
-                        end if;
-                     end loop;
-
                   end if;
                end if;
             end if;
          end;
       end loop;
+
+      -- New_Files are also inserted in the list of known file,
+      -- with an Unused status
+      for F in New_Files.Iterate loop
+         if Settings.In_Ignore_List (+Key (F)) then
+            IO.Put_Line ("Ignoring " & (+Key (F)),
+                         Level => IO.Debug);
+
+         elsif Is_Dir (New_Files (F)) then
+            declare
+               Name : constant File_Name := Key (F);
+               Dir  : constant File_Type := Element (F);
+            begin
+               IO.Put_Line ("Adding dir " & (+Name)
+                            & " to dir list",
+                            Level => IO.Debug);
+               Dir_List.Insert (Name, Dir);
+            end;
+
+         else
+            declare
+               Name : constant File_Name := Key (F);
+               File : constant File_Type := Element (F);
+            begin
+               IO.Put_Line ("Adding file "
+                            & (+Name) & " to file list",
+                            Level => IO.Debug);
+               -- Set_Role (File, Unused);
+               File_List.Insert (Name, File);
+            end;
+
+         end if;
+      end loop;
+
    end Update_Dirs_Status;
 
    -- --------------------------------------------------------------------------
@@ -385,7 +415,7 @@ package body Smk.Runfiles is
                use Settings;
             begin
                if Is_Target (R.Files (F)) and then Exists (Name) then
-                  IO.Put_Line ("Deleting " & Name);
+                  IO.Put_Line ("Deleting " & Shorten (Name));
                   if not Dry_Run then
                      Delete_File (Name);
                   end if;

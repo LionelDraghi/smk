@@ -32,7 +32,6 @@ sections:
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -q reset`'
-	${TR} cmt '`smk -q ../mysite/Makefile:clean`'
 	${TR} cmt '`smk ../mysite/Makefile:doc`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -42,9 +41,8 @@ sections:
 	${TR} cmt 
 	
 	../../smk -q reset
-	../../smk -q ../mysite/Makefile:clean
 	../../smk ../mysite/Makefile:doc > out.1.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected1.txt out.1.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected1.txt out.1.txt" || meld expected1.txt out.1.txt 
 
 	${TR} end
 
@@ -69,7 +67,7 @@ listing:
 	../../smk ls -l | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.2.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected2.txt out.2.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected2.txt out.2.txt" || meld expected2.txt out.2.txt 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk ls`   (default short listing format)'
@@ -81,7 +79,7 @@ listing:
 	${TR} cmt 
 	
 	../../smk ls > out.3.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected3.txt out.3.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected3.txt out.3.txt" || meld expected3.txt out.3.txt 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk list-targets --long-listing`'
@@ -95,7 +93,7 @@ listing:
 	../../smk list-targets --long-listing | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.4.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected4.txt out.4.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected4.txt out.4.txt" || meld expected4.txt out.4.txt 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk rs`'
@@ -106,8 +104,10 @@ listing:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk rs > out.5.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected5.txt out.5.txt" 
+	../../smk rs | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.5.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected5.txt out.5.txt" || meld expected5.txt out.5.txt 
 
 	${TR} end
 
@@ -129,7 +129,7 @@ build:
 	
 	../../smk -q reset
 	../../smk ../mysite/Makefile > out.6.txt
-	${TR} assert true /usr/bin/sdiff "-sbB expected6.txt out.6.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected6.txt out.6.txt" || meld expected6.txt out.6.txt 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '   Second run : all command should be executed except the "no target" command `clean`'
@@ -142,7 +142,7 @@ build:
 	${TR} cmt 
 	
 	../../smk --explain > out.7.txt
-	${TR} assert true /usr/bin/sdiff "-sbB expected7.txt out.7.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected7.txt out.7.txt" || meld expected7.txt out.7.txt 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '   Third run : all targets are up-to-date'
@@ -155,7 +155,7 @@ build:
 	${TR} cmt 
 	
 	../../smk --explain --verbose > out.8.txt
-	${TR} assert true /usr/bin/sdiff "-sbB expected8.txt out.8.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected8.txt out.8.txt" || meld expected8.txt out.8.txt 
 
 	${TR} end
 
@@ -177,7 +177,7 @@ rebuild:
 	sleep 1.0 # Fixme: if "touched" just after being build, the change is not detected
 	touch ../mysite/docs/about.md
 	../../smk whatsnew | sed "s/[0-9]//g" > out.9a.txt 	# Time tag neutralized
-	${TR} assert true /usr/bin/sdiff "-sbB expected9a.txt out.9a.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected9a.txt out.9a.txt" || meld expected9a.txt out.9a.txt 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`rm ../mysite/site/tutorial/index.html`'
@@ -191,7 +191,7 @@ rebuild:
 	
 	rm ../mysite/site/tutorial/index.html
 	../../smk wn | sed "s/[0-9]//g" > out.9b.txt 	# Time tag neutralized
-	${TR} assert true /usr/bin/sdiff "-sbB expected9b.txt out.9b.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected9b.txt out.9b.txt" || meld expected9b.txt out.9b.txt 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -e -v`'
@@ -203,7 +203,7 @@ rebuild:
 	${TR} cmt 
 	
 	../../smk -e -v | sed "s/[0-9]//g" > out.9c.txt 	# Time tag neutralized
-	${TR} assert true /usr/bin/sdiff "-sbB expected9c.txt out.9c.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected9c.txt out.9c.txt" || meld expected9c.txt out.9c.txt 
 
 	${TR} end
 
@@ -223,7 +223,7 @@ cleaning:
 	
 	touch ../mysite/docs/about.md
 	../../smk clean > out.10.txt
-	${TR} assert true /usr/bin/sdiff "-sbB expected10.txt out.10.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected10.txt out.10.txt" || meld expected10.txt out.10.txt 
 
 	${TR} end
 
@@ -242,11 +242,12 @@ rebuild2:
 	${TR} cmt 
 	
 	../../smk --explain | sed "s/[0-9]//g" > out.11.txt 	# Time tag neutralized
-	${TR} assert true /usr/bin/sdiff "-sbB expected11.txt out.11.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected11.txt out.11.txt" || meld expected11.txt out.11.txt 
 
 	${TR} end
 
 clean:
 	${TR} clean
-	../../smk reset
+	../../smk -q clean
+	../../smk -q reset
 	- ${RM} out.*

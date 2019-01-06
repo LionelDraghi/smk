@@ -1,11 +1,13 @@
 Command "id3ren -quiet -template=%a-%s.mp3 x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
-Sources: (1)
+Sources: (2)
+  - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
   - [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
-Targets: (0)
+Targets: (1)
+  - [Target] [Created] [YYYY:MM:DD HH:MM:SS.SS] Luke-Sentinelle.mp3
 
 Command "id3v2 -a Luke -t Sentinelle x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (10)
-  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libgcc_s.so.1
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
@@ -16,11 +18,11 @@ Sources: (10)
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libid3-3.8.so.3.0.0
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
 Targets: (1)
-  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Both  ] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
 
 Command "sox x.ogg x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (46)
-  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.ogg
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.ogg
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libc-2.28.so
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libdl-2.28.so
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /lib/x86_64-linux-gnu/libm-2.28.so
@@ -39,7 +41,7 @@ Sources: (46)
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libogg.so.0.8.2
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libopencore-amrnb.so.0.0.3
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libopencore-amrwb.so.0.0.3
-  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libpng16.so.16.34.0
+  - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libpng16.so.16.36.0
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libsndfile.so.1.0.28
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libsox.so.3.0.0
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libtwolame.so.0.0.0
@@ -67,5 +69,5 @@ Sources: (46)
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_wavpack.so
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_xi.so
 Targets: (1)
-  - [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
+  - [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
 

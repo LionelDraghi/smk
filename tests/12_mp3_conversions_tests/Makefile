@@ -49,7 +49,7 @@ run: header
 	../../smk run id3v2 -a Luke -t Sentinelle x.mp3 			>> out.30
 	#sleep 1.0
 	../../smk run id3ren -quiet -template='%a-%s.mp3' x.mp3 	>> out.30
-	${TR} assert true /usr/bin/sdiff "-sbB expected.30 out.30" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.30 out.30" || meld expected.30 out.30 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk st -l`'
@@ -63,7 +63,7 @@ run: header
 	../../smk st -l | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.31
-	${TR} assert true /usr/bin/sdiff "-sbB expected.31 out.31" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.31 out.31" || meld expected.31 out.31 
 
 	${TR} cmt 'Run: (same with system files)'
 	${TR} cmt '`smk st -l -sa`'
@@ -77,7 +77,7 @@ run: header
 	../../smk st -l -sa | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.32
-	${TR} assert true /usr/bin/sdiff "-sbB expected.32 out.32" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.32 out.32" || meld expected.32 out.32 
 
 	${TR} end
 
@@ -97,10 +97,10 @@ conv: header
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	rm default.smk
+	- rm default.smk
 	../../smk -q reset
 	../../smk run ./ogg-to-mp3.sh > out.1
-	${TR} assert true /usr/bin/sdiff "-sbB expected.1 out.1" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.1 out.1" || meld expected.1 out.1 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk st -l`'
@@ -114,7 +114,7 @@ conv: header
 	../../smk st -l | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.2
-	${TR} assert true /usr/bin/sdiff "-sbB expected.2 out.2" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.2 out.2" || meld expected.2 out.2 
 
 	${TR} end
 
@@ -135,7 +135,7 @@ new_file:
 	sleep 1.0 # immediate "touch" bug
 	cp x.ogg z.ogg
 	../../smk whatsnew > out.3
-	${TR} assert true /usr/bin/sdiff "-sbB expected.3 out.3" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.3 out.3" || meld expected.3 out.3 
 
 	${TR} end
 
@@ -159,11 +159,11 @@ ogg-to-mp3:
 	../../smk -e | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.10
-	${TR} assert true /usr/bin/sdiff "-sbB expected.10 out.10" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.10 out.10" || meld expected.10 out.10 
 
 	${TR} end
 
-sub_dir:
+sub_dir: ogg-to-mp3
 	@ #-------------------------------------------------------------------------
 	${TR} start 'adding a .ogg file in a subdir'
 	${TR} cmt 
@@ -178,11 +178,12 @@ sub_dir:
 	${TR} cmt 
 	
 	- mkdir dir1
+	sleep 1.0 # Fixme:
 	../../smk wn > out.20
-	${TR} assert true /usr/bin/sdiff "-sbB expected.20 out.20" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.20 out.20" || meld expected.20 out.20 
 
 	${TR} cmt 'Run:'
-	${TR} cmt "`smk -e -n run ./ogg-to-mp3.sh`"
+	${TR} cmt "`smk -e run ./ogg-to-mp3.sh`"
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -190,40 +191,22 @@ sub_dir:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	cp x.ogg dir1/t.ogg
-	../../smk -e -n run ./ogg-to-mp3.sh > out.21
-	${TR} assert true /usr/bin/sdiff "-sbB expected.21 out.21" 
-
-	../../smk run > out.22
-	${TR} assert true /usr/bin/sdiff "-sbB expected.22 out.22" 
-
-	exit
+	../../smk -e run ./ogg-to-mp3.sh > out.21
+	${TR} assert true /usr/bin/sdiff "-sbB expected.21 out.21" || meld expected.21 out.21 
 
 	${TR} cmt 'Run:'
 	${TR} cmt "`cp x.ogg dir1/t.ogg`"
-	${TR} cmt "`smk wn`"
-	${TR} cmt 
-	${TR} cmt 'Expected:'
-	${TR} cmt '```' 
-	cat expected.21 >> testrec.md
-	${TR} cmt '```' 
-	${TR} cmt 
-	
-	cp x.ogg dir1/t.ogg
-	../../smk wn > out.21
-	${TR} assert true /usr/bin/sdiff "-sbB expected.21 out.21" 
-
-	${TR} cmt 'Run:'
-	${TR} cmt "`smk -e`"
+	${TR} cmt "`smk -e run ./ogg-to-mp3.sh`"
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
 	cat expected.22 >> testrec.md
 	${TR} cmt '```' 
 	${TR} cmt 
-	
-	../../smk -e > out.10
-	${TR} assert true /usr/bin/sdiff "-sbB expected.22 out.22" 
+
+	cp x.ogg dir1/t.ogg
+	../../smk -e run > out.22
+	${TR} assert true /usr/bin/sdiff "-sbB expected.22 out.22" || meld expected.22 out.22 
 
 	${TR} end
 	
@@ -241,12 +224,12 @@ smk_clean:
 	${TR} cmt 
 	
 	../../smk clean > out.clean.1
-	${TR} assert true /usr/bin/sdiff "-sbB expected.clean.1 out.clean.1" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.clean.1 out.clean.1" || meld expected.clean.1 out.clean.1 
 	
 	${TR} end
 
 clean:
 	${TR} clean
 	../../smk reset
-	- ${RM} -rf dir1 default.smk out.* *.mp3 z.ogg
+	- ${RM} -rf dir? default.smk out.* *.mp3 z.ogg
 	

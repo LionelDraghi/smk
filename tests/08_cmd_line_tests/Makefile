@@ -45,7 +45,7 @@ cmd_line:
 	${TR} cmt 
 
 	../../smk help	> out.help1.txt
-	${TR} assert true /usr/bin/sdiff "-sbB out.expected_help.txt out.help1.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB out.expected_help.txt out.help1.txt" || meld out.expected_help.txt out.help1.txt 
 	
 	${TR} end
 
@@ -66,7 +66,7 @@ cmd_line:
 	${TR} cmt 
 
 	../../smk version	> out.version1.txt
-	${TR} assert true /usr/bin/sdiff "-sbB out.expected_version.txt out.version1.txt"
+	${TR} assert true /usr/bin/sdiff "-sbB out.expected_version.txt out.version1.txt" || meld out.expected_version.txt out.version1.txt
 
 	${TR} end
 
@@ -84,7 +84,7 @@ cmd_line:
 	${TR} cmt 
 
 	test ! `../../smk read-smkfile status > out.wrong_cmd_line1.txt`
-	${TR} assert true /usr/bin/sdiff "-sbB expected_wrong_cmd_line1.txt out.wrong_cmd_line1.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_wrong_cmd_line1.txt out.wrong_cmd_line1.txt" || meld expected_wrong_cmd_line1.txt out.wrong_cmd_line1.txt 
 	
 	${TR} end
 
@@ -105,7 +105,7 @@ cmd_line:
 	${TR} cmt 
 
 	test ! `../../smk My_Makefile > out.err_unknow_makefile.txt`
-	${TR} assert true /usr/bin/sdiff "-sbB expected_unknow_makefile.txt out.err_unknow_makefile.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_unknow_makefile.txt out.err_unknow_makefile.txt" || meld expected_unknow_makefile.txt out.err_unknow_makefile.txt 
 
 	${TR} end
 	

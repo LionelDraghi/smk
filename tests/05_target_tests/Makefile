@@ -47,9 +47,9 @@ targets:
 	../../smk -q reset
 	../../smk -q build ../hello.c/Makefile.2
 	../../smk clean --dry-run > out.1.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets1.txt out.1.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets1.txt out.1.txt" || meld expected_targets1.txt out.1.txt 
 	../../smk --explain       > out.2.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets2.txt out.2.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets2.txt out.2.txt" || meld expected_targets2.txt out.2.txt 
 
 	@ #-------------------------------------------------------------------------
 	${TR} start 'real clean'
@@ -63,7 +63,7 @@ targets:
 	${TR} cmt 
 
 	../../smk clean > out.3.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets3.txt out.3.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets3.txt out.3.txt" || meld expected_targets3.txt out.3.txt 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -e`  (to check effective cleaning)'
@@ -75,7 +75,7 @@ targets:
 	${TR} cmt 
 
 	../../smk -e      > out.4.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_targets4.txt out.4.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets4.txt out.4.txt" || meld expected_targets4.txt out.4.txt 
 
 	${TR} end
 
@@ -97,7 +97,7 @@ targets:
 	../../smk -q reset
 	../../smk -q ../hello.c/Makefile.1
 	../../smk build main.o	> out.5.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected5.txt out.5.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected5.txt out.5.txt" || meld expected5.txt out.5.txt 
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`touch ../hello.c/main.c`'
@@ -112,12 +112,13 @@ targets:
 	sleep 1 # Fixme:
 	touch ../hello.c/main.c
 	../../smk build main.o	> out.6.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected6.txt out.6.txt" 
+	${TR} assert true /usr/bin/sdiff "-sbB expected6.txt out.6.txt" || meld expected6.txt out.6.txt 
 
 	${TR} end
 
 
 clean:
 	${TR} clean
-	../../smk reset
+	../../smk -q clean
+	../../smk -q reset
 	- ${RM} out.*

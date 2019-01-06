@@ -96,31 +96,20 @@ begin
          Analyze_Line (Line, Call_Type, Read_File, Write_File);
 
          case Call_Type is
-            when Read_Call           => Update_Lists (Read_File,  Source);
+            when Read_Call           =>
+               Update_Lists (Read_File,  Source);
 
-            when Write_Call          => Update_Lists (Write_File, Target);
+            when Write_Call          =>
+               Update_Lists (Write_File, Target);
 
             when Read_Write_Call     =>
                Update_Lists (Read_File,  Source);
                Update_Lists (Write_File, Target);
 
-            when Exec_Call | Ignored => null;
+            when Exec_Call | Ignored =>
+               null;
 
          end case;
-
-
-
---        exception
---           when others =>
---              IO.Put_Line (Line);
---              IO.Put_Line ("Read_File  """
---                           & (if Is_Null (Read_File) then ""
---                             else Read_File.all) & """");
---              IO.Put_Line ("Write_File """
---                           & (if Is_Null (Write_File) then ""
---                             else Write_File.all) & """");
---              Ada.Text_IO.Flush;
---              raise;
 
       end File_Filter;
 
