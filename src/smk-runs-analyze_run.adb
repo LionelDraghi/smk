@@ -19,65 +19,48 @@ with Smk.Runfiles;
 with Smk.Runs.Strace_Analyzer;
 with Smk.Settings;             use Smk.Settings;
 
-with Ada.Strings.Fixed;
 with Ada.Text_IO;
 
 separate (Smk.Runs)
 
 -- -----------------------------------------------------------------------------
-procedure Analyze_Run (Sources_And_Targets : out Files.File_Lists.Map;
-                       Dirs                : out Files.File_Lists.Map;
-                       Counts              : out Runfiles.File_Counts)
-is
+procedure Analyze_Run (Assertions : out Condition_Lists.List) is
+
    Strace_Ouput : Ada.Text_IO.File_Type;
-
-   -- --------------------------------------------------------------------------
-   procedure Update_List (List      : in out Files.File_Lists.Map;
-                          Name      : in     File_Name;
-                          With_Role : in     File_Role) is
-      use File_Lists;
-      C : constant Cursor := List.Find (Name);
-   begin
-      if Has_Element (C) then
-         -- Update:
-         if With_Role = Target then
-            Set_Target (List (C));
-         else
-            -- Other values of Role than Target and Source are
-            -- not possible, hence no "case" here.
-            Set_Source (List (C));
-         end if;
-
-      else
-         -- Creation:
-         List.Insert (Name, Create (Name, With_Role));
-
-      end if;
-   end Update_List;
 
    use Smk.Runs.Strace_Analyzer;
 
    -- --------------------------------------------------------------------------
-   procedure Update_Lists (Write_File : File;
-                           With_Role  : File_Role) is
+   procedure Add (Cond : in Condition) is
    begin
-      if not Is_Null (Write_File)
-        and then not In_Ignore_List (Write_File.all)
-        and then (not Exists (Write_File.all)
-                  or else Kind (Write_File.all) /= Special_File)
+      IO.Put ("Add " & (+Cond.Name) & " " & Trigger_Image (Cond.Trigger),
+             Level => IO.Debug);
+      if not In_Ignore_List (+Cond.Name)
+        and then (not Exists (+Cond.Name)
+                  or else Kind (+Cond.Name) /= Special_File)
       then
-         -- Special_File are filtered, meanning that directories and
-         -- Ordinary_File files are recorded.
-         if Is_Dir (Write_File.all) then
-            Update_List (Dirs, +Write_File.all, With_Role);
+         declare
+            use Condition_Lists;
+            C : constant Cursor := Assertions.Find (Cond);
+         begin
+            if C = No_Element then
+               Assertions.Append (Cond);
+               IO.Put (" inserted", Level => IO.Debug);
+            else
 
-         else
-            Update_List (Sources_And_Targets, +Write_File.all, With_Role);
-
-         end if;
+               if Override (Cond.Trigger, Element (C).Trigger) then
+                  IO.Put (" trigger modified, was "
+                          & Trigger_Image (Element (C).Trigger),
+                          Level => IO.Debug);
+                  Assertions.Replace_Element (C, Cond);
+                  -- else
+                  --    IO.Put_Line (" not inserted");
+               end if;
+            end if;
+         end;
       end if;
-
-   end Update_Lists;
+      IO.New_Line (Level => IO.Debug);
+   end Add;
 
 begin
    -- --------------------------------------------------------------------------
@@ -86,32 +69,44 @@ begin
          Mode => In_File);
 
    while not End_Of_File (Strace_Ouput) loop
-      File_Filter : declare
-         Line  : constant String  := Get_Line (Strace_Ouput);
-         Read_File  : File;
-         Write_File : File;
-         Call_Type  : Line_Type;
+      declare
+         Line      : constant String  := Get_Line (Strace_Ouput);
+         Operation : Operation_Type;
 
       begin
-         Analyze_Line (Line, Call_Type, Read_File, Write_File);
+         Analyze_Line (Line, Operation);
 
-         case Call_Type is
-            when Read_Call           =>
-               Update_Lists (Read_File,  Source);
-
-            when Write_Call          =>
-               Update_Lists (Write_File, Target);
-
-            when Read_Write_Call     =>
-               Update_Lists (Read_File,  Source);
-               Update_Lists (Write_File, Target);
-
-            when Exec_Call | Ignored =>
+         case Operation.Kind is
+            when None   =>
                null;
+
+            when Read   =>
+               Add ((Name    => Operation.Name,
+                     File    => Operation.File,
+                     Trigger => File_Update));
+
+            when Write  =>
+               Add ((Name    => Operation.Name,
+                     File    => Operation.File,
+                     Trigger => File_Absence));
+
+            when Delete =>
+               Add ((Name    => Operation.Name,
+                     File    => Operation.File,
+                     Trigger => File_Presence));
+
+            when Move   =>
+               Add ((Name    => Operation.Source_Name,
+                     File    => Operation.Source,
+                     Trigger => File_Presence));
+               Add ((Name    => Operation.Target_Name,
+                     File    => Operation.Target,
+                     Trigger => File_Absence));
+               -- Fixme: pas un trigger ou une condition, à réorganiser
 
          end case;
 
-      end File_Filter;
+      end;
 
    end loop;
 
@@ -121,72 +116,73 @@ begin
    -- to be able to compare the picture during future run, and detect added
    -- files in that dir.
    --
-   declare
-      Search   : Search_Type;
-      File     : Directory_Entry_Type;
-      New_Dirs : File_Lists.Map;
+--     declare
+--        Search   : Search_Type;
+--        File     : Directory_Entry_Type;
+--        New_Dirs : File_Lists.Map;
+--
+--     begin
+--        for D in Dirs.Iterate loop
+--           Start_Search (Search,
+--                         Directory => +File_Lists.Key (D),
+--                         Pattern   => "./*",
+--                         Filter    => (Ordinary_File => True,
+--                                       others        => False));
+--           IO.Put_Line ("scanning dir " & (+File_Lists.Key (D)),
+--                        Level => IO.Debug);
+--           while More_Entries (Search) loop
+--              Get_Next_Entry (Search, File);
+--
+--              if Settings.In_Ignore_List (Full_Name (File)) then
+--                 IO.Put_Line ("Ignoring " & (Full_Name (File)),
+--                              Level => IO.Debug);
+--
+--              elsif Is_Dir (Full_Name (File)) then
+--                 -- Dir processing
+--                 if Dirs.Contains (+Full_Name (File)) then
+--                IO.Put_Line ("dir " & Simple_Name (File) & " already known");
+--                 else
+--                    IO.Put_Line ("recording not accessed new dir "
+--                                 & Simple_Name (File));
+--                    New_Dirs.Add   (+Full_Name (File),
+--                                       Create (+Full_Name (File), Unused));
+--
+--                 end if;
+--
+--              else -- Fixme: partial code duplication
+--                 -- File processing
+--                 if Sources_And_Targets.Contains (+Full_Name (File)) then
+--               IO.Put_Line ("file " & Simple_Name (File) & " already known");
+--                 else
+--                    IO.Put_Line ("recording not accessed new file "
+--                                 & Simple_Name (File));
+--                    Sources_And_Targets.Add
+--                      (+Full_Name (File),
+--                       Create (+Full_Name (File), Unused));
+--
+--                 end if;
+--
+--              end if;
+--
+--
+--           end loop;
+--
+--        end loop;
+--
+--        -- Merge unused files into dir list:
+--        for F in New_Dirs.Iterate loop
+--           Dirs.Add (Key      => File_Lists.Key (F),
+--                        New_Item => New_Dirs (F));
+--        end loop;
+--
+--     end;
+--
+--     Runfiles.Reset (Counts);
+--     Runfiles.Update_Counts (Sources_And_Targets, Counts);
+--     -- Fixme: no dir in counts   Runfiles.Update_Counts (Dirs, Counts);
 
-   begin
-      for D in Dirs.Iterate loop
-         Start_Search (Search,
-                       Directory => +File_Lists.Key (D),
-                       Pattern   => "./*",
-                       Filter    => (Ordinary_File => True,
-                                     others        => False));
-         IO.Put_Line ("scanning dir " & (+File_Lists.Key (D)),
-                      Level => IO.Debug);
-         while More_Entries (Search) loop
-            Get_Next_Entry (Search, File);
-
-            if Settings.In_Ignore_List (Full_Name (File)) then
-               IO.Put_Line ("Ignoring " & (Full_Name (File)),
-                            Level => IO.Debug);
-
-            elsif Is_Dir (Full_Name (File)) then
-               -- Dir processing
-               if Dirs.Contains (+Full_Name (File)) then
-                  IO.Put_Line ("dir " & Simple_Name (File) & " already known");
-               else
-                  IO.Put_Line ("recording not accessed new dir "
-                               & Simple_Name (File));
-                  New_Dirs.Insert   (+Full_Name (File),
-                                     Create (+Full_Name (File), Unused));
-
-               end if;
-
-            else -- Fixme: partial code duplication
-               -- File processing
-               if Sources_And_Targets.Contains (+Full_Name (File)) then
-                  IO.Put_Line ("file " & Simple_Name (File) & " already known");
-               else
-                  IO.Put_Line ("recording not accessed new file "
-                               & Simple_Name (File));
-                  Sources_And_Targets.Insert
-                    (+Full_Name (File),
-                     Create (+Full_Name (File), Unused));
-
-               end if;
-
-            end if;
-
-
-         end loop;
-
-      end loop;
-
-      -- Merge unused files into dir list:
-      for F in New_Dirs.Iterate loop
-         Dirs.Insert (Key      => File_Lists.Key (F),
-                      New_Item => New_Dirs (F));
-      end loop;
-
-   end;
-
-   Runfiles.Reset (Counts);
-   Runfiles.Update_Counts (Sources_And_Targets, Counts);
-   -- Fixme: no dir in counts   Runfiles.Update_Counts (Dirs, Counts);
-
-   if Debug_Mode then Close (Strace_Ouput);
+   if Debug_Mode
+   then Close  (Strace_Ouput);
    else Delete (Strace_Ouput);
    end if;
 

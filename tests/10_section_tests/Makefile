@@ -29,7 +29,7 @@ sections:
 	@ #-------------------------------------------------------------------------
 	${TR} start 'specific section building'
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk :main.o` with main.o up to date`'
+	${TR} cmt '`smk :main.o` with main.o up to date'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -100,6 +100,17 @@ sections:
 	${TR} cmt 
 	../../smk -a ../hello.c/Makefile.4:mrproper      > out.9.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_targets9.txt out.9.txt" || meld expected_targets9.txt out.9.txt 
+
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -a ../hello.c/Makezzzzzfile.4:mrproper`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected_targets10.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	test ! `../../smk -a ../hello.c/Makezzzzzfile.4:mrproper      > out.10.txt`
+	${TR} assert true /usr/bin/sdiff "-sbB expected_targets10.txt out.10.txt" || meld expected_targets10.txt out.10.txt
 
 	${TR} end
 

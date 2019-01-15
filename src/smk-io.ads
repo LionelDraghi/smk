@@ -44,6 +44,11 @@ private package Smk.IO is
                        File  : in String  := "";
                        Line  : in Integer := 0;
                        Level : Print_Out_Level := Normal);
+   procedure Put (Item  : String;
+                  File  : in String  := "";
+                  Line  : in Integer := 0;
+                  Level : Print_Out_Level := Normal);
+   procedure New_Line (Level : Print_Out_Level := Normal);
 
    -- --------------------------------------------------------------------------
    procedure Put_Warning   (Msg  : in String;

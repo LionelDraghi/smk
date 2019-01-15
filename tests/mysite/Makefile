@@ -19,8 +19,3 @@ all: doc
 
 doc: 
 	mkdocs build --clean --quiet
-
-clean:
-	echo --- clean:
-	rm -rf ./site/*
-	echo OK

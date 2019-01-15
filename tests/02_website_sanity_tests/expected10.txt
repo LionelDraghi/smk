@@ -25,9 +25,9 @@ Deleting ../mysite/site/fonts/glyphicons-halflings-regular.woff2
 Deleting ../mysite/site/img/favicon.ico
 Deleting ../mysite/site/img/grid.png
 Deleting ../mysite/site/img/sloc.png
-Deleting ../mysite/site/img/tests.png
 Deleting ../mysite/site/img/tests_ko.svg
 Deleting ../mysite/site/img/tests_ok.svg
+Deleting ../mysite/site/img/tests.png
 Deleting ../mysite/site/img/version.svg
 Deleting ../mysite/site/index.html
 Deleting ../mysite/site/js/base.js
@@ -42,3 +42,4 @@ Deleting ../mysite/site/sitemap.xml
 Deleting ../mysite/site/sitemap.xml.gz
 Deleting ../mysite/site/smkfile_format/index.html
 Deleting ../mysite/site/tutorial/index.html
+

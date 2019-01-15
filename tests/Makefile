@@ -70,6 +70,9 @@ check: ../smk
 	echo 14_strace_analysis_tests
 	$(MAKE) check --directory=14_strace_analysis_tests
 	echo
+	echo 15_tutorial
+	$(MAKE) check --directory=15_tutorial_tests
+	echo
 
 doc:
 	cat *_tests/testrec.md > testrec.md

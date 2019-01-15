@@ -61,7 +61,7 @@ And don't forget [`smk help`](cmd_line.md).
 
 1. First, get the sources
    
-   - Either donwload it on [the GitHub project page](https://github.com/LionelDraghi/smk)  
+   - Either download it on [the GitHub project page](https://github.com/LionelDraghi/smk)  
 
    - or directly with `git`:  
      > `git clone https://github.com/LionelDraghi/smk.git`

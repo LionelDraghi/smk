@@ -1,0 +1,6 @@
+run "sox x.ogg x.mp3" because x.ogg has been updated (YYYY:MM:DD HH:MM:SS.SS)
+sox x.ogg x.mp3
+run "id3v2 -a Luke -t Sentinelle x.mp3" because x.mp3 has been updated (YYYY:MM:DD HH:MM:SS.SS)
+id3v2 -a Luke -t Sentinelle x.mp3
+run "id3ren -quiet -template=%a-%s.mp3 x.mp3" because x.mp3 is present
+id3ren -quiet -template=%a-%s.mp3 x.mp3

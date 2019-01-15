@@ -1,6 +1,3 @@
-run "mkdocs build --clean --quiet" because Target ../mysite/site/tutorial/index.html is missing
+run "mkdocs build --clean --quiet" because dir ../mysite/site/tutorial has been updated (-- ::.)
 mkdocs build --clean --quiet
-No need to run echo --- clean:
-No need to run rm -rf ./site/*
-No need to run echo OK
 

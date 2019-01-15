@@ -1,5 +1,5 @@
 ../hello.c/hello.o
 ../hello.c/main.o
 ../hello.c/hello.c
-../hello.c/hello.h
 ../hello.c/main.c
+../hello.c/hello.h

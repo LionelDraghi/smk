@@ -1,3 +1,20 @@
 Command "gcc -o hello hello.o main.o" in section [hello], last run [YYYY:MM:DD HH:MM:SS.SS]
+  Sources: (2)
+  - ../hello.c/hello.o
+  - ../hello.c/main.o
+  Targets: (1)
+  - ../hello.c/hello
+
 Command "gcc -o hello.o -c hello.c" in section [hello.o], last run [YYYY:MM:DD HH:MM:SS.SS]
+  Sources: (1)
+  - ../hello.c/hello.c
+  Targets: (1)
+  - ../hello.c/hello.o
+
 Command "gcc -o main.o -c main.c" in section [main.o], last run [YYYY:MM:DD HH:MM:SS.SS]
+  Sources: (2)
+  - ../hello.c/main.c
+  - ../hello.c/hello.h
+  Targets: (1)
+  - ../hello.c/main.o
+

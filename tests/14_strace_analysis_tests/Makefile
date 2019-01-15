@@ -15,16 +15,17 @@
 # ------------------------------------------------------------------------------
 
 
-.PHONY : clean
+.PHONY : clean test_strace_analysis
 
 all: check doc
 
-test_strace_analysis:
-	gprbuild --create-missing-dirs -P test_strace_analysis.gpr
+test_strace_analysis: 
+	gprbuild -q --create-missing-dirs -P test_strace_analysis.gpr
 
-check: ./test_strace_analysis
+check: test_strace_analysis
 	./test_strace_analysis >> testrec.md
-	@ echo OK
+	@ echo
+	@ echo Tests [Successful]
 	
 doc:
 

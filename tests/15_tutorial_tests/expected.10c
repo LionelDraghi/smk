@@ -1,0 +1,2 @@
+run "id3ren -quiet -template=%a-%s.mp3 x.mp3" because it was not run before
+id3ren -quiet -template=%a-%s.mp3 x.mp3

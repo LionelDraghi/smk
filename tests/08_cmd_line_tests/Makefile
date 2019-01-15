@@ -60,7 +60,7 @@ cmd_line:
 	${TR} cmt 'Expected:'
 	${TR} cmt 
 	${TR} cmt '```' 						
-	echo "0.3.0"		> out.expected_version.txt
+	echo "0.4.0"		> out.expected_version.txt
 	cat out.expected_version.txt >> testrec.md					
 	${TR} cmt '```' 						
 	${TR} cmt 
@@ -85,6 +85,24 @@ cmd_line:
 
 	test ! `../../smk read-smkfile status > out.wrong_cmd_line1.txt`
 	${TR} assert true /usr/bin/sdiff "-sbB expected_wrong_cmd_line1.txt out.wrong_cmd_line1.txt" || meld expected_wrong_cmd_line1.txt out.wrong_cmd_line1.txt 
+	
+	${TR} end
+
+	@ #-------------------------------------------------------------------------
+	${TR} start "Option given after a command" 
+	${TR} cmt  								
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk reset -l`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt 
+	${TR} cmt '```' 						
+	cat expected.1 >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+
+	test ! `../../smk reset -l > out.1`
+	${TR} assert true /usr/bin/sdiff "-sbB expected.1 out.1" || meld expected.1 out.1 
 	
 	${TR} end
 

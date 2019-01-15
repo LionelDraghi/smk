@@ -107,14 +107,33 @@ package body Smk.IO is
 
    -- --------------------------------------------------------------------------
    procedure Put_Line (Item  : String;
-                       File  : in String  := "";
-                       Line  : in Integer := 0;
+                       File  : in String       := "";
+                       Line  : in Integer      := 0;
                        Level : Print_Out_Level := Normal) is
    begin
       if Level >= Settings.Verbosity then
          Ada.Text_IO.Put_Line (GNU_Prefix (File, Line) & Item);
       end if;
    end Put_Line;
+
+   -- --------------------------------------------------------------------------
+   procedure Put (Item  : String;
+                  File  : in String       := "";
+                  Line  : in Integer      := 0;
+                  Level : Print_Out_Level := Normal) is
+   begin
+      if Level >= Settings.Verbosity then
+         Ada.Text_IO.Put (GNU_Prefix (File, Line) & Item);
+      end if;
+   end Put;
+
+   -- --------------------------------------------------------------------------
+   procedure New_Line (Level : Print_Out_Level := Normal) is
+   begin
+      if Level >= Settings.Verbosity then
+         Ada.Text_IO.New_Line;
+      end if;
+   end New_Line;
 
    -- --------------------------------------------------------------------------
    function Image (Time : in Ada.Calendar.Time) return String is

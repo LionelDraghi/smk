@@ -161,15 +161,38 @@ run_errors:
 	${TR} cmt '`smk whatsnew`'
 	${TR} cmt '`smk list-sources`'
 	${TR} cmt '`smk list-targets`'
+	${TR} cmt '`smk list-unused`'
 	${TR} cmt 
 	
 	> out.null
-	../../smk whatsnew > out.9
-	${TR} assert true /usr/bin/sdiff "-sbB out.null out.9" || meld out.null out.9 
+	../../smk whatsnew     > out.9
+	${TR} assert true /usr/bin/sdiff "-sbB expected.9 out.9"  || meld expected.9  out.9 
 	../../smk list-sources > out.10
 	${TR} assert true /usr/bin/sdiff "-sbB out.null out.10" || meld out.null out.10 
 	../../smk list-targets > out.11
 	${TR} assert true /usr/bin/sdiff "-sbB out.null out.11" || meld out.null out.11 
+	../../smk list-unused  > out.12
+	${TR} assert true /usr/bin/sdiff "-sbB out.null out.12" || meld out.null out.12 
+
+	${TR} end
+
+	@ #-------------------------------------------------------------------------
+	${TR} start 'debug option' 
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -d dump`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt 
+	${TR} cmt '```' 
+	cat expected.13 >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	../../smk -q reset
+	@ - rm *.smk
+	test ! `../../smk -d dump > out.13 2>&1`
+	${TR} assert true /usr/bin/sdiff "-sbB expected.13 out.13" || meld expected.13 out.13 
 
 	${TR} end
 

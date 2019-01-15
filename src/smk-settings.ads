@@ -21,19 +21,19 @@
 
 private package Smk.Settings is
 
-   Smk_Version : constant String := "0.3.0";
+   Smk_Version : constant String := "0.4.0";
 
    -- --------------------------------------------------------------------------
-   Always_Make         : Boolean := False;
-   Explain             : Boolean := False;
-   Dry_Run             : Boolean := False;
-   Keep_Going          : Boolean := False;
-   Ignore_Errors       : Boolean := False;
-   Long_Listing_Format : Boolean := False;
-   -- Recursive        : Boolean := False;
-   Warnings_As_Errors  : Boolean := False;
-   Shorten_File_Names  : Boolean := True;
-   Filter_Sytem_Files  : Boolean := True;
+   Build_Missing_Targets : Boolean := False;
+   Always_Make           : Boolean := False;
+   Explain               : Boolean := False;
+   Dry_Run               : Boolean := False;
+   Keep_Going            : Boolean := False;
+   Ignore_Errors         : Boolean := False;
+   Long_Listing_Format   : Boolean := False;
+   Warnings_As_Errors    : Boolean := False;
+   Shorten_File_Names    : Boolean := True;
+   Filter_Sytem_Files    : Boolean := True;
 
    type Commands is (Build,
                      Read_Smkfile,
@@ -61,11 +61,13 @@ private package Smk.Settings is
    Shell_Cmd             : constant String := "/bin/sh";
    Shell_Opt             : constant String := "-c "; -- no space before -c!
    Strace_Cmd            : constant String
-     := "/usr/bin/strace -y -q -qq -f -e trace=file -o ";
+     := "/usr/bin/strace -y -q -qq -f -s 100 -e trace=file -o ";
    -- -y  : print paths associated with file descriptor arguments (between <>)
    -- -q  : suppress messages about attaching, detaching, etc.
    -- -qq : suppress messages about process exit status.
    -- -f  : follow forks
+   -- -s  : maximum string size to print (the default is 32)
+   --       Filenames are not considered strings and are always printed in full.
 
    -- --------------------------------------------------------------------------
    function Initial_Directory return String;

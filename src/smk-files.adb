@@ -28,8 +28,6 @@ package body Smk.Files is
      (To_String (Name));
    function "+" (Name : String) return File_Name is
      (File_Name'(To_Unbounded_String (Name)));
-   function "<" (Left, Right : File_Name) return Boolean is
-     ("<" (+Left, +Right));
 
    -- --------------------------------------------------------------------------
    function Shorten (Name : String)    return String is
@@ -42,8 +40,12 @@ package body Smk.Files is
 
    -- --------------------------------------------------------------------------
    function Modification_Time (File_Name : String) return Time is
+      use Ada.Directories;
    begin
-      if Ada.Directories.Exists (File_Name) then
+      if Exists (File_Name) and then Kind (File_Name) /= Special_File
+      -- Trying to get Modification_Time of /dev/urandom
+      -- raise Name_Error
+      then
          return Ada.Directories.Modification_Time (File_Name);
       else
          return Clock;
@@ -72,7 +74,7 @@ package body Smk.Files is
         Is_System => Settings.Is_System (+File),
         Is_Source => (Role = Source or Role = Both),
         Is_Target => (Role = Target or Role = Both),
-        Status    => Created));
+        Status    => New_File));
 
    -- --------------------------------------------------------------------------
    function Time_Tag  (File : File_Type) return Time        is (File.Time_Tag);
@@ -85,48 +87,21 @@ package body Smk.Files is
    function Is_Target (File : File_Type) return Boolean     is (File.Is_Target);
 
    -- --------------------------------------------------------------------------
-   procedure Set_Status (File : in out File_Type; Status : File_Status) is
-   begin
-      File.Status := Status;
-   end Set_Status;
-
-   procedure Set_Source (File : in out File_Type) is
-   begin
-      File.Is_Source := True;
-   end Set_Source;
-
-   procedure Set_Target (File : in out File_Type) is
-   begin
-      File.Is_Target := True;
-   end Set_Target;
-
-   -- --------------------------------------------------------------------------
-   procedure Put_File_Description (Name   : File_Name;
-                                   File   : File_Type;
-                                   Prefix : String := "")
-   is
+   function File_Image (Name   : File_Name;
+                        File   : File_Type;
+                        Prefix : String := "") return String is
       Left : constant String :=
                (if Settings.Long_Listing_Format
                 then Prefix
+                & (if Is_Dir (File)    then "[Dir] "     else "[Fil] ")
+                & (if Is_System (File) then  "[System] " else "[Normal] ")
                 & "[" & Role_Image (To_Role (File)) & "] "
                 & "[" & Status_Image (File.Status)  & "] "
                 & "[" & IO.Image (File.Time_Tag)    & "] "
                 else Prefix);
    begin
-      IO.Put_Line (Item => Left & Shorten (Name));
-   end Put_File_Description;
-
-   -- --------------------------------------------------------------------------
-   procedure Dump_File_Description (Name : File_Name;
-                                    File : File_Type) is
-   begin
-      IO.Put_Line ((if Is_Dir (File) then "[Dir] " else "[Fil] ")
-                   & (if Is_System (File) then  "[System] " else "[Normal] ")
-                   & "[" & Role_Image (To_Role (File))     & "] "
-                   & "[" & Status_Image (File.Status) & "] "
-                   & "[" & IO.Image (File.Time_Tag)   & "] "
-                   & Shorten (Name));
-   end Dump_File_Description;
+      return Left & Shorten (Name);
+   end File_Image;
 
    -- --------------------------------------------------------------------------
    function Is_Dir (File_Name : in String) return Boolean is

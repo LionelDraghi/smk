@@ -19,7 +19,7 @@ Commands :
    build             : run the build
    status       | st : shows what smk knows about the previous
                        runs (commands, sources and targets)
-   read-smkfile | rs : shows Smk understanding of a Smkfile
+   read-smkfile | rs : shows smk understanding of a Smkfile
    whatsnew     | wn : list changes since last run
    add               : add the rest of the command line to
                        default.smk
@@ -39,22 +39,25 @@ Commands :
    NB : when no command is given, build is assumed
 
 Options :
-   -a   | --always-make    : unconditionally make all targets
-   -e   | --explain        : explain why each target is made
-   -n   | --dry-run        : print the commands that would be
-                             executed, but do not execute them
-   -sa  | --show-all-files : prevent -ls and -rl from
-                             ignoring system files
-   -i   | --ignore-errors  : ignore all errors in commands
-                             executed to remake files
-   -l   | --long-listing   : use a long listing format when
-                             listing files
-   -k   | --keep-going     : Do as much work as possible
-   -We  | --Warnings=error : treat warnings as errors
+   -mt  | --missing-targets : build if missing targets
+                              (default is to build only if
+                               sources are updated)
+   -a   | --always-make     : unconditionally make all targets
+   -e   | --explain         : explain why each target is made
+   -n   | --dry-run         : print the commands that would be
+                              executed, but do not execute them
+   -sa  | --show-all-files  : show also system files
+   -ds  | --dont-shorten    : print files with full path
+   -i   | --ignore-errors   : ignore all errors in commands
+                              executed to remake files
+   -l   | --long-listing    : use a long listing format when
+                              listing files
+   -k   | --keep-going      : Do as much work as possible
+   -We  | --Warnings=error  : treat warnings as errors
    -v   | --verbose
-   -q   | --quiet          : no message unless error,
-                             Warning are also ignored
-   -h   | --help           : this message
+   -q   | --quiet           : no message unless error,
+                              Warning are also ignored
+   -h   | --help            : this message
 
 http://lionel.draghi.free.fr/smk/
 
@@ -68,6 +71,6 @@ smk version
 ```
 
 ```
-0.3.0
+0.4.0
 ```
 

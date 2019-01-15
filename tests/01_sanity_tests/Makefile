@@ -108,7 +108,7 @@ sanity:
 	${TR} cmt 
 	${TR} cmt 'Run:'
 	${TR} cmt '`rm ../hello.c/main.o`'
-	${TR} cmt '`smk -e ../hello.c/Makefile.2`'
+	${TR} cmt '`smk -e --missing-targets ../hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 						
@@ -116,7 +116,7 @@ sanity:
 	${TR} cmt '```' 						
 	${TR} cmt 
 	rm ../hello.c/main.o
-	../../smk -e ../hello.c/Makefile.2 | sed "s/[0-9]//g" > out.5
+	../../smk -e --missing-targets ../hello.c/Makefile.2 | sed "s/[0-9]//g" > out.5
 	# Time tag neutralized
 	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.5 out.5" || meld expected_sanity.5 out.5 
 	${TR} end

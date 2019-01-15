@@ -52,4 +52,20 @@ package File_Utilities is
    --   does not have a containing Directory.
    --
 
+   -- --------------------------------------------------------------------------
+   function Escape (Text : in String) return String;
+   -- Linux/bash specific function that escape characters
+   -- ' '
+   -- & '"' & '#' & '$'
+   -- & '&' & ''' & '('
+   -- & ')' & '*' & ','
+   -- & ';' & '<' & '>'
+   -- & '?' & '[' & '\'
+   -- & ']' & '^' & '`'
+   -- & '{' & '|' & '}'
+   -- in command lines pushed to bash.
+   -- Refer to the "Which characters need to be escaped when using Bash?"
+   -- discussion on stackoverflow.com
+   -- Fixme: this function is not portable!
+
 end File_Utilities;

@@ -1,6 +1,6 @@
-run "gcc -o hello.o -c hello.c" because Target ../hello.c/hello.o is missing
+run "gcc -o hello.o -c hello.c" because ../hello.c/hello.o is missing
 gcc -o hello.o -c hello.c
-run "gcc -o main.o -c main.c" because Target ../hello.c/main.o is missing
+run "gcc -o main.o -c main.c" because ../hello.c/main.o is missing
 gcc -o main.o -c main.c
-run "gcc -o hello hello.o main.o" because Target ../hello.c/hello is missing
+run "gcc -o hello hello.o main.o" because ../hello.c/hello is missing
 gcc -o hello hello.o main.o

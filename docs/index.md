@@ -16,11 +16,13 @@ Table of contents
   - [Quick start](#quick-start)
   - [How is this possible?](#how-is-this-possible)
   - [Overview](#overview)
-  - [Quick start tuto](#quick-start-tuto)
-  - [Cool features](#cool-features)
+  - [A little more on usage](#a-little-more-on-usage)
+  - [Cool features TBD](#cool-features-tbd)
     - [using `smk` without `smkfile`](#using-smk-without-smkfile)
     - [Whats new?](#whats-new)
     - [Auto-clean](#auto-clean)
+    - [Working with files: smkfiles, Makefiles or shell scripts](#working-with-files-smkfiles-makefiles-or-shell-scripts)
+  - [Next Step:](#next-step)
   - [Downloading and building](#downloading-and-building)
   - [Further reading](#further-reading)
   
@@ -50,15 +52,15 @@ Let's run this through `smk`, thanks to the `run` command:
 ```bash
 smk run sox x.ogg x.mp3
 smk run id3v2 -a Luke -t Sentinelle x.mp3
-smk run id3ren -template='%a-%s.mp3' x.mp3
+smk run id3ren -quiet -template='%a-%s.mp3' x.mp3
 ```
 
 Note that this test case, yet simple, is already fairly representative:  
-- the first command is reading an input file and creating an output file,
-- the second has the same file as input and output, 
-- and the third is "moving" a file, that is deleting the input file. 
+- the first command is reading an input file and creating an output file,  
+- the second has the same file as input and output,  
+- and the third is "moving" a file, that is deleting the input file.  
 
-The uggly part of of the work is over, now all you have to do to get the things done is: 
+The ugly part of of the work is over, now all you have to do to get the things done is: 
 
 ```bash
 smk
@@ -66,22 +68,21 @@ smk
 
 The result will be:
 
-> Nothing to run
+> Nothing to run  
 
 But if you modify an involved file:  
 
 ```bash
 touch x.ogg
+rm Luke-Sentinelle.mp3
 smk 
 ```
 
-For more information on why is a command run, just give the `--explain` option (`-e` in short form).  
-For instance:
+> sox x.ogg x.mp3  
+> id3v2 -a Luke -t Sentinelle x.mp3  
+> id3ren -quiet -template=%a-%s.mp3 x.mp3  
 
-```bash
-rm Luke-Sentinelle.mp3
-smk -e
-```
+For more information on why is a command run, just give the `--explain` option (`-e` in short form).  
 
 
 ## How is this possible? 
@@ -96,7 +97,7 @@ And this is why you don't have to manually give those information within a Makef
 - **Command** : commands are whatever can be run in the shell, from the simple `gcc` command above to script, or `make whatever`.
 
 - **smkfile** : an smkfile is text file containing commands. It's the closest thing in `smk` to Makefile.  
-The main differences are that smkfiles are simple : no cryptic syntax to describe rules or recipices, you don't need it. Both previous examples are valid smkfiles (yes, even the Makefile, `smk` can read very simple Makefile).  
+The main differences are that smkfiles are simple : no cryptic syntax to describe rules or recipes, you don't need it. Both previous examples are valid smkfiles (yes, even the Makefile, `smk` can read very simple Makefile).  
 And above all, smkfiles are not mandatory to use `smk`! 
 
 - **Run** : a run is an execution of a command, or a list of command through an smkfile. This is what `smk` analyzes thanks to strace.
@@ -160,7 +161,7 @@ And don't forget [`smk help`](cmd_line.md).
 
 1. First, get the sources
    
-   - Either donwload it on [the GitHub project page](https://github.com/LionelDraghi/smk)  
+   - Either download it on [the GitHub project page](https://github.com/LionelDraghi/smk)  
 
    - or directly with `git`:  
      > `git clone https://github.com/LionelDraghi/smk.git`

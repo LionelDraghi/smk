@@ -14,15 +14,14 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
+with File_Utilities;
+with Smk.Assertions;
 with Smk.IO;
 
 with GNAT.OS_Lib;
 
 with Ada.Calendar;
 with Ada.Directories;
-with Ada.Strings.Fixed;
-with Ada.Strings.Maps;
-with Ada.Strings;
 
 separate (Smk.Runs)
 
@@ -33,51 +32,6 @@ procedure Run_Command (E            : in out Smkfiles.Smkfile_Entry;
                        Error_In_Run :    out Boolean)
 is
    -- --------------------------------------------------------------------------
-   function Escape (Text : in String) return String is
-      use Ada.Strings.Maps;
-      Src_Idx       : Natural := Text'First;
-      To_Be_Escaped : constant Character_Set := To_Set (' '
-                                                        & '"' & '#' & '$'
-                                                        & '&' & ''' & '('
-                                                        & ')' & '*' & ','
-                                                        & ';' & '<' & '>'
-                                                        & '?' & '[' & '\'
-                                                        & ']' & '^' & '`'
-                                                        & '{' & '|' & '}');
-      -- Refer to the "Which characters need to be escaped when using Bash?"
-      -- discussion on stackoverflow.com
-      -- Fixme: this escaping is not portable
-
-      Blank_Count   : constant Natural
-        := Ada.Strings.Fixed.Count (Text, Set => To_Be_Escaped);
-      Out_Str       : String (Text'First .. Text'Last + Blank_Count);
-   begin
-      -- IO.Put_Line ("Blank_Count    =" & Natural'Image (Blank_Count));
-      -- IO.Put_Line ("Out_Str'length =" & Natural'Image (Out_Str'Length));
-      -- IO.Put_Line ("Text'length    =" & Natural'Image (Text'Length));
-
-      Out_Str (Text'First .. Text'Last) := Text;
-
-      for I in 1 .. Blank_Count loop
-         -- IO.Put_Line (Integer'Image (I) & ": S >" & Text    & "<");
-         -- IO.Put_Line (Integer'Image (I) & ": T >" & Out_Str & "<");
-         -- IO.Put_Line (Integer'Image (I) & ": Src_Idx before search ="
-         --             & Natural'Image (Src_Idx));
-
-         Src_Idx := Ada.Strings.Fixed.Index (Out_Str (Src_Idx .. Out_Str'Last),
-                                             To_Be_Escaped);
-         -- IO.Put_Line (Integer'Image (I) & ": Src_Idx after search ="
-         --             & Natural'Image (Src_Idx));
-         Ada.Strings.Fixed.Insert (Out_Str,
-                                   Before   => Src_Idx,
-                                   New_Item => "\",
-                                   Drop     => Ada.Strings.Right);
-         Src_Idx := Src_Idx + 2;
-      end loop;
-      return Out_Str;
-   end Escape;
-
-   -- --------------------------------------------------------------------------
    procedure Run (Cmd   : in     Command_Lines;
                   OK    :    out Boolean) is
       -- Spawn the Cmd under strace.
@@ -87,9 +41,9 @@ is
       Debug       : constant Boolean := False;
       Prefix      : constant String  := "";
       Opt         : constant String  := Settings.Shell_Opt
-                      & Escape (Settings.Strace_Cmd
-                                & Settings.Strace_Outfile_Name
-                                & " " & (+Cmd));
+                      & File_Utilities.Escape (Settings.Strace_Cmd
+                                               & Settings.Strace_Outfile_Name
+                                               & " " & (+Cmd));
       Initial_Dir : constant String  := Current_Directory;
       Spawn_Arg   : constant Argument_List_Access
         := Argument_String_To_List (Opt);
@@ -120,11 +74,9 @@ is
    end Run;
 
    use Smk.Runfiles;
-   OK                  : Boolean;
-   Sources_And_Targets : Files.File_Lists.Map;
-   New_Run_Time        : Ada.Calendar.Time;
-   Counts              : Runfiles.File_Counts;
-   Dirs                : Files.File_Lists.Map;
+   OK           : Boolean;
+   New_Run_Time : Ada.Calendar.Time;
+   Assertions   : Condition_Lists.List;
 
 begin
    -- --------------------------------------------------------------------------
@@ -153,17 +105,14 @@ begin
 
          if OK then
             -- 2. Analyze the run log
-            Analyze_Run (Sources_And_Targets, Dirs, Counts);
+            Analyze_Run (Assertions);
 
             -- 3. Store the results
             Insert_Or_Update
               (The_Command => E.Command,
-               The_Run     =>
-                 (Section  => E.Section,
-                  Run_Time => New_Run_Time,
-                  Files    => Sources_And_Targets,
-                  Dirs     => Dirs,
-                  Counts   => Counts),
+               The_Run     => (Section    => E.Section,
+                               Run_Time   => New_Run_Time,
+                               Assertions => Assertions),
                In_Run_List => The_Run_List);
          end if;
 

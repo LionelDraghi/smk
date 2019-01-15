@@ -2,7 +2,7 @@
 
 ## Successful
 
-   40 tests OK
+   47 tests OK
 
   - [Sanity / First `smk`, after `make`, should run no command](testrec.md#)
   - [Sanity / Second `smk`, should not run any command](testrec.md#)
@@ -27,9 +27,11 @@
   - [Implicit naming / Implicit naming](testrec.md#)
   - [Run errors / -k -i](testrec.md#)
   - [Run errors / `run` command fails](testrec.md#)
+  - [Run errors / debug option](testrec.md#)
   - [Command line / Help options](testrec.md#)
   - [Command line / Version option](testrec.md#)
   - [Command line / Illegal cmd lines](testrec.md#)
+  - [Command line / Option given after a command](testrec.md#)
   - [Command line / Unknow Makefile](testrec.md#)
   - [Multiline Commands / multiline single command](testrec.md#)
   - [Multiline Commands / multiline with more commands and pipes](testrec.md#)
@@ -40,21 +42,24 @@
   - [Command Run features / Add and build](testrec.md#)
   - [Command Run features / Run](testrec.md#)
   - [Directory update tests / start conversion](testrec.md#)
-  - [Directory update tests / start conversion](testrec.md#)
   - [Directory update tests / new ogg in dir](testrec.md#)
   - [Directory update tests / ogg-to-mp3 is modified](testrec.md#)
+  - [Directory update tests / adding a .ogg file in a subdir](testrec.md#)
+  - [Directory update tests / smk clean](testrec.md#)
   - [All tests OK](testrec.md#)
+  - [All tests OK](testrec.md#)
+  - [Tutorial / start conversion](testrec.md#)
+  - [Tutorial / second run](testrec.md#)
+  - [Tutorial / smk do not rebuild if a target is missing!!!](testrec.md#)
 
 ## Failed
 
-   4 tests failed
+   1 tests failed
 
-**Directory update tests / adding a .ogg file in a subdir](testrec.md#)
-**Directory update tests / smk clean](testrec.md#)
-  - [4 tests fails](testrec.md#)
-  - [4 tests fails](testrec.md#)
+**Tutorial / unless using the `-mt` / `--build-missing-target` option](testrec.md#)
 
 ## Empty
 
-   0 empty tests
+   1 empty tests
 
+  - [Tutorial / smk do rebuild if you give the target](testrec.md#)

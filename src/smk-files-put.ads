@@ -19,9 +19,10 @@ with Smk.Files.File_Lists;
 procedure Smk.Files.Put (File_List     : File_Lists.Map;
                          Prefix        : String  := "";
                          Print_Sources : Boolean := False;
-                         Print_Targets : Boolean := False);
+                         Print_Targets : Boolean := False;
+                         Print_Unused  : Boolean := False);
 -- Print files matching one of the boolean, in a one per line way.
 -- If Settings.Filter_System_Files, then ignore
 -- /lib /usr /etc /opt etc. files
 -- NB : it's a OR between Sources and Targets, meaning that if Print_Sources
--- is set, files that are Source or Both will be selected.
+-- is set, files that are Source or Both (Source and Target) will be selected.

@@ -100,6 +100,24 @@ begin
              To_File  => "/home/readme.txt"),
           Expected => "../../../../readme.txt");
 
+   Check (Title    => "File is the current dir",
+          Result   => Short_Path
+            (From_Dir => "/home/tests/",
+             To_File  => "/home/tests"),
+          Expected => "./");
+
+   Check (Title    => "File is over Dir, Dir and File with final /",
+          Result   => Short_Path
+            (From_Dir => "/home/tests/",
+             To_File  => "/home/tests/"),
+          Expected => "./");
+
+   Check (Title    => "No common part",
+          Result   => Short_Path
+            (From_Dir => "/home/toto/src/tests/",
+             To_File  => "/opt/GNAT/2018/lib64/libgcc_s.so"),
+          Expected => "/opt/GNAT/2018/lib64/libgcc_s.so");
+
    -- --------------------------------------------------------------------------
    New_Line;
    if Failure_Count /= 0 then

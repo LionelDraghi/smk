@@ -20,8 +20,13 @@ Write_Call
 /tmp/ccvHeGYq.res
 Dir openat 
 2918  openat(AT_FDCWD, "./site/about", O_RDONLY|O_NOCTTY|O_NONBLOCK|O_NOFOLLOW|O_CLOEXEC|O_DIRECTORY) = 3</home/lionel/Proj/smk/tests/mysite/site/about>
-Ignored
+Read_Call
+/home/lionel/Proj/smk/tests/mysite/site/about
 
+Dir openat without AT_FDCWD
+904   openat(5</home/lionel/Proj/smk/tests/12_mp3_conversions_tests>, "dir1", O_RDONLY|O_NOCTTY|O_NONBLOCK|O_NOFOLLOW|O_CLOEXEC|O_DIRECTORY) = 6</home/lionel/Proj/smk/tests/12_mp3_conversions_tests/dir1>
+Read_Call
+/home/lionel/Proj/smk/tests/12_mp3_conversions_tests/dir1
 
 Access Error (EACCES)
 25242 mkdir("/usr/lib/python3/dist-packages/click/__pycache__", 0777) = -1 EACCES (Permission denied)
@@ -58,16 +63,26 @@ unlinkat AT_REMOVEDIR
 Ignored
 
 
+Set a current directory for process 30461
+30461 getcwd("/dir1/dir2", 4096) = 36
+ignored
+
+
+Set a current directory for process 15232 with final /
+15232 getcwd("/dir3/dir4/", 4096) = 36
+ignored
+
+
 Read AND Write test
 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
 Read_Write_Call
-x.mp3
-unknown-unknown.mp3
+/dir1/dir2/x.mp3
+/dir1/dir2/unknown-unknown.mp3
 Rename with two AT_FDCWD
 15232 renameat2(AT_FDCWD, "all.filecount.new", AT_FDCWD, "all.filecount", RENAME_NOREPLACE) = 0
 Read_Write_Call
-./all.filecount.new
-./all.filecount
+/dir3/dir4/all.filecount.new
+/dir3/dir4/all.filecount
 renameat with explicit dir (and not AT_FDCWD), with and without final /
 15165 renameat(5</home/lionel/.slocdata>, "old", 5</home/lionel/.slocdata/>, "new")...
 Read_Write_Call

@@ -1,0 +1,2 @@
+Error : Unknown Smkfile ../hello.c/Makezzzzzfile.4 in ../hello.c/Makezzzzzfile.4:mrproper
+Error : No smkfile given, and more than one runfile in dir

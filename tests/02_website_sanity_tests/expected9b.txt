@@ -1,2 +1,3 @@
+[Updated] ../mysite/site/tutorial
 [Updated] ../mysite/docs/about.md
 [Missing] ../mysite/site/tutorial/index.html

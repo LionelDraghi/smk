@@ -1,0 +1,42 @@
+Error : No smkfile given, and no existing runfile in dir
+
+Settings / Command line analysis:
+---------------------------------
+
+   Verbosity         : DEBUG
+   Command           : DUMP
+   Smkfile name      : 
+   Runfile name      : 
+   Strace out file   : 
+   Section name      : 
+   Cmd Line          : 
+   Target name       : 
+   Unidentified Opt  : 
+   Initial directory : /home/lionel/Proj/smk/tests/07_run_error_tests
+
+   System Files      : 
+   - /usr/*
+   - /lib/*
+   - /etc/*
+   - /opt/*
+
+   Ignore list       : 
+   - /sys/*
+   - /proc/*
+   - /dev/*
+   - /tmp/*
+   - /etc/ld.so.cache
+
+   [ ] Build_Missing_Targets
+   [ ] Always_Make
+   [ ] Explain
+   [ ] Dry_Run
+   [ ] Keep_Going
+   [ ] Ignore_Errors
+   [ ] Long_Listing_Format
+   [ ] Warnings_As_Errors
+   [X] Shorten_File_Names
+   [X] Filter_Sytem_Files
+
+---------------------------------
+

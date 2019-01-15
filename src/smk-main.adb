@@ -14,6 +14,7 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
+with Smk.Assertions;
 with Smk.Definitions;      use Smk.Definitions;
 with Smk.IO;
 with Smk.Files;
@@ -29,8 +30,6 @@ with Ada.Strings.Unbounded;
 with Ada.Text_IO;
 
 procedure Smk.Main is
-
-   -- Debug : constant Boolean := True;
 
    -- --------------------------------------------------------------------------
    -- Put_Line Utilities:
@@ -57,7 +56,8 @@ begin
    end if;
 
    case Current_Command is
-      when Read_Smkfile => Smkfiles.Dump;
+      when Read_Smkfile =>
+         Smkfiles.Dump;
 
       when Status =>
          declare
@@ -77,47 +77,54 @@ begin
          Runfiles.Put_Run_List;
 
       when List_Targets =>
-         Runfiles.Put_Files (Runfiles.Load_Runfile, Print_Targets => True);
+         Runfiles.Put_Files (Runfiles.Load_Runfile,
+                             Print_Targets => True);
 
       when List_Sources =>
-         Runfiles.Put_Files (Runfiles.Load_Runfile, Print_Sources => True);
+         Runfiles.Put_Files (Runfiles.Load_Runfile,
+                             Print_Sources => True);
 
       when List_Unused =>
          Runfiles.Put_Files (Runfiles.Load_Runfile,
-                             Print_Sources => False,
-                             Print_Targets => False);
+                             Print_Unused => True);
 
       when Whatsnew =>
          declare
             use Runfiles;
             The_Runfile  : Runfile;
-            Updated_List : Files.File_Lists.Map;
+            Updated_List : Assertions.Condition_Lists.List;
          begin
             The_Runfile := Load_Runfile;
             for R of The_Runfile.Run_List loop
-               Update_Files_Status (R.Files, Updated_List);
-               Update_Dirs_Status  (R, Updated_List);
+               Update_Files_Status (R.Assertions, Updated_List);
             end loop;
             Put_Updated (Updated_List);
          end;
 
-      when Clean => Runfiles.Delete_Targets (Runfiles.Load_Runfile);
+      when Clean =>
+         Runfiles.Delete_Targets (Runfiles.Load_Runfile);
 
-      when Reset => Runfiles.Clean_Run_Files;
+      when Reset =>
+         Runfiles.Clean_Run_Files;
 
-      when Version => IO.Put_Line (Settings.Smk_Version);
+      when Version =>
+         IO.Put_Line (Settings.Smk_Version);
 
-      when Build => Build;
+      when Build =>
+         Build;
 
-      when Add => Smkfiles.Add_To_Smkfile (Command_Line);
+      when Add =>
+         Smkfiles.Add_To_Smkfile (Command_Line);
 
-      when Dump => Runfiles.Dump (Runfiles.Load_Runfile);
+      when Dump =>
+         Runfiles.Dump (Runfiles.Load_Runfile);
 
       when Run =>
          Smkfiles.Add_To_Smkfile (Command_Line);
          Build;
 
-      when Help => Put_Help;
+      when Help =>
+         Put_Help;
 
       when None =>
          Put_Error
@@ -128,10 +135,5 @@ begin
    if IO.Some_Error and not Ignore_Errors then
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
-
---  exception
---     when others =>
---        Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
---        raise;
 
 end Smk.Main;

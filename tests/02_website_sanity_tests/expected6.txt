@@ -1,7 +1,3 @@
 
 mkdocs build --clean --quiet
-echo --- clean:
---- clean:
-rm -rf ./site/*
-echo OK
-OK
+

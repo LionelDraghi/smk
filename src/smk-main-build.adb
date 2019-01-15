@@ -18,7 +18,7 @@ with Smk.Runs;
 
 separate (Smk.Main)
 
--- --------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 procedure Build is
    Smkfile       : Smkfiles.Smkfile;
    Runfile       : Runfiles.Runfile;
@@ -59,7 +59,6 @@ begin
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    end if;
 
-   -- Save the updated run:
    Runfiles.Save_Run (Runfile);
 
 end Build;

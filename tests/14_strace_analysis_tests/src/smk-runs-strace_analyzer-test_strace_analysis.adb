@@ -1,9 +1,25 @@
-with Smk.Runs.Strace_Analyzer;    use Smk.Runs.Strace_Analyzer;
---with Smk.Settings;      use Smk.Settings;
+-- -----------------------------------------------------------------------------
+-- smk, the smart make (http://lionel.draghi.free.fr/smk/)
+-- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
+-- SPDX-License-Identifier: APSL-2.0
+-- -----------------------------------------------------------------------------
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+-- http://www.apache.org/licenses/LICENSE-2.0
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- -----------------------------------------------------------------------------
+
+with Smk.Files;                          use Smk.Files;
+with Smk.Runs.Strace_Analyzer;           use Smk.Runs.Strace_Analyzer;
 
 with Ada.Command_Line;
 with Ada.Strings.Equal_Case_Insensitive;
-with Ada.Text_IO;       use Ada.Text_IO;
+with Ada.Text_IO;                        use Ada.Text_IO;
 
 
 procedure Smk.Runs.Strace_Analyzer.Test_Strace_Analysis is
@@ -36,16 +52,16 @@ procedure Smk.Runs.Strace_Analyzer.Test_Strace_Analysis is
    Test_Data : Ada.Text_IO.File_Type;
 
 begin
-   New_Line;
-   Put_Line ("# Strace_Analyzer unit tests");
-   New_Line;
-
-   -- Verbosity := Debug;
-
    -- --------------------------------------------------------------------------
+   New_Line;
+   Put_Line ("# Analyze_Line unit tests");
+   New_Line;
+
    Open (File => Test_Data,
          Name => "test_data.txt",
          Mode => In_File);
+
+   -- Smk.Settings.Verbosity := Debug;
 
    while not End_Of_File (Test_Data) loop
       declare
@@ -55,30 +71,49 @@ begin
          Read_File_Name  : constant String := Get_Line (Test_Data);
          Write_File_Name : constant String := Get_Line (Test_Data);
 
-         Call_Type  : Line_Type;
-         Read_File  : File;
-         Write_File : File;
+         Operation  : Operation_Type;
 
       begin
          New_Test (Title, Line);
 
-         Smk.Runs.Strace_Analyzer.Analyze_Line (Line,
-                                                Call_Type,
-                                                Read_File,
-                                                Write_File);
+         Smk.Runs.Strace_Analyzer.Analyze_Line (Line, Operation);
 
-         Check (Title    => "Call_Type",
-                Result   => Line_Type'Image (Call_Type),
-                Expected => Call);
-         Check (Title    => "Read file",
-                Result   => (if Read_File =  null then "" else Read_File.all),
-                Expected => Read_File_Name);
-         Check (Title    => "Write file",
-                Result   => (if Write_File = null then "" else Write_File.all),
-                Expected => Write_File_Name);
+         case Operation.Kind is
+            when None =>
+               Check (Title    => "Call_Type",
+                      Result   => "Ignored",
+                      Expected => Call);
 
+            when Read =>
+               Check (Title    => "Read file",
+                      Result   => +Operation.Name,
+                      Expected => Read_File_Name);
+
+            when Write | Delete =>
+               Check (Title    => "Write file",
+                      Result   => +Operation.Name,
+                      Expected => Write_File_Name);
+
+            when Move =>
+               Check (Title    => "Source file",
+                      Result   => +Operation.Source_Name,
+                      Expected => Read_File_Name);
+               Check (Title    => "Target file",
+                      Result   => +Operation.Target_Name,
+                      Expected => Write_File_Name);
+
+         end case;
       end;
    end loop;
+   Close (File => Test_Data);
+
+   -- To Add To data_test when unfinished line processing is implemented:
+   --  Unfinished
+   --  6911  openat(AT_FDCWD, "/etc/ld.so.cache", \
+   --                                        O_RDONLY|O_CLOEXEC <unfinished ...>
+   --  Ignored
+   --
+   --
 
    -- --------------------------------------------------------------------------
    New_Line;

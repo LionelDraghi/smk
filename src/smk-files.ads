@@ -24,19 +24,19 @@ private package Smk.Files is
    --   This package defines a File and related operations
 
    -- --------------------------------------------------------------------------
-   type File_Status is (Created,
+   type File_Status is (New_File,
                         Identical,
                         Updated,
                         Missing,
                         Unknown) with Default_Value => Unknown;
    Status_Image : constant array (File_Status) of String (1 .. 7) :=
-                    (Created   => "Created",
+                    (New_File  => "New    ",
                      Identical => "Identic", -- Identical
                      Updated   => "Updated",
                      Missing   => "Missing",
                      Unknown   => "Unknown");
    Short_Status_Image : constant array (File_Status) of Character :=
-                          (Created   => 'C',
+                          (New_File  => 'N',
                            Identical => '=',
                            Updated   => 'U',
                            Missing   => 'M',
@@ -54,10 +54,11 @@ private package Smk.Files is
                    Unused => "Unused");
 
    -- --------------------------------------------------------------------------
-   type File_Name is private;
+   type File_Name is new Unbounded_String;
    function "+" (Name : File_Name) return String;
    function "+" (Name : String)    return File_Name;
-   function "<" (Left, Right : File_Name) return Boolean;
+   No_File : constant File_Name
+     := File_Name (Ada.Strings.Unbounded.Null_Unbounded_String);
 
    -- --------------------------------------------------------------------------
    function Shorten (Name : String)    return String;
@@ -74,12 +75,6 @@ private package Smk.Files is
                     Role : File_Role) return File_Type;
 
    -- --------------------------------------------------------------------------
-   -- procedure Set_Role   (File : in out File_Type; Role   : File_Role);
-   procedure Set_Status (File : in out File_Type; Status : File_Status);
-   procedure Set_Source (File : in out File_Type);
-   procedure Set_Target (File : in out File_Type);
-
-   -- --------------------------------------------------------------------------
    function Time_Tag  (File : File_Type) return Ada.Calendar.Time;
    function Is_Dir    (File : File_Type) return Boolean;
    function Is_System (File : File_Type) return Boolean;
@@ -88,18 +83,16 @@ private package Smk.Files is
    function Status    (File : File_Type) return File_Status;
    function Is_Source (File : File_Type) return Boolean;
    function Is_Target (File : File_Type) return Boolean;
+   function Is_Unused (File : File_Type) return Boolean is
+     (not Is_Source (File) and not Is_Target (File));
 
    -- --------------------------------------------------------------------------
-   procedure Put_File_Description (Name   : File_Name;
-                                   File   : File_Type;
-                                   Prefix : String := "");
-   -- Print a one line File description,
-   -- with a format variable according to Long_Listing_Format setting
-
-   -- --------------------------------------------------------------------------
-   procedure Dump_File_Description (Name : File_Name;
-                                    File : File_Type);
-   -- Print all about the File, no filtering
+   function File_Image (Name   : File_Name;
+                        File   : File_Type;
+                        Prefix : String := "") return String;
+   -- Return a string according to Long_Listing_Format setting
+   -- if False: Fixme:
+   -- if True: Fixme:
 
    -- --------------------------------------------------------------------------
    function Is_Dir (File_Name : in String) return Boolean;
@@ -119,7 +112,5 @@ private
       Is_Target : Boolean;
       Status    : File_Status;
    end record;
-
-   type File_Name is new Unbounded_String;
 
 end Smk.Files;

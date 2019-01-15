@@ -14,5 +14,5 @@ Command "sox x.ogg x.mp3", last run [YYYY:MM:DD HH:MM:SS.SS]
 Sources: (1)
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.ogg
 Targets: (1)
-  - [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
+  - [Target] [Updated] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
 

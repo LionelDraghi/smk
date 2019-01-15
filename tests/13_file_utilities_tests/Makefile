@@ -15,16 +15,17 @@
 # ------------------------------------------------------------------------------
 
 
-.PHONY : clean
+.PHONY : clean test_file_utilities
 
 all: check doc
 
 test_file_utilities:
-	gprbuild --create-missing-dirs -P test_file_utilities.gpr
+	gprbuild -q --create-missing-dirs -P test_file_utilities.gpr
 
-check: ./test_file_utilities
+check: test_file_utilities
 	./test_file_utilities >> testrec.md
-	@ echo OK
+	@ echo
+	@ echo Tests [Successful]
 	
 doc:
 

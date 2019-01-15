@@ -18,86 +18,28 @@ TR=../Tools/testrec
 
 .PHONY : clean
 
-check: ../../smk header run conv new_file ogg-to-mp3 sub_dir smk_clean
+check: ../../smk header conv new_file ogg-to-mp3 sub_dir smk_clean
 
 header: clean
 	@ #-------------------------------------------------------------------------
 	${TR} create "Directory update tests"
 	
-run: header
-	@ #-------------------------------------------------------------------------
-	${TR} start 'start conversion'
-	${TR} cmt 
-	${TR} cmt 'Run:'
-	${TR} cmt '`smk -q reset`'
-	# converting ogg to mp3:
-	${TR} cmt '`sox x.ogg x.mp3`'
-	# setting Artist and Tittle tags:
-	${TR} cmt '`id3v2 -a Luke -t Sentinelle x.mp3`'
-	# renaming according to tags:
-	${TR} cmt '`id3ren -template='%a - %s.mp3' x.mp3`'	
-	${TR} cmt 
-	${TR} cmt 'Expected:'
-	${TR} cmt '```' 
-	cat expected.30 >> testrec.md
-	${TR} cmt '```' 
-	${TR} cmt 
-	
-	../../smk -q reset
-	../../smk run sox x.ogg x.mp3 								>  out.30
-	#sleep 1.0
-	../../smk run id3v2 -a Luke -t Sentinelle x.mp3 			>> out.30
-	#sleep 1.0
-	../../smk run id3ren -quiet -template='%a-%s.mp3' x.mp3 	>> out.30
-	${TR} assert true /usr/bin/sdiff "-sbB expected.30 out.30" || meld expected.30 out.30 
-
-	${TR} cmt 'Run:'
-	${TR} cmt '`smk st -l`'
-	${TR} cmt 
-	${TR} cmt 'Expected:'
-	${TR} cmt '```' 
-	cat expected.31 >> testrec.md
-	${TR} cmt '```' 
-	${TR} cmt 
-	
-	../../smk st -l | \
-	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
-	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.31
-	${TR} assert true /usr/bin/sdiff "-sbB expected.31 out.31" || meld expected.31 out.31 
-
-	${TR} cmt 'Run: (same with system files)'
-	${TR} cmt '`smk st -l -sa`'
-	${TR} cmt 
-	${TR} cmt 'Expected:'
-	${TR} cmt '```' 
-	cat expected.32 >> testrec.md
-	${TR} cmt '```' 
-	${TR} cmt 
-	
-	../../smk st -l -sa | \
-	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
-	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.32
-	${TR} assert true /usr/bin/sdiff "-sbB expected.32 out.32" || meld expected.32 out.32 
-
-	${TR} end
-
-
-conv: header 
+conv:  
 	@ #-------------------------------------------------------------------------
 	${TR} start 'start conversion'
 	${TR} cmt 
 	${TR} cmt 'Run:'
 	${TR} cmt '`rm default.smk`'
 	${TR} cmt '`smk -q reset`'
-	${TR} cmt "`smk run ./ogg-to-mp3.sh`"
+	${TR} cmt '`smk run ./ogg-to-mp3.sh`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
 	cat expected.1 >> testrec.md
 	${TR} cmt '```' 
 	${TR} cmt 
-	
-	- rm default.smk
+
+	@ - rm default.smk
 	../../smk -q reset
 	../../smk run ./ogg-to-mp3.sh > out.1
 	${TR} assert true /usr/bin/sdiff "-sbB expected.1 out.1" || meld expected.1 out.1 
@@ -124,7 +66,7 @@ new_file:
 	${TR} cmt 
 	${TR} cmt 'Run:'
 	${TR} cmt '`cp x.ogg z.ogg`'
-	${TR} cmt "`smk whatsnew`"
+	${TR} cmt '`smk whatsnew`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -144,9 +86,9 @@ ogg-to-mp3:
 	${TR} start 'ogg-to-mp3 is modified'
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt "`smk -q run ./ogg-to-mp3.sh`"
+	${TR} cmt '`smk -q run ./ogg-to-mp3.sh`'
 	${TR} cmt '`touch ogg-to-mp3`'
-	${TR} cmt "`smk -e`"
+	${TR} cmt '`smk -e`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -168,8 +110,8 @@ sub_dir: ogg-to-mp3
 	${TR} start 'adding a .ogg file in a subdir'
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt "`mkdir dir1`"
-	${TR} cmt "`smk wn`"
+	${TR} cmt '`mkdir dir1`'
+	${TR} cmt '`smk wn`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -183,7 +125,7 @@ sub_dir: ogg-to-mp3
 	${TR} assert true /usr/bin/sdiff "-sbB expected.20 out.20" || meld expected.20 out.20 
 
 	${TR} cmt 'Run:'
-	${TR} cmt "`smk -e run ./ogg-to-mp3.sh`"
+	${TR} cmt '`smk -e run ./ogg-to-mp3.sh`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -191,12 +133,14 @@ sub_dir: ogg-to-mp3
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk -e run ./ogg-to-mp3.sh > out.21
+	../../smk -e run ./ogg-to-mp3.sh | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.21
 	${TR} assert true /usr/bin/sdiff "-sbB expected.21 out.21" || meld expected.21 out.21 
 
 	${TR} cmt 'Run:'
-	${TR} cmt "`cp x.ogg dir1/t.ogg`"
-	${TR} cmt "`smk -e run ./ogg-to-mp3.sh`"
+	${TR} cmt '`cp x.ogg dir1/t.ogg`'
+	${TR} cmt '`smk -e run ./ogg-to-mp3.sh`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -205,7 +149,9 @@ sub_dir: ogg-to-mp3
 	${TR} cmt 
 
 	cp x.ogg dir1/t.ogg
-	../../smk -e run > out.22
+	../../smk -e run | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.22
 	${TR} assert true /usr/bin/sdiff "-sbB expected.22 out.22" || meld expected.22 out.22 
 
 	${TR} end
@@ -215,7 +161,7 @@ smk_clean:
 	${TR} start 'smk clean'
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt "`smk clean`"
+	${TR} cmt '`smk clean`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 

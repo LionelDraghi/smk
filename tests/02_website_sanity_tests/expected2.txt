@@ -1,18 +1,18 @@
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/about.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/changelog.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/cmd_line.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/compare_with_make.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/contributing.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/dashboard.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/design_notes.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/fixme.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/sloc.png
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/tests.png
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/tests_ko.svg
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/tests_ok.svg
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/version.svg
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/index.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/limitations.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/smkfile_format.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/tutorial.md
-"mkdocs build --clean --quiet" [doc] [Source] [Created] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/mkdocs.yml
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/mkdocs.yml
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/index.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/about.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/changelog.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/cmd_line.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/compare_with_make.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/contributing.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/dashboard.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/design_notes.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/fixme.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/limitations.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/smkfile_format.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/tutorial.md
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/sloc.png
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/tests.png
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/tests_ko.svg
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/tests_ok.svg
+"mkdocs build --clean --quiet" [doc] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../mysite/docs/img/version.svg

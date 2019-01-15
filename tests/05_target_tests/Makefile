@@ -66,7 +66,7 @@ targets:
 	${TR} assert true /usr/bin/sdiff "-sbB expected_targets3.txt out.3.txt" || meld expected_targets3.txt out.3.txt 
 
 	${TR} cmt 'Run:'
-	${TR} cmt '`smk -e`  (to check effective cleaning)'
+	${TR} cmt '`smk -e -mt`  (to check effective cleaning)'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -74,7 +74,7 @@ targets:
 	${TR} cmt '```' 
 	${TR} cmt 
 
-	../../smk -e      > out.4.txt 
+	../../smk -e -mt     > out.4.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected_targets4.txt out.4.txt" || meld expected_targets4.txt out.4.txt 
 
 	${TR} end

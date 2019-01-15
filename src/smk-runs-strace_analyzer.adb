@@ -14,27 +14,17 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-with File_Utilities;
 with Smk.IO;
 with Smk.Settings;
 
-with Ada.Strings.Fixed;          use Ada.Strings.Fixed;
+with Ada.Containers.Ordered_Maps; use Ada.Containers;
+with Ada.Directories;
+with Ada.Strings.Fixed;           use Ada.Strings.Fixed;
 with Ada.Strings.Maps.Constants;
-with Ada.Strings.Unbounded;      use Ada.Strings.Unbounded;
 with Ada.Strings.Maps;
-with Ada.Strings;
--- with Ada.Strings.Maps.Constants; use Ada.Strings.Maps.Constants;
--- with Ada.Strings.Maps;
+with Ada.Strings;                 use Ada.Strings;
 
 package body Smk.Runs.Strace_Analyzer is
-
-   Function_First_Char : constant := 7;
-   -- Cmd_Set : constant Ada.Strings.Maps.Character_Set := Alphanumeric_Set;
-   -- defines char that are expected in the command name ("access", "read",
-   -- "write", etc.)
-
-   Current_Dir         : Unbounded_String := To_Unbounded_String
-     (Smk.Settings.Initial_Directory);
 
    -- --------------------------------------------------------------------------
    type Function_List is array (Positive range <>) of access String;
@@ -42,85 +32,51 @@ package body Smk.Runs.Strace_Analyzer is
    Special_Lines : constant Function_List := (new String'("---"),
                                               new String'("<..."));
    -- Filter line like :
-   -- "15214 --- SIGCHLD ..."
+   --    "15214 --- SIGCHLD ..."
    -- or
-   -- "15225 <... access resumed> ..."
+   --    "15225 <... access resumed> ..."
+   --
+   -- Fixme: processing of unfinished line not done
+   -- Example:
+   --    15168 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
+   --    15168 <... access resumed> {st_mode=0755, st_size=122224, ...}) = 0
+   -- In some case, the command name is in the interrupted line,
+   -- but the fine name (returned prarameter for instance) is
+   -- in the resume line. We need to save the interrupted line
+   -- until the line is complete, and then process it.
+   -- The drawback may be a screwed timing or sequencing, I'm not sure,
+   -- but anyway it will be better than current situation, that cause the
+   -- trace to be ignored.
 
-   Ignore_List     : constant Function_List := (new String'("stat"),
-                                                new String'("access"),
-                                                new String'("fstat"),
-                                                new String'("lstat"),
-                                                new String'("faccessat"),
-                                                new String'("execve"),
-                                                new String'("SIGCHLD"),
-                                                new String'("fcntl"),
-                                                new String'("lseek"),
-                                                new String'("mknod"),
-                                                new String'("umask"),
-                                                new String'("close"),
-                                                new String'("statfs"),
-                                                new String'("fstatfs"),
-                                                new String'("fstatat"),
-                                                new String'("newfstatat"),
-                                                new String'("freopen"),
-                                                new String'("utimensat"),
-                                                new String'("futimens"),
-                                                new String'("chmod"),
-                                                new String'("fchmod"),
-                                                new String'("fchmodat"),
-                                                new String'("chown"),
-                                                new String'("lchown"),
-                                                new String'("fchown"),
-                                                new String'("fchownat"),
-                                                new String'("unlink"),
-                                                new String'("unlinkat"),
-                                                new String'("remove"),
-                                                new String'("mkdir"),
-                                                new String'("rmdir"),
-                                                new String'("chdir"));
-   Read_Only_List  : constant Function_List := (new String'("readlink"),
-                                                new String'("readlinkat"));
-   Write_Only_List : constant Function_List := (new String'("write"),
-                                                new String'("creat"),
-                                                new String'("rename"),
-                                                new String'("renameat"),
-                                                new String'("renameat2"),
-                                                new String'("link"));
-   Read_Or_Write_List : constant Function_List := (new String'("open"),
-                                                   new String'("fopen"),
-                                                   new String'("openat"));
-   GetCWD : constant Function_List := (new String'("getcwd"),
-                                       new String'("getwd"),
-                                       new String'("get_current_dir_name"));
-   -- Fixme: to increase performances, those List should be ordered with
-   --        most probable command first.
+
+   -- --------------------------------------------------------------------------
+   Function_First : constant := 7;
+   -- A line always start with the command from char 7 to char before '(':
+   -- 15167 stat("/bin/sed",  <unfinished ...>
+   --       ^
+
+   Param_First : Natural;
+   -- should be set, after get_Command, to the first char after '('
+   -- 15167 stat("/bin/sed",  <unfinished ...>
+   --            ^
 
    -- --------------------------------------------------------------------------
    function Not_A_Function_Call (Line : String) return Boolean is
      (for some S of Special_Lines =>
-         Line (Line'First + Function_First_Char - 1
-               .. Line'First + Function_First_Char - 2 + S.all'Length) = S.all);
-   -- --------------------------------------------------------------------------
-   function Is_Ignored (Call : String) return Boolean is
-     (for some C of Ignore_List => Call = C.all);
-   -- --------------------------------------------------------------------------
-   function Is_Read_Cmd (Call : String) return Boolean is
-     (for some C of Read_Only_List => Call = C.all);
-   -- --------------------------------------------------------------------------
-   function Is_Write_Cmd (Call : String) return Boolean is
-     (for some C of Write_Only_List => Call = C.all);
-   -- --------------------------------------------------------------------------
-   function Is_Read_Or_Write_Cmd (Call : String) return Boolean is
-     (for some C of Read_Or_Write_List => Call = C.all);
-   -- --------------------------------------------------------------------------
-   function Is_GetCWD (Call : String) return Boolean is
-     (for some C of GetCWD => Call = C.all);
+         Line (Line'First + Function_First - 1
+               .. Line'First + Function_First - 2 + S.all'Length) = S.all);
 
    -- --------------------------------------------------------------------------
-   procedure Analyze_Line (Line       : in     String;
-                           Call_Type  :    out Line_Type;
-                           Read_File  :    out File;
-                           Write_File :    out File) is
+   type Process_Id is new Natural;
+   package Process_WDs is new Ordered_Maps (Process_Id, File_Name);
+   -- This is the list of workind directories, indexed by process id, as each
+   -- process may work in a different dir.
+   use Process_WDs;
+   Process_WD : Process_WDs.Map;
+
+   -- --------------------------------------------------------------------------
+   procedure Analyze_Line (Line      : in     String;
+                           Operation :    out Operation_Type) is
 
       -- The previous, fairly good and very simple algo:
       --        if Index (Line, "O_WRONLY") /= 0
@@ -135,220 +91,161 @@ package body Smk.Runs.Strace_Analyzer is
       -- It's now far more complex...
 
       -- -----------------------------------------------------------------------
-      function Get_Function_Name (Idx : in out Natural) return String is
-         -- A line always start with the command from char 7 to char before '(':
-         -- 15167 stat("/bin/sed",  <unfinished ...>
-         --       ^^^^
-         Last : constant Natural := Index (Source  => Line,
-                                           Pattern => "(",
-                                           From    => Idx + 1);
-         R    : constant String := Line (Line'First + Idx - 1
-                                         .. Last - 1);
+      function Get_PID return Process_Id is
       begin
-         Idx := Last;
-         return R;
-      end Get_Function_Name;
+         return Process_Id'Value
+           (Line (Line'First .. Line'First + Function_First - 2));
+      end Get_PID;
 
       -- -----------------------------------------------------------------------
-      function Add_Dir (To_Name   : String;
-                        Dir       : String := To_String (Current_Dir))
-                        return String
-      is
-         Prefix : constant String := (if Dir (Dir'Last) = '/'
-                                      then Dir
-                                      else Dir & '/');
+      function Get_WD (PID : Process_Id) return File_Name is
       begin
-         -- IO.Put_Line ("Current Dir = " & To_String (Current_Dir));
-         -- if Name is not a Full_Name, add the known CWD
-         if To_Name (To_Name'First) = '/'
-         then
-            -- IO.Put_Line ("Add_Dir returns " & To_Name);
-            return To_Name;
+         if Process_WD.Contains (PID) then
+            IO.Put_Line ("Process_WD returns >"
+                         & (+Process_WD.Element (PID))
+                         & "<", Level => IO.Debug);
+            return Process_WD.Element (PID);
          else
-            -- IO.Put_Line ("Add_Dir returns " & Prefix & To_Name);
-            return Prefix & To_Name;
+            return +Ada.Directories.Full_Name (Settings.Run_Dir_Name);
+         end if;
+      end Get_WD;
+
+      -- -----------------------------------------------------------------------
+      function Get_Command return String is
+         Last : constant Natural := Index (Source  => Line,
+                                           Pattern => "(",
+                                           From    => Function_First + 1);
+      begin
+         Param_First := Last + 1;
+         return Line (Line'First + Function_First - 1 .. Last - 1);
+      end Get_Command;
+
+      -- -----------------------------------------------------------------------
+      function Add_Dir (To_Name : File_Name;
+                        Dir     : File_Name) return File_Name is
+      begin
+         if Head (+To_Name, 1) = "/" then
+            -- IO.Put_Line ("Add_Dir returns " & (+To_Name));
+            return To_Name;
+
+         else
+            -- if Name is not a Full_Name, concat with Dir
+            declare
+               Prefix : constant String :=
+                          (if Dir = No_File then ""
+                           else (Trim (+Dir,
+                             Left  => Ada.Strings.Maps.Null_Set,
+                             Right => Ada.Strings.Maps.To_Set ('/')) & '/'));
+            begin
+               -- IO.Put_Line ("Add_Dir returns " & Prefix & (+To_Name));
+               return Prefix & To_Name;
+            end;
+
          end if;
       end Add_Dir;
 
       -- -----------------------------------------------------------------------
-      function Remove_Dot_Slash (Name : String) return String is
-         -- if Name starts with "./", remove it
-        (if Name (Name'First .. Name'First + 1) = "./"
-         then Name (Name'First + 2 .. Name'Last)
-         else Name);
-
-      -- -----------------------------------------------------------------------
-      function Write_Access (From : in Positive) return Boolean is
-         WRONLY : constant String := "O_WRONLY";
-         RDWR   : constant String := "O_RDWR";
-         I      : Natural; -- This function don't move the Idx, because the file
-         -- name may be before or after the searched Strings.
-      begin
-         I := Index (Line, WRONLY, From);
-         if I /= 0 then
-            return True;
-         else
-            return Index (Line, RDWR, From) /= 0;
-         end if;
-      end Write_Access;
-
-      -- -----------------------------------------------------------------------
-      function Get_Parameter (Idx : in out Natural) return String is
-         Separator_Set         : constant Ada.Strings.Maps.Character_Set
-           := Ada.Strings.Maps.To_Set (",()");
+      function Get_File_Name return File_Name is
          use Ada.Strings.Maps;
          use Ada.Strings.Maps.Constants;
-         Postfix_Ignore_Set    : constant Ada.Strings.Maps.Character_Set
-           := Ada.Strings.Maps.To_Set (" <>") or To_Set ('"');
-         Prefix_Ignore_Set     : constant Ada.Strings.Maps.Character_Set
+
+         Separator_Set      : constant Character_Set := To_Set (",()");
+         Postfix_Ignore_Set : constant Character_Set
+           := To_Set (" <>") or To_Set ('"');
+         Prefix_Ignore_Set  : constant Character_Set
            := Postfix_Ignore_Set or Decimal_Digit_Set;
          -- File descriptor number should be also removed in:
          -- 5</home/lionel/.slocdata/x.mp3>
          -- but only on the left side.
-         --
-         First                 : Positive;
-         Last                  : Natural;
+
+         First : Positive;
+         Last  : Natural;
 
       begin
          Find_Token (Source => Line,
                      Set    => Separator_Set,
-                     From   => Idx,
+                     From   => Param_First,
                      Test   => Ada.Strings.Outside,
                      First  => First,
                      Last   => Last);
-         Idx := Last + 1;
          declare
             Token : constant String := Trim (Line (First .. Last),
                                              Left  => Prefix_Ignore_Set,
                                              Right => Postfix_Ignore_Set);
          begin
-            IO.Put_Line ("Token : >" & Token & "<", Level => IO.Debug);
-            return Token;
+            Param_First := Last + 1;
+            return +Token;
          end;
-      end Get_Parameter;
+      end Get_File_Name;
 
       -- -----------------------------------------------------------------------
-      function File_Name_In_Box (Idx : in out Natural) return String is
-         First     : Natural;
-         Local_Idx : Natural;
+      function Get_Dir_Name (PID : Process_Id) return File_Name is
+         F : constant File_Name := Get_File_Name;
       begin
-         First := Index (Line, "<", From => Idx);
-         -- looking for "</" is a way to avoid being confused by line
-         -- containing "<unfinished" like in:
-         -- 15168 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
-
-         if First = 0 then
-            IO.Put_Line ("File_Name_In_Box =""""",
-                         Level => IO.Debug);
-            return ""; -- file name not found
-
-         else
-            Local_Idx := Index (Line, ">", From => First + 1);
-            if Local_Idx = 0 then
-               IO.Put_Line ("File_Name_In_Box : no closing >",
-                            Level => IO.Debug);
-               return "";
-            else
-               Idx := Local_Idx + 1;
-               IO.Put_Line ("File_Name_In_Box = "
-                            & Line (First + 1 .. Local_Idx - 1),
-                            Level => IO.Debug);
-               declare
-                  Full_Name : constant String := Add_Dir
-                    (Remove_Dot_Slash (Line (First + 1 .. Local_Idx - 1)));
-                  -- we do not use Ada.Directories.Full_Name because it
-                  -- cause link to be modified into there target
-               begin
-                  IO.Put_Line ("File_Name_In_Box returns " & Full_Name,
-                               Level => IO.Debug);
-                  return Full_Name;
-               end;
-
-            end if;
-
-         end if;
-      end File_Name_In_Box;
-
-      -- -----------------------------------------------------------------------
-      function File_Name_In_Doublequote (Idx : in out Natural) return String is
-         First     : Natural;
-         Local_Idx : Natural;
-
-      begin
-         First := Index (Line, """", From => Idx);
-         -- Note that looking for "/ ignore non
-         -- Full_Name, like in
-         -- 4670  unlink("hello")                   = 0
-         -- and this is a problem!
-         -- Fixme: need cwd management
-
-         if First = 0 then
-            IO.Put_Line ("File_Name_In_Doublequote =""""",
-                         Level => IO.Debug);
-
-            return ""; -- file name not found
-
-         else
-            Local_Idx := Index (Line, """", From => First + 1);
-            if Local_Idx = 0 then
-               IO.Put_Line ("File_Name_In_Doublequote : no closing doublequote",
-                            Level => IO.Debug);
-               return "";
-            else
-               Idx := Local_Idx + 1;
-               IO.Put_Line ("File_Name_In_Doublequote = "
-                            & Line (First + 1 .. Local_Idx - 1),
-                            Level => IO.Debug);
-               declare
-                  Full_Name : constant String := Add_Dir
-                    (Remove_Dot_Slash (Line (First + 1 .. Local_Idx - 1)));
-                  -- we do not use Ada.Directories.Full_Name because it
-                  -- cause link to be modified into there target
-               begin
-                  IO.Put_Line ("File_Name_In_Doublequote returns " & Full_Name,
-                               Level => IO.Debug);
-                  return Full_Name;
-               end;
-
-            end if;
-
-         end if;
-      end File_Name_In_Doublequote;
-
-      -- -----------------------------------------------------------------------
-      function File_Name (Idx : in out Natural) return String is
-         -- File name are either between double quotes, or when using the
-         -- -y option between <>.
-         -- The -y option print paths associated with file descriptor arguments,
-         -- and path are always Full_Name.
-         -- Unfortunatly, there is not always a file descriptor argument,
-         -- so that we have look for both format.
-         -- A slight difference between format is that when between
-         -- double quotes, files name are as passed "as is" during the
-         -- system call, hence the Full_Name transformation.
-
-         F : constant String := File_Name_In_Box (Idx);
-
-      begin
-         if F = "" then
-            return File_Name_In_Doublequote (Idx);
+         if F = "AT_FDCWD" then
+            return Get_WD (PID);
          else
             return F;
          end if;
-      end File_Name;
+      end Get_Dir_Name;
 
-      Idx   : Natural;
-      -- Idx is the pointer to where we are in the line analysis
-      -- Following functions that analyze the line may move idx to the
-      -- last analyzed character.
+      -- -----------------------------------------------------------------------
+      function Get_Returned_File return File_Name is
+         First : Natural;
+         Last  : Natural;
+
+      begin
+         First := Index (Line, "=", Backward);
+         -- Go to the start of the returned parameter
+         -- Otherwise, the search of "<" could find a file within parameters
+
+         First := Index (Line, "<", From => First + 1);
+
+         if First = 0 then
+            IO.Put_Line ("No returned file named", Level => IO.Debug);
+            -- Probably returning an error code:
+            -- 8757  openat(...) = -1 ENOENT (No such file or directory)
+            return No_File; -- file name not found
+
+         else
+            Last := Index (Line, ">", From => First + 1);
+            if Last = 0 then
+               -- IO.Put_Line ("Get_Returned_File : no closing >",
+               --              Level => IO.Debug);
+               return No_File;
+
+            else
+               declare
+                  Name : constant String := Line (First + 1 .. Last - 1);
+               begin
+                  -- IO.Put_Line ("Get_Returned_File = " & Name,
+                  --              Level => IO.Debug);
+                  return To_Unbounded_String (Name);
+               end;
+
+            end if;
+
+         end if;
+      end Get_Returned_File;
+
+      -- -----------------------------------------------------------------------
+      function Write_Access return Boolean is
+         WRONLY : constant String := "O_WRONLY";
+         RDWR   : constant String := "O_RDWR";
+         I      : Natural;
+      begin
+         I := Index (Line, WRONLY);
+         if I /= 0 then
+            return True;
+         else
+            return Index (Line, RDWR) /= 0;
+         end if;
+      end Write_Access;
+
+      Cmd : constant String := Get_Command;
 
    begin
-      Idx        := Function_First_Char;
-      Read_File  := null;
-      Write_File := null;
-      Call_Type := Ignored;
-
-      -- eliminate null lines,
+      -- Eliminate null lines,
       -- or lines that do not start with function name,
       -- or call that don't find a file (ENOENT)
       if Line'Length = 0
@@ -357,228 +254,184 @@ package body Smk.Runs.Strace_Analyzer is
         or else Index (Line, "ENOENT",       Going => Ada.Strings.Backward) /= 0
       -- error accessing file:
         or else Index (Line, "EACCES",       Going => Ada.Strings.Backward) /= 0
-      -- Ignore operation on Dir (used by open or unlink):
-        or else Index (Line, "O_DIRECTORY",  Going => Ada.Strings.Backward) /= 0
+      -- Ignore REMOVEDIR operation on Dir (used by open or unlink):
         or else Index (Line, "AT_REMOVEDIR", Going => Ada.Strings.Backward) /= 0
       then
-         -- IO.Put_Line ("Ignoring line : " & Line, Level => IO.Debug);
+         IO.Put_Line ("Ignoring strace line : " & Line, Level => IO.Debug);
+         Operation := (Kind => None);
          return;
 
       end if;
 
-      IO.Put_Line ("",                         Level => IO.Debug);
-      IO.Put_Line ("Analyzing line : " & Line, Level => IO.Debug);
+      IO.Put_Line ("Analyzing strace line : " & Line, Level => IO.Debug);
 
-      declare
-         Function_Name : constant String := Get_Function_Name (Idx);
+      -- Fixme: if to be ordered according to occurence frequence
 
-      begin
-         IO.Put_Line ("Function_Name : " & Function_Name, Level => IO.Debug);
+      if Cmd = "write"
+        or  Cmd = "creat"
+        or  Cmd = "link"
+      then
+         -- --------------------------------------------------------------------
+         declare
+            Name : constant File_Name := Get_Returned_File;
+         begin
+            IO.Put_Line ("write/creat/link " & (+Name), Level => IO.Debug);
+            Operation := (Kind => Write,
+                          Name => Name,
+                          File => Create (File => Name,
+                                          Role => Target));
+         end;
 
-         -- The command is followed by "(", let's jump over
-         Idx := Idx + 1;
+      elsif Cmd = "rename" then
+         -- --------------------------------------------------------------------
+         -- 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
+         declare
+            PID : constant Process_Id := Get_PID;
+            WD  : constant File_Name  := Get_WD (PID);
+            P1  : constant File_Name  := Get_File_Name;
+            P2  : constant File_Name  := Get_File_Name;
+            Source_Name : constant File_Name :=
+                            Add_Dir (To_Name => P1, Dir => WD);
+            Target_Name : constant File_Name :=
+                            Add_Dir (To_Name => P2, Dir => WD);
+         begin
+            IO.Put_Line ("Rename " & (+Source_Name)
+                         & " into " & (+Target_Name), Level => IO.Debug);
+            Operation := (Kind        => Move,
+                          Source_Name => Source_Name,
+                          Source      => Create (File => Source_Name,
+                                                 Role => Source),
+                          Target_Name => Target_Name,
+                          Target      => Create (File => Target_Name,
+                                                 Role => Target));
+         end;
 
-         if Is_Ignored (Function_Name) then
-            -- Ignored ---------------------------------------------------------
-            IO.Put_Line ("Ignoring " & Function_Name, Level => IO.Debug);
+      elsif Cmd = "renameat" or else Cmd = "renameat2" then
+         -- --------------------------------------------------------------------
+         -- 15232 renameat2(AT_FDCWD, "all.filecount.new",
+         --                 AT_FDCWD, "all.filecount", RENAME_NOREPLACE) = 0
+         -- or:
+         -- 15165 renameat(5</home/lionel/.slocdata>, "old",
+         --                5</home/lionel/.slocdata/>, "new")...
+         declare
+            PID : constant Process_Id := Get_PID;
+            P1  : constant File_Name  := Get_Dir_Name (PID);
+            P2  : constant File_Name  := Get_File_Name;
+            P3  : constant File_Name  := Get_Dir_Name (PID);
+            P4  : constant File_Name  := Get_File_Name;
+            Source_Name : constant File_Name :=
+                            Add_Dir (To_Name => P2, Dir => P1);
+            Target_Name : constant File_Name :=
+                            Add_Dir (To_Name => P4, Dir => P3);
+         begin
+            IO.Put_Line ("renameat " & (+Source_Name)
+                         & " into " & (+Target_Name), Level => IO.Debug);
+            Operation := (Kind        => Move,
+                          Source_Name => Source_Name,
+                          Source      => Create (File => Source_Name,
+                                                 Role => Source),
+                          Target_Name => Target_Name,
+                          Target      => Create (File => Target_Name,
+                                                 Role => Target));
+         end;
 
-         elsif Is_GetCWD (Function_Name) then
-            -- CWD processing --------------------------------------------------
-            Current_Dir := To_Unbounded_String (File_Name (Idx));
-            IO.Put_Line ("Current Dir = " & To_String (Current_Dir),
-                         Level => IO.Debug);
-
-         elsif Is_Read_Cmd (Function_Name) then
-            -- Read ------------------------------------------------------------
-            Call_Type := Read_Call;
-            IO.Put_Line (Function_Name, Level => IO.Debug);
-
-            if Function_Name = "readlinkat" then -- two parameters
-               declare
-                  P1 : constant String := Get_Parameter (Idx);
-                  P2 : constant String := Get_Parameter (Idx);
-               begin
-                  if P2 (P2'First) = File_Utilities.Separator then
-                     -- absolute path, no need to read P1
-                     Read_File := new String'(P2);
-
-                  elsif P1 = "AT_FDCWD" then
-                     Read_File := new String'
-                       (Add_Dir (Dir     => To_String (Current_Dir),
-                                 To_Name => P2));
-                  else
-                     Read_File := new String'(Add_Dir (Dir     => P1,
-                                                       To_Name => P2));
-                  end if;
-               end;
-
-            else -- one parameter
-               Read_File := new String'(File_Name (Idx));
-               IO.Put_Line (Function_Name & " Read " & Read_File.all,
-                            Level => IO.Debug);
-            end if;
-
-         elsif Is_Write_Cmd (Function_Name) then
-            -- Write -----------------------------------------------------------
-            if Function_Name = "rename"
-            -- two parameters renames:
-            -- 30461 rename("x.mp3", "unknown-unknown.mp3") = 0
-            then
-               declare
-                  P1 : constant String := Get_Parameter (Idx);
-                  P2 : constant String := Get_Parameter (Idx);
-               begin
-                  IO.Put_Line (Function_Name, Level => IO.Debug);
-                  Call_Type := Read_Write_Call;
-
-                  Read_File := new String'
-                    (Add_Dir (Dir     => To_String (Current_Dir),
-                              To_Name => P1));
-                  Write_File := new String'
-                    (Add_Dir (Dir     => To_String (Current_Dir),
-                              To_Name => P2));
-
-                  IO.Put_Line (Function_Name & " from " & Read_File.all
-                               & " to " & Write_File.all,
-                               Level => IO.Debug);
-               end;
-
-            elsif Function_Name = "renameat" or else Function_Name = "renameat2"
-               -- four parameters renames
-            then -- Fixme: processing of "at" call and AT_FDCDW, cf. unlinkat
-               IO.Put_Line (Function_Name, Level => IO.Debug);
-
-               -- 15232 renameat2(AT_FDCWD, "all.filecount.new", \
-               --              AT_FDCWD, "all.filecount", RENAME_NOREPLACE) = 0
-
-               declare
-                  P1 : constant String := Get_Parameter (Idx);
-                  P2 : constant String := Get_Parameter (Idx);
-                  P3 : constant String := Get_Parameter (Idx);
-                  P4 : constant String := Get_Parameter (Idx);
-               begin
-                  Call_Type := Read_Write_Call;
-
-                  if P2 (P2'First) = File_Utilities.Separator then
-                     -- absolute path, no need to read P1
-                     Read_File := new String'(P2);
-
-                  elsif P1 = "AT_FDCWD" then
-                     Read_File := new String'
-                       (Add_Dir (Dir     => To_String (Current_Dir),
-                                 To_Name => P2));
-                  else
-                     Read_File := new String'(Add_Dir (Dir     => P1,
-                                                       To_Name => P2));
-                  end if;
-
-                  if P4 (P4'First) = File_Utilities.Separator then
-                     -- absolute path, no need to read P3
-                     Write_File := new String'(P4);
-
-                  elsif P3 = "AT_FDCWD" then
-                     Write_File := new String'
-                       (Add_Dir (Dir     => To_String (Current_Dir),
-                                 To_Name => P4));
-                  else
-                     Write_File := new String'(Add_Dir (Dir     => P3,
-                                                        To_Name => P4));
-                  end if;
-
-                  IO.Put_Line (Function_Name & " from " & Read_File.all
-                               & " to " & Write_File.all,
-                               Level => IO.Debug);
-               end;
-
---              elsif Function_Name = "unlinkat"
---                and then Index (Line, "AT_REMOVEDIR", From => Idx) /= 0
---              -- process a special form of unlink, that gives first the dir as
---              -- file descriptor, and then the file name:
---              -- 15165 unlinkat(5</home/lionel/.slocdata/dir>, "filelist" ...
---              -- (File name is actually /home/lionel/.slocdata/dir/filelist)
---              -- or
---              -- 1277  unlinkat(AT_FDCWD, "./site/404.html", 0) = 0
---
---                and then Index (Line, "AT_FDCWD", From => Idx) = 0
---              -- Note that this code processes only the first case : if the
---              -- first parameter is not AT_FDCWD, then the dir is
---              -- explicitly given as a file descriptor, and is
---              -- excluded here because we are in the normal processing.
---
---              then
---                 IO.Put_Line (Function_Name, Level => IO.Debug);
---
---                 declare
---                    Dir  : constant String := File_Name_In_Box (Idx);
---                    File : constant String := File_Name_In_Doublequote (Idx);
---                 begin
---                    Call_Type := Write_Call;
---                    Write_File := new String'(Dir & "/" & File);
---                    IO.Put_Line (Function_Name & " " & Dir & "/" & File,
---                                 Level => IO.Debug);
---                 end;
-
+      elsif Cmd = "open"
+        or  Cmd = "fopen"
+        or  Cmd = "openat"
+      then
+         -- --------------------------------------------------------------------
+         -- 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL,
+         --              0600) = 3</tmp/ccvHeGYq.res>
+         -- 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC)
+         --                                               = 3</etc/ld.so.cache>
+         declare
+            Name : constant File_Name := Get_Returned_File;
+         begin
+            if Write_Access then
+               IO.Put_Line ("Write open " & (+Name), Level => IO.Debug);
+               Operation := (Kind => Write,
+                             Name => Name,
+                             File => Create (File => Name,
+                                             Role => Target));
             else
-               Call_Type  := Write_Call;
-               Write_File := new String'(File_Name (Idx));
-               IO.Put_Line (Function_Name & " Write " & Write_File.all,
-                            Level => IO.Debug);
-
+               IO.Put_Line ("Read open " & (+Name), Level => IO.Debug);
+               Operation := (Kind => Read,
+                             Name => Name,
+                             File => Create (File => Name,
+                                             Role => Source));
             end if;
+         end;
 
-         elsif Is_Read_Or_Write_Cmd (Function_Name) then
-            -- Read or Write----------------------------------------------------
-            if Write_Access (From => Idx) then
-               Call_Type  := Write_Call;
-               Write_File := new String'(File_Name (Idx));
-               IO.Put_Line (Function_Name & " Write " & Write_File.all,
-                            Level => IO.Debug);
-
+      elsif Cmd = "getcwd"
+        or  Cmd = "getwd"
+        or  Cmd = "get_current_dir_name"
+      then
+         -- --------------------------------------------------------------------
+         declare
+            PID : constant Process_Id := Get_PID;
+            P1  : constant File_Name  := Get_File_Name;
+            C   : constant Cursor     := Process_WD.Find (PID);
+         begin
+            if C = No_Element then
+               IO.Put_Line ("Insert WD [" & Process_Id'Image (PID)
+                            & "] = " & (+P1), Level => IO.Debug);
+               Process_WD.Insert  (Key => PID, New_Item => P1);
             else
-               Call_Type := Read_Call;
-               Read_File := new String'(File_Name (Idx));
-               IO.Put_Line (Function_Name & " Read " & Read_File.all,
-                            Level => IO.Debug);
-
+               IO.Put_Line ("Replacing WD [" & Process_Id'Image (PID)
+                            & "] = " & (+P1), Level => IO.Debug);
+               Process_WD.Replace (Key => PID, New_Item => P1);
             end if;
+            Operation := (Kind => None);
+         end;
 
-         else
-            -- Unknown ---------------------------------------------------------
-            Call_Type := Ignored;
-            IO.Put_Line ("Non identified file related call in strace line : >"
-                         & Line & "<");
-            IO.Put_Line ("Please submit this message to "
-                         & "https://github.com/LionelDraghi/smk/issues/new "
-                         & "with title ""Non identified call in strace "
-                         & "output""");
-
-         end if;
-
-      end;
-
---        if not Is_Null (Read_File) and then
---          Ada.Directories.Full_Name (Read_File.all) /= Read_File.all
---        then
---           IO.Put_Line ("Read_File (" & Read_File.all
---              & ") /= Full_Name (" & Full_Name (Read_File.all) & ")");
---        end if;
---
---        if not Is_Null (Write_File) and then
---          Ada.Directories.Full_Name (Write_File.all) /= Write_File.all
---        then
---           IO.Put_Line ("Write_File (" & Write_File.all
---             & ") /= Full_Name (" & Full_Name (Write_File.all) & ")");
---        end if;
-
+      end if;
 
    exception
       when others =>
-         Call_Type := Ignored;
+         Operation := (Kind => None);
          IO.Put_Line ("Error while analyzing : >" & Line & "<");
          IO.Put_Line ("Please submit this message to "
                       & "https://github.com/LionelDraghi/smk/issues/new "
                       & "with title ""Error analyzing strace output""");
+         raise;
 
    end Analyze_Line;
+
+--     Ignore_List     : constant Function_List := (new String'("stat"),
+--                                                  new String'("access"),
+--                                                  new String'("fstat"),
+--                                                  new String'("lstat"),
+--                                                  new String'("faccessat"),
+--                                                  new String'("execve"),
+--                                                  new String'("SIGCHLD"),
+--                                                  new String'("fcntl"),
+--                                                  new String'("lseek"),
+--                                                  new String'("mknod"),
+--                                                  new String'("umask"),
+--                                                  new String'("close"),
+--                                                  new String'("statfs"),
+--                                                  new String'("fstatfs"),
+--                                                  new String'("fstatat"),
+--                                                  new String'("newfstatat"),
+--                                                  new String'("freopen"),
+--                                                  new String'("utimensat"),
+--                                                  new String'("futimens"),
+--                                                  new String'("chmod"),
+--                                                  new String'("fchmod"),
+--                                                  new String'("fchmodat"),
+--                                                  new String'("chown"),
+--                                                  new String'("lchown"),
+--                                                  new String'("fchown"),
+--                                                  new String'("fchownat"),
+--                                                  new String'("unlink"),
+--                                                  new String'("unlinkat"),
+--                                                  new String'("remove"),
+--                                                  new String'("mkdir"),
+--                                                  new String'("rmdir"),
+--                                                  new String'("chdir"));
+--
+-- --------------------------------------------------------------------------
+--     function Is_Ignored (Call : String) return Boolean is
+--       (for some C of Ignore_List => Call = C.all);
 
 end Smk.Runs.Strace_Analyzer;

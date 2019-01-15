@@ -69,5 +69,5 @@ Sources: (46)
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_wavpack.so
   - [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/sox/libsox_fmt_xi.so
 Targets: (1)
-  - [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
+  - [Target] [Updated] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
 

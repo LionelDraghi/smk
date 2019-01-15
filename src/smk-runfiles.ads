@@ -14,6 +14,7 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
+with Smk.Assertions;       use Smk.Assertions;
 with Smk.Definitions;      use Smk.Definitions;
 with Smk.Files;            use Smk.Files;
 with Smk.Files.File_Lists;
@@ -27,31 +28,10 @@ private package Smk.Runfiles is
    --   This package defines a "Run File" and it's storage.
 
    -- --------------------------------------------------------------------------
-   type Counts is array (Boolean) of Natural;
-   -- The boolean semantics is Is_System
-   -- So there is 2 counters:
-   -- - ordinary files
-   -- - system   files
-   type File_Counts is record
-      Sources : Counts;
-      Targets : Counts;
-   end record;
-   -- Fixme: File_Counts should be encapsulated within File_Lists
-   function Sources_Count (Counts            : File_Counts;
-                           With_System_Files : Boolean := False) return Natural;
-   function Targets_Count (Counts            : File_Counts;
-                           With_System_Files : Boolean := False) return Natural;
-
-   function Count_Image  (Count  : Natural)     return String;
-   function Counts_Image (Counts : File_Counts) return String;
-
-   -- --------------------------------------------------------------------------
    type Run is record
-      Section  : Section_Names  := Default_Section;
-      Run_Time : Ada.Calendar.Time;
-      Files    : File_Lists.Map := File_Lists.Empty_Map;
-      Dirs     : File_Lists.Map := File_Lists.Empty_Map;
-      Counts   : File_Counts;
+      Section    : Section_Names  := Default_Section;
+      Run_Time   : Ada.Calendar.Time;
+      Assertions : Condition_Lists.List := Condition_Lists.Empty_List;
    end record;
    package Run_Lists is
      new Ada.Containers.Ordered_Maps (Key_Type     => Command_Lines,
@@ -73,10 +53,8 @@ private package Smk.Runfiles is
                                In_Run_List : in out Run_Lists.Map);
 
    -- --------------------------------------------------------------------------
-   procedure Update_Files_Status (File_List    : in out File_Lists.Map;
-                                  Updated_List : in out File_Lists.Map);
-   procedure Update_Dirs_Status (The_Run      : in out Run;
-                                 Updated_List : in out File_Lists.Map);
+   procedure Update_Files_Status (Assertions   : in out Condition_Lists.List;
+                                  Updated_List : in out Condition_Lists.List);
 
    -- --------------------------------------------------------------------------
    procedure Delete_Targets (The_Runfile : in Runfile);
@@ -89,22 +67,18 @@ private package Smk.Runfiles is
    -- file name
 
    -- --------------------------------------------------------------------------
-   procedure Reset (Counts : in out Runfiles.File_Counts);
-   procedure Update_Counts (File_list : in     Files.File_Lists.Map;
-                            Counts    : in out Runfiles.File_Counts);
-
-   -- --------------------------------------------------------------------------
    -- Listing operations
    -- --------------------------------------------------------------------------
 
    -- --------------------------------------------------------------------------
-   procedure Put_Updated (File_List : in File_Lists.Map);
+   procedure Put_Updated (Cond_List : in Assertions.Condition_Lists.List);
    -- List files updated or missing since last run
 
    -- --------------------------------------------------------------------------
    procedure Put_Files (The_Runfile   : Runfile;
                         Print_Sources : Boolean := False;
-                        Print_Targets : Boolean := False);
+                        Print_Targets : Boolean := False;
+                        Print_Unused  : Boolean := False);
    -- List each dependeny with the format :
    -- [section]Command:file name --Fixme: to be updated
    -- ...
@@ -115,7 +89,6 @@ private package Smk.Runfiles is
 
    -- --------------------------------------------------------------------------
    procedure Put_Run (Run_List : in Run_Lists.Map);
-   --
    -- Print each run with the format :
    --
    -- Time_Tag [Section] Command (X source(s), Y target(s))

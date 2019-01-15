@@ -216,10 +216,10 @@ procedure Analyze_Cmd_Line is
       function Checkbox (Switch : Boolean) return String is
         (if Switch then "[X]" else "[ ]");
    begin
-      IO.Put_Line ("");
+      IO.New_Line;
       IO.Put_Line ("Settings / Command line analysis:");
       IO.Put_Line ("---------------------------------");
-      IO.Put_Line ("");
+      IO.New_Line;
       IO.Put_Line ("   Verbosity         : "
                    & Print_Out_Level'Image (Verbosity));
       IO.Put_Line ("   Command           : "
@@ -232,19 +232,21 @@ procedure Analyze_Cmd_Line is
       IO.Put_Line ("   Target name       : " & Target_Name);
       IO.Put_Line ("   Unidentified Opt  : " & To_String (Unidentified_Opt));
       IO.Put_Line ("   Initial directory : " & Initial_Directory);
-      IO.Put_Line ("");
+      IO.New_Line;
 
       IO.Put_Line ("   System Files      : ");
       for F of System_Files loop
          IO.Put_Line ("   - " & F.all);
       end loop;
-      IO.Put_Line ("");
+      IO.New_Line;
       IO.Put_Line ("   Ignore list       : ");
       for F of Ignore_List loop
          IO.Put_Line ("   - " & F.all);
       end loop;
-      IO.Put_Line ("");
+      IO.New_Line;
 
+      IO.Put_Line ("   " & Checkbox (Build_Missing_Targets)
+                   & " Build_Missing_Targets");
       IO.Put_Line ("   " & Checkbox (Always_Make) & " Always_Make");
       IO.Put_Line ("   " & Checkbox (Explain) & " Explain");
       IO.Put_Line ("   " & Checkbox (Dry_Run) & " Dry_Run");
@@ -259,9 +261,9 @@ procedure Analyze_Cmd_Line is
                    & " Shorten_File_Names");
       IO.Put_Line ("   " & Checkbox (Filter_Sytem_Files)
                    & " Filter_Sytem_Files");
-      IO.Put_Line ("");
+      IO.New_Line;
       IO.Put_Line ("---------------------------------");
-      IO.Put_Line ("");
+      IO.New_Line;
    end Put_Settings;
 
 begin
@@ -312,7 +314,7 @@ begin
          elsif Opt = "lt" or Opt = "list-targets" then
             Set_If_Not_Already_Set (List_Targets);
 
-         elsif Opt = "list-unused" or Opt = "lu" then
+         elsif Opt = "lu" or Opt = "list-unused" then
             Set_If_Not_Already_Set (List_Unused);
 
          elsif Opt = "wn" or Opt = "whatsnew" then
@@ -328,6 +330,9 @@ begin
             Set_If_Not_Already_Set (Dump);
 
             -- Options:
+         elsif Opt = "-mt" or Opt = "--missing-targets" then
+            Settings.Build_Missing_Targets := True;
+
          elsif Opt = "-a" or Opt = "--always-make" then
             Settings.Always_Make := True;
 

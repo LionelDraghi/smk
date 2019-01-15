@@ -1,2 +1,2 @@
-run "mkdocs build --clean --quiet" because Target ../mysite/site/.html is missing
+run "mkdocs build --clean --quiet" because ../mysite/docs/about.md has been updated (-- ::.)
 mkdocs build --clean --quiet

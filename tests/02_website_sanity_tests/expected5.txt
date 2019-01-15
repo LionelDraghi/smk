@@ -1,5 +1,3 @@
 ../mysite/Makefile (YYYY:MM:DD HH:MM:SS.SS) :
 21: [doc] mkdocs build --clean --quiet
-24: [clean] echo --- clean:
-25: [clean] rm -rf ./site/*
-26: [clean] echo OK
+

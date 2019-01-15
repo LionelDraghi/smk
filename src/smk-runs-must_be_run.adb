@@ -20,84 +20,75 @@ with Smk.Settings;    use Smk.Settings;
 separate (Smk.Runs)
 
 -- -----------------------------------------------------------------------------
-function Must_Be_Run (Command      :        Command_Lines;
+function Must_Be_Run (Command      : in     Command_Lines;
                       Previous_Run : in out Runfiles.Run_Lists.Map)
                       return Boolean
 is
    -- --------------------------------------------------------------------------
    procedure Put_Explanation (Text : in String) is
    begin
-      if Explain then
+      if Settings.Explain then
          IO.Put_Line ("run """ & (+Command) & """ " & Text);
       end if;
    end Put_Explanation;
 
+
    use Runfiles;
-
-   -- --------------------------------------------------------------------------
-   function A_File_Is_Missing (The_Run : Runfiles.Run;
-                               Role    : Files.File_Role) return Boolean is
-      -- use Ada.Directories;
-      use File_Lists;
-   begin
-      for File in The_Run.Files.Iterate loop
-         declare
-            Name : constant String := (+File_Lists.Key (File));
-         begin
-            if Files.Role (Element (File)) = Role
-              and then Status (Element (File)) = Missing
-            -- and then not Exists (Name)
-            then
-               Put_Explanation ("because " & Role_Image (Role) & " "
-                                & Shorten (Name) & " is missing");
-               return True;
-            end if;
-         end;
-      end loop;
-      return False;
-   end A_File_Is_Missing;
-
-   -- --------------------------------------------------------------------------
-   function A_Source_File_Is_Updated (The_Run : Runfiles.Run) return Boolean is
-      use File_Lists;
-   begin
-      for I in The_Run.Files.Iterate loop
-         if Is_Source (Element (I)) and Status (Element (I)) = Updated
-         then
-            Put_Explanation ("because " & Shorten (Key (I)) & " ("
-                             & IO.Image (Time_Tag (Element (I)))
-                             & ") has been updated since last run ("
-                             & IO.Image (The_Run.Run_Time) & ")");
-            return True;
-         end if;
-      end loop;
-      return False;
-   end A_Source_File_Is_Updated;
-
-   -- --------------------------------------------------------------------------
-   function A_Source_Dir_Is_Updated (The_Run : Runfiles.Run) return Boolean is
-   begin
-      for File in The_Run.Dirs.Iterate loop
-         declare
-            use File_Lists;
-            Name : constant String := (+File_Lists.Key (File));
-         begin
-            if Role (Element (File)) = Source and
-              Status (Element (File)) = Updated
-            then
-               Put_Explanation ("because dir " & Shorten (Name)
-                                & " is updated");
-               return True;
-            end if;
-         end;
-      end loop;
-      return False;
-   end A_Source_Dir_Is_Updated;
-
    use Run_Lists;
 
    C            : Run_Lists.Cursor;
-   Updated_List : File_Lists.Map;
+   Updated_List : Condition_Lists.List;
+
+   -- --------------------------------------------------------------------------
+   function Assert (C : Condition) return Boolean is
+      File_Exists : constant Boolean := Ada.Directories.Exists (+C.Name);
+      -- Fixme: not sure this call is needed, why not use the Status?
+      Because     : constant String := "because "
+                      & (if Is_Dir (C.File) then "dir " else "")
+                      & Shorten (C.Name);
+      Status      : File_Status renames Files.Status (C.File);
+
+   begin
+      if not File_Exists and C.Trigger = File_Absence and Is_Source (C.File)
+      then
+         -- --------------------------------------------------------------------
+         Put_Explanation (Because & " source is missing");
+         return False;
+
+      elsif not File_Exists and C.Trigger = File_Absence
+        and (Is_Target (C.File) and Settings.Build_Missing_Targets)
+      then
+            -- -----------------------------------------------------------------
+            Put_Explanation (Because & " is missing");
+            return False;
+
+      elsif File_Exists and C.Trigger = File_Presence then
+         -- --------------------------------------------------------------------
+         Put_Explanation (Because & " is present");
+         return False;
+
+      elsif File_Exists and C.Trigger = File_Update and Status = Updated then
+         -- --------------------------------------------------------------------
+         Put_Explanation (Because
+         & " has been updated (" & IO.Image (Time_Tag (C.File)) & ")");
+         return False;
+
+      elsif File_Exists and C.Trigger = File_Update and Status = New_File then
+         -- --------------------------------------------------------------------
+         Put_Explanation ("because of new"
+                          & (if Is_Dir (C.File) then " dir " else " file ")
+                          & Shorten (C.Name));
+         return False;
+
+      else
+         -- --------------------------------------------------------------------
+         -- assertions are OK
+         return True;
+
+      end if;
+
+   end Assert;
+
 
 begin
    -- --------------------------------------------------------------------------
@@ -115,18 +106,16 @@ begin
       return True;
    end if;
 
-   Update_Files_Status (Previous_Run (C).Files, Updated_List);
-   Update_Dirs_Status  (Previous_Run (C),       Updated_List);
+   Update_Files_Status (Previous_Run (C).Assertions, Updated_List);
    if Debug_Mode then
       Put_Updated (Updated_List);
    end if;
 
-   return A_File_Is_Missing    (Run_Lists.Element (C), Target)
-     or else A_File_Is_Missing (Run_Lists.Element (C), Source)
-     or else A_Source_File_Is_Updated (Run_Lists.Element (C))
-     or else A_Source_Dir_Is_Updated  (Run_Lists.Element (C));
-   -- or else No_Source_Nor_Target (Run_Lists.Element (C));
-   -- If there is no sources and no target, it could be because the command
-   -- failed in the previous run, and so let's try again.
+   --
+   for P of Element (C).Assertions loop
+      if not Assert (P) then return True; end if;
+   end loop;
+
+   return False;
 
 end Must_Be_Run;

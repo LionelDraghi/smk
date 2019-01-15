@@ -14,21 +14,18 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-with Smk.Definitions;      use Smk.Definitions;
-with Smk.Files;            use Smk.Files;
-with Smk.Files.File_Lists;
-with Smk.Settings;         -- use Smk.Settings;
+with Smk.Assertions;  use Smk.Assertions;
+with Smk.Definitions; use Smk.Definitions;
+with Smk.Files;       use Smk.Files;
+with Smk.Settings;
 
-with Ada.Directories;      use Ada.Directories;
-with Ada.Text_IO;          use Ada.Text_IO;
+with Ada.Directories; use Ada.Directories;
+with Ada.Text_IO;     use Ada.Text_IO;
 
 package body Smk.Runs is
 
    -- --------------------------------------------------------------------------
-   procedure Analyze_Run
-     (Sources_And_Targets : out Files.File_Lists.Map;
-      Dirs                : out Files.File_Lists.Map;
-      Counts              : out Runfiles.File_Counts) is separate;
+   procedure Analyze_Run (Assertions : out Condition_Lists.List) is separate;
    -- Based on the run log file (that is the strace output), and the run time,
    -- it identifies Source and Target files.
    -- Thanks to strace -y option, file names appears clearly between <>
@@ -58,7 +55,6 @@ package body Smk.Runs is
    -- Run_Command is in charge of spawning the Cmd (using strace),
    -- and analysing the strace log file.
    -- The_Run_List is updated with this run results
-
 
    -- --------------------------------------------------------------------------
    procedure Run_All (The_Smkfile   : in out Smkfiles.Smkfile;
