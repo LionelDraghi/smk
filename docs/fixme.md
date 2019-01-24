@@ -10,17 +10,16 @@ docs/index.md:200|  - [Fixme](fixme.md)
 docs/smkfile_format.md:81|Sections are labels in the file that specificaly designate the following commands (until next section). It allows for exemple to run only the `clean` section of a Makefile. **Fixme: Not yet implemented, as of v0.0.4**  
 docs/smkfile_format.md:158|   **Fixme: Not yet implemented, as of v0.0.4**
 src/file_utilities.ads:69|   -- Fixme: this function is not portable!
-src/smk-files.ads:94|   -- if False: Fixme:
-src/smk-files.ads:95|   -- if True: Fixme:
-src/smk-runfiles.adb:226|            -- Fixme: precond : Is_Dir = False
-src/smk-runfiles.adb:238|              and then not Settings.In_Ignore_List (+Name) -- Fixme: useful??
-src/smk-runfiles.ads:83|   -- [section]Command:file name --Fixme: to be updated
+src/smk-files.ads:99|   -- if False: Fixme:
+src/smk-files.ads:100|   -- if True: Fixme:
+src/smk-runfiles.adb:234|              and then not Settings.In_Ignore_List (+Name) -- Fixme: useful??
+src/smk-runfiles.ads:87|   -- [section]Command:file name --Fixme: to be updated
 src/smk-runs-analyze_run.adb:105|               -- Fixme: pas un trigger ou une condition, à réorganiser
 src/smk-runs-analyze_run.adb:152|--              else -- Fixme: partial code duplication
 src/smk-runs-analyze_run.adb:182|--     -- Fixme: no dir in counts   Runfiles.Update_Counts (Dirs, Counts);
-src/smk-runs-must_be_run.adb:45|      -- Fixme: not sure this call is needed, why not use the Status?
+src/smk-runs-must_be_run.adb:46|      -- Fixme: not sure this call is needed, why not use the Status?
 src/smk-runs-strace_analyzer.adb:39|   -- Fixme: processing of unfinished line not done
-src/smk-runs-strace_analyzer.adb:268|      -- Fixme: if to be ordered according to occurence frequence
+src/smk-runs-strace_analyzer.adb:267|      -- Fixme: if to be ordered according to occurence frequence
 src/smk-settings.adb:40|                                              -- Fixme: can't ignore /tmp/* ???
 tests/01_sanity_tests/Makefile:103|	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
 tests/01_sanity_tests/Makefile:124|	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm

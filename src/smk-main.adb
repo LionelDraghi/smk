@@ -63,10 +63,13 @@ begin
          declare
             The_Runfile : Runfiles.Runfile;
             use Files;
+            Updated_List : Assertions.Condition_Lists.List;
          begin
             if Runfiles.Runfiles_Found then
                The_Runfile := Runfiles.Get_Saved_Run
                  (+To_Runfile_Name (Smkfile_Name));
+               Runfiles.Update_Files_Status
+                 (The_Runfile.Run_List, Updated_List);
                Runfiles.Put_Run (The_Runfile.Run_List);
             else
                Put_Error ("No previous run found.");
@@ -95,9 +98,7 @@ begin
             Updated_List : Assertions.Condition_Lists.List;
          begin
             The_Runfile := Load_Runfile;
-            for R of The_Runfile.Run_List loop
-               Update_Files_Status (R.Assertions, Updated_List);
-            end loop;
+            Update_Files_Status (The_Runfile.Run_List, Updated_List);
             Put_Updated (Updated_List);
          end;
 

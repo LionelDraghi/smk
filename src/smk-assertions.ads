@@ -14,8 +14,9 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-with Smk.Files; use Smk.Files;
+with Smk.Files;                          use Smk.Files;
 
+-- with Ada.Calendar;                       use Ada.Calendar;
 with Ada.Containers.Doubly_Linked_Lists;
 
 private package Smk.Assertions is
@@ -46,8 +47,9 @@ private package Smk.Assertions is
    end record;
 
    -- --------------------------------------------------------------------------
-   function "=" (L, R : Condition) return Boolean is (L.Name = R.Name);
-   -- Equality ignore all but Name
+   function "=" (L, R : Condition) return Boolean is
+     (L.Name = R.Name and Role (L.File) = Role (R.File));
+   -- Equality is based on Name, but we also discriminate Sources from Targets
 
    -- --------------------------------------------------------------------------
    function Image (A      : Condition;
@@ -59,6 +61,15 @@ private package Smk.Assertions is
    package Condition_Lists is
      new Ada.Containers.Doubly_Linked_Lists (Condition);
    -- NB: "=" redefinition modify Contains (and other operations)
+
+   -- --------------------------------------------------------------------------
+   function Name_Order (Left, Right : Condition) return Boolean is
+      (Left.Name < Right.Name);
+   package Name_Sorting is new Condition_Lists.Generic_Sorting (Name_Order);
+
+--     function Time_Order (Left, Right : Condition) return Boolean is
+--       (Time_Tag (Left.File) < Time_Tag (Right.File));
+--     package Time_Sorting is new Condition_Lists.Generic_Sorting (Time_Order);
 
    -- --------------------------------------------------------------------------
    type File_Count is new Natural;

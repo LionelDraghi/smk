@@ -57,6 +57,10 @@ private package Smk.Runfiles is
                                   Updated_List : in out Condition_Lists.List);
 
    -- --------------------------------------------------------------------------
+   procedure Update_Files_Status (In_Run_List  : in out Run_Lists.Map;
+                                  Updated_List : in out Condition_Lists.List);
+
+   -- --------------------------------------------------------------------------
    procedure Delete_Targets (The_Runfile : in Runfile);
    -- remove all target files (to mimic a "make clean")
 
@@ -83,9 +87,7 @@ private package Smk.Runfiles is
    -- [section]Command:file name --Fixme: to be updated
    -- ...
    -- Note that system files and directories are ignored.
-   --
-   -- Sources and Targets are printed according to the Booleans.
-   -- Setting both to False will print unused files.
+   -- Sources, Targets and Unused files are printed according to the Booleans.
 
    -- --------------------------------------------------------------------------
    procedure Put_Run (Run_List : in Run_Lists.Map);

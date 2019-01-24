@@ -32,9 +32,9 @@ Table of contents
 
 ## Quick start
 
-Let's start with a basic example : converting an audio file, changing tags, and renaming it according to the tag.
-
-This is done thanks to those commands : 
+Let's start with a basic example : converting an audio file, changing tags, and renaming it according to the tag.  
+Here is my `script.sh` file that will transform the `x.ogg` file into `Luke-Sentinelle.mp3`.  
+It contains:
 
 ```bash
 # converting ogg to mp3:
@@ -45,9 +45,13 @@ id3v2 -a Luke -t Sentinelle x.mp3
 id3ren -template='%a-%s.mp3' x.mp3
 ```
 
-and will transform the `x.ogg` file into `Luke-Sentinelle.mp3`.
+You may run this through `smk`, either directly with 
 
-Let's run this through `smk`, thanks to the `run` command:
+```bash
+smk script.sh
+```
+
+or by giving commands one by one, on the fly, thanks to the `run` command:
 
 ```bash
 smk run sox x.ogg x.mp3

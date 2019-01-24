@@ -45,12 +45,10 @@ private package Smk.Files is
    -- --------------------------------------------------------------------------
    type File_Role is (Source,
                       Target,
-                      Both,
                       Unused) with Default_Value => Unused;
    Role_Image : constant array (File_Role) of String (1 .. 6) :=
                   (Source => "Source",
                    Target => "Target",
-                   Both   => "Both  ",
                    Unused => "Unused");
 
    -- --------------------------------------------------------------------------
@@ -79,12 +77,19 @@ private package Smk.Files is
    function Is_Dir    (File : File_Type) return Boolean;
    function Is_System (File : File_Type) return Boolean;
    -- Is_System returns True if the File_Name starts with "/usr/, "/lib/", etc.
-   function Role      (File : File_Type) return File_Role;
+   function Role      (File : File_Type) return File_Role
+     with Pre => not (Is_Source (File) and Is_Target (File)); -- can't be both
    function Status    (File : File_Type) return File_Status;
    function Is_Source (File : File_Type) return Boolean;
    function Is_Target (File : File_Type) return Boolean;
    function Is_Unused (File : File_Type) return Boolean is
      (not Is_Source (File) and not Is_Target (File));
+
+   -- -----------------------------------------------------------------------
+   function Has_Target (Name   : File_Name;
+                        Target : String) return Boolean;
+   -- File is a Full_Name
+   -- return True if Target match the right part of File
 
    -- --------------------------------------------------------------------------
    function File_Image (Name   : File_Name;
@@ -104,6 +109,7 @@ private package Smk.Files is
                                  Current_Status  :    out File_Status);
 
 private
+   -- --------------------------------------------------------------------------
    type File_Type is record
       Time_Tag  : Ada.Calendar.Time;
       Is_System : Boolean;

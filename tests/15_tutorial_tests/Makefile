@@ -77,7 +77,7 @@ quick_start: header
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk`'
 	${TR} cmt 
-	${TR} cmt 'Expected: nothing, situation is uptodate'
+	${TR} cmt 'Expected: nothing, situation is up to date'
 	${TR} cmt '```' 
 	cat expected.11 >> testrec.md
 	${TR} cmt '```' 
@@ -96,29 +96,31 @@ quick_start: header
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
-	cat expected.12 >> testrec.md
+	cat expected.12a >> testrec.md
 	${TR} cmt '```' 
 	${TR} cmt 
 	
 	rm Luke-Sentinelle.mp3
-	../../smk > out.12
-	${TR} assert true /usr/bin/sdiff "-sbB expected.12 out.12" || meld expected.12 out.12
+	../../smk > out.12a
+	${TR} assert true /usr/bin/sdiff "-sbB expected.12a out.12a" || meld expected.12a out.12a
 
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
 	${TR} start 'unless using the `-mt` / `--build-missing-target` option'
 	${TR} cmt 'Run:'
-	${TR} cmt '`rm Luke-Sentinelle.mp3`'
 	${TR} cmt '`smk -mt -e`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
-	cat expected.12 >> testrec.md
+	cat expected.12b >> testrec.md
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk -mt -e > out.12b
+	sleep 1.0
+	../../smk -mt -e | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+      sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.12b
 	${TR} assert true /usr/bin/sdiff "-sbB expected.12b out.12b" || meld expected.12b out.12b
 
 	${TR} end
@@ -127,6 +129,7 @@ quick_start: header
 	${TR} start 'touch x.ogg'
 	${TR} cmt 'Run:'
 	${TR} cmt '`touch x.ogg`'
+	${TR} cmt '`rm Luke-Sentinelle.mp3`'
 	${TR} cmt '`smk`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -137,6 +140,7 @@ quick_start: header
 	
 	sleep 1.0
 	touch x.ogg
+	rm Luke-Sentinelle.mp3
 	../../smk -e | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.13
@@ -151,13 +155,18 @@ quick_start: header
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
-	## cat expected.20 >> testrec.md
+	cat expected.20a >> testrec.md
+	cat expected.20c >> testrec.md
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk lt -l 
+	../../smk lt -l	| \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+      sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" >  out.20a
 	rm Luke-Sentinelle.mp3
-	../../smk Luke-Sentinelle.mp3
+	../../smk Luke-Sentinelle.mp3	>> out.20c
+	${TR} assert true /usr/bin/sdiff "-sbB expected.20a out.20a" || meld expected.20a out.20a
+	${TR} assert true /usr/bin/sdiff "-sbB expected.20c out.20c" || meld expected.20c out.20c
 
 	${TR} end
 

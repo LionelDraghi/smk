@@ -46,8 +46,8 @@ procedure Analyze_Run (Assertions : out Condition_Lists.List) is
             if C = No_Element then
                Assertions.Append (Cond);
                IO.Put (" inserted", Level => IO.Debug);
-            else
 
+            else
                if Override (Cond.Trigger, Element (C).Trigger) then
                   IO.Put (" trigger modified, was "
                           & Trigger_Image (Element (C).Trigger),
@@ -185,5 +185,7 @@ begin
    then Close  (Strace_Ouput);
    else Delete (Strace_Ouput);
    end if;
+
+   Name_Sorting.Sort (Assertions);
 
 end Analyze_Run;

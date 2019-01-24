@@ -222,12 +222,8 @@ package body Smk.Runfiles is
             Current_Status  : File_Status;
             Name            : File_Name renames A.Name;
             File            : File_Type renames A.File;
-         begin
-            -- Fixme: precond : Is_Dir = False
---              if Is_Dir (File) then
---              IO.Put_Error ("Update_Files_Status:"  & (+Name));
---              end if;
 
+         begin
             Files.Update_File_Status (Name, File,
                                       Previous_Status, Current_Status);
             if Current_Status /= Identical
@@ -247,6 +243,16 @@ package body Smk.Runfiles is
                end if;
             end if;
          end;
+      end loop;
+      Name_Sorting.Sort (Updated_List);
+   end Update_Files_Status;
+
+   -- --------------------------------------------------------------------------
+   procedure Update_Files_Status (In_Run_List  : in out Run_Lists.Map;
+                                  Updated_List : in out Condition_Lists.List) is
+   begin
+      for R of In_Run_List loop
+         Update_Files_Status (R.Assertions, Updated_List);
       end loop;
    end Update_Files_Status;
 
@@ -454,28 +460,15 @@ package body Smk.Runfiles is
    -- --------------------------------------------------------------------------
    function Has_Target (The_Run_List : Run_Lists.Map;
                         Target       : String) return Boolean is
-      -- use File_Lists;
-      -- -----------------------------------------------------------------------
-      function Has_Target (P : Condition) return Boolean is
-      begin
-         if Is_Target (P.File) and then
-           Ada.Strings.Fixed.Tail (+P.Name, Target'Length) = Target
-         then
-            IO.Put_Line ("File " & (+P.Name) & " match Target "
-                         & Target & ".", Level => IO.Verbose);
-            return True;
-         else
-            return False;
-         end if;
-      end Has_Target;
-
    begin
       -- -----------------------------------------------------------------------
       if Target = "" then return False; end if;
 
       for R of The_Run_List loop
          for P of R.Assertions loop
-            if Has_Target (P) then return True; end if;
+            if Is_Target (P.File) and then Has_Target (P.Name, Target) then
+               return True;
+            end if;
          end loop;
       end loop;
 

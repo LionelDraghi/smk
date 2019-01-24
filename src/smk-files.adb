@@ -20,6 +20,7 @@ with Smk.Settings;
 
 with Ada.Calendar;    use Ada.Calendar;
 with Ada.Directories;
+with Ada.Strings.Fixed;
 
 package body Smk.Files is
 
@@ -53,27 +54,13 @@ package body Smk.Files is
    end Modification_Time;
 
    -- --------------------------------------------------------------------------
-   function To_Role (File : File_Type) return File_Role is
-   begin
-      if Is_Source (File) and Is_Target (File) then
-         return Both;
-      elsif not Is_Source (File) and Is_Target (File) then
-         return Target;
-      elsif Is_Source (File) and not Is_Target (File) then
-         return Source;
-      else
-         return Unused;
-      end if;
-   end To_Role;
-
-   -- --------------------------------------------------------------------------
    function Create (File : File_Name;
                     Role : File_Role) return File_Type is
       ((Time_Tag  => Modification_Time (+File),
         Is_Dir    => Is_Dir (+File),
         Is_System => Settings.Is_System (+File),
-        Is_Source => (Role = Source or Role = Both),
-        Is_Target => (Role = Target or Role = Both),
+        Is_Source => Role = Source, 
+        Is_Target => Role = Target, 
         Status    => New_File));
 
    -- --------------------------------------------------------------------------
@@ -81,10 +68,28 @@ package body Smk.Files is
    function Is_Dir    (File : File_Type) return Boolean     is (File.Is_Dir);
    function Is_System (File : File_Type) return Boolean     is (File.Is_System);
    function Role      (File : File_Type) return File_Role   is
-     (To_Role (File));
+     (if       Is_Source (File) then Source
+      else (if Is_Target (File) then Target
+            else                     Unused));
    function Status    (File : File_Type) return File_Status is (File.Status);
    function Is_Source (File : File_Type) return Boolean     is (File.Is_Source);
    function Is_Target (File : File_Type) return Boolean     is (File.Is_Target);
+
+   -- -----------------------------------------------------------------------
+   function Has_Target (Name   : File_Name;
+                        Target : String) return Boolean is
+   begin
+      if Target = "" then
+         return False;
+
+      elsif Ada.Strings.Fixed.Tail (+Name, Target'Length) = Target then
+         IO.Put_Line ("File " & (+Name) & " match Target "
+                      & Target & ".", Level => IO.Verbose);
+         return True;
+      else
+         return False;
+      end if;
+   end Has_Target;
 
    -- --------------------------------------------------------------------------
    function File_Image (Name   : File_Name;
@@ -95,9 +100,9 @@ package body Smk.Files is
                 then Prefix
                 & (if Is_Dir (File)    then "[Dir] "     else "[Fil] ")
                 & (if Is_System (File) then  "[System] " else "[Normal] ")
-                & "[" & Role_Image (To_Role (File)) & "] "
-                & "[" & Status_Image (File.Status)  & "] "
-                & "[" & IO.Image (File.Time_Tag)    & "] "
+                & "[" & Role_Image (Role (File))   & "] "
+                & "[" & Status_Image (File.Status) & "] "
+                & "[" & IO.Image (File.Time_Tag)   & "] "
                 else Prefix);
    begin
       return Left & Shorten (Name);

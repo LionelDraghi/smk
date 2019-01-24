@@ -1,2 +1,2 @@
-run "mkdocs build --clean --quiet" because ../mysite/docs/about.md has been updated (-- ::.)
+run "mkdocs build --clean --quiet" because Source file ../mysite/docs/about.md has been updated (-- ::.)
 mkdocs build --clean --quiet

@@ -2,7 +2,7 @@
 
 ## Successful
 
-   47 tests OK
+   49 tests OK
 
   - [Sanity / First `smk`, after `make`, should run no command](testrec.md#)
   - [Sanity / Second `smk`, should not run any command](testrec.md#)
@@ -51,15 +51,15 @@
   - [Tutorial / start conversion](testrec.md#)
   - [Tutorial / second run](testrec.md#)
   - [Tutorial / smk do not rebuild if a target is missing!!!](testrec.md#)
+  - [Tutorial / unless using the `-mt` / `--build-missing-target` option](testrec.md#)
+  - [Tutorial / smk do rebuild if you give the target](testrec.md#)
 
 ## Failed
 
-   1 tests failed
+   0 tests failed
 
-**Tutorial / unless using the `-mt` / `--build-missing-target` option](testrec.md#)
 
 ## Empty
 
-   1 empty tests
+   0 empty tests
 
-  - [Tutorial / smk do rebuild if you give the target](testrec.md#)

@@ -48,7 +48,6 @@ package body Smk.Runs.Strace_Analyzer is
    -- but anyway it will be better than current situation, that cause the
    -- trace to be ignored.
 
-
    -- --------------------------------------------------------------------------
    Function_First : constant := 7;
    -- A line always start with the command from char 7 to char before '(':

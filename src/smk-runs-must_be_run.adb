@@ -14,6 +14,7 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
+with File_Utilities;
 with Smk.IO;
 with Smk.Settings;    use Smk.Settings;
 
@@ -41,22 +42,33 @@ is
 
    -- --------------------------------------------------------------------------
    function Assert (C : Condition) return Boolean is
-      File_Exists : constant Boolean := Ada.Directories.Exists (+C.Name);
+      File_Exists   : constant Boolean := Ada.Directories.Exists (+C.Name);
       -- Fixme: not sure this call is needed, why not use the Status?
-      Because     : constant String := "because "
-                      & (if Is_Dir (C.File) then "dir " else "")
-                      & Shorten (C.Name);
-      Status      : File_Status renames Files.Status (C.File);
+      Role          : constant String := Role_Image (Files.Role (C.File)) & " ";
+      Because       : constant String := "because "
+                        & Role
+                        & (if Is_Dir (C.File) then "dir " else "file ")
+                        & Shorten (C.Name);
+      Status        : File_Status renames Files.Status (C.File);
+      Is_The_Target : constant Boolean := Has_Target (C.Name,
+                                                      Settings.Target_Name);
+      -- Is_The_Target is True if C.Name is the target explicitly given
+      -- on command line.
 
    begin
+      --IO.Put_Line (+C.Name & " =? " & Boolean'Image (Is_The_Target));
       if not File_Exists and C.Trigger = File_Absence and Is_Source (C.File)
       then
          -- --------------------------------------------------------------------
-         Put_Explanation (Because & " source is missing");
+         Put_Explanation (Because & " is missing");
          return False;
 
       elsif not File_Exists and C.Trigger = File_Absence
-        and (Is_Target (C.File) and Settings.Build_Missing_Targets)
+        and (Is_Target (C.File) and (Settings.Build_Missing_Targets
+                                     or Is_The_Target))
+            -- if target and :
+            -- - -mt option used, or
+            -- - this target is explicitly given on command line
       then
             -- -----------------------------------------------------------------
             Put_Explanation (Because & " is missing");
@@ -76,6 +88,7 @@ is
       elsif File_Exists and C.Trigger = File_Update and Status = New_File then
          -- --------------------------------------------------------------------
          Put_Explanation ("because of new"
+                          & Role
                           & (if Is_Dir (C.File) then " dir " else " file ")
                           & Shorten (C.Name));
          return False;

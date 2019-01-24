@@ -1,5 +1,3 @@
-../mysite/mkdocs.yml
-../mysite/docs/index.md
 ../mysite/docs/about.md
 ../mysite/docs/changelog.md
 ../mysite/docs/cmd_line.md
@@ -8,11 +6,13 @@
 ../mysite/docs/dashboard.md
 ../mysite/docs/design_notes.md
 ../mysite/docs/fixme.md
-../mysite/docs/limitations.md
-../mysite/docs/smkfile_format.md
-../mysite/docs/tutorial.md
 ../mysite/docs/img/sloc.png
 ../mysite/docs/img/tests.png
 ../mysite/docs/img/tests_ko.svg
 ../mysite/docs/img/tests_ok.svg
 ../mysite/docs/img/version.svg
+../mysite/docs/index.md
+../mysite/docs/limitations.md
+../mysite/docs/smkfile_format.md
+../mysite/docs/tutorial.md
+../mysite/mkdocs.yml

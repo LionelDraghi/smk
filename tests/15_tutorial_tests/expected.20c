@@ -1,0 +1,1 @@
+id3ren -quiet -template=%a-%s.mp3 x.mp3

@@ -1,5 +1,5 @@
 /home/lionel/Proj/smk/tests/hello.c/hello.o
 /home/lionel/Proj/smk/tests/hello.c/main.o
 /home/lionel/Proj/smk/tests/hello.c/hello.c
-/home/lionel/Proj/smk/tests/hello.c/main.c
 /home/lionel/Proj/smk/tests/hello.c/hello.h
+/home/lionel/Proj/smk/tests/hello.c/main.c
