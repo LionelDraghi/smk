@@ -1,3 +1,4 @@
-[Updated] ../mysite/docs/about.md
-[Updated] ../mysite/site/tutorial
-[Missing] ../mysite/site/tutorial/index.html
+[Updated] [Source] ../mysite/docs/about.md
+[Updated] [Source] ../mysite/site/tutorial
+[Updated] [Target] ../mysite/site/tutorial
+[Missing] [Target] ../mysite/site/tutorial/index.html

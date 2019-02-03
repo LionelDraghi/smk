@@ -70,8 +70,11 @@ check: ../smk
 	echo 14_strace_analysis_tests
 	$(MAKE) check --directory=14_strace_analysis_tests
 	echo
-	echo 15_tutorial
+	echo 15_tutorial_tests
 	$(MAKE) check --directory=15_tutorial_tests
+	echo
+	echo 16_dir_ops_tests
+	$(MAKE) check --directory=16_dir_ops_tests
 	echo
 
 doc:

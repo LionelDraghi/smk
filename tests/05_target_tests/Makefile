@@ -116,6 +116,23 @@ targets:
 
 	${TR} end
 
+	@ #-------------------------------------------------------------------------
+	${TR} start 'Build unknown target'
+	${TR} cmt	
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk build mainzzzzz.o`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected7.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	../../smk build mainzzzzz.o	> out.7.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected7.txt out.7.txt" || meld expected7.txt out.7.txt 
+
+	${TR} end
+
 
 clean:
 	${TR} clean

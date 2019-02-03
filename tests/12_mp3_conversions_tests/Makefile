@@ -39,7 +39,7 @@ conv:
 	${TR} cmt '```' 
 	${TR} cmt 
 
-	@ - rm default.smk
+	rm -f default.smk
 	../../smk -q reset
 	../../smk run ./ogg-to-mp3.sh > out.1
 	${TR} assert true /usr/bin/sdiff "-sbB expected.1 out.1" || meld expected.1 out.1 
@@ -111,7 +111,7 @@ sub_dir: ogg-to-mp3
 	${TR} cmt 
 	${TR} cmt 'Run:'
 	${TR} cmt '`mkdir dir1`'
-	${TR} cmt '`smk wn`'
+	${TR} cmt '`smk wn -l`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
 	${TR} cmt '```' 
@@ -121,7 +121,9 @@ sub_dir: ogg-to-mp3
 	
 	- mkdir dir1
 	sleep 1.0 # Fixme:
-	../../smk wn > out.20
+	../../smk wn -l | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.20
 	${TR} assert true /usr/bin/sdiff "-sbB expected.20 out.20" || meld expected.20 out.20 
 
 	${TR} cmt 'Run:'

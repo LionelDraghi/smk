@@ -36,7 +36,7 @@ package body Smk.Runs.Strace_Analyzer is
    -- or
    --    "15225 <... access resumed> ..."
    --
-   -- Fixme: processing of unfinished line not done
+   -- Fixme: processing of unfinished line not done (Issue #18)
    -- Example:
    --    15168 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
    --    15168 <... access resumed> {st_mode=0755, st_size=122224, ...}) = 0
@@ -201,7 +201,7 @@ package body Smk.Runs.Strace_Analyzer is
          First := Index (Line, "<", From => First + 1);
 
          if First = 0 then
-            IO.Put_Line ("No returned file named", Level => IO.Debug);
+            IO.Put_Line ("No returned file!", Level => IO.Debug);
             -- Probably returning an error code:
             -- 8757  openat(...) = -1 ENOENT (No such file or directory)
             return No_File; -- file name not found
@@ -264,17 +264,31 @@ package body Smk.Runs.Strace_Analyzer is
 
       IO.Put_Line ("Analyzing strace line : " & Line, Level => IO.Debug);
 
-      -- Fixme: if to be ordered according to occurence frequence
-
-      if Cmd = "write"
-        or  Cmd = "creat"
-        or  Cmd = "link"
-      then
+      if Cmd = "write" or  Cmd = "creat" or  Cmd = "link" then
          -- --------------------------------------------------------------------
          declare
             Name : constant File_Name := Get_Returned_File;
          begin
             IO.Put_Line ("write/creat/link " & (+Name), Level => IO.Debug);
+            Operation := (Kind => Write,
+                          Name => Name,
+                          File => Create (File => Name,
+                                          Role => Target));
+         end;
+
+      elsif Cmd = "mkdir" then
+         -- --------------------------------------------------------------------
+         -- 7120  mkdir("dir1", 0777)               = 0
+         declare
+            PID      : constant Process_Id := Get_PID;
+            WD       : constant File_Name  := Get_WD (PID);
+            P1       : constant File_Name  := Get_File_Name;
+            Tmp_Name : constant File_Name  :=
+                         Add_Dir (To_Name => P1, Dir => WD);
+            Name     : constant File_Name  :=
+                         +Ada.Directories.Full_Name (+Tmp_Name);
+         begin
+            IO.Put_Line ("mkdir " & (+Name), Level => IO.Debug);
             Operation := (Kind => Write,
                           Name => Name,
                           File => Create (File => Name,
@@ -334,10 +348,7 @@ package body Smk.Runs.Strace_Analyzer is
                                                  Role => Target));
          end;
 
-      elsif Cmd = "open"
-        or  Cmd = "fopen"
-        or  Cmd = "openat"
-      then
+      elsif Cmd = "open" or  Cmd = "fopen" or  Cmd = "openat" then
          -- --------------------------------------------------------------------
          -- 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL,
          --              0600) = 3</tmp/ccvHeGYq.res>
@@ -361,9 +372,10 @@ package body Smk.Runs.Strace_Analyzer is
             end if;
          end;
 
-      elsif Cmd = "getcwd"
+      elsif Cmd = "chdir" 
+        or  Cmd = "getcwd"
         or  Cmd = "getwd"
-        or  Cmd = "get_current_dir_name"
+        or Cmd  = "get_current_dir_name"
       then
          -- --------------------------------------------------------------------
          declare
@@ -426,8 +438,7 @@ package body Smk.Runs.Strace_Analyzer is
 --                                                  new String'("unlinkat"),
 --                                                  new String'("remove"),
 --                                                  new String'("mkdir"),
---                                                  new String'("rmdir"),
---                                                  new String'("chdir"));
+--                                                  new String'("rmdir"));
 --
 -- --------------------------------------------------------------------------
 --     function Is_Ignored (Call : String) return Boolean is

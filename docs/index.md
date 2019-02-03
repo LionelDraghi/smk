@@ -30,6 +30,17 @@ Table of contents
 
 (Une introduction en français est disponible  [ici](https://linuxfr.org/users/3tus/journaux/smk-un-make-sans-makefile))
 
+## Overview & main features
+
+`smk` is a make tools aiming at maximum simplicity. You don't need to learn a specific syntax to use it, and you don't even have to write a proper Makefile. Run the commands under `smk` once, just run `smk` to replay only the commands that need to.
+`smk` :
+- stores the commands in simple text files. You don't need to manipulate it, but you also can edit those file. You can use simple existing script files or Makefiles;
+- don't need you to describe preconditions, sources, target, rules, etc. Quite the opposite, just run the command, and then ask `smk` what are the inputs and ouputs;
+- tracks for you unused files;
+- provides a whatsnew function, similar to git `status`;
+- provides an automatic clean function;
+- can build whatever output files (all output files are targets you can give on the command line).
+
 ## Quick start
 
 Let's start with a basic example : converting an audio file, changing tags, and renaming it according to the tag.  
@@ -94,7 +105,7 @@ For more information on why is a command run, just give the `--explain` option (
 `smk` uses [`strace`](https://en.wikipedia.org/wiki/Strace), to understand what is read and what is written by each command, and thus what is a source, and what is a target.  
 And this is why you don't have to manually give those information within a Makefile : **no more rules, recipes, dependencies, targets, etc.**
 
-## Overview 
+## `smk` vocabulary 
 
 `smk` vocabulary is simple:  
 
@@ -132,7 +143,7 @@ Let's be back to the status:
 The first time stamp is the command run time, other time stamps are files modification time.  
 (and yes, this example was written during christmas night!)
 
-> **Cool feature #1** : `smk` output focus on useful files, system files are filtered by default.  
+> Note that `smk` output focus on useful files, system files are filtered by default.  
 > (On my system, 166 system files are read by ffmpeg during such a conversion, that you generally don't care!)  
 > Note that this is only an output filter. `smk` manage all dependencies, and if whatever lib.so changes in /usr/lib, the command will be re-run.  
 > To see system files involved, add the `-sa` (`--show-all-files`) option. 
@@ -148,13 +159,6 @@ smk -e
 ffmpeg -i x.mp3 x.ogg
 
 etc.
-
-
-## Cool features TBD
-### using `smk` without `smkfile`
-### Whats new?
-### Auto-clean
-### Working with files: smkfiles, Makefiles or shell scripts 
 
 ## Next Step:
 A short, but highly recommended, [`smk` tutorial](tutorial.md) is the best way to quickly start.  

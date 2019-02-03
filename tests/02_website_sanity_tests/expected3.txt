@@ -1,3 +1,4 @@
+../mysite/docs
 ../mysite/docs/about.md
 ../mysite/docs/changelog.md
 ../mysite/docs/cmd_line.md
@@ -6,6 +7,7 @@
 ../mysite/docs/dashboard.md
 ../mysite/docs/design_notes.md
 ../mysite/docs/fixme.md
+../mysite/docs/img
 ../mysite/docs/img/sloc.png
 ../mysite/docs/img/tests.png
 ../mysite/docs/img/tests_ko.svg
@@ -16,3 +18,5 @@
 ../mysite/docs/smkfile_format.md
 ../mysite/docs/tutorial.md
 ../mysite/mkdocs.yml
+../mysite/site
+

@@ -1,0 +1,2 @@
+Target "mainzzzzz.o" not found
+run "smk list-targets" to get a list of possible target

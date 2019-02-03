@@ -1,0 +1,6 @@
+run "ls -1 dir1" because Source dir dir1 has been updated (YYYY:MM:DD HH:MM:SS.SS)
+ls -1 dir1
+dir2
+f2
+f4
+

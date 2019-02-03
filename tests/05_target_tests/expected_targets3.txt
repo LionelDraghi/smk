@@ -1,3 +1,3 @@
-Deleting ../hello.c/hello
-Deleting ../hello.c/hello.o
-Deleting ../hello.c/main.o
+Deleting file ../hello.c/hello
+Deleting file ../hello.c/hello.o
+Deleting file ../hello.c/main.o

@@ -38,14 +38,15 @@ check: smk
 	echo Coverage report: 
 	lcov --quiet --capture --directory obj -o obj/coverage.info
 	lcov --quiet --remove obj/coverage.info -o obj/coverage.info \
-		"*/adainclude/*" "*.ads" "obj/b__smk-main.adb"
+		"*/adainclude/*" "*.ads" "*/obj/b__*.adb" "*/tests/*"
 	# Ignoring :
 	# - spec (results are not consistent with current gcc version) 
 	# - the false main
 	# - libs (Standard)
+	# - unit test main
 
 	genhtml obj/coverage.info -o docs/lcov --title "smk tests coverage" \
-		--prefix "/home/lionel/Proj/smk" --frames | tail -n 2 > cov_sum.txt
+		--prefix "/home/lionel/Proj/smk/src" --frames | tail -n 2 > cov_sum.txt
 	# --title  : Display TITLE in header of all pages
 	# --prefix : Remove PREFIX from all directory names
 	# --frame  : Use HTML frames for source code view

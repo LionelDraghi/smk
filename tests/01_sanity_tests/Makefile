@@ -46,8 +46,6 @@ sanity:
 	cat expected_sanity.1 >> testrec.md
 	${TR} cmt '```' 						
 	${TR} cmt 
-	# $(MAKE) --directory=../hello.c -f Makefile.2 
-	# let's do it with smk:
 	../../smk -q ../hello.c/Makefile.2
 	../../smk -e ../hello.c/Makefile.2 > out.1
 	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.1 out.1" || meld expected_sanity.1 out.1 
@@ -128,7 +126,7 @@ sanity:
 	${TR} start '`touch hello.c` (updated file)'
 	${TR} cmt 
 	${TR} cmt 'Run:'
-	${TR} cmt '`rm ../hello.c/main.o`'
+	${TR} cmt '`touch ../hello.c/hello.c`'
 	${TR} cmt '`smk -e ../hello.c/Makefile.2`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -138,8 +136,74 @@ sanity:
 	${TR} cmt 
 	touch ../hello.c/hello.c
 	../../smk -e ../hello.c/Makefile.2 | sed "s/[0-9]//g" > out.6
-	# Time tag neutralized
 	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.6 out.6" || meld expected_sanity.6 out.6 
+	${TR} end
+
+	@ #-------------------------------------------------------------------------
+	${TR} start '`touch hello.c` and dry run'
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`touch ../hello.c/hello.c`'
+	${TR} cmt '`smk whatsnew ../hello.c/Makefile.2`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 						
+	cat expected_sanity.7a >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+	sleep 1.0
+	touch ../hello.c/hello.c
+	../../smk whatsnew ../hello.c/Makefile.2 > out.7a
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7a out.7a" || meld expected_sanity.7a out.7a 
+
+	${TR} cmt 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk -e -n`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 						
+	cat expected_sanity.7 >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+	../../smk -e -n | sed "s/[0-9]//g" > out.7
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7 out.7" || meld expected_sanity.7 out.7 
+
+	${TR} cmt 
+	${TR} cmt 'whatsnew should still return the same, as nothing was changed by previous run with -n) :'
+	${TR} cmt '`smk wn`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 						
+	cat expected_sanity.7a >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+	../../smk wn | sed "s/[0-9]//g" > out.7b
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7a out.7b" || meld expected_sanity.7a out.7b 
+
+	${TR} cmt 
+	${TR} cmt 'Run same without -n :'
+	${TR} cmt '`smk -e ../hello.c/Makefile.2`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 						
+	cat expected_sanity.8 >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+	../../smk -e ../hello.c/Makefile.2 | sed "s/[0-9]//g" > out.8
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.8 out.8" || meld expected_sanity.8 out.8 
+
+	${TR} cmt 
+	${TR} cmt 'and now whatsnew returns null:'
+	${TR} cmt '`smk wn`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 						
+	cat expected_sanity.7c >> testrec.md
+	${TR} cmt '```' 						
+	${TR} cmt 
+	../../smk wn | sed "s/[0-9]//g" > out.7c
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7c out.7c" || meld expected_sanity.7c out.7c 
+
 	${TR} end
 
 clean:

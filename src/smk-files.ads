@@ -96,8 +96,8 @@ private package Smk.Files is
                         File   : File_Type;
                         Prefix : String := "") return String;
    -- Return a string according to Long_Listing_Format setting
-   -- if False: Fixme:
-   -- if True: Fixme:
+   -- if True:  [Fil] [Normal] [Source] [Identic] [<timetag>] ogg-to-mp3.sh
+   -- if False: ogg-to-mp3.sh
 
    -- --------------------------------------------------------------------------
    function Is_Dir (File_Name : in String) return Boolean;

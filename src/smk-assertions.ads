@@ -16,7 +16,6 @@
 
 with Smk.Files;                          use Smk.Files;
 
--- with Ada.Calendar;                       use Ada.Calendar;
 with Ada.Containers.Doubly_Linked_Lists;
 
 private package Smk.Assertions is

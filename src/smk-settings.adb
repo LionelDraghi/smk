@@ -37,7 +37,6 @@ package body Smk.Settings is
                                               new String'("/proc/*"),
                                               new String'("/dev/*"),
                                               new String'("/tmp/*"),
-                                              -- Fixme: can't ignore /tmp/* ???
                                               new String'("/etc/ld.so.cache"));
    System_Dir      : constant Filter_List := (new String'("/usr/*"),
                                               new String'("/lib/*"),

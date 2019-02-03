@@ -48,7 +48,7 @@ sections:
 
 listing:
 	@ #-------------------------------------------------------------------------
-	${TR} start 'listing'
+	${TR} start 'listings & dump'
 	${TR} cmt	
 
 	${TR} cmt 'Sources are all md files in docs directory, and the mkdocs.yml file'
@@ -110,6 +110,20 @@ listing:
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.5.txt 
 	${TR} assert true /usr/bin/sdiff "-sbB expected5.txt out.5.txt" || meld expected5.txt out.5.txt 
 
+	${TR} cmt 'Run:'
+	${TR} cmt '`smk dump`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected5b.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	../../smk dump | \
+	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
+	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.5b.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected5b.txt out.5b.txt" || meld expected5b.txt out.5b.txt 
+
 	${TR} end
 
 build:
@@ -119,7 +133,18 @@ build:
 
 	${TR} cmt 'Run:'
 	${TR} cmt '   First run after reset : all command should be executed, including `clean`'
-	${TR} cmt '`smk -q reset`'
+	${TR} cmt '`smk reset`'
+	${TR} cmt 
+	${TR} cmt 'Expected:'
+	${TR} cmt '```' 
+	cat expected6a.txt >> testrec.md
+	${TR} cmt '```' 
+	${TR} cmt 
+	
+	../../smk reset >  out.6a.txt
+	${TR} assert true /usr/bin/sdiff "-sbB expected6a.txt out.6a.txt" || meld expected6a.txt out.6a.txt 
+
+	${TR} cmt
 	${TR} cmt '`smk ../mysite/Makefile`'
 	${TR} cmt 
 	${TR} cmt 'Expected:'
@@ -128,7 +153,6 @@ build:
 	${TR} cmt '```' 
 	${TR} cmt 
 	
-	../../smk -q reset
 	../../smk ../mysite/Makefile:doc > out.6.txt
 	${TR} assert true /usr/bin/sdiff "-sbB expected6.txt out.6.txt" || meld expected6.txt out.6.txt 
 

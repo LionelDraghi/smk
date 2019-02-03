@@ -1,45 +1,59 @@
-
-Deleting ../mysite/site/404.html
-Deleting ../mysite/site/about/index.html
-Deleting ../mysite/site/changelog/index.html
-Deleting ../mysite/site/cmd_line/index.html
-Deleting ../mysite/site/compare_with_make/index.html
-Deleting ../mysite/site/contributing/index.html
-Deleting ../mysite/site/css/base.css
-Deleting ../mysite/site/css/bootstrap-custom.min.css
-Deleting ../mysite/site/css/font-awesome.min.css
-Deleting ../mysite/site/dashboard/index.html
-Deleting ../mysite/site/design_notes/index.html
-Deleting ../mysite/site/fixme/index.html
-Deleting ../mysite/site/fonts/FontAwesome.otf
-Deleting ../mysite/site/fonts/fontawesome-webfont.eot
-Deleting ../mysite/site/fonts/fontawesome-webfont.svg
-Deleting ../mysite/site/fonts/fontawesome-webfont.ttf
-Deleting ../mysite/site/fonts/fontawesome-webfont.woff
-Deleting ../mysite/site/fonts/fontawesome-webfont.woff2
-Deleting ../mysite/site/fonts/glyphicons-halflings-regular.eot
-Deleting ../mysite/site/fonts/glyphicons-halflings-regular.svg
-Deleting ../mysite/site/fonts/glyphicons-halflings-regular.ttf
-Deleting ../mysite/site/fonts/glyphicons-halflings-regular.woff
-Deleting ../mysite/site/fonts/glyphicons-halflings-regular.woff2
-Deleting ../mysite/site/img/favicon.ico
-Deleting ../mysite/site/img/grid.png
-Deleting ../mysite/site/img/sloc.png
-Deleting ../mysite/site/img/tests_ko.svg
-Deleting ../mysite/site/img/tests_ok.svg
-Deleting ../mysite/site/img/tests.png
-Deleting ../mysite/site/img/version.svg
-Deleting ../mysite/site/index.html
-Deleting ../mysite/site/js/base.js
-Deleting ../mysite/site/js/bootstrap-3.0.3.min.js
-Deleting ../mysite/site/js/jquery-1.10.2.min.js
-Deleting ../mysite/site/limitations/index.html
-Deleting ../mysite/site/search/lunr.js
-Deleting ../mysite/site/search/main.js
-Deleting ../mysite/site/search/search_index.json
-Deleting ../mysite/site/search/worker.js
-Deleting ../mysite/site/sitemap.xml
-Deleting ../mysite/site/sitemap.xml.gz
-Deleting ../mysite/site/smkfile_format/index.html
-Deleting ../mysite/site/tutorial/index.html
-
+Deleting dir ../mysite/site/about
+Deleting dir ../mysite/site/changelog
+Deleting dir ../mysite/site/cmd_line
+Deleting dir ../mysite/site/compare_with_make
+Deleting dir ../mysite/site/contributing
+Deleting dir ../mysite/site/css
+Deleting dir ../mysite/site/dashboard
+Deleting dir ../mysite/site/design_notes
+Deleting dir ../mysite/site/fixme
+Deleting dir ../mysite/site/fonts
+Deleting dir ../mysite/site/img
+Deleting dir ../mysite/site/js
+Deleting dir ../mysite/site/limitations
+Deleting dir ../mysite/site/search
+Deleting dir ../mysite/site/smkfile_format
+Deleting dir ../mysite/site/tutorial
+Deleting file ../mysite/site/404.html
+Deleting file ../mysite/site/about/index.html
+Deleting file ../mysite/site/changelog/index.html
+Deleting file ../mysite/site/cmd_line/index.html
+Deleting file ../mysite/site/compare_with_make/index.html
+Deleting file ../mysite/site/contributing/index.html
+Deleting file ../mysite/site/css/base.css
+Deleting file ../mysite/site/css/bootstrap-custom.min.css
+Deleting file ../mysite/site/css/font-awesome.min.css
+Deleting file ../mysite/site/dashboard/index.html
+Deleting file ../mysite/site/design_notes/index.html
+Deleting file ../mysite/site/fixme/index.html
+Deleting file ../mysite/site/fonts/FontAwesome.otf
+Deleting file ../mysite/site/fonts/fontawesome-webfont.eot
+Deleting file ../mysite/site/fonts/fontawesome-webfont.svg
+Deleting file ../mysite/site/fonts/fontawesome-webfont.ttf
+Deleting file ../mysite/site/fonts/fontawesome-webfont.woff
+Deleting file ../mysite/site/fonts/fontawesome-webfont.woff2
+Deleting file ../mysite/site/fonts/glyphicons-halflings-regular.eot
+Deleting file ../mysite/site/fonts/glyphicons-halflings-regular.svg
+Deleting file ../mysite/site/fonts/glyphicons-halflings-regular.ttf
+Deleting file ../mysite/site/fonts/glyphicons-halflings-regular.woff
+Deleting file ../mysite/site/fonts/glyphicons-halflings-regular.woff2
+Deleting file ../mysite/site/img/favicon.ico
+Deleting file ../mysite/site/img/grid.png
+Deleting file ../mysite/site/img/sloc.png
+Deleting file ../mysite/site/img/tests_ko.svg
+Deleting file ../mysite/site/img/tests_ok.svg
+Deleting file ../mysite/site/img/tests.png
+Deleting file ../mysite/site/img/version.svg
+Deleting file ../mysite/site/index.html
+Deleting file ../mysite/site/js/base.js
+Deleting file ../mysite/site/js/bootstrap-3.0.3.min.js
+Deleting file ../mysite/site/js/jquery-1.10.2.min.js
+Deleting file ../mysite/site/limitations/index.html
+Deleting file ../mysite/site/search/lunr.js
+Deleting file ../mysite/site/search/main.js
+Deleting file ../mysite/site/search/search_index.json
+Deleting file ../mysite/site/search/worker.js
+Deleting file ../mysite/site/sitemap.xml
+Deleting file ../mysite/site/sitemap.xml.gz
+Deleting file ../mysite/site/smkfile_format/index.html
+Deleting file ../mysite/site/tutorial/index.html

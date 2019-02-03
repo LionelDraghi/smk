@@ -134,6 +134,7 @@ read_queries:
 
 clean:
 	${TR} clean
-	../../smk -q clean
+	../../smk -q clean ../hello.c/Makefile.2
+	../../smk -q clean ../hello.c/Makefile.3
 	../../smk -q reset
 	- ${RM} out.*

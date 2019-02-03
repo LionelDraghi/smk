@@ -2,7 +2,7 @@
 
 ## Successful
 
-   49 tests OK
+   56 tests OK
 
   - [Sanity / First `smk`, after `make`, should run no command](testrec.md#)
   - [Sanity / Second `smk`, should not run any command](testrec.md#)
@@ -10,8 +10,9 @@
   - [Sanity / `smk -a`, should run all commands even if not needed](testrec.md#)
   - [Sanity / `rm main.o` (missing file)](testrec.md#)
   - [Sanity / `touch hello.c` (updated file)](testrec.md#)
+  - [Sanity / `touch hello.c` and dry run](testrec.md#)
   - [Website building sanity tests / cleaning and building using clean and doc sections](testrec.md#)
-  - [Website building sanity tests / listing](testrec.md#)
+  - [Website building sanity tests / listings & dump](testrec.md#)
   - [Website building sanity tests / building without section](testrec.md#)
   - [Website building sanity tests / re-building](testrec.md#)
   - [Website building sanity tests / cleaning](testrec.md#)
@@ -24,6 +25,7 @@
   - [List queries / ls | list-sources --show-all-files](testrec.md#)
   - [Targets related functions / real clean](testrec.md#)
   - [Targets related functions / Build selected target](testrec.md#)
+  - [Targets related functions / Build unknown target](testrec.md#)
   - [Implicit naming / Implicit naming](testrec.md#)
   - [Run errors / -k -i](testrec.md#)
   - [Run errors / `run` command fails](testrec.md#)
@@ -53,6 +55,11 @@
   - [Tutorial / smk do not rebuild if a target is missing!!!](testrec.md#)
   - [Tutorial / unless using the `-mt` / `--build-missing-target` option](testrec.md#)
   - [Tutorial / smk do rebuild if you give the target](testrec.md#)
+  - [Directory tests / mkdir dir1](testrec.md#)
+  - [Directory tests / updating dir1](testrec.md#)
+  - [Directory tests / cleaning dir1](testrec.md#)
+  - [Directory tests / accessing dir1 contents, read access](testrec.md#)
+  - [Directory tests / removing dir1](testrec.md#)
 
 ## Failed
 

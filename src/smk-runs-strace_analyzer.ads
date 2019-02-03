@@ -62,5 +62,6 @@ private package Smk.Runs.Strace_Analyzer is
    -- 15167 <... stat resumed> {st_mode=S_IFREG|0755, st_size=122224, ...}) = 0
    -- 15232 renameat2(AT_FDCWD, "all.filect.new", AT_FDCWD, "all.filect"...
    -- 15214 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, ...
+   -- 7120  mkdir("dir1", 0777)               = 0
 
 end Smk.Runs.Strace_Analyzer;

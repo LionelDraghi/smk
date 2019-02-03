@@ -56,7 +56,6 @@ package body Smk.Runfiles is
                        Prefix        : String := "") is
    begin
       if not (Settings.Filter_Sytem_Files and Files.Is_System (C.File))
-        and not Files.Is_Dir (C.File)
       then
          if        (Print_Sources and then Files.Is_Source (C.File))
            or else (Print_Targets and then Files.Is_Target (C.File))
@@ -128,7 +127,8 @@ package body Smk.Runfiles is
                   -- Even if in short form, we want to print the Status field
                   IO.Put_Line
                     (File_Image (Name, File,
-                     Prefix => "[" & Status_Image (Status (File)) & "] "));
+                     Prefix => "[" & Status_Image (Status (File)) & "] "
+                     & "[" & Role_Image (Role (File)) & "] "));
                   Something_Updated := True;
 
                end if;
@@ -145,7 +145,6 @@ package body Smk.Runfiles is
 
    -- --------------------------------------------------------------------------
    procedure Put_Run (Run_List : in Run_Lists.Map) is
-      use Run_Lists;
       use type Ada.Containers.Count_Type;
    begin
       if Run_List.Length = 0 then
@@ -155,7 +154,7 @@ package body Smk.Runfiles is
 
       for L in Run_List.Iterate loop
          declare
-            Run : constant Runfiles.Run := Element (L);
+            Run : constant Runfiles.Run := Run_Lists.Element (L);
             SC  : constant File_Count   := Count
               (Run.Assertions,
                Count_Sources => True,
@@ -168,7 +167,7 @@ package body Smk.Runfiles is
             TC_Image : constant String := Count_Image (TC);
 
          begin
-            IO.Put_Line (Command_Image (Key (L), Run));
+            IO.Put_Line (Command_Image (Run_Lists.Key (L), Run));
             IO.Put_Line ("  Sources: (" & SC_Image & ")");
             Put_Files (Run.Assertions,
                        Print_Sources => True,
@@ -185,13 +184,7 @@ package body Smk.Runfiles is
 
    -- --------------------------------------------------------------------------
    procedure Dump (The_Runfile : Runfile) is
-      use type Ada.Containers.Count_Type;
    begin
-      if The_Runfile.Run_List.Length = 0 then
-         IO.Put_Line ("No recorded run");
-         return;
-      end if;
-
       -- Force long format, show all and don't shorten
       Settings.Long_Listing_Format := True;
       Settings.Shorten_File_Names  := False;
@@ -211,6 +204,44 @@ package body Smk.Runfiles is
    end Dump;
 
    -- --------------------------------------------------------------------------
+   function Get_File_List (The_Runfile : Runfile) return File_Lists.Map is
+      List : File_Lists.Map;
+   begin
+      for R of The_Runfile.Run_List loop
+         for A of R.Assertions loop
+            if not List.Contains (A.Name) then
+               List.Insert (Key      => A.Name,
+                            New_Item => Create (File => A.Name,
+                                                Role => Unused));
+               -- IO.Put_Line ("Inserting " & File_Image (A.Name, A.File));
+            end if;
+         end loop;
+      end loop;
+      return List;
+   end Get_File_List;
+
+   -- --------------------------------------------------------------------------
+   function Get_Dir_List (From : File_Lists.Map) return File_Lists.Map is
+      List : File_Lists.Map;
+      use File_Lists;
+   begin
+      for F in From.Iterate loop
+         declare
+            Name : File_Name renames Key (F);
+            File : File_Type renames Element (F);
+         begin
+            -- IO.Put_Line ("Get_Dir_List (" & (+Name) & ")");
+            if not List.Contains (Name) and then Is_Dir (File) then
+               List.Insert (Key      => Name,
+                            New_Item => File);
+               -- IO.Put_Line ("Extracting dir " & File_Image (Name, File));
+            end if;
+         end;
+      end loop;
+      return List;
+   end Get_Dir_List;
+
+   -- --------------------------------------------------------------------------
    procedure Update_Files_Status (Assertions   : in out Condition_Lists.List;
                                   Updated_List : in out Condition_Lists.List) is
       use Smk.Assertions.Condition_Lists;
@@ -227,11 +258,7 @@ package body Smk.Runfiles is
             Files.Update_File_Status (Name, File,
                                       Previous_Status, Current_Status);
             if Current_Status /= Identical
-              and then ((Is_Source (File) and Status (File) = Updated)
-                        or (Settings.Build_Missing_Targets and Is_Target (File)
-                            and Status (File) = Missing))
               and then not Updated_List.Contains (A)
-              and then not Settings.In_Ignore_List (+Name) -- Fixme: useful??
             then
                Updated_List.Append (A);
                if Previous_Status /= Current_Status then
@@ -256,190 +283,36 @@ package body Smk.Runfiles is
       end loop;
    end Update_Files_Status;
 
-   --------------------------------------------------------------------------
---     procedure Update_Dirs_Status (The_Run      : in out Run;
---                                   Updated_List : in out File_Lists.Map) is
---        use Smk.Files.File_Lists;
---
---        Dir_List  : File_Lists.Map renames The_Run.Dirs;
---        File_List : File_Lists.Map renames The_Run.Files;
---
---    -----------------------------------------------------------------------
---        function New_Files_In_Dir (Dir : in String) return File_Lists.Map is
---           -- returns the list of new files and dirs in Dir
---           use Ada.Directories;
---           Search    : Search_Type;
---           File      : Directory_Entry_Type;
---           New_Files : File_Lists.Map;
---        begin
---           IO.Put_Line ("Start searching new files in " & Dir,
---                        Level => IO.Debug);
---           Start_Search (Search,
---                         Directory => Dir,
---                         Pattern   => "*",
---                         Filter    => (Ordinary_File => True,
---                                       Directory     => True,
---                                       others        => False));
---           while More_Entries (Search) loop
---              Get_Next_Entry (Search, File);
---              declare
---                 Full_Name   : constant String
---                   := Ada.Directories.Full_Name   (File);
---                 Simple_Name : constant String
---                   := Ada.Directories.Simple_Name (File);
---              begin
---                 if Simple_Name = ".." or Simple_Name = "." then
---                    IO.Put_Line ("Ignoring "
---                                 & Simple_Name,
---                                 Level => IO.Debug);
---
---                 elsif Updated_List.Contains (+Full_Name) then
---                    IO.Put_Line ("File "
---                                 & Simple_Name
---                                 & " already known as Updated",
---                                 Level => IO.Debug);
---
---                 elsif Pre.Contains (+Full_Name) then
---                    IO.Put_Line ("Pre "
---                                 & Simple_Name
---                                 & " already known, but not Updated",
---                                 Level => IO.Debug);
---
---                 elsif Post.Contains (+Full_Name) then
---                    IO.Put_Line ("Post "
---                                 & Simple_Name
---                                 & " already known, but not Updated",
---                                 Level => IO.Debug);
---
---  --                 elsif File_List.Contains (+Full_Name) then
---  --                    IO.Put_Line ("File "
---  --                                 & Simple_Name
---  --                                 & " already known, but not Updated",
---  --                                 Level => IO.Debug);
---  --
---  --                 elsif Dir_List.Contains (+Full_Name) then
---  --                    IO.Put_Line ("Dir "
---  --                                 & Simple_Name
---  --                                 & " already known, but not Updated",
---  --                                 Level => IO.Debug);
---  --
---                 else
---                    -- A genuine new file:
---                    IO.Put_Line ("New file " & Simple_Name,
---                                 Level => IO.Debug);
---                    if not Settings.In_Ignore_List (Simple_Name) then
---                       New_Files.Insert (+Full_Name,
---                                         Create (File => +Full_Name,
---                                                 Role => Unused));
---                    end if;
---                 end if;
---              end;
---
---           end loop;
---
---           return New_Files;
---
---        end New_Files_In_Dir;
---
---        New_Files : File_Lists.Map;
---
---     begin
---      -----------------------------------------------------------------------
---        for I in Dir_List.Iterate loop
---           declare
---              Previous_Status : File_Status;
---              Current_Status  : File_Status;
---              Name            : File_Name renames File_Lists.Key (I);
---              Dir             : File_Type renames Dir_List (I);
---           begin
---              if not Is_Dir (Dir) then
---                 IO.Put_Error ("Update_Dirs_Status: " & (+Name)
---                               & " is not a dir");
---              end if;
---
---              Files.Update_File_Status (Name, Dir,
---                                        Previous_Status, Current_Status);
---
---              if Current_Status /= Identical
---              -- if Identical, don't need to look for new files
---                and then (Is_Source (Dir) and
---                        (Status (Dir) = Updated or Status (Dir) = Created))
---                and then Current_Status /= Missing
---              -- if Missing, can't look for new files
---                and then not Updated_List.Contains (Name)
---                and then not Settings.In_Ignore_List (+Name)
---              then
---                 New_Files := Empty_Map;
---                 if not Updated_List.Contains (Name) then
---
---                    New_Files := New_Files_In_Dir (+Name);
---
---                    if New_Files.Is_Empty then
---                       -- Updated_List.Insert (Name, File);
---                       IO.Put_Line ("Updated dir " & (+Name)
---                                    & " but no new file",
---                                    Level => IO.Debug);
---                       -- Set_Status (Dir_List (I), Identical);
---                       -- Updated Dir are only reported if there is a new file
---                       -- (new meaning that is not in File_List).
---
---                    else
---                       -- it's a dir with new files
---                       Updated_List.Insert (Name, Dir);
---                       IO.Put_Line ("Dir " & (+Name) & " with new file(s)",
---                                    Level => IO.Debug);
---
---                    end if;
---                 end if;
---              end if;
---           end;
---        end loop;
---
---        -- New_Files are also inserted in the list of known file,
---        -- with an Unused status
---        for F in New_Files.Iterate loop
---           if Settings.In_Ignore_List (+Key (F)) then
---              IO.Put_Line ("Ignoring " & (+Key (F)),
---                           Level => IO.Debug);
---
---           elsif Is_Dir (New_Files (F)) then
---              declare
---                 Name : constant File_Name := Key (F);
---                 Dir  : constant File_Type := Element (F);
---              begin
---                 IO.Put_Line ("Adding dir " & (+Name)
---                              & " to dir list",
---                              Level => IO.Debug);
---                 Dir_List.Insert (Name, Dir);
---              end;
---
---           else
---              declare
---                 Name : constant File_Name := Key (F);
---                 File : constant File_Type := Element (F);
---              begin
---                 IO.Put_Line ("Adding file "
---                              & (+Name) & " to file list",
---                              Level => IO.Debug);
---                 -- Set_Role (File, Unused);
---                 File_List.Insert (Name, File);
---              end;
---
---           end if;
---        end loop;
---
---     end Update_Dirs_Status;
-
    -- --------------------------------------------------------------------------
    procedure Delete_Targets (The_Runfile : in Runfile) is
       use Ada.Directories;
       -- -----------------------------------------------------------------------
-      procedure Delete (P : Condition) is
+      procedure Delete (P           : Condition;
+                        Delete_Dir  : Boolean := False;
+                        Delete_File : Boolean := False) is
+         Name : constant String := +P.Name;
       begin
-         if Is_Target (P.File) and then Exists (+P.Name) then
-            IO.Put_Line ("Deleting " & Shorten (P.Name));
-            if not Settings.Dry_Run then
-               Delete_File (+P.Name);
+         if Is_Target (P.File) then
+            if Exists (Name) then
+               if Is_Dir (Name) then
+                  if Delete_Dir then
+                     IO.Put_Line ("Deleting dir " & Shorten (P.Name));
+                     if not Settings.Dry_Run then
+                        begin
+                           Delete_Directory (Name);
+                        exception
+                           when Use_Error => null; -- the dir is not empty
+                        end;
+                     end if;
+                  end if;
+               else -- not a dir
+                  if Delete_File then
+                     IO.Put_Line ("Deleting file " & Shorten (P.Name));
+                     if not Settings.Dry_Run then
+                        Ada.Directories.Delete_File (Name);
+                     end if;
+                  end if;
+               end if;
             end if;
          else
             IO.Put_Line ("Target to delete not found : " & (+P.Name),
@@ -451,7 +324,17 @@ package body Smk.Runfiles is
       -- -----------------------------------------------------------------------
       for R of The_Runfile.Run_List loop
          for P of R.Assertions loop
-            Delete (P);
+            Delete (P, Delete_File => True);
+         end loop;
+      end loop;
+
+      -- Fixme: directories are erased after files to avoid a rmdir fail
+      -- because of a file present in the dir, that will be erased after.
+      -- But this is still wrong as we dont erase dir in a smart order,
+      -- and we may try to delete dir1 before dir1/dir2.
+      for R of The_Runfile.Run_List loop
+         for P of R.Assertions loop
+            Delete (P, Delete_Dir => True);
          end loop;
       end loop;
 

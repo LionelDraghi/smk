@@ -1,0 +1,22 @@
+Command "mkdir dir1", last run [YYYY:MM:DD HH:MM:SS.SS]
+  Sources: (0)
+  Targets: (1)
+  - dir1
+
+Command "mkdir dir2", last run [YYYY:MM:DD HH:MM:SS.SS]
+  Sources: (0)
+  Targets: (1)
+  - dir2
+
+Command "mv dir1/f1 dir2", last run [YYYY:MM:DD HH:MM:SS.SS]
+  Sources: (1)
+  - dir1/f1
+  Targets: (2)
+  - dir2
+  - dir2/f1
+
+Command "touch dir1/f1", last run [YYYY:MM:DD HH:MM:SS.SS]
+  Sources: (0)
+  Targets: (1)
+  - dir1/f1
+

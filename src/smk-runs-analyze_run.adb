@@ -33,33 +33,33 @@ procedure Analyze_Run (Assertions : out Condition_Lists.List) is
    -- --------------------------------------------------------------------------
    procedure Add (Cond : in Condition) is
    begin
-      IO.Put ("Add " & (+Cond.Name) & " " & Trigger_Image (Cond.Trigger),
-             Level => IO.Debug);
       if not In_Ignore_List (+Cond.Name)
         and then (not Exists (+Cond.Name)
                   or else Kind (+Cond.Name) /= Special_File)
       then
+         IO.Put ("Add " & (+Cond.Name) & " " & Trigger_Image (Cond.Trigger),
+                 Level => IO.Debug);
          declare
             use Condition_Lists;
             C : constant Cursor := Assertions.Find (Cond);
          begin
             if C = No_Element then
                Assertions.Append (Cond);
-               IO.Put (" inserted", Level => IO.Debug);
+               IO.Put (" : inserted", Level => IO.Debug);
 
             else
                if Override (Cond.Trigger, Element (C).Trigger) then
-                  IO.Put (" trigger modified, was "
+                  IO.Put (" : trigger modified, was "
                           & Trigger_Image (Element (C).Trigger),
                           Level => IO.Debug);
                   Assertions.Replace_Element (C, Cond);
-                  -- else
-                  --    IO.Put_Line (" not inserted");
+               else
+                  IO.Put (" : already known", Level => IO.Debug);
                end if;
             end if;
          end;
+         IO.New_Line (Level => IO.Debug);
       end if;
-      IO.New_Line (Level => IO.Debug);
    end Add;
 
 begin
@@ -102,7 +102,6 @@ begin
                Add ((Name    => Operation.Target_Name,
                      File    => Operation.Target,
                      Trigger => File_Absence));
-               -- Fixme: pas un trigger ou une condition, à réorganiser
 
          end case;
 
@@ -149,7 +148,7 @@ begin
 --
 --                 end if;
 --
---              else -- Fixme: partial code duplication
+--              else
 --                 -- File processing
 --                 if Sources_And_Targets.Contains (+Full_Name (File)) then
 --               IO.Put_Line ("file " & Simple_Name (File) & " already known");
@@ -177,9 +176,6 @@ begin
 --
 --     end;
 --
---     Runfiles.Reset (Counts);
---     Runfiles.Update_Counts (Sources_And_Targets, Counts);
---     -- Fixme: no dir in counts   Runfiles.Update_Counts (Dirs, Counts);
 
    if Debug_Mode
    then Close  (Strace_Ouput);

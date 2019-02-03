@@ -1,0 +1,6 @@
+run "mkdir dir1" because Target dir dir1 is missing
+mkdir dir1
+run "touch dir1/f1" because Target file dir1/f1 is missing
+touch dir1/f1
+run "mkdir dir1/dir2" because Target dir dir1/dir2 is missing
+mkdir dir1/dir2

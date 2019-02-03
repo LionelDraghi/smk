@@ -19,6 +19,7 @@ with Smk.Definitions;      use Smk.Definitions;
 with Smk.IO;
 with Smk.Files;
 with Smk.Files.File_Lists;
+with Smk.Files.Find_Unused;
 with Smk.Smkfiles;
 with Smk.Runfiles;
 with Smk.Settings;         use Smk.Settings;
@@ -88,8 +89,35 @@ begin
                              Print_Sources => True);
 
       when List_Unused =>
-         Runfiles.Put_Files (Runfiles.Load_Runfile,
-                             Print_Unused => True);
+         declare
+            use Runfiles;
+            use Files;
+            use Files.File_Lists;
+            The_Runfile   : Runfile;
+            Known_Files   : File_Lists.Map;
+            Known_Dirs    : File_Lists.Map;
+            Unknown_Files : File_Lists.Map;
+
+         begin
+            The_Runfile := Load_Runfile;
+            Known_Files := Get_File_List (The_Runfile);
+            Known_Dirs  := Get_Dir_List  (Known_Files);
+            for F in Known_Dirs.Iterate loop
+               Find_Unused (From   => Key (F),
+                            Not_In => Known_Files,
+                            Put_In => Unknown_Files);
+            end loop;
+
+            if Settings.Long_Listing_Format then
+               for F in Unknown_Files.Iterate loop
+                  IO.Put_Line (+Key (F));
+               end loop;
+            else
+               for F in Unknown_Files.Iterate loop
+                  IO.Put_Line (Shorten (+Key (F)));
+               end loop;
+            end if;
+         end;
 
       when Whatsnew =>
          declare

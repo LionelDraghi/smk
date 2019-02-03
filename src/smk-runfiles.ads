@@ -83,11 +83,12 @@ private package Smk.Runfiles is
                         Print_Sources : Boolean := False;
                         Print_Targets : Boolean := False;
                         Print_Unused  : Boolean := False);
-   -- List each dependeny with the format :
-   -- [section]Command:file name --Fixme: to be updated
-   -- ...
-   -- Note that system files and directories are ignored.
-   -- Sources, Targets and Unused files are printed according to the Booleans.
+   -- List each file in assertion with the format :
+   --    "sox x.ogg x.mp3" [] [If update  ] [Fil] [Normal] [Source] \
+   --                           [Identic] [2019-01-25 22:01:39.00] x.ogg
+   -- if long-listing is set, or just
+   --    x.ogg
+   -- otherwise.
 
    -- --------------------------------------------------------------------------
    procedure Put_Run (Run_List : in Run_Lists.Map);
@@ -111,6 +112,14 @@ private package Smk.Runfiles is
    -- --------------------------------------------------------------------------
    procedure Dump (The_Runfile : Runfile);
    -- Raw dump of all info
+
+   -- --------------------------------------------------------------------------
+   function Get_File_List (The_Runfile : Runfile) return File_Lists.Map;
+   -- return the list of all files and dir known in the runfile
+
+   -- --------------------------------------------------------------------------
+   function Get_Dir_List (From : File_Lists.Map) return File_Lists.Map;
+   -- extract dirs from file list
 
    -- --------------------------------------------------------------------------
    -- Run storage management
