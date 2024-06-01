@@ -215,7 +215,7 @@ And don't forget [`smk help`](cmd_line.md).
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)  
 
-and is under active development.  
+**but is no more under active development.**  
 
 Comments and issues are very welcome [here](https://github.com/LionelDraghi/smk/issues/new)!
 
