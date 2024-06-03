@@ -41,7 +41,7 @@ package body Smk.Runs.Strace_Analyzer is
    --    15168 access("/etc/ld.so.nohwcap", F_OK <unfinished ...>
    --    15168 <... access resumed> {st_mode=0755, st_size=122224, ...}) = 0
    -- In some case, the command name is in the interrupted line,
-   -- but the fine name (returned prarameter for instance) is
+   -- but the file name (returned prarameter for instance) is
    -- in the resume line. We need to save the interrupted line
    -- until the line is complete, and then process it.
    -- The drawback may be a screwed timing or sequencing, I'm not sure,
