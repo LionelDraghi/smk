@@ -270,6 +270,5 @@ Second, openat() allows the implementation of a per-thread "current working dire
 - renameat
 - symlinkat 
 - unlinkat
-- utimensat
-- 
+- utimensat 
  
