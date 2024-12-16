@@ -2,19 +2,20 @@ About
 =====
 
 **Status:**  
-`smk` is under active development, but provides usable functionnalities since 0.0.2 version.
+`smk` is no more under active development, but provides usable functionnalities since 0.0.2 version.
+I am now (dec 24) giving back attention to the project, and may try to get it back working.
 
 **License:**  
 `smk` is licensed under [Apache License, Version 2.0](LICENSE-2.0.md).
 
 **Author & contact:**  
-`smk` was created by [Lionel Draghi](mailto:lionel.draghi@free.fr).
+`smk` was created by Lionel Draghi
 
 **Issues:**  
 Comments and issues are welcome [here](https://github.com/LionelDraghi/smk/issues/new).
 
 **Ada:**  
-`smk` is proudly written in [Ada](http://getadanow.com/).
+`smk` is proudly written in [Ada](https://ada-lang.io/)).
 
 **References and guidelines:**  
 `smk` strives to be compliant with:  
