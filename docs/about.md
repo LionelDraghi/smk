@@ -9,7 +9,7 @@ I am now (dec 24) giving back attention to the project, and may try to get it ba
 `smk` is licensed under [Apache License, Version 2.0](LICENSE-2.0.md).
 
 **Author & contact:**  
-`smk` was created by Lionel Draghi
+`smk` was created by Lionel Draghi, discussions welcome [here](https://github.com/LionelDraghi/smk/discussions)
 
 **Issues:**  
 Comments and issues are welcome [here](https://github.com/LionelDraghi/smk/issues/new).
