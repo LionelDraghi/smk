@@ -7,6 +7,10 @@ and version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2
 
 - [Unreleased]
 > - [Added] file name shortening, and `-ds` / `--dont-shorten` option added
+> - [Fixed] strace output analysis fixed for current strace versions: the PID prefix is no longer assumed to start at a fixed column, and PID of any length, or absent, are now supported
+> - [Changed] strace is now invoked with `-qq`, `--always-show-pid` and `-e status=successful`; smk thus requires strace >= 6.9
+> - [Added] `openat2` is now handled
+> - [Fixed] failed `mkdir`/`rename` calls are no longer recorded as writes or moves
 
 - [0.3.0] - 2019-01-02
 > - [Added] `list-unused` / `lu` command added

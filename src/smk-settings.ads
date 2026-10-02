@@ -61,13 +61,19 @@ private package Smk.Settings is
    Shell_Cmd             : constant String := "/bin/sh";
    Shell_Opt             : constant String := "-c "; -- no space before -c!
    Strace_Cmd            : constant String
-     := "/usr/bin/strace -y -q -qq -f -s 100 -e trace=file -o ";
+     := "/usr/bin/strace -y -qq -f -s 100 -e trace=file --always-show-pid -e status=successful -o ";
    -- -y  : print paths associated with file descriptor arguments (between <>)
-   -- -q  : suppress messages about attaching, detaching, etc.
-   -- -qq : suppress messages about process exit status.
+   -- -qq : suppress messages about attaching, detaching, etc.,
+   --       and about process exit status.
    -- -f  : follow forks
    -- -s  : maximum string size to print (the default is 32)
    --       Filenames are not considered strings and are always printed in full.
+   -- --always-show-pid : force the PID prefix on every line (strace >= 6.9);
+   --       makes the output format independent of -f/-o interactions.
+   -- -e trace=file : only syscalls taking a file name as argument
+   -- -e status=successful : only syscalls that returned without an error:
+   --       failed calls (ENOENT, EACCES, ...) are not even written in the
+   --       trace, so failed mkdir/rename cannot be recorded as a Write/Move.
 
    -- --------------------------------------------------------------------------
    function Initial_Directory return String;

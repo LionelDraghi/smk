@@ -182,7 +182,12 @@ And don't forget [`smk help`](cmd_line.md).
 
    Or get the [GNAT Community Edition](https://www.adacore.com/download).
 
-4. Build it:  
+4. Ensure you have `strace` version 6.9 or greater (May 2024),  
+   that `smk` uses to analyze what each command reads and writes  
+   On Debian family:  
+   >  `apt install strace`
+
+5. Build it:  
    > `gprbuild -p -P smk.gpr`
 
 

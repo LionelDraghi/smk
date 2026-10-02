@@ -30,11 +30,15 @@ package body Smk.Runs.Strace_Analyzer is
    type Function_List is array (Positive range <>) of access String;
 
    Special_Lines : constant Function_List := (new String'("---"),
-                                              new String'("<..."));
+                                              new String'("<..."),
+                                              new String'("+++"));
    -- Filter line like :
    --    "15214 --- SIGCHLD ..."
    -- or
    --    "15225 <... access resumed> ..."
+   -- or
+   --    "15225 +++ exited with 0 +++"
+   --    (not emitted with -qq, but let's be safe)
    --
    -- Fixme: processing of unfinished line not done (Issue #18)
    -- Example:
@@ -49,10 +53,16 @@ package body Smk.Runs.Strace_Analyzer is
    -- trace to be ignored.
 
    -- --------------------------------------------------------------------------
-   Function_First : constant := 7;
-   -- A line always start with the command from char 7 to char before '(':
-   -- 15167 stat("/bin/sed",  <unfinished ...>
-   --       ^
+   Function_First : Natural := 1;
+   -- Index of the first char of the function name in the analyzed line.
+   -- No longer a fixed offset: strace prints the PID with a minimum width
+   -- of 5 ("%-5u"), so the function name position depends on the PID
+   -- length, and the prefix may even be absent on some strace versions.
+   -- It is set by Get_Command, which is always called first on each line:
+   --    26331  execve("/bin/sh", ...) = 0
+   --    123456 execve("/bin/sh", ...) = 0
+   --    execve("/bin/sh", ...) = 0
+   --        ^ Function_First
 
    Param_First : Natural;
    -- should be set, after get_Command, to the first char after '('
@@ -62,8 +72,9 @@ package body Smk.Runs.Strace_Analyzer is
    -- --------------------------------------------------------------------------
    function Not_A_Function_Call (Line : String) return Boolean is
      (for some S of Special_Lines =>
-         Line (Line'First + Function_First - 1
-               .. Line'First + Function_First - 2 + S.all'Length) = S.all);
+         Line (Function_First
+               .. Natural'Min (Line'Last,
+                               Function_First + S.all'Length - 1)) = S.all);
 
    -- --------------------------------------------------------------------------
    type Process_Id is new Natural;
@@ -72,6 +83,9 @@ package body Smk.Runs.Strace_Analyzer is
    -- process may work in a different dir.
    use Process_WDs;
    Process_WD : Process_WDs.Map;
+
+   Line_PID : Process_Id := 0;
+   -- PID read in the line prefix by Get_Command; 0 when absent.
 
    -- --------------------------------------------------------------------------
    procedure Analyze_Line (Line      : in     String;
@@ -92,8 +106,7 @@ package body Smk.Runs.Strace_Analyzer is
       -- -----------------------------------------------------------------------
       function Get_PID return Process_Id is
       begin
-         return Process_Id'Value
-           (Line (Line'First .. Line'First + Function_First - 2));
+         return Line_PID;
       end Get_PID;
 
       -- -----------------------------------------------------------------------
@@ -111,12 +124,40 @@ package body Smk.Runs.Strace_Analyzer is
 
       -- -----------------------------------------------------------------------
       function Get_Command return String is
-         Last : constant Natural := Index (Source  => Line,
-                                           Pattern => "(",
-                                           From    => Function_First + 1);
+         Last  : Natural;
+         First : Positive;
+         I     : Positive := Line'First;
       begin
+         -- 1. Skip the PID, when present: digits followed by one space
+         while I <= Line'Last and then Line (I) in '0' .. '9' loop
+            I := I + 1;
+         end loop;
+         if I > Line'First and then I <= Line'Last
+           and then Line (I) = ' '
+         then
+            Line_PID := Process_Id'Value (Line (Line'First .. I - 1));
+            First := I + 1;
+         else
+            -- No PID prefix: all lines belong to the same tracee
+            Line_PID := 0;
+            First := Line'First;
+         end if;
+         -- 2. Skip extra spaces (PID is printed with a minimum width of 5)
+         while First <= Line'Last and then Line (First) = ' ' loop
+            First := First + 1;
+         end loop;
+         Function_First := First;
+
+         -- 3. The command name runs up to '('
+         Last := Index (Source  => Line,
+                        Pattern => "(",
+                        From    => Function_First);
+         if Last = 0 then
+            Param_First := Line'Last + 1;
+            return "";
+         end if;
          Param_First := Last + 1;
-         return Line (Line'First + Function_First - 1 .. Last - 1);
+         return Line (Function_First .. Last - 1);
       end Get_Command;
 
       -- -----------------------------------------------------------------------
@@ -348,7 +389,8 @@ package body Smk.Runs.Strace_Analyzer is
                                                  Role => Target));
          end;
 
-      elsif Cmd = "open" or  Cmd = "fopen" or  Cmd = "openat" then
+      elsif Cmd = "open" or Cmd = "fopen" or Cmd = "openat"
+        or Cmd = "openat2" then
          -- --------------------------------------------------------------------
          -- 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL,
          --              0600) = 3</tmp/ccvHeGYq.res>
@@ -394,6 +436,10 @@ package body Smk.Runs.Strace_Analyzer is
             end if;
             Operation := (Kind => None);
          end;
+
+      else
+         -- Unhandled syscall (stat, access, execve, ...): nothing to record
+         Operation := (Kind => None);
 
       end if;
 
