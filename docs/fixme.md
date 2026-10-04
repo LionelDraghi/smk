@@ -9,9 +9,3 @@ docs/smkfile_format.md:81|Sections are labels in the file that specificaly desig
 docs/smkfile_format.md:158|   **Fixme: Not yet implemented, as of v0.0.4**
 src/smk-runfiles.adb:331|      -- Fixme: directories are erased after files to avoid a rmdir fail
 src/smk-runs-strace_analyzer.adb:39|   -- Fixme: processing of unfinished line not done (Issue #18)
-tests/01_sanity_tests/Makefile:101|	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
-tests/01_sanity_tests/Makefile:122|	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
-tests/05_target_tests/Makefile:112|	sleep 1 # Fixme:
-tests/06_implicit_naming_tests/Makefile:64|	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
-tests/10_section_tests/Makefile:54|	sleep 1.0 # Fixme: touch to close to rebuild, not detected othewise
-tests/12_mp3_conversions_tests/Makefile:123|	sleep 1.0 # Fixme:

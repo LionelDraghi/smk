@@ -1,5 +1,0 @@
-// multiline with command and pipes
-sloccount hello.c/* | 	\
-grep "ansic=" 			\
-|sed "s/ansic/C/"
-		-- comment at the end

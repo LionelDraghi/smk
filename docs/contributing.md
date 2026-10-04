@@ -56,9 +56,17 @@ On Debian family:
 
 > `apt install strace gcc sox id3v2 id3ren lcov`
 
-Tests are defined in the `tests` dir, one [bbt](https://github.com/LionelDraghi/bbt)
-scenario file (`scenario.md`) per `NN_*_tests` directory, plus two Ada unit
-test suites (tests 13 and 14, driven by their own Makefile).
+The tests are organized as follows:
+
+- the **features** are described by bbt scenario files in `docs/Features/`
+  (one file per family, grouping several `# Feature` sections, each with
+  its scenarios): they are part of the documentation;
+- the **tutorial** (`docs/tutorial.md`) is itself a bbt scenario file;
+- the **sanity tests** are in `tests/sanity/sanity.md`;
+- the two Ada **unit test** suites (`tests/unit_file_utilities/` and
+  `tests/unit_strace_analysis/`) are driven by their own Makefile;
+- machine dependent expected outputs and binary inputs (ogg files) are
+  kept in `tests/data/`.
 
 The scenarios are written in almost natural English (Given / When / Then),
 and are intended to be readable as a documentation of the smk behavior.
@@ -69,8 +77,9 @@ A test typically documents (order may vary) :
 3. I should have _this_ result (on standard output, but also on error
    output, and returned code)
 
-`make check` runs all the suites with bbt, that records the execution and
-the assertions results in a local `results.md` file per suite. Those files
-are aggregated in this documentation (see the [Tests](tests/results.md)
-page), together with a global count of passed/failed tests. Tests 15
-(the tutorial) goes one step further: its scenario is the tutorial itself.
+`make check` runs all the scenario files in a single bbt invocation,
+in a fresh `tests/run/` working directory, that records the execution and
+the assertions results in a single `results.md` file (the bbt `--index`
+option), moved in this documentation (see the [Tests](tests/results.md)
+page), together with a global count of passed/failed tests. The tutorial
+goes one step further: its scenario file is the tutorial itself.

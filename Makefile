@@ -61,7 +61,7 @@ install: release
 	echo OK
 	echo
 
-check: smk
+check: build
 	echo --- tests:
 	$(MAKE) --directory=tests
 	echo
@@ -83,10 +83,13 @@ check: smk
 	# - unit test main
 
 	alr exec -- genhtml obj/coverage.info -o docs/lcov --title "smk tests coverage" \
-		--prefix "$(CURDIR)/src" --frames | tail -n 2 > cov_sum.txt
+		--prefix "$(CURDIR)/src" --frames > /dev/null
 	# --title  : Display TITLE in header of all pages
 	# --prefix : Remove PREFIX from all directory names
 	# --frame  : Use HTML frames for source code view
+
+	# coverage summary for the dashboard:
+	alr exec -- lcov --summary obj/coverage.info > cov_sum.txt 2>&1
 	cat cov_sum.txt
 	echo
 
@@ -174,7 +177,7 @@ doc: dashboard cmd_line.md
 	cat /tmp/fixme.md                       >> docs/fixme.md
 	rm /tmp/fixme.md
 	grep -rn "Fixme:" src/*           | sed "s/:/|/2"	>> docs/fixme.md
-	grep -rn "Fixme:" tests/*_tests/* | sed "s/:/|/2"	>> docs/fixme.md
+	grep -rn "Fixme:" tests/sanity tests/unit_* docs/Features | sed "s/:/|/2"	>> docs/fixme.md
 
 	echo OK
 	echo

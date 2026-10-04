@@ -42,20 +42,34 @@
 
 ## Test procedure
 
-- tests are [bbt](https://github.com/LionelDraghi/bbt) scenarios, one
-  `scenario.md` per `tests/NN_*_tests/` directory, run by `tests/Makefile`
-  with `bbt -k --yes --index results.md scenario.md`; `make check` from the
-  root runs them all, plus the coverage report; `cd tests/NN_*_tests && bbt
-  -k --yes scenario.md` runs one suite
-- each scenario.md starts with a `_Table of Contents:_` header listing its
-  scenarios with anchors, as in the bbt features files
+- tests are [bbt](https://github.com/LionelDraghi/bbt) scenarios:
+  - the features are described by the scenario files in `docs/Features/`
+    (grouped by family, several `# Feature` sections per file), and are
+    part of the documentation; `docs/tutorial.md` is itself a scenario;
+  - the sanity tests are in `tests/sanity/sanity.md`;
+  - the Ada unit tests are in `tests/unit_file_utilities/` and
+    `tests/unit_strace_analysis/`, driven by their own Makefile;
+  - machine dependent goldens and binary inputs are in `tests/data/`
+- `make check` runs all the scenario files in a single bbt invocation,
+  in a fresh `tests/run/` working dir recreated at each run (see
+  tests/Makefile), then the unit tests; `make check` from the root also
+  builds the coverage report
+- the scenarios invoke plain `smk`: the working dir contains a `smk`
+  symlink to the built binary, and tests/Makefile prepends the working
+  dir to PATH when invoking bbt, so that the bare command resolves;
+  when running bbt manually in tests/run, recreate the link
+  (`ln -s ../../smk smk`) and set the PATH the same way
+- each scenario file starts with a `_Table of Contents:_` header listing
+  its scenarios with anchors, as in the bbt features files
   (../bbt/docs/features)
-- tests 13 (file utilities) and 14 (strace analysis) are Ada unit tests,
-  not bbt scenarios: they are still driven by their own Makefile
-- the bbt run of each suite writes a `results.md` file, aggregated in
-  docs/tests/ by `make check`; the tests are also the documentation of
-  the behavior, and tests/15_tutorial_tests/scenario.md is written to
-  be, at the end, the tutorial itself (docs/tutorial.md)
+- the single bbt `--index results.md` output is moved to
+  docs/tests/results.md: no results files concatenation
+- the features run in a shared working dir, in the order given in
+  tests/Makefile: a feature may see the files left by the previous
+  features (for instance, the mp3 `find` reports `hello_c` as a source
+  dir); when adding a feature, add it in the right place in the order,
+  and start its first scenario with the needed cleanups (`rm -f`,
+  `smk -q reset`)
 - the external tools required by the test suite (strace, gcc, sox,
   id3v2, id3ren, sed, lcov...) are listed in docs/contributing.md,
   with the Debian package names

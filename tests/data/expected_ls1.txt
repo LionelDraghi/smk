@@ -1,0 +1,5 @@
+/home/lionel/prj/smk/tests/run/hello_c/hello.o
+/home/lionel/prj/smk/tests/run/hello_c/main.o
+/home/lionel/prj/smk/tests/run/hello_c/hello.c
+/home/lionel/prj/smk/tests/run/hello_c/hello.h
+/home/lionel/prj/smk/tests/run/hello_c/main.c

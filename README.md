@@ -39,61 +39,33 @@ Table of contents
 
 ## Quick start
 
-Let's start with a basic example : converting an audio file, changing tags, and renaming it according to the tag.  
-Here is my `script.sh` file that will transform the `x.ogg` file into `Luke-Sentinelle.mp3`.  
-It contains:
-
-```bash
-# converting ogg to mp3:
-sox x.ogg x.mp3
-# setting Artist and Tittle tags:
-id3v2 -a Luke -t Sentinelle x.mp3
-# renaming according to tags:
-id3ren -template='%a-%s.mp3' x.mp3
-```
-
-You may run this through `smk`, either directly with 
-
-```bash
-smk script.sh
-```
-
-or by giving commands one by one, on the fly, thanks to the `run` command:
+Run your commands through `smk` once, and then, all you'll have to type is `smk`:
 
 ```bash
 smk run sox x.ogg x.mp3
 smk run id3v2 -a Luke -t Sentinelle x.mp3
 smk run id3ren -quiet -template='%a-%s.mp3' x.mp3
+smk
 ```
+
+The result will be:
+
+> Nothing to run
+
+And if you modify an involved file (`touch x.ogg`), the next `smk` will replay
+only the commands that need to.
+For more information on why is a command run, just give the `--explain`
+option (`-e` in short form).
 
 Note that this test case, yet simple, is already fairly representative:  
 - the first command is reading an input file and creating an output file,  
 - the second has the same file as input and output,  
 - and the third is "moving" a file, that is deleting the input file.  
 
-The ugly part of of the work is over, now all you have to do to get the things done is: 
-
-```bash
-smk
-```
-
-The result will be:
-
-> Nothing to run  
-
-But if you modify an involved file:  
-
-```bash
-touch x.ogg
-rm Luke-Sentinelle.mp3
-smk 
-```
-
-> sox x.ogg x.mp3  
-> id3v2 -a Luke -t Sentinelle x.mp3  
-> id3ren -quiet -template=%a-%s.mp3 x.mp3  
-
-For more information on why is a command run, just give the `--explain` option (`-e` in short form).  
+This example is the [mp3 conversions use case](docs/Features/A050_use_cases.md),
+and the highly recommended [Tutorial](docs/tutorial.md) is the best way to
+start: both are executable parts of the test suite, so they are guaranteed
+to remain true.
 
 
 ## How is this possible? 
@@ -199,7 +171,13 @@ And don't forget [`smk help`](docs/cmd_line.md).
 * [Not sure to understand what is the difference with `make`...](docs/compare_with_make.md)
 
 * Documentation
-  - [Tutorial](docs/tutorial.md)
+  - [Tutorial](docs/tutorial.md) (executable: it is run and checked by the test suite)
+  - [Features](docs/Features/A010_queries.md), described by executable scenarios:
+    [Queries](docs/Features/A010_queries.md),
+    [Build](docs/Features/A020_build.md),
+    [Smkfile format](docs/Features/A030_smkfile_format.md),
+    [Error handling](docs/Features/A040_errors.md),
+    [Use cases](docs/Features/A050_use_cases.md)
   - [Command line](docs/cmd_line.md)
   - [Tests](docs/tests/results.md)
   - [Limitations and bugs](docs/limitations.md)

@@ -14,108 +14,63 @@
 # limitations under the License.
 # ------------------------------------------------------------------------------
 
-TESTS=$(wildcard *_tests)
-
 .PHONY : clean
 
 all: check doc
 
-check: ../smk 
+check: ../smk
 	@ #-------------------------------------------------------------------------
-	# for test in $(TESTS); do				\
-		# 	echo ;								\
-		# 	echo "   - "$$test;					\
-		# 	$(MAKE) check --directory=$$test;	\
-		# done
-	echo
-	echo 01_sanity_tests
-	cd 01_sanity_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 03_read_queries_tests
-	cd 03_read_queries_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 04_list_queries_tests
-	cd 04_list_queries_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 05_target_tests
-	cd 05_target_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 06_implicit_naming_tests
-	cd 06_implicit_naming_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 07_run_error_tests
-	cd 07_run_error_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 08_cmd_line_tests
-	cd 08_cmd_line_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 09_multiline_tests
-	cd 09_multiline_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 10_section_tests
-	cd 10_section_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 11_command_run_tests
-	cd 11_command_run_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 12_mp3_conversions_tests
-	cd 12_mp3_conversions_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 13_file_utilities_tests
-	$(MAKE) check --directory=13_file_utilities_tests
-	echo
-	echo 14_strace_analysis_tests
-	$(MAKE) check --directory=14_strace_analysis_tests
-	echo
-	echo 15_tutorial_tests
-	cd 15_tutorial_tests && bbt -k --yes --index results.md scenario.md
-	echo
-	echo 16_dir_ops_tests
-	cd 16_dir_ops_tests && bbt -k --yes --index results.md scenario.md
-	echo
+	# The scenarios are run in a fresh run dir, recreated at each check,
+	# with a smk link to the built binary, so that the scenarios just
+	# invoke `smk`:
+	rm -rf run
+	mkdir run
+	ln -s ../../smk run/smk
+	cd run && PATH="$$PWD:$$PATH" bbt -k --yes --index results.md \
+	  ../sanity/sanity.md \
+	  ../../docs/Features/A010_queries.md \
+	  ../../docs/Features/A020_build.md \
+	  ../../docs/Features/A030_smkfile_format.md \
+	  ../../docs/Features/A040_errors.md \
+	  ../../docs/Features/A050_use_cases.md \
+	  ../../docs/tutorial.md
+	$(MAKE) check --directory=unit_file_utilities
+	$(MAKE) check --directory=unit_strace_analysis
+	# the unit tests results are appended to the bbt index:
+	cat unit_file_utilities/results.md unit_strace_analysis/results.md >> run/results.md
+	mv run/results.md ../docs/tests/results.md
 
 doc:
-	cat *_tests/results.md > results.md
+	# bbt format: "- [X] scenario ..."; unit tests format: "Tests [Successful]"
+	- grep -E '\[X\] scenario'  ../docs/tests/results.md > Successful.lst
+	- grep -E '\[ \] scenario'  ../docs/tests/results.md > Failed.lst
+	- grep '\[Successful\]'     ../docs/tests/results.md > Successful_unit.lst
+	- grep '\[Failed\]'         ../docs/tests/results.md > Failed_unit.lst
 
-	# old format for unit tests 13/14: "Suite / test [Successful]", bbt format: "- [X] scenario ..."
-	- grep -E '\[Successful\]|\[X\] scenario' results.md > Successful.lst
-	- grep -E '\[Failed\]|\[ \] scenario'      results.md > Failed.lst
-	- grep '\[Empty\]'       results.md > Empty.lst
-	
 	> tests_count.txt
-	echo "Successful " `cat Successful.lst | wc -l`	>> tests_count.txt
-	echo "Failed     " `cat Failed.lst     | wc -l`	>> tests_count.txt
-	echo "Empty      " `cat Empty.lst      | wc -l`	>> tests_count.txt
+	echo "Successful " `cat Successful.lst Successful_unit.lst | wc -l`	>> tests_count.txt
+	echo "Failed     " `cat Failed.lst Failed_unit.lst | wc -l`		>> tests_count.txt
 
 	>  tests_status.md
-	echo '# Tests Status'	                               	>> tests_status.md
-	echo ""                                                 >> tests_status.md
-	echo '## Successful'	                               	>> tests_status.md
-	echo ""                                                 >> tests_status.md
-	echo "   "`cat Successful.lst | wc -l`" tests OK"       >> tests_status.md
-	echo ""                                                 >> tests_status.md
-	sed "s/^ */  - \[/;s/ \[Successful\].*/\]\(results.md\#\)/" Successful.lst	>> tests_status.md
+	echo '# Tests Status'		>> tests_status.md
+	echo ""			>> tests_status.md
+	echo '## Successful'		>> tests_status.md
+	echo ""			>> tests_status.md
+	echo "   "`cat Successful.lst Successful_unit.lst | wc -l`" tests OK"	>> tests_status.md
+	echo ""			>> tests_status.md
+	sed "s/^ */  - \[/;s/ \[Successful\].*/\]\(results.md\#\)/" Successful_unit.lst	>> tests_status.md
 
-	echo ""                                                 >> tests_status.md
-	echo '## Failed'                                   		>> tests_status.md
-	echo ""                                                 >> tests_status.md
-	echo "   "`cat Failed.lst | wc -l`" tests failed"       >> tests_status.md
-	echo ""                                                 >> tests_status.md
-	sed "s/^** /  - \[/;s/ \[Failed\].*/\]\(results.md\#\)/" Failed.lst >> tests_status.md
-
-	echo ""                                                 >> tests_status.md
-	echo '## Empty'                                    		>> tests_status.md
-	echo ""                                                 >> tests_status.md
-	echo "   "`cat Empty.lst | wc -l`" empty tests"         >> tests_status.md
-	echo ""                                                 >> tests_status.md
-	sed "s/^ */  - \[/;s/ \[Empty\].*/\]\(results.md\#\)/" Empty.lst	>> tests_status.md
+	echo ""			>> tests_status.md
+	echo '## Failed'		>> tests_status.md
+	echo ""			>> tests_status.md
+	echo "   "`cat Failed.lst Failed_unit.lst | wc -l`" tests failed"	>> tests_status.md
+	echo ""			>> tests_status.md
+	sed "s/^ */  - \[/;s/ \[Failed\].*/\]\(results.md\#\)/" Failed_unit.lst		>> tests_status.md
 
 	mv tests_status.md ../docs/tests
-	mv results.md ../docs/tests/
 
 clean:
-	- ${RM} tests_count.txt *.lst *_tests/scenario.md.out
-	for test in $(TESTS); do \
-		$(MAKE) -i clean --directory=$$test; \
-	done
-
+	- ${RM} tests_count.txt *.lst
+	rm -rf run
+	$(MAKE) -i clean --directory=unit_file_utilities
+	$(MAKE) -i clean --directory=unit_strace_analysis
