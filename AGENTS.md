@@ -44,7 +44,7 @@
 
 - tests are [bbt](https://github.com/LionelDraghi/bbt) scenarios, one
   `scenario.md` per `tests/NN_*_tests/` directory, run by `tests/Makefile`
-  with `bbt -k --yes --index testrec.md scenario.md`; `make check` from the
+  with `bbt -k --yes --index results.md scenario.md`; `make check` from the
   root runs them all, plus the coverage report; `cd tests/NN_*_tests && bbt
   -k --yes scenario.md` runs one suite
 - each scenario.md starts with a `_Table of Contents:_` header listing its
@@ -52,7 +52,7 @@
   (../bbt/docs/features)
 - tests 13 (file utilities) and 14 (strace analysis) are Ada unit tests,
   not bbt scenarios: they are still driven by their own Makefile
-- the bbt run of each suite writes a `testrec.md` file, aggregated in
+- the bbt run of each suite writes a `results.md` file, aggregated in
   docs/tests/ by `make check`; the tests are also the documentation of
   the behavior, and tests/15_tutorial_tests/scenario.md is written to
   be, at the end, the tutorial itself (docs/tutorial.md)

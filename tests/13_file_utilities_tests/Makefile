@@ -23,7 +23,7 @@ test_file_utilities:
 	alr --non-interactive build --validation
 
 check: test_file_utilities
-	./test_file_utilities >> testrec.md
+	./test_file_utilities >> results.md
 	@ echo
 	@ echo Tests [Successful]
 	
@@ -31,4 +31,4 @@ doc:
 
 clean:
 	- alr clean
-	- rm testrec.md
+	- rm results.md

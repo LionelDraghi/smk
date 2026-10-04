@@ -201,7 +201,7 @@ And don't forget [`smk help`](docs/cmd_line.md).
 * Documentation
   - [Tutorial](docs/tutorial.md)
   - [Command line](docs/cmd_line.md)
-  - [Tests](docs/tests/testrec.md)
+  - [Tests](docs/tests/results.md)
   - [Limitations and bugs](docs/limitations.md)
 
 * Design:

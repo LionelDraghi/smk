@@ -2,7 +2,7 @@
 
 ## Successful
 
-   66 tests OK
+   64 tests OK
 
   - [- [X] scenario   [First `smk`, after `make`, should run no command](scenario.md) pass  
   - [- [X] scenario   [Second `smk`, should not run any command](scenario.md) pass  
@@ -53,10 +53,8 @@
   - [- [X] scenario   [ogg-to-mp3 is modified](scenario.md) pass  
   - [- [X] scenario   [adding a .ogg file in a subdir](scenario.md) pass  
   - [- [X] scenario   [smk clean](scenario.md) pass  
-  - [All tests OK](testrec.md#)
-  - [All tests OK](testrec.md#)
-  - [All tests OK](testrec.md#)
-  - [All tests OK](testrec.md#)
+  - [All tests OK](results.md#)
+  - [All tests OK](results.md#)
   - [- [X] scenario   [create the sources for this test case](scenario.md) pass  
   - [- [X] scenario   [first run](scenario.md) pass  
   - [- [X] scenario   [what are those new files in the current dir?](scenario.md) pass  

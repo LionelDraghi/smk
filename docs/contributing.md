@@ -48,47 +48,29 @@ Beside `make` and the Ada toolchain (see the [Download and build section](../REA
 
 - `strace`, used by `smk` itself to trace files accesses;
 - a C compiler (`gcc`), used by the `hello.c` based tests;
-- `sox`, `id3v2` and `id3ren`, used by the audio conversion tests (tests 12_ and 15_);
-- `sed` and `sdiff` (package diffutils), used to neutralize and compare outputs;
+- `sox`, `id3v2` and `id3ren`, used by the audio conversion tests (test 12_);
+- `sed`, used to neutralize dates in expected outputs;
 - `lcov` (providing `genhtml`), used to build the coverage report.
 
 On Debian family:
 
 > `apt install strace gcc sox id3v2 id3ren lcov`
 
-Tests are at exe level, with no unit testing at this stage. To have tests in Makefile behaving like unit test, I created a utility, called `testrec` to record tests execution. 
-This utility is build before test execution, and record in a local testrec.md file : comments, test suite start, test start, assertion result, etc.
-This is how the test documentation is created, and how I can compile a global tests results (like if it was a single Ada unit test), despite multiple Makefiles and executions.
+Tests are defined in the `tests` dir, one [bbt](https://github.com/LionelDraghi/bbt)
+scenario file (`scenario.md`) per `NN_*_tests` directory, plus two Ada unit
+test suites (tests 13 and 14, driven by their own Makefile).
 
-Tests are defined in the `tests` dir, in a (hopfully) comprehensice way.
-Note that most of the Makefile code aim at documentation production. 
+The scenarios are written in almost natural English (Given / When / Then),
+and are intended to be readable as a documentation of the smk behavior.
+A test typically documents (order may vary) :
 
-A Test typically documents (order may vary) :
+1. When running _this_ command,
+2. with _those_ sources files or situation (details are not always printed),
+3. I should have _this_ result (on standard output, but also on error
+   output, and returned code)
 
-1. When running _this_ command, 
-2. with _this_ Makefile,
-3. and _those_ sources files or situation (details are not always printed),
-4. I should have _this_ result (on standard output, but also on error output, and returned code)
-
-Comments are created in Makefile thanks to `testrec cmt`. They are put in the testrec.md file, not on standard output. 
-On standard output, only a line of the form  
-
-> _Test suite name / test name [Successful]_  
-
-is put, to keep Makefile execution clean.
-
-Execution is typically :
-
-1. at the beginning of the Makefile, `testrec create` is called to start a new test suite.
-   NB : this is a convention, each Makefile run a single test suite.
-2. Then, for each test, `testrec start` is called to start the test (and name it).
-3. During the test, `testrec assert` is called at least once, generally to check that the output of Smk execution is equal to the expected output.
-4. Finally, `testrec end` is called. `testrec` will then output the test result on standard output.
-
-The test result may be : 
-
-- _Successul_, if all Assert are verified,
-- _Failed_, if at least one is not,
-- and _Empty_, if no Assert is called between test start and test end. This is useful when starting to write a test in the Makefile before code exists : it wouldn't be fair to have those test "Failed".
-
-After all tests execution, `testrec clean` is called to remove the hidden file that stores intermediate results and state, and the `testrec.md` file is moved in the docs directory under a name matching the test suite name, where it will be automatically taken into account.
+`make check` runs all the suites with bbt, that records the execution and
+the assertions results in a local `results.md` file per suite. Those files
+are aggregated in this documentation (see the [Tests](tests/results.md)
+page), together with a global count of passed/failed tests. Tests 15
+(the tutorial) goes one step further: its scenario is the tutorial itself.

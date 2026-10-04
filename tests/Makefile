@@ -29,37 +29,37 @@ check: ../smk
 		# done
 	echo
 	echo 01_sanity_tests
-	cd 01_sanity_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 01_sanity_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 03_read_queries_tests
-	cd 03_read_queries_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 03_read_queries_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 04_list_queries_tests
-	cd 04_list_queries_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 04_list_queries_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 05_target_tests
-	cd 05_target_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 05_target_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 06_implicit_naming_tests
-	cd 06_implicit_naming_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 06_implicit_naming_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 07_run_error_tests
-	cd 07_run_error_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 07_run_error_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 08_cmd_line_tests
-	cd 08_cmd_line_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 08_cmd_line_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 09_multiline_tests
-	cd 09_multiline_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 09_multiline_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 10_section_tests
-	cd 10_section_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 10_section_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 11_command_run_tests
-	cd 11_command_run_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 11_command_run_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 12_mp3_conversions_tests
-	cd 12_mp3_conversions_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 12_mp3_conversions_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 13_file_utilities_tests
 	$(MAKE) check --directory=13_file_utilities_tests
@@ -68,19 +68,19 @@ check: ../smk
 	$(MAKE) check --directory=14_strace_analysis_tests
 	echo
 	echo 15_tutorial_tests
-	cd 15_tutorial_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 15_tutorial_tests && bbt -k --yes --index results.md scenario.md
 	echo
 	echo 16_dir_ops_tests
-	cd 16_dir_ops_tests && bbt -k --yes --index testrec.md scenario.md
+	cd 16_dir_ops_tests && bbt -k --yes --index results.md scenario.md
 	echo
 
 doc:
-	cat *_tests/testrec.md > testrec.md
+	cat *_tests/results.md > results.md
 
-	# old testrec format: "Suite / test [Successful]", bbt format: "- [X] scenario ..."
-	- grep -E '\[Successful\]|\[X\] scenario' testrec.md > Successful.lst
-	- grep -E '\[Failed\]|\[ \] scenario'      testrec.md > Failed.lst
-	- grep '\[Empty\]'       testrec.md > Empty.lst
+	# old format for unit tests 13/14: "Suite / test [Successful]", bbt format: "- [X] scenario ..."
+	- grep -E '\[Successful\]|\[X\] scenario' results.md > Successful.lst
+	- grep -E '\[Failed\]|\[ \] scenario'      results.md > Failed.lst
+	- grep '\[Empty\]'       results.md > Empty.lst
 	
 	> tests_count.txt
 	echo "Successful " `cat Successful.lst | wc -l`	>> tests_count.txt
@@ -94,24 +94,24 @@ doc:
 	echo ""                                                 >> tests_status.md
 	echo "   "`cat Successful.lst | wc -l`" tests OK"       >> tests_status.md
 	echo ""                                                 >> tests_status.md
-	sed "s/^ */  - \[/;s/ \[Successful\].*/\]\(testrec.md\#\)/" Successful.lst	>> tests_status.md
+	sed "s/^ */  - \[/;s/ \[Successful\].*/\]\(results.md\#\)/" Successful.lst	>> tests_status.md
 
 	echo ""                                                 >> tests_status.md
 	echo '## Failed'                                   		>> tests_status.md
 	echo ""                                                 >> tests_status.md
 	echo "   "`cat Failed.lst | wc -l`" tests failed"       >> tests_status.md
 	echo ""                                                 >> tests_status.md
-	sed "s/^** /  - \[/;s/ \[Failed\].*/\]\(testrec.md\#\)/" Failed.lst >> tests_status.md
+	sed "s/^** /  - \[/;s/ \[Failed\].*/\]\(results.md\#\)/" Failed.lst >> tests_status.md
 
 	echo ""                                                 >> tests_status.md
 	echo '## Empty'                                    		>> tests_status.md
 	echo ""                                                 >> tests_status.md
 	echo "   "`cat Empty.lst | wc -l`" empty tests"         >> tests_status.md
 	echo ""                                                 >> tests_status.md
-	sed "s/^ */  - \[/;s/ \[Empty\].*/\]\(testrec.md\#\)/" Empty.lst	>> tests_status.md
+	sed "s/^ */  - \[/;s/ \[Empty\].*/\]\(results.md\#\)/" Empty.lst	>> tests_status.md
 
 	mv tests_status.md ../docs/tests
-	mv testrec.md ../docs/tests/
+	mv results.md ../docs/tests/
 
 clean:
 	- ${RM} tests_count.txt *.lst *_tests/scenario.md.out

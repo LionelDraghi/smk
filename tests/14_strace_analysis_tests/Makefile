@@ -23,7 +23,7 @@ test_strace_analysis:
 	alr exec -- gprbuild -q --create-missing-dirs -P test_strace_analysis.gpr
 
 check: test_strace_analysis
-	./test_strace_analysis >> testrec.md
+	./test_strace_analysis >> results.md
 	@ echo
 	@ echo Tests [Successful]
 
@@ -31,4 +31,4 @@ doc:
 
 clean:
 	- alr exec -- gprclean -q -P test_strace_analysis.gpr
-	- rm testrec.md
+	- rm results.md

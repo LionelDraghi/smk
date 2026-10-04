@@ -49,8 +49,6 @@
    - [X] scenario   [smk clean](scenario.md) pass  
 All tests OK [Successful](tests_status.md#successful)
 All tests OK [Successful](tests_status.md#successful)
-All tests OK [Successful](tests_status.md#successful)
-All tests OK [Successful](tests_status.md#successful)
    - [X] scenario   [create the sources for this test case](scenario.md) pass  
    - [X] scenario   [first run](scenario.md) pass  
    - [X] scenario   [what are those new files in the current dir?](scenario.md) pass  
