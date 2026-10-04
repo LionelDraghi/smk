@@ -182,10 +182,15 @@ And don't forget [`smk help`](docs/cmd_line.md).
    On Debian family:  
    >  `apt install alire make`
 
-4. Build it:  
+4. Ensure you have `strace` version 6.9 or greater (May 2024),  
+   that `smk` uses to analyze what each command reads and writes  
+   On Debian family:  
+   >  `apt install strace`
+
+5. Build it:  
    > `alr build --release`
 
-5. Optionally, run the test suite:  
+6. Optionally, run the test suite:  
    > `make check`  
    Note that some tests rely on additional tools (`strace`, `sox`, `id3v2`, `id3ren`, ...);  
    the full list is given in [Contributing, Tests Overview](docs/contributing.md#tests-overview).
@@ -220,7 +225,7 @@ And don't forget [`smk help`](docs/cmd_line.md).
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)  
 
-and is under active development.  
+**but is no more under active development.**  
 
 Comments and issues are very welcome [here](https://github.com/LionelDraghi/smk/issues/new)!
 

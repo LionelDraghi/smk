@@ -1,0 +1,3 @@
+../hello.c/hello
+../hello.c/hello.o
+../hello.c/main.o

@@ -1,0 +1,26 @@
+[Overall_State]
+   Suite_Count= 1
+   Failed_Test_Count= 0
+   Successful_Test_Count= 5
+   Empty_Test_Count= 0
+   Failed_Assertion_Count= 0
+   Successful_Assertion_Count= 8
+
+
+[Current_Suite_State]
+   Current_Suite_Name= Directory update tests
+   Failed_Test_Count= 0
+   Successful_Test_Count= 5
+   Empty_Test_Count= 0
+   Failed_Assertion_Count= 0
+   Successful_Assertion_Count= 8
+
+
+[Current_Test_State]
+   Current_Test_Name= smk clean
+   Failed_Assertion_Count= 0
+   Successful_Assertion_Count= 1
+   Current_Test_Status= TEST_DONE
+   Current_Test_Result= SUCCESSFUL
+
+

@@ -32,6 +32,16 @@ And obviously, any contribution, including ports, is welcome.
 
 `smk` is currently only tested on my Debian x86_64 box.
 
+`smk` requires **`strace` >= 6.9** (May 2024), and runs commands with:
+
+> `strace -y -qq -f -s 100 -e trace=file --always-show-pid -e status=successful -o <runfile>.strace_output`
+
+where `--always-show-pid` guarantees a PID prefix on every line,
+and `-e status=successful` prevents failed calls from polluting the trace
+(so that a failed `mkdir` or `rename` cannot be recorded as a write or a move).
+The analyzer is nevertheless tolerant: it accepts any PID length,
+and even lines without PID prefix (older strace versions).
+
 
 ---
 
@@ -165,7 +175,7 @@ Pretend that the target file has just been modified. When used with the -n flag,
 
 - mkdir
 
-- open, openat : si O_WRONLY, or O_RDWR
+- open, openat, openat2 : si O_WRONLY, or O_RDWR
   (The argument flags must include one of the following access modes: O_RDONLY, O_WRONLY, or O_RDWR).
   These request opening the file read-only, write-only, or read/write, respectively.
 
@@ -204,7 +214,7 @@ Pretend that the target file has just been modified. When used with the -n flag,
 
 ### Read  operations (that cause the file to be considered as `Source`)
 
-- open, openat : si O_RDONLY 
+- open, openat, openat2 : si O_RDONLY 
 
 - fopen, fdopen, freopen si mode = R ou R+   
 
@@ -270,6 +280,5 @@ Second, openat() allows the implementation of a per-thread "current working dire
 - renameat
 - symlinkat 
 - unlinkat
-- utimensat
-- 
+- utimensat 
  

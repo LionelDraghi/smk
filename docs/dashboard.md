@@ -12,13 +12,13 @@ Version
 > date -r ./smk --iso-8601=seconds
 
 ```
-2026-10-04T09:52:24+02:00
+2026-10-04T15:04:08+02:00
 ```
 
 Test results
 ------------
 ```
-Successful  57
+Successful  52
 Failed      0
 Empty       0
 ```

@@ -2,7 +2,7 @@
 
 ## Successful
 
-   57 tests OK
+   52 tests OK
 
   - [Sanity / First `smk`, after `make`, should run no command](testrec.md#)
   - [Sanity / Second `smk`, should not run any command](testrec.md#)
@@ -42,11 +42,6 @@
   - [Directory update tests / ogg-to-mp3 is modified](testrec.md#)
   - [Directory update tests / adding a .ogg file in a subdir](testrec.md#)
   - [Directory update tests / smk clean](testrec.md#)
-  - [All tests OK](testrec.md#)
-  - [All tests OK](testrec.md#)
-  - [All tests OK](testrec.md#)
-  - [All tests OK](testrec.md#)
-  - [All tests OK](testrec.md#)
   - [All tests OK](testrec.md#)
   - [All tests OK](testrec.md#)
   - [All tests OK](testrec.md#)

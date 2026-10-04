@@ -1,0 +1,26 @@
+[Overall_State]
+   Suite_Count= 1
+   Failed_Test_Count= 0
+   Successful_Test_Count= 3
+   Empty_Test_Count= 0
+   Failed_Assertion_Count= 0
+   Successful_Assertion_Count= 6
+
+
+[Current_Suite_State]
+   Current_Suite_Name= Sections related functions
+   Failed_Test_Count= 0
+   Successful_Test_Count= 3
+   Empty_Test_Count= 0
+   Failed_Assertion_Count= 0
+   Successful_Assertion_Count= 6
+
+
+[Current_Test_State]
+   Current_Test_Name= smkmfile:section notation
+   Failed_Assertion_Count= 0
+   Successful_Assertion_Count= 3
+   Current_Test_Status= TEST_DONE
+   Current_Test_Result= SUCCESSFUL
+
+

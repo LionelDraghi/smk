@@ -7,10 +7,12 @@ Version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0
 
 - **[0.4.1-dev] - 2026-??-??**
   - [Fixed]   file modifications were no more detected on systems where traced PIDs are wider than 6 digits (for instance when `/proc/sys/kernel/pid_max` is set to 4194304): the strace output analysis failed to identify the function calls, and thus no source nor target was recorded
-  - [Fixed]   a crash when analyzing strace lines of failed file system calls (e.g. an `openat` returning `ENOTDIR`)
+  - [Changed] strace is now invoked with `--always-show-pid` and `-e status=successful`: the PID prefix is guaranteed on every line, and failed calls are not even written in the trace, so a failed `mkdir` or `rename` can no more be recorded as a write or a move; `smk` thus requires strace >= 6.9
+  - [Added]   `openat2` is now handled
   - [Changed] `smk version` now displays the crate version, as defined in the Alire manifest
   - [Changed] `smk` is now an [Alire](https://alire.ada.dev) crate: build it with `alr build` (see the README)
   - [Changed] documentation is now only on GitHub (README and `docs/`): the mkdocs web site and GitHub Pages are removed, and the README badges are dynamic
+  - [Changed] `smk` is no more under active development
 
 - **[0.4.0] - 2019-01-16**
   - [Added]   the Trigger concept: each file recorded from a run has a trigger, displayed in listings (`If update`, `If presence`, `If absence`), that drives the re-run decision (sources updated, targets missing or created, ...)

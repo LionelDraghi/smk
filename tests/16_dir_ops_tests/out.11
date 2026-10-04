@@ -1,0 +1,5 @@
+Command "mkdir dir1", last run [YYYY:MM:DD HH:MM:SS.SS]
+  Sources: (0)
+  Targets: (1)
+  - [If absence ] [Dir] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] dir1
+

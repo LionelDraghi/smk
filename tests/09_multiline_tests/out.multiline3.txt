@@ -1,0 +1,2 @@
+Error : hill_multiline_smkfile.txt ends with incomplete multine, last command ignored
+Nothing to run

@@ -1,0 +1,2 @@
+run "id3v2 -a Luke -t Sentinelle x.mp3" because it was not run before
+id3v2 -a Luke -t Sentinelle x.mp3

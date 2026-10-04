@@ -379,12 +379,15 @@ package body Smk.Runs.Strace_Analyzer is
                                                  Role => Target));
          end;
 
-      elsif Cmd = "open" or  Cmd = "fopen" or  Cmd = "openat" then
+      elsif Cmd = "open" or  Cmd = "fopen" or  Cmd = "openat"
+        or Cmd = "openat2" then
          -- --------------------------------------------------------------------
          -- 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL,
          --              0600) = 3</tmp/ccvHeGYq.res>
          -- 11750 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC)
          --                                               = 3</etc/ld.so.cache>
+         -- 47512 openat2(AT_FDCWD, "file", {flags=O_RDONLY|O_CLOEXEC}, 24)
+         --                                               = 3</path/file>
          declare
             Name : constant File_Name := Get_Returned_File;
          begin

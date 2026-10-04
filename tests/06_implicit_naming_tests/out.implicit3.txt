@@ -1,0 +1,1 @@
+Error : No smkfile given, and more than one runfile in dir
