@@ -1,3 +1,0 @@
-gcc -o hello.o -c hello.c
-gcc -o main.o -c main.c --WTF
-gcc -o hello hello.o main.o

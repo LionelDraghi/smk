@@ -1,7 +1,7 @@
 Command "gcc -o hello hello.o main.o" in section [hello], last run [YYYY:MM:DD HH:MM:SS.SS]
   Sources: (30)
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.o
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.o
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.c/hello.o
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.c/main.o
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/gcc/x86_64-linux-gnu/16/crtbeginS.o
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/gcc/x86_64-linux-gnu/16/crtendS.o
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/gcc/x86_64-linux-gnu/16/libatomic_asneeded.so
@@ -31,11 +31,11 @@ Command "gcc -o hello hello.o main.o" in section [hello], last run [YYYY:MM:DD H
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/share/locale/fr/LC_MESSAGES/bfd.mo
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/share/locale/fr/LC_MESSAGES/ld.mo
   Targets: (1)
-  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello
+  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.c/hello
 
 Command "gcc -o hello.o -c hello.c" in section [hello.o], last run [YYYY:MM:DD HH:MM:SS.SS]
   Sources: (71)
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.c
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.c/hello.c
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/alloca.h
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/endian.h
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/features-time64.h
@@ -107,12 +107,12 @@ Command "gcc -o hello.o -c hello.c" in section [hello.o], last run [YYYY:MM:DD H
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libzstd.so.1.5.7
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/share/locale/fr/LC_MESSAGES/gas.mo
   Targets: (1)
-  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.o
+  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.c/hello.o
 
 Command "gcc -o main.o -c main.c" in section [main.o], last run [YYYY:MM:DD HH:MM:SS.SS]
   Sources: (72)
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.h
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.c
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.c/hello.h
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.c/main.c
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/alloca.h
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/endian.h
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/features-time64.h
@@ -184,5 +184,5 @@ Command "gcc -o main.o -c main.c" in section [main.o], last run [YYYY:MM:DD HH:M
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libzstd.so.1.5.7
   - [If update  ] [Fil] [System] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] /usr/share/locale/fr/LC_MESSAGES/gas.mo
   Targets: (1)
-  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.o
+  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.c/main.o
 

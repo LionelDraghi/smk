@@ -1,124 +1,67 @@
 
-# Tutorial
+# Document: [scenario.md](scenario.md)  
+   ### Scenario: [create the sources for this test case](scenario.md): 
+   - OK : Given the file `hello.c`  
+   - OK : Given the file `main.c`  
+   - OK : Given the file `hello.h`  
+   - OK : Given the file `MyBuild`  
+   - [X] scenario   [create the sources for this test case](scenario.md) pass  
+
+   ### Scenario: [first run](scenario.md): 
+   - OK : Given I run `rm -f hello hello.o main.o`  
+   - OK : Given I run `../../smk -q reset`  
+   - OK : When I run `../../smk MyBuild`  
+   - OK : Then I get  
+   - OK : When I run `sh -c "../../smk status -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
+   - OK : Then I get  
+   - [X] scenario   [first run](scenario.md) pass  
+
+   ### Scenario: [what are those new files in the current dir?](scenario.md): 
+   - OK : When I run `ls .smk.MyBuild`  
+   - OK : Then I get `.smk.MyBuild`  
+   - [X] scenario   [what are those new files in the current dir?](scenario.md) pass  
+
+   ### Scenario: [second smk run](scenario.md): 
+   - OK : When I run `../../smk`  
+   - OK : Then I get `Nothing to run`  
+   - [X] scenario   [second smk run](scenario.md) pass  
+
+   ### Scenario: [let's remove a file](scenario.md): 
+   - OK : When I run `rm main.o`  
+   - OK : When I run `../../smk`  
+   - OK : Then I get `Nothing to run`  
+   - OK : When I run `sleep 1`  
+   - OK : When I run `sh -c "../../smk -mt -e | sed 's/[0-9]//g'"`  
+   - OK : Then I get  
+   - OK : When I run `../../smk clean`  
+   - OK : Then I get  
+   - OK : When I run `../../smk reset`  
+   - OK : Then I get `Deleting .smk.MyBuild`  
+   - OK : When I run `../../smk lr`  
+   - OK : Then I get `No run file`  
+   - OK : When I run `../../smk MyBuild`  
+   - OK : Then I get  
+   - [X] scenario   [let's remove a file](scenario.md) pass  
+
+   ### Scenario: [let's modify a source](scenario.md): 
+   - OK : When I run `sleep 1`  
+   - OK : When I run `touch hello.c`  
+   - OK : When I run `sh -c "../../smk -e | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
+   - OK : Then I get  
+   - [X] scenario   [let's modify a source](scenario.md) pass  
+
+   ### Scenario: [another smk run](scenario.md): 
+   - OK : When I run `../../smk`  
+   - OK : Then I get `Nothing to run`  
+   - [X] scenario   [another smk run](scenario.md) pass  
 
 
- This test ensure that the current version  
- of smk behave as described in the tutorial  
+## Summary : **Success**, 7 scenarios OK
 
-##  Tutorial / start conversion
+| Status     | Count |
+|------------|-------|
+| Failed     | 0     |
+| Successful | 7     |
+| Empty      | 0     |
+| Not Run    | 0     |
 
-
-  This is the "Quick Start" part of the tutorial  
-
-  Run:  
-  # converting ogg to mp3:  
-  `sox x.ogg x.mp3`  
-
-  Expected:  
-```  
-run "sox x.ogg x.mp3" because it was not run before
-sox x.ogg x.mp3
-```  
-
-  # setting Artist and Tittle tags:  
-  `id3v2 -a Luke -t Sentinelle x.mp3`  
-
-  Expected:  
-```  
-run "id3v2 -a Luke -t Sentinelle x.mp3" because it was not run before
-id3v2 -a Luke -t Sentinelle x.mp3
-```  
-
-  # renaming according to tags:  
-  `id3ren -quiet -template=%a  
-
-  Expected:  
-```  
-run "id3ren -quiet -template=%a-%s.mp3 x.mp3" because it was not run before
-id3ren -quiet -template=%a-%s.mp3 x.mp3
-```  
-
-
-Tutorial / start conversion [Successful](tests_status.md#successful)
-
-##  Tutorial / second run
-
-
-  Run:  
-  `smk`  
-
-  Expected: nothing, situation is up to date  
-```  
-Nothing to run
-```  
-
-
-Tutorial / second run [Successful](tests_status.md#successful)
-
-##  Tutorial / smk do not rebuild if a target is missing!!!
-
-  Run:  
-  `rm Luke-Sentinelle.mp3`  
-  `smk`  
-
-  Expected:  
-```  
-Nothing to run
-```  
-
-
-Tutorial / smk do not rebuild if a target is missing!!! [Successful](tests_status.md#successful)
-
-##  Tutorial / unless using the `-mt` / `--build-missing-target` option
-
-  Run:  
-  `smk -mt -e`  
-
-  Expected:  
-```  
-run "sox x.ogg x.mp3" because Target file x.mp3 is missing
-sox x.ogg x.mp3
-run "id3v2 -a Luke -t Sentinelle x.mp3" because Source file x.mp3 has been updated (YYYY:MM:DD HH:MM:SS.SS)
-id3v2 -a Luke -t Sentinelle x.mp3
-run "id3ren -quiet -template=%a-%s.mp3 x.mp3" because Target file Luke-Sentinelle.mp3 is missing
-id3ren -quiet -template=%a-%s.mp3 x.mp3
-```  
-
-
-Tutorial / unless using the `-mt` / `--build-missing-target` option [Successful](tests_status.md#successful)
-
-##  Tutorial / touch x.ogg
-
-  Run:  
-  `touch x.ogg`  
-  `rm Luke-Sentinelle.mp3`  
-  `smk`  
-
-  Expected:  
-```  
-run "sox x.ogg x.mp3" because Source file x.ogg has been updated (YYYY:MM:DD HH:MM:SS.SS)
-sox x.ogg x.mp3
-run "id3v2 -a Luke -t Sentinelle x.mp3" because Source file x.mp3 has been updated (YYYY:MM:DD HH:MM:SS.SS)
-id3v2 -a Luke -t Sentinelle x.mp3
-run "id3ren -quiet -template=%a-%s.mp3 x.mp3" because Source file x.mp3 is present
-id3ren -quiet -template=%a-%s.mp3 x.mp3
-```  
-
-
-##  Tutorial / smk do rebuild if you give the target
-
-  Run:  
-  `smk lt -l > out.20`  
-  `rm Luke-Sentinelle.mp3`  
-  `smk Luke-Sentinelle.mp3`  
-
-  Expected:  
-```  
-"id3ren -quiet -template=%a-%s.mp3 x.mp3" [] [If absence ] [Fil] [Normal] [Target] [New    ] [YYYY:MM:DD HH:MM:SS.SS] Luke-Sentinelle.mp3
-"id3v2 -a Luke -t Sentinelle x.mp3" [] [If absence ] [Fil] [Normal] [Target] [New    ] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
-"sox x.ogg x.mp3" [] [If absence ] [Fil] [Normal] [Target] [New    ] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
-id3ren -quiet -template=%a-%s.mp3 x.mp3
-```  
-
-
-Tutorial / smk do rebuild if you give the target [Successful](tests_status.md#successful)

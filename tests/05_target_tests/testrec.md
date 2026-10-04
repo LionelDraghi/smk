@@ -1,93 +1,80 @@
 
-# Targets related functions
+# Document: [scenario.md](scenario.md)  
+   ### Background: [](scenario.md): 
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Makefile.1`  
+   - OK : Given the file `hello.c/Makefile.2`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [dry-run clean](scenario.md): 
+   - OK : Given I run `../../smk -q reset`  
+   - OK : Given I run `../../smk -q build hello.c/Makefile.2`  
+   - OK : When I run `../../smk clean --dry-run`  
+   - OK : Then I get  
+   - OK : When I run `../../smk --explain`  
+   - OK : Then I get `Nothing to run`  
+   - [X] scenario   [dry-run clean](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Makefile.1`  
+   - OK : Given the file `hello.c/Makefile.2`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [real clean](scenario.md): 
+   - OK : When I run `../../smk clean`  
+   - OK : Then I get  
+   - OK : When I run `../../smk -e -mt`  
+   - OK : Then I get  
+   - [X] scenario   [real clean](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Makefile.1`  
+   - OK : Given the file `hello.c/Makefile.2`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [build selected target](scenario.md): 
+   - OK : Given I run `../../smk -q reset`  
+   - OK : Given I run `../../smk -q hello.c/Makefile.1`  
+   - OK : When I run `../../smk build main.o`  
+   - OK : Then I get `Nothing to run`  
+   - OK : When I run `sleep 1`  
+   - OK : When I run `touch hello.c/main.c`  
+   - OK : When I run `../../smk build main.o`  
+   - OK : Then I get  
+   - [X] scenario   [build selected target](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Makefile.1`  
+   - OK : Given the file `hello.c/Makefile.2`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [build unknown target](scenario.md): 
+   - OK : When I run `../../smk build mainzzzzz.o`  
+   - OK : Then I get  
+   - [X] scenario   [build unknown target](scenario.md) pass  
 
 
+## Summary : **Success**, 4 scenarios OK
 
-##  Targets related functions / dry-run clean
+| Status     | Count |
+|------------|-------|
+| Failed     | 0     |
+| Successful | 4     |
+| Empty      | 0     |
+| Not Run    | 0     |
 
-
-  Test targets cleaning (dry run and real)  
-
-  Run:  
-  `smk reset`  
-  `smk -q build ../hello.c/Makefile.2`  
-  `smk clean --dry-run`  
-  `smk --explain`  (to check that nothing was actually deleted)  
-
-  Expected:  
-```  
-Deleting file ../hello.c/hello
-Deleting file ../hello.c/hello.o
-Deleting file ../hello.c/main.o
-```  
-
-
-##  Targets related functions / real clean
-
-  Run:  
-  `smk clean`  
-
-  Expected:  
-```  
-Deleting file ../hello.c/hello
-Deleting file ../hello.c/hello.o
-Deleting file ../hello.c/main.o
-```  
-
-  Run:  
-  `smk -e -mt`  (to check effective cleaning)  
-
-  Expected:  
-```  
-run "gcc -o hello.o -c hello.c" because Target file ../hello.c/hello.o is missing
-gcc -o hello.o -c hello.c
-run "gcc -o main.o -c main.c" because Target file ../hello.c/main.o is missing
-gcc -o main.o -c main.c
-run "gcc -o hello hello.o main.o" because Target file ../hello.c/hello is missing
-gcc -o hello hello.o main.o
-```  
-
-
-Targets related functions / real clean [Successful](tests_status.md#successful)
-
-##  Targets related functions / Build selected target
-
-
-  Run:  
-  `smk -q reset`  
-  `smk ../hello.c/Makefile.1`  
-  `smk build main.o`  
-  Note that to avoid any confusion, this smkfile do not contain any target named main.o  
-
-  Expected:  
-```  
-Nothing to run
-```  
-
-  Run:  
-  `touch ../hello.c/main.c`  
-  `smk build main.o`  
-
-  Expected:  
-```  
-gcc -o main.o -c main.c
-gcc -o hello hello.o main.o
-```  
-
-
-Targets related functions / Build selected target [Successful](tests_status.md#successful)
-
-##  Targets related functions / Build unknown target
-
-
-  Run:  
-  `smk build mainzzzzz.o`  
-
-  Expected:  
-```  
-Target "mainzzzzz.o" not found
-run "smk list-targets" to get a list of possible target
-```  
-
-
-Targets related functions / Build unknown target [Successful](tests_status.md#successful)

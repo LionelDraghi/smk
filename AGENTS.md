@@ -42,31 +42,66 @@
 
 ## Test procedure
 
-- tests are in the 15 `tests/NN_*_tests/` directories, each with its own
-  Makefile, driven by `tests/Makefile`; `make check` from the root runs
-  them all, plus the coverage report; `cd tests/NN_*_tests && make check`
-  runs one suite
-- the recording tool is `testrec` (tests/Tools): it writes a testrec.md
-  per suite, aggregated in docs/tests/ by `make check`; the tests are
-  also the documentation of the behavior
+- tests are [bbt](https://github.com/LionelDraghi/bbt) scenarios, one
+  `scenario.md` per `tests/NN_*_tests/` directory, run by `tests/Makefile`
+  with `bbt -k --yes --index testrec.md scenario.md`; `make check` from the
+  root runs them all, plus the coverage report; `cd tests/NN_*_tests && bbt
+  -k --yes scenario.md` runs one suite
+- each scenario.md starts with a `_Table of Contents:_` header listing its
+  scenarios with anchors, as in the bbt features files
+  (../bbt/docs/features)
+- tests 13 (file utilities) and 14 (strace analysis) are Ada unit tests,
+  not bbt scenarios: they are still driven by their own Makefile
+- the bbt run of each suite writes a `testrec.md` file, aggregated in
+  docs/tests/ by `make check`; the tests are also the documentation of
+  the behavior, and tests/15_tutorial_tests/scenario.md is written to
+  be, at the end, the tutorial itself (docs/tutorial.md)
 - the external tools required by the test suite (strace, gcc, sox,
-  id3v2, id3ren, sed, sdiff, lcov...) are listed in docs/contributing.md,
+  id3v2, id3ren, sed, lcov...) are listed in docs/contributing.md,
   with the Debian package names
 - run the tests with `LD_LIBRARY_PATH` unset (`env -u LD_LIBRARY_PATH make check`)
   if your environment pollutes it, e.g. from a VSCode extension: its
   bundled libraries break sox, python and apt, and add unwanted files
   in the smk listings, which makes the fixtures differ
-- expected files (expected*.*) may legitimately differ from one machine
-  to another (system libraries, locale, tool versions): before updating
-  a fixture, make sure the difference comes from the environment and not
-  from an smk regression; a fixture update must always be justified
-  in the report to the owner
-- some `sleep 1` in the test Makefiles compensate the file system time
-  stamp resolution (cf. docs/design_notes.md): do not remove them
+
+### bbt authoring rules
+
+- bbt does not run commands through a shell: pipes, redirections and
+  command substitutions must be wrapped in `sh -c "..."`, with double
+  quotes outside (that bbt strips while grouping the argument) and
+  single quotes inside; never use backticks inside the command, they
+  would end the bbt code span
+- the Background applies before EACH scenario (Gherkin semantics):
+  use it for create-if-none inputs only (`- Given the file \`x\``), never
+  for state reset, otherwise the state chaining between scenarios is
+  broken; put resets and cleanups as `Given` steps of the first scenario
+  of a state chain
+- to create a script, use `- Given the executable file \`x\` containing`
+  (create-if-none + executable bit); avoid the `new` form in a
+  Background, it erases and rewrites the script before each scenario,
+  and the timestamp change perturbs the run analysis
+- `- Given there is no \`x\` file` prompts before deleting: use
+  `- Given I run \`rm -f x\`` instead, or run bbt with `--yes`
+- dates in expected outputs are neutralized by piping the command
+  through `sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g'` and
+  `sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'`
+  (wrapped in `sh -c`), so that the fixtures don't depend on the run time
+- when a tool message is checked (gcc, ld, strace...), set
+  `- Given the environment variable \`LC_ALL\` is \`C\``, so that the
+  message does not depend on the machine language settings
+- expected outputs that depend on the machine (system files, absolute
+  paths) are compared to golden files (`expected_*`) with
+  `- Then the file \`out\` is equal to file \`expected\``; never modify
+  a golden file without the owner's agreement; before updating one,
+  make sure the difference comes from the environment and not from an
+  smk regression, and justify the update in the report to the owner
+- some `sleep 1` steps compensate the file system time stamp resolution
+  (cf. docs/design_notes.md): do not remove them
 - after `make clean`, verify cleanliness on the file system, not only
   with git status: git ignored files (obj/, alire/, docs/lcov/, the
-  `smk` binary, .smk.* run files, out.* files, binaries built in
-  tests/hello.c/...) remain invisible
+  `smk` binary, .smk.* run files, out.* files, scenario.md.out, the
+  local hello.c/ dirs and binaries built by the scenarios...) remain
+  invisible
 
 ## Changing a feature or an error message format
 

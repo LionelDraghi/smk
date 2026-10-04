@@ -1,6 +1,6 @@
 "gcc -o hello hello.o main.o" [hello] [If update  ] [Dir] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/fr_FR.utf8/LC_MESSAGES
-"gcc -o hello hello.o main.o" [hello] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.o
-"gcc -o hello hello.o main.o" [hello] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.o
+"gcc -o hello hello.o main.o" [hello] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] hello.c/hello.o
+"gcc -o hello hello.o main.o" [hello] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] hello.c/main.o
 "gcc -o hello hello.o main.o" [hello] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/libexec/gcc/x86_64-linux-gnu/16/liblto_plugin.so
 "gcc -o hello hello.o main.o" [hello] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/gcc/x86_64-linux-gnu/16/crtbeginS.o
 "gcc -o hello hello.o main.o" [hello] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/gcc/x86_64-linux-gnu/16/crtendS.o
@@ -29,7 +29,7 @@
 "gcc -o hello hello.o main.o" [hello] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/share/locale/fr/LC_MESSAGES/bfd.mo
 "gcc -o hello hello.o main.o" [hello] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/share/locale/fr/LC_MESSAGES/ld.mo
 "gcc -o hello.o -c hello.c" [hello.o] [If update  ] [Dir] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/fr_FR.utf8/LC_MESSAGES
-"gcc -o hello.o -c hello.c" [hello.o] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.c
+"gcc -o hello.o -c hello.c" [hello.o] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] hello.c/hello.c
 "gcc -o hello.o -c hello.c" [hello.o] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/alloca.h
 "gcc -o hello.o -c hello.c" [hello.o] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/endian.h
 "gcc -o hello.o -c hello.c" [hello.o] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/features.h
@@ -100,8 +100,8 @@
 "gcc -o hello.o -c hello.c" [hello.o] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/x86_64-linux-gnu/libzstd.so.1.5.7
 "gcc -o hello.o -c hello.c" [hello.o] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/share/locale/fr/LC_MESSAGES/gas.mo
 "gcc -o main.o -c main.c" [main.o] [If update  ] [Dir] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/lib/locale/fr_FR.utf8/LC_MESSAGES
-"gcc -o main.o -c main.c" [main.o] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/hello.h
-"gcc -o main.o -c main.c" [main.o] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] ../hello.c/main.c
+"gcc -o main.o -c main.c" [main.o] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] hello.c/hello.h
+"gcc -o main.o -c main.c" [main.o] [If update  ] [Fil] [Normal] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] hello.c/main.c
 "gcc -o main.o -c main.c" [main.o] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/alloca.h
 "gcc -o main.o -c main.c" [main.o] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/endian.h
 "gcc -o main.o -c main.c" [main.o] [If update  ] [Fil] [System] [Source] [New    ] [YYYY:MM:DD HH:MM:SS.SS] /usr/include/features.h

@@ -29,37 +29,37 @@ check: ../smk
 		# done
 	echo
 	echo 01_sanity_tests
-	$(MAKE) check --directory=01_sanity_tests
+	cd 01_sanity_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 03_read_queries_tests
-	$(MAKE) check --directory=03_read_queries_tests
+	cd 03_read_queries_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 04_list_queries_tests
-	$(MAKE) check --directory=04_list_queries_tests
+	cd 04_list_queries_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 05_target_tests
-	$(MAKE) check --directory=05_target_tests
+	cd 05_target_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 06_implicit_naming_tests
-	$(MAKE) check --directory=06_implicit_naming_tests
+	cd 06_implicit_naming_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 07_run_error_tests
-	$(MAKE) check --directory=07_run_error_tests
+	cd 07_run_error_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 08_cmd_line_tests
-	$(MAKE) check --directory=08_cmd_line_tests
+	cd 08_cmd_line_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 09_multiline_tests
-	$(MAKE) check --directory=09_multiline_tests
+	cd 09_multiline_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 10_section_tests
-	$(MAKE) check --directory=10_section_tests
+	cd 10_section_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 11_command_run_tests
-	$(MAKE) check --directory=11_command_run_tests
+	cd 11_command_run_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 12_mp3_conversions_tests
-	$(MAKE) check --directory=12_mp3_conversions_tests
+	cd 12_mp3_conversions_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 13_file_utilities_tests
 	$(MAKE) check --directory=13_file_utilities_tests
@@ -68,17 +68,18 @@ check: ../smk
 	$(MAKE) check --directory=14_strace_analysis_tests
 	echo
 	echo 15_tutorial_tests
-	$(MAKE) check --directory=15_tutorial_tests
+	cd 15_tutorial_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 	echo 16_dir_ops_tests
-	$(MAKE) check --directory=16_dir_ops_tests
+	cd 16_dir_ops_tests && bbt -k --yes --index testrec.md scenario.md
 	echo
 
 doc:
 	cat *_tests/testrec.md > testrec.md
 
-	- grep '\[Successful\]'  testrec.md > Successful.lst
-	- grep '\[Failed\]'      testrec.md > Failed.lst
+	# old testrec format: "Suite / test [Successful]", bbt format: "- [X] scenario ..."
+	- grep -E '\[Successful\]|\[X\] scenario' testrec.md > Successful.lst
+	- grep -E '\[Failed\]|\[ \] scenario'      testrec.md > Failed.lst
 	- grep '\[Empty\]'       testrec.md > Empty.lst
 	
 	> tests_count.txt
@@ -113,9 +114,8 @@ doc:
 	mv testrec.md ../docs/tests/
 
 clean:
-	- ${RM} tests_count.txt *.lst 
+	- ${RM} tests_count.txt *.lst *_tests/scenario.md.out
 	for test in $(TESTS); do \
 		$(MAKE) -i clean --directory=$$test; \
 	done
-	- $(MAKE) --directory=./hello.c clean
 

@@ -2,62 +2,74 @@
 
 ## Successful
 
-   54 tests OK
+   66 tests OK
 
-  - [Sanity / First `smk`, after `make`, should run no command](testrec.md#)
-  - [Sanity / Second `smk`, should not run any command](testrec.md#)
-  - [Sanity / `smk reset`, no more history, should run all commands](testrec.md#)
-  - [Sanity / `smk -a`, should run all commands even if not needed](testrec.md#)
-  - [Sanity / `rm main.o` (missing file)](testrec.md#)
-  - [Sanity / `touch hello.c` (updated file)](testrec.md#)
-  - [Sanity / `touch hello.c` and dry run](testrec.md#)
-  - [Read queries / read-smkfile](testrec.md#)
-  - [Read queries / status](testrec.md#)
-  - [List queries / lr | list-runs](testrec.md#)
-  - [List queries / lt | list-targets](testrec.md#)
-  - [List queries / ls | list-sources](testrec.md#)
-  - [List queries / ls | list-sources --show-all-files](testrec.md#)
-  - [Targets related functions / real clean](testrec.md#)
-  - [Targets related functions / Build selected target](testrec.md#)
-  - [Targets related functions / Build unknown target](testrec.md#)
-  - [Implicit naming / Implicit naming](testrec.md#)
-  - [Run errors / -k -i](testrec.md#)
-  - [Run errors / `run` command fails](testrec.md#)
-  - [Run errors / debug option](testrec.md#)
-  - [Command line / Help options](testrec.md#)
-  - [Command line / Version option](testrec.md#)
-  - [Command line / Illegal cmd lines](testrec.md#)
-  - [Command line / Option given after a command](testrec.md#)
-  - [Command line / Unknow Makefile](testrec.md#)
-  - [Multiline Commands / multiline single command](testrec.md#)
-  - [Multiline Commands / multiline with more commands and pipes](testrec.md#)
-  - [Multiline Commands / Hill formatted multiline](testrec.md#)
-  - [Sections related functions / specific section building](testrec.md#)
-  - [Sections related functions / unknow section](testrec.md#)
-  - [Sections related functions / smkmfile:section notation](testrec.md#)
-  - [Command Run features / Add and build](testrec.md#)
-  - [Command Run features / Run](testrec.md#)
-  - [Directory update tests / start conversion](testrec.md#)
-  - [Directory update tests / new ogg in dir](testrec.md#)
-  - [Directory update tests / ogg-to-mp3 is modified](testrec.md#)
-  - [Directory update tests / adding a .ogg file in a subdir](testrec.md#)
-  - [Directory update tests / smk clean](testrec.md#)
+  - [- [X] scenario   [First `smk`, after `make`, should run no command](scenario.md) pass  
+  - [- [X] scenario   [Second `smk`, should not run any command](scenario.md) pass  
+  - [- [X] scenario   [`smk reset`, no more history, should run all commands](scenario.md) pass  
+  - [- [X] scenario   [`smk -a`, should run all commands even if not needed](scenario.md) pass  
+  - [- [X] scenario   [`rm main.o` (missing file)](scenario.md) pass  
+  - [- [X] scenario   [`touch hello.c` (updated file)](scenario.md) pass  
+  - [- [X] scenario   [`touch hello.c` and dry run](scenario.md) pass  
+  - [- [X] scenario   [read-smkfile](scenario.md) pass  
+  - [- [X] scenario   [status](scenario.md) pass  
+  - [- [X] scenario   [status, long listing and system files](scenario.md) pass  
+  - [- [X] scenario   [status, no previous run](scenario.md) pass  
+  - [- [X] scenario   [status, no smkfile](scenario.md) pass  
+  - [- [X] scenario   [lr, list-runs](scenario.md) pass  
+  - [- [X] scenario   [lt, list-targets](scenario.md) pass  
+  - [- [X] scenario   [ls, list-sources](scenario.md) pass  
+  - [- [X] scenario   [list-sources, show all files](scenario.md) pass  
+  - [- [X] scenario   [dry-run clean](scenario.md) pass  
+  - [- [X] scenario   [real clean](scenario.md) pass  
+  - [- [X] scenario   [build selected target](scenario.md) pass  
+  - [- [X] scenario   [build unknown target](scenario.md) pass  
+  - [- [X] scenario   [no run file in the directory](scenario.md) pass  
+  - [- [X] scenario   [one run file, implicit run](scenario.md) pass  
+  - [- [X] scenario   [more than one run file](scenario.md) pass  
+  - [- [X] scenario   [no option](scenario.md) pass  
+  - [- [X] scenario   [keep going](scenario.md) pass  
+  - [- [X] scenario   [ignore errors](scenario.md) pass  
+  - [- [X] scenario   [keep going and ignore errors](scenario.md) pass  
+  - [- [X] scenario   [run command fails](scenario.md) pass  
+  - [- [X] scenario   [other commands after a failed run](scenario.md) pass  
+  - [- [X] scenario   [debug option](scenario.md) pass  
+  - [- [X] scenario   [help options](scenario.md) pass  
+  - [- [X] scenario   [version option](scenario.md) pass  
+  - [- [X] scenario   [illegal command lines](scenario.md) pass  
+  - [- [X] scenario   [option given after a command](scenario.md) pass  
+  - [- [X] scenario   [unknown smkfile](scenario.md) pass  
+  - [- [X] scenario   [multiline single command](scenario.md) pass  
+  - [- [X] scenario   [multiline with more commands and pipes](scenario.md) pass  
+  - [- [X] scenario   [hill formatted multiline](scenario.md) pass  
+  - [- [X] scenario   [specific section building](scenario.md) pass  
+  - [- [X] scenario   [unknown section](scenario.md) pass  
+  - [- [X] scenario   [smkfile,section notation](scenario.md) pass  
+  - [- [X] scenario   [unknown smkfile with section](scenario.md) pass  
+  - [- [X] scenario   [add and build](scenario.md) pass  
+  - [- [X] scenario   [run](scenario.md) pass  
+  - [- [X] scenario   [start conversion](scenario.md) pass  
+  - [- [X] scenario   [new ogg in dir](scenario.md) pass  
+  - [- [X] scenario   [ogg-to-mp3 is modified](scenario.md) pass  
+  - [- [X] scenario   [adding a .ogg file in a subdir](scenario.md) pass  
+  - [- [X] scenario   [smk clean](scenario.md) pass  
   - [All tests OK](testrec.md#)
   - [All tests OK](testrec.md#)
   - [All tests OK](testrec.md#)
   - [All tests OK](testrec.md#)
-  - [All tests OK](testrec.md#)
-  - [All tests OK](testrec.md#)
-  - [Tutorial / start conversion](testrec.md#)
-  - [Tutorial / second run](testrec.md#)
-  - [Tutorial / smk do not rebuild if a target is missing!!!](testrec.md#)
-  - [Tutorial / unless using the `-mt` / `--build-missing-target` option](testrec.md#)
-  - [Tutorial / smk do rebuild if you give the target](testrec.md#)
-  - [Directory tests / mkdir dir1](testrec.md#)
-  - [Directory tests / updating dir1](testrec.md#)
-  - [Directory tests / cleaning dir1](testrec.md#)
-  - [Directory tests / accessing dir1 contents, read access](testrec.md#)
-  - [Directory tests / removing dir1](testrec.md#)
+  - [- [X] scenario   [create the sources for this test case](scenario.md) pass  
+  - [- [X] scenario   [first run](scenario.md) pass  
+  - [- [X] scenario   [what are those new files in the current dir?](scenario.md) pass  
+  - [- [X] scenario   [second smk run](scenario.md) pass  
+  - [- [X] scenario   [let's remove a file](scenario.md) pass  
+  - [- [X] scenario   [let's modify a source](scenario.md) pass  
+  - [- [X] scenario   [another smk run](scenario.md) pass  
+  - [- [X] scenario   [mkdir dir1](scenario.md) pass  
+  - [- [X] scenario   [updating dir1](scenario.md) pass  
+  - [- [X] scenario   [cleaning dir1](scenario.md) pass  
+  - [- [X] scenario   [accessing dir1 contents, write access](scenario.md) pass  
+  - [- [X] scenario   [accessing dir1 contents, read access](scenario.md) pass  
+  - [- [X] scenario   [removing dir1](scenario.md) pass  
 
 ## Failed
 

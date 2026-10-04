@@ -1,188 +1,139 @@
 
-# Run errors
+# Document: [scenario.md](scenario.md)  
+   ### Background: [](scenario.md): 
+   - OK : Given the environment variable `LC_ALL` is `C`  
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Wrong_Makefile`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [no option](scenario.md): 
+   - OK : Given I run `../../smk -q reset`  
+   - OK : When I run `../../smk hello.c/Wrong_Makefile`  
+   - OK : Then I get  
+   - OK : Then the error output is  
+   - OK : Then I get error  
+   - [X] scenario   [no option](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the environment variable `LC_ALL` is `C`  
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Wrong_Makefile`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [keep going](scenario.md): 
+   - OK : Given I run `../../smk -q reset`  
+   - OK : When I run `../../smk -k hello.c/Wrong_Makefile`  
+   - OK : Then I get  
+   - OK : Then the error output is  
+   - OK : Then I get error  
+   - [X] scenario   [keep going](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the environment variable `LC_ALL` is `C`  
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Wrong_Makefile`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [ignore errors](scenario.md): 
+   - OK : Given I run `../../smk -q reset`  
+   - OK : When I run `../../smk -i hello.c/Wrong_Makefile`  
+   - OK : Then I get  
+   - OK : Then the error output is  
+   - OK : Then I get no error  
+   - [X] scenario   [ignore errors](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the environment variable `LC_ALL` is `C`  
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Wrong_Makefile`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [keep going and ignore errors](scenario.md): 
+   - OK : Given I run `../../smk -q reset`  
+   - OK : When I run `../../smk --keep-going --ignore-errors hello.c/Wrong_Makefile`  
+   - OK : Then I get  
+   - OK : Then the error output is  
+   - OK : Then I get no error  
+   - [X] scenario   [keep going and ignore errors](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the environment variable `LC_ALL` is `C`  
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Wrong_Makefile`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [run command fails](scenario.md): 
+   - OK : Given I run `../../smk -q reset`  
+   - OK : When I run `../../smk run non_existing_command`  
+   - OK : Then I get  
+   - OK : Then the error output is  
+   - OK : Then I get error  
+   - OK : Then the file `default.smk` contains `non_existing_command`  
+   - [X] scenario   [run command fails](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the environment variable `LC_ALL` is `C`  
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Wrong_Makefile`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [other commands after a failed run](scenario.md): 
+   - OK : When I run `sh -c "../../smk read-smkfile | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
+   - OK : Then I get  
+   - OK : When I run `../../smk status`  
+   - OK : Then I get `No recorded run`  
+   - OK : When I run `../../smk whatsnew`  
+   - OK : Then I get `Nothing new`  
+   - OK : When I run `../../smk list-sources`  
+   - OK : Then there is no output  
+   - OK : When I run `../../smk list-targets`  
+   - OK : Then there is no output  
+   - OK : When I run `../../smk list-unused`  
+   - OK : Then there is no output  
+   - [X] scenario   [other commands after a failed run](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the environment variable `LC_ALL` is `C`  
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Wrong_Makefile`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [debug option](scenario.md): 
+   - OK : Given I run `../../smk -q reset`  
+   - OK : Given I run `rm -f default.smk`  
+   - OK : When I run `sh -c "../../smk -d dump > out.13 2>&1"`  
+   - OK : Then the file `out.13` is equal to file `expected.13`  
+   - OK : Then I get error  
+   - [X] scenario   [debug option](scenario.md) pass  
 
 
- test -k and -i behavior  
+## Summary : **Success**, 7 scenarios OK
 
-##  Run errors / no option
+| Status     | Count |
+|------------|-------|
+| Failed     | 0     |
+| Successful | 7     |
+| Empty      | 0     |
+| Not Run    | 0     |
 
-
-  Run:  
-  `smk -q reset`  
-  `smk ../hello.c/Wrong_Makefile`  
-
-  Expected:  
-```  
-gcc -o hello.o -c hello.c
-gcc -o main.o -c main.c --WTF
-gcc: error: unrecognized command-line option ‘--WTF’
-Error : Spawn failed for gcc -o main.o -c main.c --WTF
-```  
-
-
-##  Run errors / -k
-
-
-  Run:  
-  `smk -q reset`  
-  `smk -k ../hello.c/Wrong_Makefile`  
-
-  Expected:  
-```  
-gcc -o hello.o -c hello.c
-gcc -o main.o -c main.c --WTF
-gcc: error: unrecognized command-line option ‘--WTF’
-Error : Spawn failed for gcc -o main.o -c main.c --WTF
-gcc -o hello hello.o main.o
-/usr/bin/x86_64-linux-gnu-ld.bfd : ne peut pas trouver main.o : Aucun fichier ou dossier de ce nom
-collect2: error: ld returned 1 exit status
-Error : Spawn failed for gcc -o hello hello.o main.o
-```  
-
-
-##  Run errors / -i
-
-
-  Run:  
-  `smk -q reset`  
-  `smk -i ../hello.c/Wrong_Makefile`  
-
-  Expected:  
-     Same as with -k, but without returning an error code  
-```  
-gcc -o hello.o -c hello.c
-gcc -o main.o -c main.c --WTF
-gcc: error: unrecognized command-line option ‘--WTF’
-Error : Spawn failed for gcc -o main.o -c main.c --WTF
-```  
-
-
-##  Run errors / -k -i
-
-
-  Run: with both!  
-  `smk -q reset`  
-  `smk --keep-going --ignore-errors ../hello.c/Wrong_Makefile`  
-
-  Expected:  
-     Same as with -k, but without returning an error code  
-```  
-gcc -o hello.o -c hello.c
-gcc -o main.o -c main.c --WTF
-gcc: error: unrecognized command-line option ‘--WTF’
-Error : Spawn failed for gcc -o main.o -c main.c --WTF
-gcc -o hello hello.o main.o
-/usr/bin/x86_64-linux-gnu-ld.bfd : ne peut pas trouver main.o : Aucun fichier ou dossier de ce nom
-collect2: error: ld returned 1 exit status
-Error : Spawn failed for gcc -o hello hello.o main.o
-```  
-
-
-Run errors / -k -i [Successful](tests_status.md#successful)
-
-##  Run errors / `run` command fails
-
-
-  Run:  
-  `smk -q reset`  
-  `rm *.smk`  
-  `smk run non_existing_command`  
-
-  Expected:  
-
-```  
-non_existing_command
-/usr/bin/strace: Cannot find executable 'non_existing_command'
-Error : Spawn failed for non_existing_command
-```  
-
-
-  default.smk should nevertheless contains the failed command  
-
-```  
-non_existing_command
-```  
-
-  Run:  
-  `smk read-smkfile`  
-
-  Expected:  
-
-```  
-default.smk (YYYY:MM:DD HH:MM:SS.SS) :
-1: [] non_existing_command
-```  
-
-  Run:  
-  `smk status`  
-
-  Expected:  
-
-```  
-No recorded run
-```  
-
-  Other commands should return nothing:  
-  `smk whatsnew`  
-  `smk list-sources`  
-  `smk list-targets`  
-  `smk list-unused`  
-
-
-Run errors / `run` command fails [Successful](tests_status.md#successful)
-
-##  Run errors / debug option
-
-
-  Run:  
-  `smk -d dump`  
-
-  Expected:  
-
-```  
-Error : No smkfile given, and no existing runfile in dir
-
-Settings / Command line analysis:
----------------------------------
-
-   Verbosity         : DEBUG
-   Command           : DUMP
-   Smkfile name      : 
-   Runfile name      : 
-   Strace out file   : 
-   Section name      : 
-   Cmd Line          : 
-   Target name       : 
-   Unidentified Opt  : 
-   Initial directory : /home/lionel/prj/smk/tests/07_run_error_tests
-
-   System Files      : 
-   - /usr/*
-   - /lib/*
-   - /etc/*
-   - /opt/*
-
-   Ignore list       : 
-   - /sys/*
-   - /proc/*
-   - /dev/*
-   - /tmp/*
-   - /etc/ld.so.cache
-
-   [ ] Build_Missing_Targets
-   [ ] Always_Make
-   [ ] Explain
-   [ ] Dry_Run
-   [ ] Keep_Going
-   [ ] Ignore_Errors
-   [ ] Long_Listing_Format
-   [ ] Warnings_As_Errors
-   [X] Shorten_File_Names
-   [X] Filter_Sytem_Files
-
----------------------------------
-
-```  
-
-
-Run errors / debug option [Successful](tests_status.md#successful)

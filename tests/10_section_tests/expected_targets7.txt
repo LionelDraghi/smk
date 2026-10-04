@@ -1,1 +1,0 @@
-No section "qzdsqdq.o" in ../hello.c/Makefile.2

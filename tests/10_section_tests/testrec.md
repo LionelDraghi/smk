@@ -1,71 +1,79 @@
 
-# Sections related functions
+# Document: [scenario.md](scenario.md)  
+   ### Background: [](scenario.md): 
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Makefile.2`  
+   - OK : Given the file `hello.c/Makefile.4`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [specific section building](scenario.md): 
+   - OK : Given I run `../../smk -q reset`  
+   - OK : Given I run `../../smk build -q hello.c/Makefile.2`  
+   - OK : When I run `../../smk :main.o`  
+   - OK : Then I get `Nothing to run`  
+   - OK : When I run `sleep 1`  
+   - OK : When I run `touch hello.c/main.c`  
+   - OK : When I run `../../smk :main.o`  
+   - OK : Then I get  
+   - [X] scenario   [specific section building](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Makefile.2`  
+   - OK : Given the file `hello.c/Makefile.4`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [unknown section](scenario.md): 
+   - OK : When I run `../../smk :qzdsqdq.o`  
+   - OK : Then I get `No section "qzdsqdq.o" in hello.c/Makefile.2`  
+   - [X] scenario   [unknown section](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Makefile.2`  
+   - OK : Given the file `hello.c/Makefile.4`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [smkfile,section notation](scenario.md): 
+   - OK : Given I run `../../smk build -q hello.c/Makefile.4`  
+   - OK : When I run `touch hello.c/hello.c`  
+   - OK : When I run `../../smk hello.c/Makefile.4:hello.o`  
+   - OK : Then I get  
+   - OK : When I run `../../smk -a hello.c/Makefile.4:mrproper`  
+   - OK : Then I get  
+   - [X] scenario   [smkfile,section notation](scenario.md) pass  
+
+   ### Background: [](scenario.md): 
+   - OK : Given the directory `hello.c`  
+   - OK : Given the file `hello.c/hello.c`  
+   - OK : Given the file `hello.c/main.c`  
+   - OK : Given the file `hello.c/hello.h`  
+   - OK : Given the file `hello.c/Makefile.2`  
+   - OK : Given the file `hello.c/Makefile.4`  
+   - [X] background [](scenario.md) pass  
+
+   ### Scenario: [unknown smkfile with section](scenario.md): 
+   - OK : When I run `../../smk -a hello.c/Makezzzzzfile.4:mrproper`  
+   - OK : Then I get  
+   - OK : Then I get error  
+   - [X] scenario   [unknown smkfile with section](scenario.md) pass  
 
 
+## Summary : **Success**, 4 scenarios OK
 
-##  Sections related functions / specific section building
+| Status     | Count |
+|------------|-------|
+| Failed     | 0     |
+| Successful | 4     |
+| Empty      | 0     |
+| Not Run    | 0     |
 
-  Run:  
-  `smk :main.o` with main.o up to date  
-
-  Expected:  
-```  
-Nothing to run
-```  
-
-  Run:  
-  `touch main.c`  
-  `smk :main.o`  
-
-  Expected:  
-```  
-gcc -o main.o -c main.c
-```  
-
-
-Sections related functions / specific section building [Successful](tests_status.md#successful)
-
-##  Sections related functions / unknow section
-
-  Run:  
-  `smk :qzdsqdq.o`  
-
-  Expected:  
-```  
-No section "qzdsqdq.o" in ../hello.c/Makefile.2
-```  
-
-
-Sections related functions / unknow section [Successful](tests_status.md#successful)
-
-##  Sections related functions / smkmfile:section notation
-
-  Run:  
-  `smk build -q ../hello.c/Makefile.4`  
-  `touch ../hello.c/hello.c`  
-  `smk ../hello.c/Makefile.4:hello.o`  
-
-  Expected:  
-```  
-gcc -o hello.o -c hello.c
-```  
-
-  Run:  
-  `smk -a ../hello.c/Makefile.4:mrproper`  
-
-  Expected:  
-```  
-rm -rf hello
-```  
-
-  Run:  
-  `smk -a ../hello.c/Makezzzzzfile.4:mrproper`  
-
-  Expected:  
-```  
-Error : Unknown Smkfile ../hello.c/Makezzzzzfile.4 in ../hello.c/Makezzzzzfile.4:mrproper
-Error : No smkfile given, and more than one runfile in dir
-```  
-
-
-Sections related functions / smkmfile:section notation [Successful](tests_status.md#successful)

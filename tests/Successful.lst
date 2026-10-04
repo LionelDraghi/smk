@@ -1,54 +1,66 @@
-Sanity / First `smk`, after `make`, should run no command [Successful](tests_status.md#successful)
-Sanity / Second `smk`, should not run any command [Successful](tests_status.md#successful)
-Sanity / `smk reset`, no more history, should run all commands [Successful](tests_status.md#successful)
-Sanity / `smk -a`, should run all commands even if not needed [Successful](tests_status.md#successful)
-Sanity / `rm main.o` (missing file) [Successful](tests_status.md#successful)
-Sanity / `touch hello.c` (updated file) [Successful](tests_status.md#successful)
-Sanity / `touch hello.c` and dry run [Successful](tests_status.md#successful)
-Read queries / read-smkfile [Successful](tests_status.md#successful)
-Read queries / status [Successful](tests_status.md#successful)
-List queries / lr | list-runs [Successful](tests_status.md#successful)
-List queries / lt | list-targets [Successful](tests_status.md#successful)
-List queries / ls | list-sources [Successful](tests_status.md#successful)
-List queries / ls | list-sources --show-all-files [Successful](tests_status.md#successful)
-Targets related functions / real clean [Successful](tests_status.md#successful)
-Targets related functions / Build selected target [Successful](tests_status.md#successful)
-Targets related functions / Build unknown target [Successful](tests_status.md#successful)
-Implicit naming / Implicit naming [Successful](tests_status.md#successful)
-Run errors / -k -i [Successful](tests_status.md#successful)
-Run errors / `run` command fails [Successful](tests_status.md#successful)
-Run errors / debug option [Successful](tests_status.md#successful)
-Command line / Help options [Successful](tests_status.md#successful)
-Command line / Version option [Successful](tests_status.md#successful)
-Command line / Illegal cmd lines [Successful](tests_status.md#successful)
-Command line / Option given after a command [Successful](tests_status.md#successful)
-Command line / Unknow Makefile [Successful](tests_status.md#successful)
-Multiline Commands / multiline single command [Successful](tests_status.md#successful)
-Multiline Commands / multiline with more commands and pipes [Successful](tests_status.md#successful)
-Multiline Commands / Hill formatted multiline [Successful](tests_status.md#successful)
-Sections related functions / specific section building [Successful](tests_status.md#successful)
-Sections related functions / unknow section [Successful](tests_status.md#successful)
-Sections related functions / smkmfile:section notation [Successful](tests_status.md#successful)
-Command Run features / Add and build [Successful](tests_status.md#successful)
-Command Run features / Run [Successful](tests_status.md#successful)
-Directory update tests / start conversion [Successful](tests_status.md#successful)
-Directory update tests / new ogg in dir [Successful](tests_status.md#successful)
-Directory update tests / ogg-to-mp3 is modified [Successful](tests_status.md#successful)
-Directory update tests / adding a .ogg file in a subdir [Successful](tests_status.md#successful)
-Directory update tests / smk clean [Successful](tests_status.md#successful)
+   - [X] scenario   [First `smk`, after `make`, should run no command](scenario.md) pass  
+   - [X] scenario   [Second `smk`, should not run any command](scenario.md) pass  
+   - [X] scenario   [`smk reset`, no more history, should run all commands](scenario.md) pass  
+   - [X] scenario   [`smk -a`, should run all commands even if not needed](scenario.md) pass  
+   - [X] scenario   [`rm main.o` (missing file)](scenario.md) pass  
+   - [X] scenario   [`touch hello.c` (updated file)](scenario.md) pass  
+   - [X] scenario   [`touch hello.c` and dry run](scenario.md) pass  
+   - [X] scenario   [read-smkfile](scenario.md) pass  
+   - [X] scenario   [status](scenario.md) pass  
+   - [X] scenario   [status, long listing and system files](scenario.md) pass  
+   - [X] scenario   [status, no previous run](scenario.md) pass  
+   - [X] scenario   [status, no smkfile](scenario.md) pass  
+   - [X] scenario   [lr, list-runs](scenario.md) pass  
+   - [X] scenario   [lt, list-targets](scenario.md) pass  
+   - [X] scenario   [ls, list-sources](scenario.md) pass  
+   - [X] scenario   [list-sources, show all files](scenario.md) pass  
+   - [X] scenario   [dry-run clean](scenario.md) pass  
+   - [X] scenario   [real clean](scenario.md) pass  
+   - [X] scenario   [build selected target](scenario.md) pass  
+   - [X] scenario   [build unknown target](scenario.md) pass  
+   - [X] scenario   [no run file in the directory](scenario.md) pass  
+   - [X] scenario   [one run file, implicit run](scenario.md) pass  
+   - [X] scenario   [more than one run file](scenario.md) pass  
+   - [X] scenario   [no option](scenario.md) pass  
+   - [X] scenario   [keep going](scenario.md) pass  
+   - [X] scenario   [ignore errors](scenario.md) pass  
+   - [X] scenario   [keep going and ignore errors](scenario.md) pass  
+   - [X] scenario   [run command fails](scenario.md) pass  
+   - [X] scenario   [other commands after a failed run](scenario.md) pass  
+   - [X] scenario   [debug option](scenario.md) pass  
+   - [X] scenario   [help options](scenario.md) pass  
+   - [X] scenario   [version option](scenario.md) pass  
+   - [X] scenario   [illegal command lines](scenario.md) pass  
+   - [X] scenario   [option given after a command](scenario.md) pass  
+   - [X] scenario   [unknown smkfile](scenario.md) pass  
+   - [X] scenario   [multiline single command](scenario.md) pass  
+   - [X] scenario   [multiline with more commands and pipes](scenario.md) pass  
+   - [X] scenario   [hill formatted multiline](scenario.md) pass  
+   - [X] scenario   [specific section building](scenario.md) pass  
+   - [X] scenario   [unknown section](scenario.md) pass  
+   - [X] scenario   [smkfile,section notation](scenario.md) pass  
+   - [X] scenario   [unknown smkfile with section](scenario.md) pass  
+   - [X] scenario   [add and build](scenario.md) pass  
+   - [X] scenario   [run](scenario.md) pass  
+   - [X] scenario   [start conversion](scenario.md) pass  
+   - [X] scenario   [new ogg in dir](scenario.md) pass  
+   - [X] scenario   [ogg-to-mp3 is modified](scenario.md) pass  
+   - [X] scenario   [adding a .ogg file in a subdir](scenario.md) pass  
+   - [X] scenario   [smk clean](scenario.md) pass  
 All tests OK [Successful](tests_status.md#successful)
 All tests OK [Successful](tests_status.md#successful)
 All tests OK [Successful](tests_status.md#successful)
 All tests OK [Successful](tests_status.md#successful)
-All tests OK [Successful](tests_status.md#successful)
-All tests OK [Successful](tests_status.md#successful)
-Tutorial / start conversion [Successful](tests_status.md#successful)
-Tutorial / second run [Successful](tests_status.md#successful)
-Tutorial / smk do not rebuild if a target is missing!!! [Successful](tests_status.md#successful)
-Tutorial / unless using the `-mt` / `--build-missing-target` option [Successful](tests_status.md#successful)
-Tutorial / smk do rebuild if you give the target [Successful](tests_status.md#successful)
-Directory tests / mkdir dir1 [Successful](tests_status.md#successful)
-Directory tests / updating dir1 [Successful](tests_status.md#successful)
-Directory tests / cleaning dir1 [Successful](tests_status.md#successful)
-Directory tests / accessing dir1 contents, read access [Successful](tests_status.md#successful)
-Directory tests / removing dir1 [Successful](tests_status.md#successful)
+   - [X] scenario   [create the sources for this test case](scenario.md) pass  
+   - [X] scenario   [first run](scenario.md) pass  
+   - [X] scenario   [what are those new files in the current dir?](scenario.md) pass  
+   - [X] scenario   [second smk run](scenario.md) pass  
+   - [X] scenario   [let's remove a file](scenario.md) pass  
+   - [X] scenario   [let's modify a source](scenario.md) pass  
+   - [X] scenario   [another smk run](scenario.md) pass  
+   - [X] scenario   [mkdir dir1](scenario.md) pass  
+   - [X] scenario   [updating dir1](scenario.md) pass  
+   - [X] scenario   [cleaning dir1](scenario.md) pass  
+   - [X] scenario   [accessing dir1 contents, write access](scenario.md) pass  
+   - [X] scenario   [accessing dir1 contents, read access](scenario.md) pass  
+   - [X] scenario   [removing dir1](scenario.md) pass  

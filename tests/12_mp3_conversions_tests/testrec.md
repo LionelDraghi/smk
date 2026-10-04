@@ -1,125 +1,79 @@
+scenario.md:36: Warning: the command contains a shell metacharacter ('*'), but commands are not run through a shell: a command shall not contain pipes, redirections, or command substitutions; '*' will be passed as an argument to the command
 
-# Directory update tests
+# Document: [scenario.md](scenario.md)  
+   ### Background: [](scenario.md): 
+   - OK : Given the executable file `to-mp3.sh`  
+   - OK : Given the executable file `ogg-to-mp3.sh`  
+   - [X] background [](scenario.md) pass  
 
+   ### Scenario: [start conversion](scenario.md): 
+   - OK : Given I run `rm -f default.smk *.mp3 z.ogg`  
+   - OK : Given I run `rm -rf dir1`  
+   - OK : Given I run `../../smk -q reset`  
+   - OK : When I run `../../smk run ./ogg-to-mp3.sh`  
+   - OK : Then I get `./ogg-to-mp3.sh`  
+   - OK : When I run `sh -c "../../smk st -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
+   - OK : Then I get  
+   - [X] scenario   [start conversion](scenario.md) pass  
 
+   ### Background: [](scenario.md): 
+   - OK : Given the executable file `to-mp3.sh`  
+   - OK : Given the executable file `ogg-to-mp3.sh`  
+   - [X] background [](scenario.md) pass  
 
-##  Directory update tests / start conversion
+   ### Scenario: [new ogg in dir](scenario.md): 
+   - OK : When I run `sleep 1`  
+   - OK : When I run `cp x.ogg z.ogg`  
+   - OK : When I run `../../smk whatsnew`  
+   - OK : Then I get `[Updated] [Source] ./`  
+   - [X] scenario   [new ogg in dir](scenario.md) pass  
 
+   ### Background: [](scenario.md): 
+   - OK : Given the executable file `to-mp3.sh`  
+   - OK : Given the executable file `ogg-to-mp3.sh`  
+   - [X] background [](scenario.md) pass  
 
-  Run:  
-  `rm default.smk`  
-  `smk -q reset`  
-  `smk run ./ogg-to-mp3.sh`  
+   ### Scenario: [ogg-to-mp3 is modified](scenario.md): 
+   - OK : Given I run `../../smk -q run ./ogg-to-mp3.sh`  
+   - OK : When I run `touch ./ogg-to-mp3.sh`  
+   - OK : When I run `sh -c "../../smk -e | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
+   - OK : Then I get  
+   - [X] scenario   [ogg-to-mp3 is modified](scenario.md) pass  
 
-  Expected:  
-```  
-./ogg-to-mp3.sh
+   ### Background: [](scenario.md): 
+   - OK : Given the executable file `to-mp3.sh`  
+   - OK : Given the executable file `ogg-to-mp3.sh`  
+   - [X] background [](scenario.md) pass  
 
-```  
+   ### Scenario: [adding a .ogg file in a subdir](scenario.md): 
+   - OK : Given I run `mkdir dir1`  
+   - OK : When I run `sleep 1`  
+   - OK : When I run `sh -c "../../smk wn -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
+   - OK : Then I get  
+   - OK : When I run `sh -c "../../smk -e run ./ogg-to-mp3.sh | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
+   - OK : Then I get  
+   - OK : Given I run `cp x.ogg dir1/t.ogg`  
+   - OK : When I run `sh -c "../../smk -e run | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
+   - OK : Then I get  
+   - [X] scenario   [adding a .ogg file in a subdir](scenario.md) pass  
 
-  Run:  
-  `smk st -l`  
+   ### Background: [](scenario.md): 
+   - OK : Given the executable file `to-mp3.sh`  
+   - OK : Given the executable file `ogg-to-mp3.sh`  
+   - [X] background [](scenario.md) pass  
 
-  Expected:  
-```  
-Command "./ogg-to-mp3.sh", last run [YYYY:MM:DD HH:MM:SS.SS]
-  Sources: (5)
-  - [If update  ] [Dir] [Normal] [Source] [Updated] [YYYY:MM:DD HH:MM:SS.SS] ./
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] ogg-to-mp3.sh
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] to-mp3.sh
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.ogg
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] y.ogg
-  Targets: (2)
-  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
-  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] y.mp3
-
-```  
-
-
-Directory update tests / start conversion [Successful](tests_status.md#successful)
-
-##  Directory update tests / new ogg in dir
-
-
-  Run:  
-  `cp x.ogg z.ogg`  
-  `smk whatsnew`  
-
-  Expected:  
-```  
-[Updated] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests
-[Missing] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/x.mp3
-[Updated] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/y.ogg
-[Created] /home/lionel/Proj/smk/tests/12_mp3_conversions_tests/z.ogg
-```  
-
-
-Directory update tests / new ogg in dir [Successful](tests_status.md#successful)
-
-##  Directory update tests / ogg-to-mp3 is modified
-
-
-  Run:  
-  `smk -q run ./ogg-to-mp3.sh`  
-  `touch ogg-to-mp3`  
-  `smk -e`  
-
-  Expected:  
-```  
-run "./ogg-to-mp3.sh" because Source dir ./ has been updated (YYYY:MM:DD HH:MM:SS.SS)
-./ogg-to-mp3.sh
-```  
+   ### Scenario: [smk clean](scenario.md): 
+   - OK : When I run `../../smk clean`  
+   - OK : Then I get  
+   - [X] scenario   [smk clean](scenario.md) pass  
 
 
-Directory update tests / ogg-to-mp3 is modified [Successful](tests_status.md#successful)
+## Summary : **Success**, 5 scenarios OK
 
-##  Directory update tests / adding a .ogg file in a subdir
+| Status     | Count |
+|------------|-------|
+| Failed     | 0     |
+| Successful | 5     |
+| Empty      | 0     |
+| Not Run    | 0     |
 
-
-  Run:  
-  `mkdir dir1`  
-  `smk wn -l`  
-
-  Expected:  
-```  
-[Dir] [Normal] [Source] [Updated] [YYYY:MM:DD HH:MM:SS.SS] ./
-```  
-
-  Run:  
-  `smk -e run ./ogg-to-mp3.sh`  
-
-  Expected:  
-```  
-run "./ogg-to-mp3.sh" because Source dir ./ has been updated (YYYY:MM:DD HH:MM:SS.SS)
-./ogg-to-mp3.sh
-```  
-
-  Run:  
-  `cp x.ogg dir1/t.ogg`  
-  `smk -e run ./ogg-to-mp3.sh`  
-
-  Expected:  
-```  
-run "./ogg-to-mp3.sh" because Source dir ./ has been updated (YYYY:MM:DD HH:MM:SS.SS)
-./ogg-to-mp3.sh
-```  
-
-
-Directory update tests / adding a .ogg file in a subdir [Successful](tests_status.md#successful)
-
-##  Directory update tests / smk clean
-
-
-  Run:  
-  `smk clean`  
-
-  Expected:  
-```  
-Deleting file dir1/t.mp3
-Deleting file x.mp3
-Deleting file y.mp3
-Deleting file z.mp3
-```  
-
-
-Directory update tests / smk clean [Successful](tests_status.md#successful)

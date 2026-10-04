@@ -1,5 +1,5 @@
-../hello.c/hello.o
-../hello.c/main.o
+hello.c/hello.o
+hello.c/main.o
 /usr/lib/gcc/x86_64-linux-gnu/16/crtbeginS.o
 /usr/lib/gcc/x86_64-linux-gnu/16/crtendS.o
 /usr/lib/gcc/x86_64-linux-gnu/16/libatomic_asneeded.so
@@ -28,7 +28,7 @@
 /usr/libexec/gcc/x86_64-linux-gnu/16/liblto_plugin.so
 /usr/share/locale/fr/LC_MESSAGES/bfd.mo
 /usr/share/locale/fr/LC_MESSAGES/ld.mo
-../hello.c/hello.c
+hello.c/hello.c
 /usr/include/alloca.h
 /usr/include/endian.h
 /usr/include/features-time64.h
@@ -99,8 +99,8 @@
 /usr/lib/x86_64-linux-gnu/libz.so.1.3.2
 /usr/lib/x86_64-linux-gnu/libzstd.so.1.5.7
 /usr/share/locale/fr/LC_MESSAGES/gas.mo
-../hello.c/hello.h
-../hello.c/main.c
+hello.c/hello.h
+hello.c/main.c
 /usr/include/alloca.h
 /usr/include/endian.h
 /usr/include/features-time64.h

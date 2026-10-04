@@ -1,3 +1,0 @@
-Deleting file ../hello.c/hello
-Deleting file ../hello.c/hello.o
-Deleting file ../hello.c/main.o
