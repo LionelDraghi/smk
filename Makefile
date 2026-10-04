@@ -25,6 +25,7 @@ help:
 	echo "  all         : build, check and doc (default when no target given)"
 	echo "  build       : build smk in validation mode"
 	echo "  release     : build smk in release mode"
+	echo "  install     : build in release mode, and copy smk to ~/bin"
 	echo "  check       : run the test suites (15 dirs), and build"
 	echo "                 the coverage report"
 	echo "  dashboard   : regenerate docs/dashboard.md and docs/tests.json"
@@ -51,6 +52,13 @@ release:
 	echo --- build for release:
 	echo
 	alr --non-interactive build --release
+	echo
+
+install: release
+	echo
+	echo --- install:
+	cp -p smk ~/bin
+	echo OK
 	echo
 
 check: smk

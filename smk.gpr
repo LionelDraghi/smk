@@ -70,14 +70,25 @@ project smk is
       -- t : Check token spacing
       -- x : Check extra parentheses.
 
-      for Switches ("ada")
-      use Common_Debug_Switches & "--coverage" & "-gnatyM80";
-      -- --coverage = -fprofile-arcs and -ftest-coverage
-      -- Style checking (-gnaty):
-      -- M : Set maximum line length
+      case Smk_Config.Build_Profile is
+         when "release" =>
+            -- the release build is the one installed with make install:
+            -- no coverage instrumentation, and optimization
+            for Switches ("ada") use Common_Switches & ("-O2");
 
-      for Switches ("smk-main-put_help.adb")
-      use Common_Debug_Switches & "--coverage" & "-gnatyM100";
+         when others =>
+            -- the validation build is instrumented, and used by make check
+            -- to build the coverage report
+            for Switches ("ada")
+            use Common_Debug_Switches & "--coverage" & "-gnatyM80";
+            -- --coverage = -fprofile-arcs and -ftest-coverage
+            -- Style checking (-gnaty):
+            -- M : Set maximum line length
+
+            for Switches ("smk-main-put_help.adb")
+            use Common_Debug_Switches & "--coverage" & "-gnatyM100";
+
+      end case;
 
    end Compiler;
 
@@ -87,7 +98,12 @@ project smk is
    end Binder;
 
    package Linker is
-      for Default_Switches ("ada") use ("-g", "-lgcov", "-fprofile-arcs");
+      case Smk_Config.Build_Profile is
+         when "release" =>
+            for Default_Switches ("ada") use ();
+         when others =>
+            for Default_Switches ("ada") use ("-g", "-lgcov", "-fprofile-arcs");
+      end case;
    end Linker;
 
    package Pretty_Printer is
