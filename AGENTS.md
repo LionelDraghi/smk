@@ -2,18 +2,28 @@
 
 ## Commit discipline
 
-- never stage, commit or push without the owner's explicit consent:
-  `git add` is as forbidden as `git commit` and `git push`; prepare the
-  change, run a full `make` (build, check, doc), a `make clean` to check
-  that there is no remaining unwanted file, and report the result;
-  wait for the go-ahead before touching the index or the history
-- once the owner gives the go-ahead, run the whole sequence in one go:
-  `git add` the whole generated state (test results, docs/tests/,
-  docs/dashboard.md, docs/cmd_line.md, docs/fixme.md, docs/tests.json,
-  tests/tests_count.txt, tests/tests_status.md, updated fixtures...),
-  commit, and push. Committing in the middle of the chain freezes
-  inconsistent artifacts, such as a dashboard or a tests badge still
-  referring to the previous version
+- never stage, commit or push without the owner's explicit approval:
+  `git add` is as forbidden as `git commit` and `git push`
+- the procedure is always, in that order:
+  1. make the changes;
+  2. run a full `make` (build, check, doc), then a `make clean` to check
+     that the repository is clean, and verify the file system (git status
+     shows the ignored files);
+  3. report the result and STOP: the owner reviews the diffs (e.g. in
+     the editor source control view);
+  4. only on the owner's explicit go-ahead, run the whole sequence in one
+     go: `git add` the whole generated state, commit, and push
+- a request such as "on pousse sur GitHub" in the task is the goal, not
+  the go-ahead: the go-ahead is a separate, explicit approval given by
+  the owner AFTER reviewing the diffs; it may come in a later message;
+  when in doubt, wait
+- once the owner gives the go-ahead, `git add` the whole generated state
+  (test results, docs/tests/, docs/dashboard.md, docs/cmd_line.md,
+  docs/fixme.md, docs/tests.json, tests/tests_count.txt,
+  tests/tests_status.md, updated fixtures...), commit, and push.
+  Committing in the middle of the chain freezes inconsistent artifacts,
+  such as a dashboard or a tests badge still referring to the previous
+  version
 
 ## Build
 

@@ -13,15 +13,11 @@ Just run your commands once through `smk`, and then, all you'll have to type is 
 
 Table of contents  
 - [smk (SmartMake)](#smk-smartmake)
+  - [Overview \& main features](#overview--main-features)
   - [Quick start](#quick-start)
   - [How is this possible?](#how-is-this-possible)
-  - [Overview](#overview)
+  - [`smk` vocabulary](#smk-vocabulary)
   - [A little more on usage](#a-little-more-on-usage)
-  - [Cool features TBD](#cool-features-tbd)
-    - [using `smk` without `smkfile`](#using-smk-without-smkfile)
-    - [Whats new?](#whats-new)
-    - [Auto-clean](#auto-clean)
-    - [Working with files: smkfiles, Makefiles or shell scripts](#working-with-files-smkfiles-makefiles-or-shell-scripts)
   - [Next Step:](#next-step)
   - [Downloading and building](#downloading-and-building)
   - [Further reading](#further-reading)
@@ -224,8 +220,6 @@ And don't forget [`smk help`](docs/cmd_line.md).
 **`smk`** is released under 
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)  
-
-**but is no more under active development.**  
 
 Comments and issues are very welcome [here](https://github.com/LionelDraghi/smk/issues/new)!
 

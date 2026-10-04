@@ -12,7 +12,6 @@ Version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0
   - [Changed] `smk version` now displays the crate version, as defined in the Alire manifest
   - [Changed] `smk` is now an [Alire](https://alire.ada.dev) crate: build it with `alr build` (see the README)
   - [Changed] documentation is now only on GitHub (README and `docs/`): the mkdocs web site and GitHub Pages are removed, and the README badges are dynamic
-  - [Changed] `smk` is no more under active development
 
 - **[0.4.0] - 2019-01-16**
   - [Added]   the Trigger concept: each file recorded from a run has a trigger, displayed in listings (`If update`, `If presence`, `If absence`), that drives the re-run decision (sources updated, targets missing or created, ...)
