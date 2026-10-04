@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# smk, the smart make (http://lionel.draghi.free.fr/smk/)
+# smk, the smart make (https://github.com/LionelDraghi/smk)
 #  © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 # SPDX-License-Identifier: APSL-2.0
 # ------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ conv:
 	rm -f default.smk
 	../../smk -q reset
 	../../smk run ./ogg-to-mp3.sh > out.1
-	${TR} assert true /usr/bin/sdiff "-sbB expected.1 out.1" || meld expected.1 out.1 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.1 out.1"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk st -l`'
@@ -56,7 +56,7 @@ conv:
 	../../smk st -l | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.2
-	${TR} assert true /usr/bin/sdiff "-sbB expected.2 out.2" || meld expected.2 out.2 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.2 out.2"
 
 	${TR} end
 
@@ -77,7 +77,7 @@ new_file:
 	sleep 1.0 # immediate "touch" bug
 	cp x.ogg z.ogg
 	../../smk whatsnew > out.3
-	${TR} assert true /usr/bin/sdiff "-sbB expected.3 out.3" || meld expected.3 out.3 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.3 out.3"
 
 	${TR} end
 
@@ -101,7 +101,7 @@ ogg-to-mp3:
 	../../smk -e | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.10
-	${TR} assert true /usr/bin/sdiff "-sbB expected.10 out.10" || meld expected.10 out.10 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.10 out.10"
 
 	${TR} end
 
@@ -124,7 +124,7 @@ sub_dir: ogg-to-mp3
 	../../smk wn -l | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.20
-	${TR} assert true /usr/bin/sdiff "-sbB expected.20 out.20" || meld expected.20 out.20 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.20 out.20"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -e run ./ogg-to-mp3.sh`'
@@ -138,7 +138,7 @@ sub_dir: ogg-to-mp3
 	../../smk -e run ./ogg-to-mp3.sh | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.21
-	${TR} assert true /usr/bin/sdiff "-sbB expected.21 out.21" || meld expected.21 out.21 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.21 out.21"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`cp x.ogg dir1/t.ogg`'
@@ -154,7 +154,7 @@ sub_dir: ogg-to-mp3
 	../../smk -e run | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.22
-	${TR} assert true /usr/bin/sdiff "-sbB expected.22 out.22" || meld expected.22 out.22 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.22 out.22"
 
 	${TR} end
 	
@@ -172,7 +172,7 @@ smk_clean:
 	${TR} cmt 
 	
 	../../smk clean > out.clean.1
-	${TR} assert true /usr/bin/sdiff "-sbB expected.clean.1 out.clean.1" || meld expected.clean.1 out.clean.1 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.clean.1 out.clean.1"
 	
 	${TR} end
 

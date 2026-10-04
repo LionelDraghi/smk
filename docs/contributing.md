@@ -42,6 +42,20 @@ Fixme: **TBC**
 
 The global intent is to have tests documenting the software behavior. Test execution result in a global count of passed/failed/empty tests, and in a text output in Markdown format, integrated in this documentation.
 
+## Tools required to run the tests
+
+Beside `make` and the Ada toolchain (see the [Download and build section](../README.md#downloading-and-building)), the test suite (`make check`) runs `smk` on various commands, and needs the following tools in the path:
+
+- `strace`, used by `smk` itself to trace files accesses;
+- a C compiler (`gcc`), used by the `hello.c` based tests;
+- `sox`, `id3v2` and `id3ren`, used by the audio conversion tests (tests 12_ and 15_);
+- `sed` and `sdiff` (package diffutils), used to neutralize and compare outputs;
+- `lcov` (providing `genhtml`), used to build the coverage report.
+
+On Debian family:
+
+> `apt install strace gcc sox id3v2 id3ren lcov`
+
 Tests are at exe level, with no unit testing at this stage. To have tests in Makefile behaving like unit test, I created a utility, called `testrec` to record tests execution. 
 This utility is build before test execution, and record in a local testrec.md file : comments, test suite start, test start, assertion result, etc.
 This is how the test documentation is created, and how I can compile a global tests results (like if it was a single Ada unit test), despite multiple Makefiles and executions.
@@ -75,6 +89,6 @@ The test result may be :
 
 - _Successul_, if all Assert are verified,
 - _Failed_, if at least one is not,
-- and _Empty_, if no Assert is called between test start and test end. This is usefull when starting to write a test in the Makefile before code exists : it wouldn't be fair to have those test "Failed".
+- and _Empty_, if no Assert is called between test start and test end. This is useful when starting to write a test in the Makefile before code exists : it wouldn't be fair to have those test "Failed".
 
 After all tests execution, `testrec clean` is called to remove the hidden file that stores intermediate results and state, and the `testrec.md` file is moved in the docs directory under a name matching the test suite name, where it will be automatically taken into account.

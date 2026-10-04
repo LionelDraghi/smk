@@ -19,7 +19,7 @@
 
 project Test_File_Utilities is
 
-   for Source_Dirs use ("../../src", "./src");
+   for Source_Dirs use ("../../src", "../../src/Alire_config", "./src");
    for Object_Dir use "../../obj";
    for Main use ("test_file_utilities.adb");
    for Exec_Dir use ".";
@@ -33,11 +33,11 @@ project Test_File_Utilities is
    end Builder;
 
    package Compiler is
-      Common_Switches := ("-gnat2012");
+      Common_Switches := ("-gnat2022");
       Common_Debug_Switches := Common_Switches &
       ("-g", "-O0",  "-gnatQ", "-gnatf",
        "-gnato", "-fstack-check", "-gnata",
-       "-gnateE", "-gnatVa", "-gnatwae", "-gnatyaefhiklnprtxM80");
+       "-gnateE", "-gnatVa", "-gnatwae", "-gnatyaefhiklnprtxM100");
       -- -gnatQ   : Don't quit
       -- -gnatf   : Full errors
       -- -gnato   : Intermediate overflows to be handled in strict mode.

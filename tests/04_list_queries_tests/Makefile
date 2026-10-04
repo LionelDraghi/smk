@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# smk, the smart make (http://lionel.draghi.free.fr/smk/)
+# smk, the smart make (https://github.com/LionelDraghi/smk)
 #  © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 # SPDX-License-Identifier: APSL-2.0
 # ------------------------------------------------------------------------------
@@ -56,12 +56,12 @@ list_queries:
 	
 	../../smk -q reset
 	test ! `../../smk lr > out.lr1.txt`
-	${TR} assert true /usr/bin/sdiff "-sbB expected_lr1.txt out.lr1.txt" || meld expected_lr1.txt out.lr1.txt  
+	${TR} assert true /usr/bin/sdiff "-sbB expected_lr1.txt out.lr1.txt"
 
 	../../smk -q build ../hello.c/Makefile.2 
 	../../smk -q ../hello.c/Makefile.3 
 	../../smk list-runs > out.lr2.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_lr2.txt out.lr2.txt" || meld expected_lr2.txt out.lr2.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_lr2.txt out.lr2.txt"
 
 	${TR} end
 
@@ -80,7 +80,7 @@ list_queries:
 	../../smk list-targets --long-listing ../hello.c/Makefile.2 | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.lt1.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_lt1.txt out.lt1.txt" || meld expected_lt1.txt out.lt1.txt
+	${TR} assert true /usr/bin/sdiff "-sbB expected_lt1.txt out.lt1.txt"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk lt ../hello.c/Makefile.2`'
@@ -92,7 +92,7 @@ list_queries:
 	${TR} cmt 
 	
 	../../smk lt ../hello.c/Makefile.2 > out.lt2.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_lt2.txt out.lt2.txt" || meld expected_lt2.txt out.lt2.txt
+	${TR} assert true /usr/bin/sdiff "-sbB expected_lt2.txt out.lt2.txt"
 
 	${TR} end
 
@@ -110,7 +110,7 @@ list_queries:
 	${TR} cmt 
 	
 	../../smk ls -ds ../hello.c/Makefile.2 > out.ls1.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_ls1.txt out.ls1.txt" || meld expected_ls1.txt out.ls1.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_ls1.txt out.ls1.txt"
 	${TR} cmt 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk list-sources ../hello.c/Makefile.2`'
@@ -122,7 +122,7 @@ list_queries:
 	${TR} cmt 
 	
 	../../smk list-sources ../hello.c/Makefile.2 > out.ls2.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_ls2.txt out.ls2.txt" || meld expected_ls2.txt out.ls2.txt  
+	${TR} assert true /usr/bin/sdiff "-sbB expected_ls2.txt out.ls2.txt"
 
 	${TR} end
 
@@ -140,7 +140,7 @@ list_queries:
 	${TR} cmt 
 	
 	../../smk list-sources --show-all-files ../hello.c/Makefile.2 > out.las1.txt
-	${TR} assert true /usr/bin/sdiff "-sbB expected_las1.txt out.las1.txt" || meld expected_las1.txt out.las1.txt  
+	${TR} assert true /usr/bin/sdiff "-sbB expected_las1.txt out.las1.txt"
 
 	${TR} cmt 
 	${TR} cmt 'Run: (long form)'
@@ -156,7 +156,7 @@ list_queries:
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
 	  sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" | \
 	  sort > out.las2.txt 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_las2.txt out.las2.txt" || meld expected_las2.txt out.las2.txt  
+	${TR} assert true /usr/bin/sdiff "-sbB expected_las2.txt out.las2.txt"
 
 	${TR} end
 

@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# smk, the smart make (http://lionel.draghi.free.fr/smk/)
+# smk, the smart make (https://github.com/LionelDraghi/smk)
 #  © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 # SPDX-License-Identifier: APSL-2.0
 # ------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ sanity:
 	${TR} cmt 
 	../../smk -q ../hello.c/Makefile.2
 	../../smk -e ../hello.c/Makefile.2 > out.1
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.1 out.1" || meld expected_sanity.1 out.1 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.1 out.1"
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
@@ -63,7 +63,7 @@ sanity:
 	${TR} cmt '```' 						
 	${TR} cmt 
 	../../smk -e ../hello.c/Makefile.2 > out.2
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.2 out.2" || meld expected_sanity.2 out.2 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.2 out.2"
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
@@ -80,7 +80,7 @@ sanity:
 	${TR} cmt 
 	../../smk reset --quiet
 	../../smk -e ../hello.c/Makefile.2 > out.3 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.3 out.3" || meld expected_sanity.3 out.3 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.3 out.3"
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
@@ -95,7 +95,7 @@ sanity:
 	${TR} cmt '```' 						
 	${TR} cmt 
 	../../smk -e -a ../hello.c/Makefile.2 > out.4 
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.4 out.4" || meld expected_sanity.4 out.4 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.4 out.4"
 	${TR} end
 	
 	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
@@ -116,7 +116,7 @@ sanity:
 	rm ../hello.c/main.o
 	../../smk -e --missing-targets ../hello.c/Makefile.2 | sed "s/[0-9]//g" > out.5
 	# Time tag neutralized
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.5 out.5" || meld expected_sanity.5 out.5 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.5 out.5"
 	${TR} end
 
 	# Fixme: sleep needed because of close consecutive smk run that disrupt the algorithm
@@ -136,7 +136,7 @@ sanity:
 	${TR} cmt 
 	touch ../hello.c/hello.c
 	../../smk -e ../hello.c/Makefile.2 | sed "s/[0-9]//g" > out.6
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.6 out.6" || meld expected_sanity.6 out.6 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.6 out.6"
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
@@ -154,7 +154,7 @@ sanity:
 	sleep 1.0
 	touch ../hello.c/hello.c
 	../../smk whatsnew ../hello.c/Makefile.2 > out.7a
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7a out.7a" || meld expected_sanity.7a out.7a 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7a out.7a"
 
 	${TR} cmt 
 	${TR} cmt 'Run:'
@@ -166,7 +166,7 @@ sanity:
 	${TR} cmt '```' 						
 	${TR} cmt 
 	../../smk -e -n | sed "s/[0-9]//g" > out.7
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7 out.7" || meld expected_sanity.7 out.7 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7 out.7"
 
 	${TR} cmt 
 	${TR} cmt 'whatsnew should still return the same, as nothing was changed by previous run with -n) :'
@@ -178,7 +178,7 @@ sanity:
 	${TR} cmt '```' 						
 	${TR} cmt 
 	../../smk wn | sed "s/[0-9]//g" > out.7b
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7a out.7b" || meld expected_sanity.7a out.7b 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7a out.7b"
 
 	${TR} cmt 
 	${TR} cmt 'Run same without -n :'
@@ -190,7 +190,7 @@ sanity:
 	${TR} cmt '```' 						
 	${TR} cmt 
 	../../smk -e ../hello.c/Makefile.2 | sed "s/[0-9]//g" > out.8
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.8 out.8" || meld expected_sanity.8 out.8 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.8 out.8"
 
 	${TR} cmt 
 	${TR} cmt 'and now whatsnew returns null:'
@@ -202,7 +202,7 @@ sanity:
 	${TR} cmt '```' 						
 	${TR} cmt 
 	../../smk wn | sed "s/[0-9]//g" > out.7c
-	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7c out.7c" || meld expected_sanity.7c out.7c 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_sanity.7c out.7c"
 
 	${TR} end
 

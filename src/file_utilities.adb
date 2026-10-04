@@ -1,27 +1,20 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make (http://lionel.draghi.free.fr/smk/)
--- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
+-- Author : Lionel Draghi
 -- SPDX-License-Identifier: APSL-2.0
--- -----------------------------------------------------------------------------
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
--- http://www.apache.org/licenses/LICENSE-2.0
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2024, Lionel Draghi
 -- -----------------------------------------------------------------------------
 
-with Ada.Directories;   use Ada.Directories;
-with Ada.Strings;
-with Ada.Strings.Fixed;
-with Ada.Strings.Maps;
+with Ada.Directories.Hierarchical_File_Names,
+     Ada.Strings,
+     Ada.Strings.Fixed,
+     Ada.Strings.Maps;
+
+use Ada.Directories.Hierarchical_File_Names;
 
 package body File_Utilities is
 
-   Upper_Dir : constant String := ".." & Separator;
+   Parent_Dir : constant String := ".." & Separator;
 
    -- --------------------------------------------------------------------------
    function Short_Path (From_Dir : String;
@@ -46,24 +39,28 @@ package body File_Utilities is
 
    begin
       -- -----------------------------------------------------------------------
-      if Dir = (1 => Separator) then return File; end if;
-      -- This test is also the way to stop recursing until error
-      -- when From_Dir and To_File have nothing in common.
+      if (Is_Root_Directory_Name (Dir) and Is_Full_Name (File))
+      -- From_Dir = "/" (or "c:\" on Windows) and File starts
+      -- also with "/" or c:\"
+          or else Is_Current_Directory_Name (Dir)
+      then
+         return File;
+         -- This test is also the way to stop recursing until error
+         -- when From_Dir and To_File have nothing in common.
+      end if;
 
       if Dir = File then return "./"; end if;
-      -- otherwise, the function returns the weird "../current_dir"
+      -- Otherwise, the function returns the weird "../current_dir"
 
       if Dir (Dir'First .. Dir'First + 1) /= File (File'First .. File'First + 1)
       then return File; end if;
       -- Optimization for a frequent case: there is no common path between
-      -- Dir and File, so we return immediatly File
+      -- Dir and File, so we return immediately File
 
       declare
-         Length : constant Natural := (if   Dir'Length > File'Length
-                                       then File'Length
-                                       else Dir'Length);
-         Right  : constant String  :=
-                    File (File'First .. File'First + Length - 1);
+         Length : constant Natural := Natural'Min (Dir'Length, File'Length);
+         Right  : constant String  := File (File'First ..
+                                              File'First + Length - 1);
       begin
          if Dir'Length <= File'Length and then Right = Dir then
             -- The left part of both string is identical
@@ -84,14 +81,14 @@ package body File_Utilities is
             -- recursive call:
             return Short_Path (From_Dir => Containing_Directory (Dir),
                                To_File  => File,
-                               Prefix   => Prefix & Upper_Dir);
+                               Prefix   => Prefix & Parent_Dir);
          end if;
       end;
 
    end Short_Path;
 
    -- --------------------------------------------------------------------------
-   function Escape (Text : in String) return String is
+   function Escape (Text : String) return String is
       use Ada.Strings.Maps;
       Src_Idx       : Natural := Text'First;
       To_Be_Escaped : constant Ada.Strings.Maps.Character_Set := To_Set (' '
@@ -106,22 +103,11 @@ package body File_Utilities is
         := Ada.Strings.Fixed.Count (Text, Set => To_Be_Escaped);
       Out_Str       : String (Text'First .. Text'Last + Blank_Count);
    begin
-      -- IO.Put_Line ("Blank_Count    =" & Natural'Image (Blank_Count));
-      -- IO.Put_Line ("Out_Str'length =" & Natural'Image (Out_Str'Length));
-      -- IO.Put_Line ("Text'length    =" & Natural'Image (Text'Length));
-
       Out_Str (Text'First .. Text'Last) := Text;
 
       for I in 1 .. Blank_Count loop
-         -- IO.Put_Line (Integer'Image (I) & ": S >" & Text    & "<");
-         -- IO.Put_Line (Integer'Image (I) & ": T >" & Out_Str & "<");
-         -- IO.Put_Line (Integer'Image (I) & ": Src_Idx before search ="
-         --             & Natural'Image (Src_Idx));
-
          Src_Idx := Ada.Strings.Fixed.Index (Out_Str (Src_Idx .. Out_Str'Last),
                                              To_Be_Escaped);
-         -- IO.Put_Line (Integer'Image (I) & ": Src_Idx after search ="
-         --             & Natural'Image (Src_Idx));
          Ada.Strings.Fixed.Insert (Out_Str,
                                    Before   => Src_Idx,
                                    New_Item => "\",
@@ -130,6 +116,5 @@ package body File_Utilities is
       end loop;
       return Out_Str;
    end Escape;
-
 
 end File_Utilities;

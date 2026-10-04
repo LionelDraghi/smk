@@ -6,31 +6,30 @@ Version
 > smk version
 
 ```
-0.4.0
+0.4.1-dev
 ```
 
 > date -r ./smk --iso-8601=seconds
 
 ```
-2019-02-04T00:29:51+01:00
+2026-10-04T09:52:24+02:00
 ```
 
 Test results
 ------------
 ```
-Successful  56
+Successful  57
 Failed      0
 Empty       0
 ```
-![](img/tests.png)
 
 Coverage
 --------
 
 ```
-  lines......: 95.9% (1220 of 1272 lines)
-  functions..: 96.0% (316 of 329 functions)
+Message summary:
+  no messages were reported
 ```
 
-[**Coverage details in the sources**](http://lionel.draghi.free.fr/smk/lcov/src/index.html)
+[**Coverage details in the sources**](lcov/src/index.html)
 

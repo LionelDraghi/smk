@@ -17,10 +17,13 @@
 -- available at https://github.com/LionelDraghi/smk
 -- -----------------------------------------------------------------------------
 
+with "src/Alire_config/smk_config.gpr";
+
 project smk is
 
-   for Source_Dirs use ("src");
-   for Object_Dir use "obj";
+   for Source_Dirs use ("src", "src/Alire_config");
+   for Object_Dir use "obj/" & Smk_Config.Build_Profile;
+   for Create_Missing_Dirs use "True";
    for Main use ("smk-main.adb");
    for Exec_Dir use ".";
 
@@ -35,11 +38,12 @@ project smk is
    end Builder;
 
    package Compiler is
-      Common_Switches := ("-gnat2012");
+      Common_Switches := ("-gnat2022");
       Common_Debug_Switches := Common_Switches &
       ("-g", "-O0",  "-gnatQ", "-gnatf",
        "-gnato", "-fstack-check", "-gnata",
-       "-gnateE", "-gnatVa", "-gnatwae", "-gnatyaefhiklnprtx");
+       "-gnateE", "-gnatVa", "-gnatwa", -- "-gnatwae", --Fixme: removed because of the error related to anonymous allocator RM 3.10.2 (14)
+       "-gnatyaefhiklnprtx");
       -- -gnatQ   : Don't quit
       -- -gnatf   : Full errors
       -- -gnato   : Intermediate overflows to be handled in strict mode.

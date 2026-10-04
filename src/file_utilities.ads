@@ -1,37 +1,35 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make (http://lionel.draghi.free.fr/smk/)
--- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
+-- Author : Lionel Draghi
 -- SPDX-License-Identifier: APSL-2.0
+-- SPDX-FileCopyrightText: 2024, Lionel Draghi
 -- -----------------------------------------------------------------------------
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
--- http://www.apache.org/licenses/LICENSE-2.0
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
--- -----------------------------------------------------------------------------
+
+with GNAT.Directory_Operations;
 
 package File_Utilities is
 
-   Separator : constant Character := '/'; -- OS dependent!
+   Separator : constant Character := GNAT.Directory_Operations.Dir_Separator;
+   -- To remove the dependency to GNAT, set it explicitly to '\' or '/'
 
    -- --------------------------------------------------------------------------
    function Short_Path (From_Dir : String;
                         To_File  : String;
-                        Prefix   : String := "") return String
-     with Pre => From_Dir (From_Dir'First) = Separator;
-   --
+                        Prefix   : String := "") return String;
+
    -- Short_Path gives a relative Path from From_Dir to To_File.
    --   If  From_Dir => "/home/tests/",
    --   and To_File  => "/home/tests/mysite/site/idx.txt"
    --   then Short_Path returns     "mysite/site/idx.txt"
    --
-   -- - From_Dir must be an absolute Path, that is starting with a
-   --   Separator.
-   --   From_Dir may ends with a Separator or not, meaning that
+   --   If  From_Dir => "../tests/",
+   --   and To_File  => "../tests/mysite/site/idx.txt"
+   --   then Short_Path returns  "mysite/site/idx.txt"
+   --
+   -- - NOTE that if both dir & file are not absolute path, then we assume
+   --   that both are rooted in the same directory.
+   --
+   -- - From_Dir may ends with a Separator or not, meaning that
    --   both "/usr" and "/usr/" are OK.
    --   NB : Devices like "C:" in "C:\Users" are not permitted.
    --
@@ -54,7 +52,7 @@ package File_Utilities is
 
    -- --------------------------------------------------------------------------
    function Escape (Text : in String) return String;
-   -- Linux/bash specific function that escape characters
+   -- bash specific function that escape characters
    -- ' '
    -- & '"' & '#' & '$'
    -- & '&' & ''' & '('
@@ -63,9 +61,8 @@ package File_Utilities is
    -- & '?' & '[' & '\'
    -- & ']' & '^' & '`'
    -- & '{' & '|' & '}'
-   -- in command lines pushed to bash.
+   -- in command lines pushed to the shell.
    -- Refer to the "Which characters need to be escaped when using Bash?"
    -- discussion on stackoverflow.com
-   -- Fixme: this function is not portable!
 
 end File_Utilities;

@@ -1,0 +1,23 @@
+name = "smk"
+description = "smk, the smart make: a make-like build tool using strace"
+version = "0.4.1-dev"
+
+authors = ["Lionel Draghi"]
+maintainers = ["Lionel Draghi <lionel.draghi@free.fr>"]
+maintainers-logins = ["LionelDraghi"]
+licenses = "Apache-2.0"
+website = "https://github.com/LionelDraghi/smk"
+tags = ["build-tool", "make", "strace", "builder"]
+
+executables = ["smk"]
+
+[configuration]
+output_dir = "src/Alire_config"
+generate_C = false
+
+[build-profiles]
+smk = "validation"
+
+[[actions]]
+type = "test"
+command = ["make", "check"]

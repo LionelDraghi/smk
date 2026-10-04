@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# smk, the smart make (http://lionel.draghi.free.fr/smk/)
+# smk, the smart make (https://github.com/LionelDraghi/smk)
 #  © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 # SPDX-License-Identifier: APSL-2.0
 # ------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ quick_start: header
 	${TR} cmt 
 	
 	../../smk -e run sox x.ogg x.mp3 							>  out.10a
-	${TR} assert true /usr/bin/sdiff "-sbB expected.10a out.10a" || meld expected.10a out.10a 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.10a out.10a"
 
 	${TR} cmt '# setting Artist and Tittle tags:'
 	${TR} cmt '`id3v2 -a Luke -t Sentinelle x.mp3`'
@@ -55,7 +55,7 @@ quick_start: header
 	${TR} cmt 
 
 	../../smk -e run id3v2 -a Luke -t Sentinelle x.mp3 			>> out.10b
-	${TR} assert true /usr/bin/sdiff "-sbB expected.10b out.10b" || meld expected.10b out.10b 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.10b out.10b"
 	
 	${TR} cmt '# renaming according to tags:'
 	${TR} cmt '`id3ren -quiet -template='%a - %s.mp3' x.mp3`'	
@@ -67,7 +67,7 @@ quick_start: header
 	${TR} cmt 
 	
 	../../smk -e run id3ren -quiet -template='%a-%s.mp3' x.mp3 	>> out.10c
-	${TR} assert true /usr/bin/sdiff "-sbB expected.10c out.10c" || meld expected.10c out.10c 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.10c out.10c"
 
 	${TR} end
 
@@ -84,7 +84,7 @@ quick_start: header
 	${TR} cmt 
 	
 	../../smk -e > out.11
-	${TR} assert true /usr/bin/sdiff "-sbB expected.11 out.11" || meld expected.11 out.11 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.11 out.11"
 
 	${TR} end
 
@@ -102,7 +102,7 @@ quick_start: header
 	
 	rm Luke-Sentinelle.mp3
 	../../smk > out.12a
-	${TR} assert true /usr/bin/sdiff "-sbB expected.12a out.12a" || meld expected.12a out.12a
+	${TR} assert true /usr/bin/sdiff "-sbB expected.12a out.12a"
 
 	${TR} end
 
@@ -121,7 +121,7 @@ quick_start: header
 	../../smk -mt -e | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.12b
-	${TR} assert true /usr/bin/sdiff "-sbB expected.12b out.12b" || meld expected.12b out.12b
+	${TR} assert true /usr/bin/sdiff "-sbB expected.12b out.12b"
 
 	${TR} end
 
@@ -144,7 +144,7 @@ quick_start: header
 	../../smk -e | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.13
-	${TR} assert true /usr/bin/sdiff "-sbB expected.13 out.13" || meld expected.13 out.13
+	${TR} assert true /usr/bin/sdiff "-sbB expected.13 out.13"
 
 	@ #-------------------------------------------------------------------------
 	${TR} start 'smk do rebuild if you give the target'
@@ -165,8 +165,8 @@ quick_start: header
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" >  out.20a
 	rm Luke-Sentinelle.mp3
 	../../smk Luke-Sentinelle.mp3	>> out.20c
-	${TR} assert true /usr/bin/sdiff "-sbB expected.20a out.20a" || meld expected.20a out.20a
-	${TR} assert true /usr/bin/sdiff "-sbB expected.20c out.20c" || meld expected.20c out.20c
+	${TR} assert true /usr/bin/sdiff "-sbB expected.20a out.20a"
+	${TR} assert true /usr/bin/sdiff "-sbB expected.20c out.20c"
 
 	${TR} end
 

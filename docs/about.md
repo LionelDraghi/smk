@@ -29,6 +29,5 @@ Comments and issues are welcome [here](https://github.com/LionelDraghi/smk/issue
   - [Manuel](https://github.com/mgrojo)
 - [Ludovic and all the Ada in Debian team](https://people.debian.org/~lbrenta/debian-ada-policy.html#Introduction). 
 - [GNAT & GPS](http://libre.adacore.com/tools/gps/)
-- [mkdocs](http://www.mkdocs.org/)
 - [git](https://git-scm.com/) and [github](https://github.com/)
 - [this Make tutorial](https://gl.developpez.com/tutoriel/outil/makefile/)(in french), for providing the overly used example with main.c, hello.c and .h

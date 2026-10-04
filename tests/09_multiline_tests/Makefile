@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# smk, the smart make (http://lionel.draghi.free.fr/smk/)
+# smk, the smart make (https://github.com/LionelDraghi/smk)
 #  © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 # SPDX-License-Identifier: APSL-2.0
 # ------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ multiline: header out.sloccount
 	
 	../../smk -q reset
 	../../smk multiline_smkfile1.txt > out.multiline1.txt
-	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline1.txt out.multiline1.txt" || meld expected_multiline1.txt out.multiline1.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline1.txt out.multiline1.txt"
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
@@ -73,7 +73,7 @@ multiline: header out.sloccount
 	
 	../../smk -q reset
 	../../smk multiline_smkfile2.txt > out.multiline2.txt
-	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline2.txt out.multiline2.txt" || meld expected_multiline2.txt out.multiline2.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline2.txt out.multiline2.txt"
 	${TR} end
 
 	@ #-------------------------------------------------------------------------
@@ -96,7 +96,7 @@ multiline: header out.sloccount
 	
 	../../smk -q reset
 	test ! `../../smk hill_multiline_smkfile.txt > out.multiline3.txt`
-	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline3.txt out.multiline3.txt" || meld expected_multiline3.txt out.multiline3.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_multiline3.txt out.multiline3.txt"
 	${TR} end
 
 clean:

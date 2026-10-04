@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make (http://lionel.draghi.free.fr/smk/)
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
 -- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -58,7 +58,8 @@ is
       if File_Exists and C.Trigger = File_Update and Status = Updated then
          -- --------------------------------------------------------------------
          Put_Explanation (Because
-         & " has been updated (" & IO.Image (Time_Tag (C.File)) & ")");
+                          & " has been updated (" 
+                          & IO.Image (Time_Tag (C.File)) & ")");
          return False;
 
       elsif not File_Exists and C.Trigger = File_Absence

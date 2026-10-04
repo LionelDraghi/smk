@@ -53,5 +53,5 @@ Options :
    -h   | --help            : this message
 
 
-http://lionel.draghi.free.fr/smk/
+https://github.com/LionelDraghi/smk
 

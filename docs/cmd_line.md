@@ -59,7 +59,7 @@ Options :
                               Warning are also ignored
    -h   | --help            : this message
 
-http://lionel.draghi.free.fr/smk/
+https://github.com/LionelDraghi/smk
 
 ```
 
@@ -71,6 +71,6 @@ smk version
 ```
 
 ```
-0.4.0
+0.4.1-dev
 ```
 

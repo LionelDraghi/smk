@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make (http://lionel.draghi.free.fr/smk/)
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
 -- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -29,8 +29,8 @@ package body Smk.Runs.Strace_Analyzer is
    -- --------------------------------------------------------------------------
    type Function_List is array (Positive range <>) of access String;
 
-   Special_Lines : constant Function_List := (new String'("---"),
-                                              new String'("<..."));
+   Special_Lines : constant Function_List := [new String'("---"),
+                                              new String'("<...")];
    -- Filter line like :
    --    "15214 --- SIGCHLD ..."
    -- or
@@ -49,10 +49,22 @@ package body Smk.Runs.Strace_Analyzer is
    -- trace to be ignored.
 
    -- --------------------------------------------------------------------------
-   Function_First : constant := 7;
-   -- A line always start with the command from char 7 to char before '(':
-   -- 15167 stat("/bin/sed",  <unfinished ...>
-   --       ^
+   function Function_Pos (Line : String) return Natural is
+      -- Position of the first char of the function name, that is,
+      -- the first non blank char following the PID:
+      -- 2169911 stat("/bin/sed",  <unfinished ...>
+      --         ^
+      -- The PID width cannot be assumed to be constant: it depends on
+      -- the number of processes on the system (PIDs are 7 digits wide
+      -- when /proc/sys/kernel/pid_max is 4194304), and strace may pad
+      -- shorter PIDs with blanks.
+      Space : constant Natural := Index (Line, " ");
+   begin
+      if Space = 0 then
+         return 0;
+      end if;
+      return Index_Non_Blank (Line, From => Space);
+   end Function_Pos;
 
    Param_First : Natural;
    -- should be set, after get_Command, to the first char after '('
@@ -61,9 +73,20 @@ package body Smk.Runs.Strace_Analyzer is
 
    -- --------------------------------------------------------------------------
    function Not_A_Function_Call (Line : String) return Boolean is
-     (for some S of Special_Lines =>
-         Line (Line'First + Function_First - 1
-               .. Line'First + Function_First - 2 + S.all'Length) = S.all);
+      First : constant Natural := Function_Pos (Line);
+   begin
+      if First = 0 then
+         return True;
+      end if;
+      for S of Special_Lines loop
+         if Line'Last >= First + S.all'Length - 1
+           and then Line (First .. First + S.all'Length - 1) = S.all
+         then
+            return True;
+         end if;
+      end loop;
+      return False;
+   end Not_A_Function_Call;
 
    -- --------------------------------------------------------------------------
    type Process_Id is new Natural;
@@ -91,9 +114,9 @@ package body Smk.Runs.Strace_Analyzer is
 
       -- -----------------------------------------------------------------------
       function Get_PID return Process_Id is
+         Space : constant Natural := Index (Line, " ");
       begin
-         return Process_Id'Value
-           (Line (Line'First .. Line'First + Function_First - 2));
+         return Process_Id'Value (Line (Line'First .. Space - 1));
       end Get_PID;
 
       -- -----------------------------------------------------------------------
@@ -111,12 +134,13 @@ package body Smk.Runs.Strace_Analyzer is
 
       -- -----------------------------------------------------------------------
       function Get_Command return String is
-         Last : constant Natural := Index (Source  => Line,
-                                           Pattern => "(",
-                                           From    => Function_First + 1);
+         First : constant Natural := Function_Pos (Line);
+         Last  : constant Natural := Index (Source  => Line,
+                                            Pattern => "(",
+                                            From    => First);
       begin
          Param_First := Last + 1;
-         return Line (Line'First + Function_First - 1 .. Last - 1);
+         return Line (First .. Last - 1);
       end Get_Command;
 
       -- -----------------------------------------------------------------------
@@ -269,11 +293,18 @@ package body Smk.Runs.Strace_Analyzer is
          declare
             Name : constant File_Name := Get_Returned_File;
          begin
-            IO.Put_Line ("write/creat/link " & (+Name), Level => IO.Debug);
-            Operation := (Kind => Write,
-                          Name => Name,
-                          File => Create (File => Name,
-                                          Role => Target));
+            if Name = No_File then
+               -- no file name returned: either the call failed (its result
+               -- is an error code), or it is not related to a file
+               Operation := (Kind => None);
+
+            else
+               IO.Put_Line ("write/creat/link " & (+Name), Level => IO.Debug);
+               Operation := (Kind => Write,
+                             Name => Name,
+                             File => Create (File => Name,
+                                             Role => Target));
+            end if;
          end;
 
       elsif Cmd = "mkdir" then
@@ -357,7 +388,12 @@ package body Smk.Runs.Strace_Analyzer is
          declare
             Name : constant File_Name := Get_Returned_File;
          begin
-            if Write_Access then
+            if Name = No_File then
+               -- no file name returned: either the call failed (its result
+               -- is an error code), or it is not related to a file
+               Operation := (Kind => None);
+
+            elsif Write_Access then
                IO.Put_Line ("Write open " & (+Name), Level => IO.Debug);
                Operation := (Kind => Write,
                              Name => Name,

@@ -9,11 +9,12 @@ Command "mkdir dir2", last run [YYYY:MM:DD HH:MM:SS.SS]
   - dir2
 
 Command "mv dir1/f1 dir2", last run [YYYY:MM:DD HH:MM:SS.SS]
-  Sources: (1)
-  - dir1/f1
-  Targets: (2)
+  Sources: (2)
   - dir2
+  - AT_FDCWD</home/lionel/prj/smk/tests/16_dir_ops_tests/dir1/f1
+  Targets: (2)
   - dir2/f1
+  - AT_FDCWD</home/lionel/prj/smk/tests/16_dir_ops_tests/dir2
 
 Command "touch dir1/f1", last run [YYYY:MM:DD HH:MM:SS.SS]
   Sources: (0)

@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make (http://lionel.draghi.free.fr/smk/)
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
 -- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -33,11 +33,11 @@ private package Smk.Assertions is
          when File_Absence  => "If absence ");
 
    Override : constant array (Trigger_Type, Trigger_Type) of Boolean :=
-                (No_Trigger    => (others => False),
-                 File_Update   => (No_Trigger => True,
-                                   others     => False),
-                 File_Presence => (others => True),
-                 File_Absence  => (others => True));
+                [No_Trigger    => [others => False],
+                 File_Update   => [No_Trigger => True,
+                                   others     => False],
+                 File_Presence => [others => True],
+                 File_Absence  => [others => True]];
 
    type Condition is record
       File    : Files.File_Type;

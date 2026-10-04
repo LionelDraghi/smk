@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make (http://lionel.draghi.free.fr/smk/)
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
 -- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -432,8 +432,8 @@ package body Smk.Runfiles is
       Start_Search (Search,
                     Directory => ".",
                     Pattern   => Settings.Smk_File_Prefix & "*",
-                    Filter    => (Ordinary_File => True,
-                                  others        => False));
+                    Filter    => [Ordinary_File => True,
+                                  others        => False]);
       while More_Entries (Search) loop
          Get_Next_Entry (Search, File);
          IO.Put_Line ("Deleting " & Simple_Name (File));
@@ -451,8 +451,8 @@ package body Smk.Runfiles is
       Start_Search (Search,
                     Directory => ".",
                     Pattern   => Settings.Smk_File_Prefix & "*",
-                    Filter    => (Ordinary_File => True,
-                                  others        => False));
+                    Filter    => [Ordinary_File => True,
+                                  others        => False]);
       while More_Entries (Search) loop
          Get_Next_Entry (Search, File);
          declare

@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make (http://lionel.draghi.free.fr/smk/)
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
 -- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -74,6 +74,6 @@ begin
    Put_Line ("                              Warning are also ignored");
    Put_Line ("   -h   | --help            : this message");
    New_Line;
-   Put_Line ("http://lionel.draghi.free.fr/smk/");
+   Put_Line ("https://github.com/LionelDraghi/smk");
    New_Line;
 end Put_Help;

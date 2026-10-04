@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make (http://lionel.draghi.free.fr/smk/)
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
 -- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -33,15 +33,15 @@ package body Smk.Settings is
    WD              : constant access String
      := new String'(Ada.Directories.Current_Directory);
 
-   Ignored         : constant Filter_List := (new String'("/sys/*"),
+   Ignored         : constant Filter_List := [new String'("/sys/*"),
                                               new String'("/proc/*"),
                                               new String'("/dev/*"),
                                               new String'("/tmp/*"),
-                                              new String'("/etc/ld.so.cache"));
-   System_Dir      : constant Filter_List := (new String'("/usr/*"),
+                                              new String'("/etc/ld.so.cache")];
+   System_Dir      : constant Filter_List := [new String'("/usr/*"),
                                               new String'("/lib/*"),
                                               new String'("/etc/*"),
-                                              new String'("/opt/*"));
+                                              new String'("/opt/*")];
 
    -- --------------------------------------------------------------------------
    function Is_File_In (File, Dir : String) return Boolean is

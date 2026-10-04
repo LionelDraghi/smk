@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# smk, the smart make (http://lionel.draghi.free.fr/smk/)
+# smk, the smart make (https://github.com/LionelDraghi/smk)
 #  © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 # SPDX-License-Identifier: APSL-2.0
 # ------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ implicit_name:
 	 
 	../../smk -q reset
 	test ! `../../smk > out.implicit1.txt`
-	${TR} assert true /usr/bin/sdiff "-sbB expected_implicit1.txt out.implicit1.txt" || meld expected_implicit1.txt out.implicit1.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_implicit1.txt out.implicit1.txt"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -q ../hello.c/Makefile.2`'
@@ -65,7 +65,7 @@ implicit_name:
 	sleep 1
 	touch ../hello.c/hello.c
 	../../smk > out.implicit2.txt
-	${TR} assert true /usr/bin/sdiff "-sbB expected_implicit2.txt out.implicit2.txt" || meld expected_implicit2.txt out.implicit2.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_implicit2.txt out.implicit2.txt"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -q ../hello.c/Makefile.3`'
@@ -80,7 +80,7 @@ implicit_name:
 	
 	../../smk -q ../hello.c/Makefile.3 
 	test ! `../../smk > out.implicit3.txt`
-	${TR} assert true /usr/bin/sdiff "-sbB expected_implicit3.txt out.implicit3.txt" || meld expected_implicit3.txt out.implicit3.txt 
+	${TR} assert true /usr/bin/sdiff "-sbB expected_implicit3.txt out.implicit3.txt"
 
 	${TR} end
 

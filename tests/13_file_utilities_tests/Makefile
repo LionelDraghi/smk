@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# smk, the smart make (http://lionel.draghi.free.fr/smk/)
+# smk, the smart make (https://github.com/LionelDraghi/smk)
 #  © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 # SPDX-License-Identifier: APSL-2.0
 # ------------------------------------------------------------------------------
@@ -20,7 +20,7 @@
 all: check doc
 
 test_file_utilities:
-	gprbuild -q --create-missing-dirs -P test_file_utilities.gpr
+	alr --non-interactive build --validation
 
 check: test_file_utilities
 	./test_file_utilities >> testrec.md
@@ -30,5 +30,5 @@ check: test_file_utilities
 doc:
 
 clean:
-	- gprclean -q -P test_file_utilities.gpr
-	- rm testrec.md 
+	- alr clean
+	- rm testrec.md

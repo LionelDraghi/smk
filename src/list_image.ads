@@ -32,10 +32,10 @@ package List_Image is
    --
    -- Special Prefix and Postfix are possible for null list, and for list with
    -- a single element.
-   -- This is usefull when you want to want "[A,B,C]" as an image, but you don't
+   -- This is useful when you want to want "[A,B,C]" as an image, but you don't
    -- want "[]" when the list is empty.
    --
-   -- A usefull application of this feature is to have well written comments
+   -- A useful application of this feature is to have well written comments
    -- regarding singular and plural.
    -- If you want your image to be "A item found" but "A, B, C items found",
    -- just set Postfix to " items found", and Postfix_If_Single to

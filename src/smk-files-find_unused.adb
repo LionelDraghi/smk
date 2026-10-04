@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make (http://lionel.draghi.free.fr/smk/)
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
 -- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -37,9 +37,9 @@ procedure Smk.Files.Find_Unused (From   : in     File_Name; -- must be a dir
       Start_Search (Search,
                     Directory => Dir,
                     Pattern   => "*",
-                    Filter    => (Ordinary_File => True,
+                    Filter    => [Ordinary_File => True,
                                   Directory     => True,
-                                  others        => False));
+                                  others        => False]);
 
       while More_Entries (Search) loop
          Get_Next_Entry (Search, File);

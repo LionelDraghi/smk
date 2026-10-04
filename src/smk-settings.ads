@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make (http://lionel.draghi.free.fr/smk/)
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
 -- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -19,9 +19,11 @@
 --   This package manages global settings, hard coded or from cmd line.
 -- -----------------------------------------------------------------------------
 
+with Smk_Config;
+
 private package Smk.Settings is
 
-   Smk_Version : constant String := "0.4.0";
+   Smk_Version : constant String := Smk_Config.Crate_Version;
 
    -- --------------------------------------------------------------------------
    Build_Missing_Targets : Boolean := False;

@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------------
--- smk, the smart make (http://lionel.draghi.free.fr/smk/)
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
 -- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 -- SPDX-License-Identifier: APSL-2.0
 -- -----------------------------------------------------------------------------
@@ -30,26 +30,26 @@ private package Smk.Files is
                         Missing,
                         Unknown) with Default_Value => Unknown;
    Status_Image : constant array (File_Status) of String (1 .. 7) :=
-                    (New_File  => "New    ",
+                    [New_File  => "New    ",
                      Identical => "Identic", -- Identical
                      Updated   => "Updated",
                      Missing   => "Missing",
-                     Unknown   => "Unknown");
+                     Unknown   => "Unknown"];
    Short_Status_Image : constant array (File_Status) of Character :=
-                          (New_File  => 'N',
+                          [New_File  => 'N',
                            Identical => '=',
                            Updated   => 'U',
                            Missing   => 'M',
-                           Unknown   => '?');
+                           Unknown   => '?'];
 
    -- --------------------------------------------------------------------------
    type File_Role is (Source,
                       Target,
                       Unused) with Default_Value => Unused;
    Role_Image : constant array (File_Role) of String (1 .. 6) :=
-                  (Source => "Source",
+                  [Source => "Source",
                    Target => "Target",
-                   Unused => "Unused");
+                   Unused => "Unused"];
 
    -- --------------------------------------------------------------------------
    type File_Name is new Unbounded_String;

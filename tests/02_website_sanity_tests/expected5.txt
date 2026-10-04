@@ -1,3 +1,0 @@
-../mysite/Makefile (YYYY:MM:DD HH:MM:SS.SS) :
-21: [doc] mkdocs build --clean --quiet
-

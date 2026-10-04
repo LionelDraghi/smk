@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# smk, the smart make (http://lionel.draghi.free.fr/smk/)
+# smk, the smart make (https://github.com/LionelDraghi/smk)
 #  © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 # SPDX-License-Identifier: APSL-2.0
 # ------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ mkdir1: header
 	${TR} cmt 
 	
 	../../smk run mkdir dir1 >  out.10
-	${TR} assert true /usr/bin/sdiff "-sbB expected.10 out.10" || meld expected.10 out.10 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.10 out.10"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk st -l`'
@@ -52,7 +52,7 @@ mkdir1: header
 	../../smk st -l | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" >  out.11
-	${TR} assert true /usr/bin/sdiff "-sbB expected.11 out.11" || meld expected.11 out.11 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.11 out.11"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk ls`'
@@ -64,7 +64,7 @@ mkdir1: header
 	${TR} cmt 
 	
 	../../smk ls >  out.12
-	${TR} assert true /usr/bin/sdiff "-sbB expected.12 out.12" || meld expected.12 out.12
+	${TR} assert true /usr/bin/sdiff "-sbB expected.12 out.12"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk lt`'
@@ -76,7 +76,7 @@ mkdir1: header
 	${TR} cmt 
 	
 	../../smk lt >  out.13
-	${TR} assert true /usr/bin/sdiff "-sbB expected.13 out.13" || meld expected.13 out.13
+	${TR} assert true /usr/bin/sdiff "-sbB expected.13 out.13"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk lu`'
@@ -88,7 +88,7 @@ mkdir1: header
 	${TR} cmt 
 	
 	../../smk lu >  out.14
-	${TR} assert true /usr/bin/sdiff "-sbB expected.14 out.14" || meld expected.14 out.14
+	${TR} assert true /usr/bin/sdiff "-sbB expected.14 out.14"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk wn`'
@@ -100,7 +100,7 @@ mkdir1: header
 	${TR} cmt 
 	
 	../../smk wn >  out.15
-	${TR} assert true /usr/bin/sdiff "-sbB expected.15 out.15" || meld expected.15 out.15
+	${TR} assert true /usr/bin/sdiff "-sbB expected.15 out.15"
 
 	${TR} end
 
@@ -119,7 +119,7 @@ updatedir1:
 	
 	sleep 1.0
 	../../smk run touch dir1/f1 >  out.20
-	${TR} assert true /usr/bin/sdiff "-sbB expected.20 out.20" || meld expected.20 out.20 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.20 out.20"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk st -l`'
@@ -133,7 +133,7 @@ updatedir1:
 	../../smk st -l | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" >  out.21
-	${TR} assert true /usr/bin/sdiff "-sbB expected.21 out.21" || meld expected.21 out.21 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.21 out.21"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk ls`'
@@ -145,7 +145,7 @@ updatedir1:
 	${TR} cmt 
 	
 	../../smk ls >  out.22
-	${TR} assert true /usr/bin/sdiff "-sbB expected.22 out.22" || meld expected.22 out.22
+	${TR} assert true /usr/bin/sdiff "-sbB expected.22 out.22"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk lt`'
@@ -157,7 +157,7 @@ updatedir1:
 	${TR} cmt 
 	
 	../../smk lt > out.23
-	${TR} assert true /usr/bin/sdiff "-sbB expected.23 out.23" || meld expected.23 out.23
+	${TR} assert true /usr/bin/sdiff "-sbB expected.23 out.23"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk lu`'
@@ -169,7 +169,7 @@ updatedir1:
 	${TR} cmt 
 	
 	../../smk lu > out.24
-	${TR} assert true /usr/bin/sdiff "-sbB expected.24 out.24" || meld expected.24 out.24
+	${TR} assert true /usr/bin/sdiff "-sbB expected.24 out.24"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk wn`'
@@ -181,7 +181,7 @@ updatedir1:
 	${TR} cmt 
 	
 	../../smk wn >  out.25
-	${TR} assert true /usr/bin/sdiff "-sbB expected.25 out.25" || meld expected.25 out.25
+	${TR} assert true /usr/bin/sdiff "-sbB expected.25 out.25"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk`'
@@ -193,7 +193,7 @@ updatedir1:
 	${TR} cmt 
 	
 	../../smk >  out.26
-	${TR} assert true /usr/bin/sdiff "-sbB expected.26 out.26" || meld expected.26 out.26
+	${TR} assert true /usr/bin/sdiff "-sbB expected.26 out.26"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`touch dir1`'
@@ -206,7 +206,7 @@ updatedir1:
 	${TR} cmt 
 	
 	../../smk > out.26
-	${TR} assert true /usr/bin/sdiff "-sbB expected.26 out.26" || meld expected.26 out.26
+	${TR} assert true /usr/bin/sdiff "-sbB expected.26 out.26"
 
 	${TR} end
 
@@ -243,7 +243,7 @@ cleandir1: clean
 	../../smk st | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" >  out.40
-	${TR} assert true /usr/bin/sdiff "-sbB expected.40 out.40" || meld expected.40 out.40 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.40 out.40"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk lt -l`'
@@ -259,7 +259,7 @@ cleandir1: clean
 	../../smk lt -l | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" >  out.41
-	${TR} assert true /usr/bin/sdiff "-sbB expected.41 out.41" || meld expected.41 out.41 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.41 out.41"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk lu -l`'
@@ -274,7 +274,7 @@ cleandir1: clean
 	../../smk lu -l | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" >  out.42
-	${TR} assert true /usr/bin/sdiff "-sbB expected.42 out.42" || meld expected.42 out.42 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.42 out.42"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk clean`'
@@ -286,7 +286,7 @@ cleandir1: clean
 	${TR} cmt 
 	
 	../../smk clean >  out.43
-	${TR} assert true /usr/bin/sdiff "-sbB expected.43 out.43" || meld expected.43 out.43 
+	${TR} assert true /usr/bin/sdiff "-sbB expected.43 out.43"
 
 	${TR} end
 
@@ -312,7 +312,7 @@ accessdir1: clean
 	../../smk st -l | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.30
-	${TR} assert true /usr/bin/sdiff "-sbB expected.30 out.30" || meld expected.30 out.30
+	${TR} assert true /usr/bin/sdiff "-sbB expected.30 out.30"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk wn`'
@@ -324,7 +324,7 @@ accessdir1: clean
 	${TR} cmt 
 	
 	../../smk wn > out.31
-	${TR} assert true /usr/bin/sdiff "-sbB expected.31 out.31" || meld expected.31 out.31
+	${TR} assert true /usr/bin/sdiff "-sbB expected.31 out.31"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk`'
@@ -336,7 +336,7 @@ accessdir1: clean
 	${TR} cmt 
 	
 	../../smk > out.32
-	${TR} assert true /usr/bin/sdiff "-sbB expected.32 out.32" || meld expected.32 out.32
+	${TR} assert true /usr/bin/sdiff "-sbB expected.32 out.32"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`touch dir1/f2`'
@@ -351,7 +351,7 @@ accessdir1: clean
 	
 	touch dir1/f2
 	../../smk wn > out.32b
-	${TR} assert true /usr/bin/sdiff "-sbB expected.32b out.32b" || meld expected.32b out.32b
+	${TR} assert true /usr/bin/sdiff "-sbB expected.32b out.32b"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`touch dir1/dir2/f3`'
@@ -375,7 +375,7 @@ accessdir1: clean
 	${TR} cmt 
 	
 	../../smk > out.32d
-	${TR} assert true /usr/bin/sdiff "-sbB expected.32d out.32d" || meld expected.32d out.32d
+	${TR} assert true /usr/bin/sdiff "-sbB expected.32d out.32d"
 
 	@ #-------------------------------------------------------------------------
 	${TR} start 'accessing dir1 contents, read access'
@@ -391,7 +391,7 @@ accessdir1: clean
 	${TR} cmt 
 	
 	../../smk run ls -1 dir1 > out.33
-	${TR} assert true /usr/bin/sdiff "-sbB expected.33 out.33" || meld expected.33 out.33
+	${TR} assert true /usr/bin/sdiff "-sbB expected.33 out.33"
 
 	${TR} cmt '`if nothing changes, nothing to run`'
 	${TR} cmt 'Run:'
@@ -404,7 +404,7 @@ accessdir1: clean
 	${TR} cmt 
 	
 	../../smk > out.34
-	${TR} assert true /usr/bin/sdiff "-sbB expected.34 out.34" || meld expected.34 out.34
+	${TR} assert true /usr/bin/sdiff "-sbB expected.34 out.34"
 
 	${TR} cmt '`but if we add a file in dir1, ls should re-run`'
 	${TR} cmt 'Run:'
@@ -422,7 +422,7 @@ accessdir1: clean
 	../../smk -e | \
 	  sed "s/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g" | \
       sed "s/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g" > out.35
-	${TR} assert true /usr/bin/sdiff "-sbB expected.35 out.35" || meld expected.35 out.35
+	${TR} assert true /usr/bin/sdiff "-sbB expected.35 out.35"
 
 	${TR} end
 
@@ -446,7 +446,7 @@ rmdir1:
 	
 	rm -rf dir1
 	../../smk wn > out.27
-	${TR} assert true /usr/bin/sdiff "-sbB expected.27 out.27" || meld expected.27 out.27
+	${TR} assert true /usr/bin/sdiff "-sbB expected.27 out.27"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -e`'
@@ -459,7 +459,7 @@ rmdir1:
 	${TR} cmt 
 	
 	../../smk -e > out.28
-	${TR} assert true /usr/bin/sdiff "-sbB expected.28 out.28" || meld expected.28 out.28
+	${TR} assert true /usr/bin/sdiff "-sbB expected.28 out.28"
 
 	${TR} cmt 'Run:'
 	${TR} cmt '`smk -e -mt`'
@@ -472,7 +472,7 @@ rmdir1:
 	${TR} cmt 
 	
 	../../smk -e -mt > out.29
-	${TR} assert true /usr/bin/sdiff "-sbB expected.29 out.29" || meld expected.29 out.29
+	${TR} assert true /usr/bin/sdiff "-sbB expected.29 out.29"
 
 	${TR} end
 

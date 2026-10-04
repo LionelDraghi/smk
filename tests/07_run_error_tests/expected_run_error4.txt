@@ -1,8 +1,8 @@
 gcc -o hello.o -c hello.c
 gcc -o main.o -c main.c --WTF
-gcc: error: unrecognized command line option '--WTF'
+gcc: error: unrecognized command-line option ‘--WTF’
 Error : Spawn failed for gcc -o main.o -c main.c --WTF
 gcc -o hello hello.o main.o
-gcc: error: main.o: No such file or directory
+/usr/bin/x86_64-linux-gnu-ld.bfd : ne peut pas trouver main.o : Aucun fichier ou dossier de ce nom
+collect2: error: ld returned 1 exit status
 Error : Spawn failed for gcc -o hello hello.o main.o
-

@@ -2,7 +2,7 @@
 
 ## Successful
 
-   56 tests OK
+   57 tests OK
 
   - [Sanity / First `smk`, after `make`, should run no command](testrec.md#)
   - [Sanity / Second `smk`, should not run any command](testrec.md#)
@@ -11,12 +11,6 @@
   - [Sanity / `rm main.o` (missing file)](testrec.md#)
   - [Sanity / `touch hello.c` (updated file)](testrec.md#)
   - [Sanity / `touch hello.c` and dry run](testrec.md#)
-  - [Website building sanity tests / cleaning and building using clean and doc sections](testrec.md#)
-  - [Website building sanity tests / listings & dump](testrec.md#)
-  - [Website building sanity tests / building without section](testrec.md#)
-  - [Website building sanity tests / re-building](testrec.md#)
-  - [Website building sanity tests / cleaning](testrec.md#)
-  - [Website building sanity tests / re-building after a clean](testrec.md#)
   - [Read queries / read-smkfile](testrec.md#)
   - [Read queries / status](testrec.md#)
   - [List queries / lr | list-runs](testrec.md#)
@@ -48,6 +42,13 @@
   - [Directory update tests / ogg-to-mp3 is modified](testrec.md#)
   - [Directory update tests / adding a .ogg file in a subdir](testrec.md#)
   - [Directory update tests / smk clean](testrec.md#)
+  - [All tests OK](testrec.md#)
+  - [All tests OK](testrec.md#)
+  - [All tests OK](testrec.md#)
+  - [All tests OK](testrec.md#)
+  - [All tests OK](testrec.md#)
+  - [All tests OK](testrec.md#)
+  - [All tests OK](testrec.md#)
   - [All tests OK](testrec.md#)
   - [All tests OK](testrec.md#)
   - [Tutorial / start conversion](testrec.md#)

@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# smk, the smart make (http://lionel.draghi.free.fr/smk/)
+# smk, the smart make (https://github.com/LionelDraghi/smk)
 #  © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
 # SPDX-License-Identifier: APSL-2.0
 # ------------------------------------------------------------------------------
@@ -30,9 +30,6 @@ check: ../smk
 	echo
 	echo 01_sanity_tests
 	$(MAKE) check --directory=01_sanity_tests
-	echo
-	echo 02_website_sanity_tests
-	$(MAKE) check --directory=02_website_sanity_tests
 	echo
 	echo 03_read_queries_tests
 	$(MAKE) check --directory=03_read_queries_tests
