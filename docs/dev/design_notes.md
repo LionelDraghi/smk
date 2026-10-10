@@ -32,11 +32,12 @@ And obviously, any contribution, including ports, is welcome.
 
 `smk` is currently only tested on my Debian x86_64 box.
 
-`smk` requires **`strace` >= 6.9** (May 2024), and runs commands with:
+`smk` requires **`strace` >= 5.2** (2019), and runs commands with:
 
-> `strace -y -qq -f -s 100 -e trace=file --always-show-pid -e status=successful -o <runfile>.strace_output`
+> `strace -y -qq -f -s 100 -e trace=file -e status=successful -o <runfile>.strace_output`
 
-where `--always-show-pid` guarantees a PID prefix on every line,
+where the `-f` and `-o` options combined already guarantee a PID prefix
+on every line,
 and `-e status=successful` prevents failed calls from polluting the trace
 (so that a failed `mkdir` or `rename` cannot be recorded as a write or a move).
 The analyzer is nevertheless tolerant: it accepts any PID length,

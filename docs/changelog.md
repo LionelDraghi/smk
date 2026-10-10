@@ -14,7 +14,7 @@ Version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0
   - [Added]   an AppImage of the latest build is published as the rolling `latest` GitHub release
   - [Changed] the Build Dashboard page is removed: the version is in [Command line](cmd_line.md), and the tests status in the tests badge and [Tests](tests/results.md)
   - [Fixed]   file modifications were no more detected on systems where traced PIDs are wider than 6 digits (for instance when `/proc/sys/kernel/pid_max` is set to 4194304): the strace output analysis failed to identify the function calls, and thus no source nor target was recorded
-  - [Changed] strace is now invoked with `--always-show-pid` and `-e status=successful`: the PID prefix is guaranteed on every line, and failed calls are not even written in the trace, so a failed `mkdir` or `rename` can no more be recorded as a write or a move; `smk` thus requires strace >= 6.9
+  - [Changed] strace is now invoked with `-e status=successful`: failed calls are not even written in the trace, so a failed `mkdir` or `rename` can no more be recorded as a write or a move; `smk` thus requires strace >= 5.2
   - [Added]   `openat2` is now handled
   - [Changed] `smk version` now displays the crate version, as defined in the Alire manifest
   - [Changed] `smk` is now an [Alire](https://alire.ada.dev) crate: build it with `alr build` (see the README)

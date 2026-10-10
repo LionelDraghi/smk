@@ -150,7 +150,7 @@ And don't forget [`smk help`](docs/cmd_line.md).
    On Debian family:  
    >  `apt install alire make`
 
-4. Ensure you have `strace` version 6.9 or greater (May 2024),  
+4. Ensure you have `strace` version 5.2 or greater (2019),  
    that `smk` uses to analyze what each command reads and writes  
    On Debian family:  
    >  `apt install strace`
