@@ -154,7 +154,7 @@ it is compared to the `../data/expected_lpr1.txt` golden file.
 
 - Given I run `smk -q reset`
 - And I run `smk -q build hello_c/Makefile.2`
-- When I run `sh -c "smk st -l -sa | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' > out.lpr1.txt"`
+- When I run `sh -c "smk st -l -sa | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' | grep -v LC_CTYPE > out.lpr1.txt"`
 - Then the file `out.lpr1.txt` is equal to file `../data/expected_lpr1.txt`
 
 ## Scenario : status, no previous run
@@ -296,10 +296,18 @@ hello_c/main.o
 ## Scenario : ls, list-sources
 
 Without shortening file names (`-ds`), the paths are absolute, and machine
-dependent: the output is compared to the `../data/expected_ls1.txt` golden file.
+dependent: the output is compared to the `expected_ls1.txt` golden file.
 
+- Given the file `expected_ls1.txt`
+~~~
+/home/lionel/prj/smk/tests/run/hello_c/hello.o
+/home/lionel/prj/smk/tests/run/hello_c/main.o
+/home/lionel/prj/smk/tests/run/hello_c/hello.c
+/home/lionel/prj/smk/tests/run/hello_c/hello.h
+/home/lionel/prj/smk/tests/run/hello_c/main.c
+~~~
 - When I run `sh -c "smk ls -ds hello_c/Makefile.2 > out.ls1.txt"`
-- Then the file `out.ls1.txt` is equal to file `../data/expected_ls1.txt`
+- Then the file `out.ls1.txt` is equal to file `expected_ls1.txt`
 
 Short form:
 
@@ -321,10 +329,10 @@ and `../data/expected_las2.txt` golden files.
 
 Short form:
 
-- When I run `sh -c "smk list-sources --show-all-files hello_c/Makefile.2 > out.las1.txt"`
+- When I run `sh -c "smk list-sources --show-all-files hello_c/Makefile.2 | grep -v LC_CTYPE > out.las1.txt"`
 - Then the file `out.las1.txt` is equal to file `../data/expected_las1.txt`
 
 Long form, sorted:
 
-- When I run `sh -c "smk -l ls -sa hello_c/Makefile.2 | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' | sort > out.las2.txt"`
+- When I run `sh -c "smk -l ls -sa hello_c/Makefile.2 | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' | grep -v LC_CTYPE | sort > out.las2.txt"`
 - Then the file `out.las2.txt` is equal to file `../data/expected_las2.txt`

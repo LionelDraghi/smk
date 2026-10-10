@@ -27,7 +27,8 @@ with Ada.Strings;                 use Ada.Strings;
 package body Smk.Runs.Strace_Analyzer is
 
    -- --------------------------------------------------------------------------
-   type Function_List is array (Positive range <>) of access String;
+   type String_Access is access String;
+   type Function_List is array (Positive range <>) of String_Access;
 
    Special_Lines : constant Function_List := [new String'("---"),
                                               new String'("<...")];
@@ -380,7 +381,8 @@ package body Smk.Runs.Strace_Analyzer is
          end;
 
       elsif Cmd = "open" or  Cmd = "fopen" or  Cmd = "openat"
-        or Cmd = "openat2" then
+        or Cmd = "openat2"
+      then
          -- --------------------------------------------------------------------
          -- 11750 openat(AT_FDCWD, "/tmp/ccvHeGYq.res", O_RDWR|O_CREAT|O_EXCL,
          --              0600) = 3</tmp/ccvHeGYq.res>

@@ -32,7 +32,7 @@ Tool messages are checked with the `C` locale, so that they don't depend
 on the machine language settings.
 
 
-### Background:
+## Background:
 
 - Given the environment variable `LC_ALL` is `C`
 - And the directory `hello_c`
@@ -92,6 +92,7 @@ Error : Spawn failed for gcc -o main.o -c main.c --WTF
 gcc: error: unrecognized command-line option '--WTF'
 ```
 - And I get error
+
 ## Scenario : keep going
 
 With `-k`, `smk` runs the other commands, and returns an error code:
@@ -113,6 +114,7 @@ gcc: error: unrecognized command-line option '--WTF'
 collect2: error: ld returned 1 exit status
 ```
 - And I get error
+
 ## Scenario : ignore errors
 
 Same as with `-k`, but without returning an error code:
@@ -130,6 +132,7 @@ Error : Spawn failed for gcc -o main.o -c main.c --WTF
 gcc: error: unrecognized command-line option '--WTF'
 ```
 - And I get no error
+
 ## Scenario : keep going and ignore errors
 
 With both! Same as with `-k`, but without returning an error code:
@@ -151,6 +154,7 @@ gcc: error: unrecognized command-line option '--WTF'
 collect2: error: ld returned 1 exit status
 ```
 - And I get no error
+
 ## Scenario : run command fails
 
 - Given I run `rm -f default.smk`
@@ -169,6 +173,7 @@ Error : Spawn failed for non_existing_command
 `default.smk` should nevertheless contains the failed command:
 
 - And the file `default.smk` contains `non_existing_command`
+
 ## Scenario : other commands after a failed run
 
 - When I run `sh -c "smk read-smkfile | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
@@ -198,14 +203,58 @@ The `-d` debug option dumps the settings, that contain machine dependent
 absolute paths: the output is compared to the `../data/expected.13` golden file.
 
 - Given I run `smk -q reset`
+- and the file `expected.13`
+~~~
+Error : No smkfile given, and no existing runfile in dir
+
+Settings / Command line analysis:
+---------------------------------
+
+   Verbosity         : DEBUG
+   Command           : DUMP
+   Smkfile name      : 
+   Runfile name      : 
+   Strace out file   : 
+   Section name      : 
+   Cmd Line          : 
+   Target name       : 
+   Unidentified Opt  : 
+   Initial directory : /home/lionel/prj/smk/tests/run
+
+   System Files      : 
+   - /usr/*
+   - /lib/*
+   - /etc/*
+   - /opt/*
+
+   Ignore list       : 
+   - /sys/*
+   - /proc/*
+   - /dev/*
+   - /tmp/*
+   - /etc/ld.so.cache
+
+   [ ] Build_Missing_Targets
+   [ ] Always_Make
+   [ ] Explain
+   [ ] Dry_Run
+   [ ] Keep_Going
+   [ ] Ignore_Errors
+   [ ] Long_Listing_Format
+   [ ] Warnings_As_Errors
+   [X] Shorten_File_Names
+   [X] Filter_Sytem_Files
+
+---------------------------------
+~~~
 - And I run `rm -f default.smk`
 - When I run `sh -c "smk -d dump > out.13 2>&1"`
-- Then the file `out.13` is equal to file `../data/expected.13`
+- Then the file `out.13` is equal to file `expected.13`
 - And I get error
+
 # Feature : Command line errors
 
 Test the command line analysis: help, version, and error cases.
-
 
 ## Scenario : help options
 

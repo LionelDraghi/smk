@@ -14,34 +14,60 @@
 # limitations under the License.
 # ------------------------------------------------------------------------------
 
-.PHONY : clean
+.PHONY : all check sanity features tutorial unit doc clean
 
 all: check doc
 
-check: ../smk
-	@ #-------------------------------------------------------------------------
-	# The scenarios are run in a fresh run dir, recreated at each check,
-	# with a smk link to the built binary, so that the scenarios just
-	# invoke `smk`.
-	# NB: the bbt --index and --generate_badge outputs go directly in
-	# docs/tests/, and not in the current dir then moved at the end of
-	# the run, otherwise the relative paths in the results file would
-	# be wrong.
-	rm -rf run
-	mkdir run
-	ln -s ../../smk run/smk
-	cd run && PATH="$$PWD:$$PATH" bbt -k --yes \
-	  --index ../../docs/tests/results.md \
-	  --generate_badge ../../docs/tests/badge.url \
-	  ../../tests/sanity/sanity.md \
-	  ../../docs/Features/A010_queries.md \
-	  ../../docs/Features/A020_build.md \
-	  ../../docs/Features/A030_smkfile_format.md \
-	  ../../docs/Features/A040_errors.md \
-	  ../../docs/Features/A050_use_cases.md \
-	  ../../docs/tutorial.md
+# Scenario files, in run order, as seen from the run dir: the features
+# share the run dir state, and some expect the files left by the
+# previous ones (for instance, the mp3 find reports hello_c as a
+# source dir). The sanity tests and the tutorial are self-contained,
+# and the features are run in a single bbt invocation, so that each
+# target below can be run alone.
+SANITY   = ../../tests/sanity/sanity.md
+FEATURES = ../../docs/Features/A010_queries.md \
+           ../../docs/Features/A020_build.md \
+           ../../docs/Features/A030_smkfile_format.md \
+           ../../docs/Features/A040_errors.md \
+           ../../docs/Features/A050_use_cases.md
+TUTORIAL = ../../docs/tutorial.md
+
+# The scenarios are run in a fresh run dir, recreated by each target,
+# with a smk link to the built binary, so that the scenarios just
+# invoke `smk`.
+# NB: bbt is run from the run dir, because it stores in the index the
+# paths as given on the command line: the scenario files must be given
+# relatively to the run dir, so that the links in docs/tests/results.md
+# render correctly. This is also why the bbt --index and
+# --generate_badge outputs go directly in docs/tests/, and not in the
+# current dir then moved at the end of the run: otherwise the relative
+# paths in the results file would be wrong.
+FRESH_RUN = rm -rf run && mkdir run && ln -s ../../smk run/smk
+BBT       = cd run && PATH="$$PWD:$$PATH" bbt -k --yes
+
+sanity: ../smk
+	$(FRESH_RUN)
+	$(BBT) $(SANITY)
+
+features: ../smk
+	$(FRESH_RUN)
+	$(BBT) $(FEATURES)
+
+tutorial: ../smk
+	$(FRESH_RUN)
+	$(BBT) $(TUTORIAL)
+
+unit:
 	$(MAKE) check --directory=unit_file_utilities
 	$(MAKE) check --directory=unit_strace_analysis
+
+check: ../smk
+	$(FRESH_RUN)
+	$(BBT) \
+	  --index ../../docs/tests/results.md \
+	  --generate_badge ../../docs/tests/badge.url \
+	  $(SANITY) $(FEATURES) $(TUTORIAL)
+	$(MAKE) unit
 	# the unit tests results are appended to the bbt index:
 	cat unit_file_utilities/results.md unit_strace_analysis/results.md >> ../docs/tests/results.md
 
@@ -50,6 +76,14 @@ doc:
 	curl -s "$$(cat ../docs/tests/badge.url)" -o ../docs/tests/badge.svg
 
 clean:
-	rm -rf run
+	# remove the run dir, and the residues of scenario runs that
+	# would have been executed with tests/ as working dir, instead
+	# of the run dir
+	rm -rf run hello_c dir1 dir2
+	rm -f .smk.* out.* default.smk expected.13 MyBuild \
+	      hello.c main.c hello.h \
+	      multiline_smkfile1.txt multiline_smkfile2.txt \
+	      hill_multiline_smkfile.txt ogg-to-mp3.sh to-mp3.sh \
+	      x.ogg y.ogg z.ogg *.mp3 *.md.out *.md.err
 	$(MAKE) -i clean --directory=unit_file_utilities
 	$(MAKE) -i clean --directory=unit_strace_analysis

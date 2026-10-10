@@ -103,7 +103,8 @@ private package Smk.Settings is
    -- on each execution, or like /dev/* that are not "normal" files
    -- in a build context.
 
-   type Filter_List is array (Positive range <>) of access String;
+   type String_Access is access String;
+   type Filter_List is array (Positive range <>) of String_Access;
    function System_Files return Filter_List;
    function Ignore_List  return Filter_List;
 

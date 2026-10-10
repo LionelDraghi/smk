@@ -30,7 +30,7 @@ package body Smk.Settings is
 
    Cmd_Line        : Unbounded_String := Null_Unbounded_String;
 
-   WD              : constant access String
+   WD              : constant String_Access
      := new String'(Ada.Directories.Current_Directory);
 
    Ignored         : constant Filter_List := [new String'("/sys/*"),

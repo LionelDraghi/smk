@@ -1,4 +1,4 @@
-../../docs/Features/A040_errors.md:223: Warning: the command contains a shell metacharacter ('>'), but commands are not run through a shell: a command shall not contain pipes, redirections, or command substitutions; '>' will be passed as an argument to the command
+../../docs/Features/A040_errors.md:272: Warning: the command contains a shell metacharacter ('>'), but commands are not run through a shell: a command shall not contain pipes, redirections, or command substitutions; '>' will be passed as an argument to the command
 ../../docs/Features/A050_use_cases.md:307: Warning: the command contains a shell metacharacter ('*'), but commands are not run through a shell: a command shall not contain pipes, redirections, or command substitutions; '*' will be passed as an argument to the command
 
 # Document: [sanity.md](../../tests/sanity/sanity.md)  
@@ -157,7 +157,7 @@
    ### Scenario: [status, long listing and system files](../Features/A010_queries.md): 
    - OK : Given I run `smk -q reset`  
    - OK : And I run `smk -q build hello_c/Makefile.2`  
-   - OK : When I run `sh -c "smk st -l -sa | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' > out.lpr1.txt"`  
+   - OK : When I run `sh -c "smk st -l -sa | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' | grep -v LC_CTYPE > out.lpr1.txt"`  
    - OK : Then the file `out.lpr1.txt` is equal to file `../data/expected_lpr1.txt`  
    - [X] scenario   [status, long listing and system files](../Features/A010_queries.md) pass  
 
@@ -239,8 +239,9 @@
    - [X] background [](../Features/A010_queries.md) pass  
 
    ### Scenario: [ls, list-sources](../Features/A010_queries.md): 
+   - OK : Given the file `expected_ls1.txt`  
    - OK : When I run `sh -c "smk ls -ds hello_c/Makefile.2 > out.ls1.txt"`  
-   - OK : Then the file `out.ls1.txt` is equal to file `../data/expected_ls1.txt`  
+   - OK : Then the file `out.ls1.txt` is equal to file `expected_ls1.txt`  
    - OK : When I run `smk list-sources hello_c/Makefile.2`  
    - OK : Then I get  
    - [X] scenario   [ls, list-sources](../Features/A010_queries.md) pass  
@@ -255,9 +256,9 @@
    - [X] background [](../Features/A010_queries.md) pass  
 
    ### Scenario: [list-sources, show all files](../Features/A010_queries.md): 
-   - OK : When I run `sh -c "smk list-sources --show-all-files hello_c/Makefile.2 > out.las1.txt"`  
+   - OK : When I run `sh -c "smk list-sources --show-all-files hello_c/Makefile.2 | grep -v LC_CTYPE > out.las1.txt"`  
    - OK : Then the file `out.las1.txt` is equal to file `../data/expected_las1.txt`  
-   - OK : When I run `sh -c "smk -l ls -sa hello_c/Makefile.2 | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' | sort > out.las2.txt"`  
+   - OK : When I run `sh -c "smk -l ls -sa hello_c/Makefile.2 | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' | grep -v LC_CTYPE | sort > out.las2.txt"`  
    - OK : Then the file `out.las2.txt` is equal to file `../data/expected_las2.txt`  
    - [X] scenario   [list-sources, show all files](../Features/A010_queries.md) pass  
 
@@ -664,9 +665,10 @@
 
    ### Scenario: [debug option](../Features/A040_errors.md): 
    - OK : Given I run `smk -q reset`  
+   - OK : and the file `expected.13`  
    - OK : And I run `rm -f default.smk`  
    - OK : When I run `sh -c "smk -d dump > out.13 2>&1"`  
-   - OK : Then the file `out.13` is equal to file `../data/expected.13`  
+   - OK : Then the file `out.13` is equal to file `expected.13`  
    - OK : And I get error  
    - [X] scenario   [debug option](../Features/A040_errors.md) pass  
 

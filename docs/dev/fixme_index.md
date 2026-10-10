@@ -13,4 +13,4 @@ docs/dev/development_workflow.md:138|- `Fixme:` comments in src/, docs/ and test
 docs/dev/development_workflow.md:139|  docs/dev/fixme_index.md by `make doc`: add one rather than leaving
 docs/dev/development_workflow.md:161|- to do list: docs/dev/fixme_index.md, docs/limitations.md
 src/smk-runfiles.adb:331|      -- Fixme: directories are erased after files to avoid a rmdir fail
-src/smk-runs-strace_analyzer.adb:39|   -- Fixme: processing of unfinished line not done (Issue #18)
+src/smk-runs-strace_analyzer.adb:40|   -- Fixme: processing of unfinished line not done (Issue #18)
