@@ -62,15 +62,24 @@ jobs:
             ${{ runner.os }}-alire-
 
       - name: Install the test tools
-        # bbt comes from the Alire community index (>= 0.5.0 provides the
-        # --index and --generate_badge options used by tests/Makefile),
-        # and is installed in ~/.local/bin, already in the runner PATH.
-        # The other tools are required by the test suite
+        # The tools are required by the test suite
         # (cf. docs/dev/developer_guide.md), and by smk itself (strace).
         run: |
           sudo apt-get update
           sudo apt-get install -y strace gcc sox id3v2 id3ren make
-          alr --non-interactive install bbt
+
+      - name: Build bbt
+        # The bbt on the Alire community index cannot be used: its latest
+        # release is 0.4.1, which predates the --generate_badge option
+        # used by tests/Makefile, and when that version cannot be
+        # selected (gnat >= 15 constraint), the resolution falls back to
+        # ancient versions that do not build with a current GNAT. Build
+        # bbt from the repository, at a pinned tag, and put it on the
+        # PATH ($GITHUB_PATH is the binary dir: bbt builds at its root).
+        run: |
+          git clone --depth 1 --branch 0.5.0 https://github.com/LionelDraghi/bbt /tmp/bbt
+          cd /tmp/bbt && alr --non-interactive build --release
+          echo "/tmp/bbt" >> $GITHUB_PATH
 
       - name: Run build and checks
         run: make -k
