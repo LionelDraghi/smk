@@ -1,7 +1,0 @@
-Reading tracefile obj/coverage.info.
-Summary coverage rate:
-  source files: 20
-  lines.......: 95.0% (1417 of 1492 lines)
-  functions...: 97.8% (135 of 138 functions)
-Message summary:
-  no messages were reported

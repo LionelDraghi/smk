@@ -8,7 +8,7 @@ Just run your commands once through `smk`, and then, all you'll have to type is 
 `smk` will automatically check the modifications in the file system relevant for each command, and run only what have to!** 
 
 ------------------------------------------------------------------------
-[![image](https://img.shields.io/badge/-inside-blue?logo=ada&logoColor=white&labelColor=grey&logoSize=auto)](https://ada-lang.io/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Version](https://img.shields.io/github/v/tag/LionelDraghi/smk)](https://github.com/LionelDraghi/smk/tags) [![Tests](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FLionelDraghi%2Fsmk%2Fmaster%2Fdocs%2Ftests.json)](docs/tests.json) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/smk.json)](https://alire.ada.dev/crates/smk.html)
+[![image](https://img.shields.io/badge/-inside-blue?logo=ada&logoColor=white&labelColor=grey&logoSize=auto)](https://ada-lang.io/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Version](https://img.shields.io/github/v/tag/LionelDraghi/smk)](https://github.com/LionelDraghi/smk/tags) [![Tests](docs/tests/badge.svg)](docs/tests/results.md) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/smk.json)](https://alire.ada.dev/crates/smk.html)
 
 
 Table of contents  
@@ -161,7 +161,7 @@ And don't forget [`smk help`](docs/cmd_line.md).
 6. Optionally, run the test suite:  
    > `make check`  
    Note that some tests rely on additional tools (`strace`, `sox`, `id3v2`, `id3ren`, ...);  
-   the full list is given in [Contributing, Tests Overview](docs/contributing.md#tests-overview).
+   the full list is given in [Developer guide, Tests Overview](docs/dev/developer_guide.md#tests-overview).
 
 
 ## Further reading
@@ -182,14 +182,15 @@ And don't forget [`smk help`](docs/cmd_line.md).
   - [Tests](docs/tests/results.md)
   - [Limitations and bugs](docs/limitations.md)
 
-* Design:
-  - [Design notes](docs/design_notes.md)
-  - [Contributing](docs/contributing.md)
+* Development:
+  - [Development workflow](docs/dev/development_workflow.md)
+  - [Design notes](docs/dev/design_notes.md)
+  - [Design discussions](docs/dev/design_discussions.md)
+  - [Developer guide](docs/dev/developer_guide.md)
 
 * Current Status:
   - [Build Dashboard](docs/dashboard.md)
-  - [Tests status](docs/tests/tests_status.md)
-  - [Fixme](docs/fixme.md)
+  - [Fixme index](docs/dev/fixme_index.md)
   - [Changelog](docs/changelog.md)
 
 * [About](docs/about.md)

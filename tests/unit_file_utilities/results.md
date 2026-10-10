@@ -51,4 +51,4 @@ Short_Path (From_Dir => "/home/toto/src/tests/",
             To_File  => "/opt/GNAT/2018/lib64/libgcc_s.so") = /opt/GNAT/2018/lib64/libgcc_s.so
 
 
-All tests OK [Successful](tests_status.md#successful)
+All tests OK [Successful]

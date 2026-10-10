@@ -1,11 +1,7 @@
 # Smkfile format
 
-
-
 Those features describe how smk parses the smkfiles,
 beyond the simple one command per line.
-
-
 
 _Table of Contents:_
 - Feature: Multiline commands

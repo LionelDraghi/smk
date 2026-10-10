@@ -17,6 +17,9 @@
 .SILENT:
 all: build check doc
 
+# Tests counts, extracted from the bbt results summary table
+TESTS_COUNT = grep -E '^\| (Successful|Failed) ' docs/tests/results.md | sed 's/|//g;s/^ *//;s/ *$$//;s/  */ /g'
+
 .PHONY : help
 help:
 	echo "Usage: make [target]"
@@ -26,16 +29,15 @@ help:
 	echo "  build       : build smk in validation mode"
 	echo "  release     : build smk in release mode"
 	echo "  install     : build in release mode, and copy smk to ~/bin"
-	echo "  check       : run the test suites (15 dirs), and build"
-	echo "                 the coverage report"
-	echo "  dashboard   : regenerate docs/dashboard.md and docs/tests.json"
+	echo "  check       : run the test suites (bbt scenarios, then unit tests)"
+	echo "  dashboard   : regenerate docs/dashboard.md"
 	echo "                 (requires a previous make check)"
 	echo "  cmd_line.md : regenerate docs/cmd_line.md"
 	echo "  doc         : regenerate the generated docs (cmd_line.md,"
-	echo "                 dashboard, tests badge, fixme index)"
+	echo "                 dashboard, fixme index)"
 	echo "  clean       : remove the build and test artifacts"
 	echo ""
-	echo "Refer to README.md and docs/contributing.md for more details."
+	echo "Refer to README.md and docs/dev/development_workflow.md for more details."
 	echo "(NB: run make with LD_LIBRARY_PATH unset if your environment"
 	echo "     pollutes it, e.g. from a VSCode extension)"
 
@@ -55,7 +57,6 @@ release:
 	echo
 
 install: release
-	echo
 	echo --- install:
 	cp -p smk ~/bin
 	echo OK
@@ -68,116 +69,78 @@ check: build
 
 	echo --- tests summary:
 	echo
-	cat tests/tests_count.txt
-
-	# --------------------------------------------------------------------
-	echo
-	echo Coverage report: 
-	alr exec -- lcov --quiet --capture --directory obj -o obj/coverage.info
-	alr exec -- lcov --quiet --remove obj/coverage.info -o obj/coverage.info \
-		"*/adainclude/*" "*.ads" "*/obj/b__*.adb" "*/tests/*"
-	# Ignoring :
-	# - spec (results are not consistent with current gcc version) 
-	# - the false main
-	# - libs (Standard)
-	# - unit test main
-
-	alr exec -- genhtml obj/coverage.info -o docs/lcov --title "smk tests coverage" \
-		--prefix "$(CURDIR)/src" --frames > /dev/null
-	# --title  : Display TITLE in header of all pages
-	# --prefix : Remove PREFIX from all directory names
-	# --frame  : Use HTML frames for source code view
-
-	# coverage summary for the dashboard:
-	alr exec -- lcov --summary obj/coverage.info > cov_sum.txt 2>&1
-	cat cov_sum.txt
+	$(TESTS_COUNT)
 	echo
 
 .PHONY : dashboard
-dashboard: obj/coverage.info tests/tests_count.txt
+dashboard: docs/tests/results.md
 
 	>  docs/dashboard.md
 	echo "Dashboard"				>> docs/dashboard.md
 	echo "========="				>> docs/dashboard.md
-	echo 							>> docs/dashboard.md
+	echo 					>> docs/dashboard.md
 	echo "Version"					>> docs/dashboard.md
 	echo "-------"					>> docs/dashboard.md
-	echo "> smk version"			>> docs/dashboard.md
-	echo 	 						>> docs/dashboard.md
-	echo '```' 						>> docs/dashboard.md
+	echo "> smk version"				>> docs/dashboard.md
+	echo 						>> docs/dashboard.md
+	echo '```' 					>> docs/dashboard.md
 	./smk version					>> docs/dashboard.md
-	echo '```' 						>> docs/dashboard.md
-	echo 	 						>> docs/dashboard.md
+	echo '```' 					>> docs/dashboard.md
+	echo 						>> docs/dashboard.md
 	echo "> date -r ./smk --iso-8601=seconds" 	>> docs/dashboard.md
-	echo 	 						>> docs/dashboard.md
-	echo '```' 						>> docs/dashboard.md
-	date -r ./smk --iso-8601=seconds 			>> docs/dashboard.md
-	echo '```' 						>> docs/dashboard.md
-	echo 	 						>> docs/dashboard.md
+	echo 						>> docs/dashboard.md
+	echo '```' 					>> docs/dashboard.md
+	date -r ./smk --iso-8601=seconds 		>> docs/dashboard.md
+	echo '```' 					>> docs/dashboard.md
+	echo 						>> docs/dashboard.md
 	echo "Test results"				>> docs/dashboard.md
 	echo "------------"				>> docs/dashboard.md
-	echo '```'			 			>> docs/dashboard.md
-	cat tests/tests_count.txt		>> docs/dashboard.md
-	echo '```'			 			>> docs/dashboard.md
-	echo 							>> docs/dashboard.md
-	echo "Coverage"					>> docs/dashboard.md
-	echo "--------"					>> docs/dashboard.md
-	echo 							>> docs/dashboard.md
-	echo '```'			 			>> docs/dashboard.md
-	cat cov_sum.txt					>> docs/dashboard.md
-	echo '```'			 			>> docs/dashboard.md
-	echo 							>> docs/dashboard.md
-	echo '[**Coverage details in the sources**](lcov/src/index.html)'	>> docs/dashboard.md
-	echo 							>> docs/dashboard.md
-
-	# dynamic tests badge for shields.io
-	# (read by the README badge through raw.githubusercontent.com):
-	ok=`sed -n "s/Successful  //p" tests/tests_count.txt`; \
-	ko=`sed -n "s/Failed      //p" tests/tests_count.txt`; \
-	color=`if [ "$$ko" = "0" ]; then echo green; else echo red; fi`; \
-	echo '{"schemaVersion": 1, "label": "tests", "message": "'$$ok' OK, '$$ko' failed", "color": "'$$color'"}' > docs/tests.json
+	echo '```'					>> docs/dashboard.md
+	$(TESTS_COUNT)					>> docs/dashboard.md
+	echo '```'					>> docs/dashboard.md
+	echo 						>> docs/dashboard.md
 
 .PHONY : cmd_line.md
 cmd_line.md:
 	> docs/cmd_line.md
-	echo "smk command line"		>> docs/cmd_line.md
-	echo "----------------"		>> docs/cmd_line.md
-	echo ""						>> docs/cmd_line.md
-	echo '```'					>> docs/cmd_line.md
-	echo "$ smk -h" 			>> docs/cmd_line.md
-	echo '```'					>> docs/cmd_line.md
-	echo ""						>> docs/cmd_line.md
-	echo '```'					>> docs/cmd_line.md
-	./smk -h		 			>> docs/cmd_line.md
-	echo '```'					>> docs/cmd_line.md
-	echo ""						>> docs/cmd_line.md
-	echo "smk current version"	>> docs/cmd_line.md
-	echo "-------------------"	>> docs/cmd_line.md
-	echo ""						>> docs/cmd_line.md
-	echo '```'					>> docs/cmd_line.md
-	echo "$ smk version"		>> docs/cmd_line.md
-	echo '```'					>> docs/cmd_line.md
-	echo ""						>> docs/cmd_line.md
-	echo '```'					>> docs/cmd_line.md
+	echo "smk command line"			>> docs/cmd_line.md
+	echo "----------------"			>> docs/cmd_line.md
+	echo ""					>> docs/cmd_line.md
+	echo '```'				>> docs/cmd_line.md
+	echo "$ smk -h" 				>> docs/cmd_line.md
+	echo '```'				>> docs/cmd_line.md
+	echo ""					>> docs/cmd_line.md
+	echo '```'				>> docs/cmd_line.md
+	./smk -h			 		>> docs/cmd_line.md
+	echo '```'				>> docs/cmd_line.md
+	echo ""					>> docs/cmd_line.md
+	echo "smk current version"		>> docs/cmd_line.md
+	echo "-------------------"		>> docs/cmd_line.md
+	echo ""					>> docs/cmd_line.md
+	echo '```'				>> docs/cmd_line.md
+	echo "$ smk version"			>> docs/cmd_line.md
+	echo '```'				>> docs/cmd_line.md
+	echo ""					>> docs/cmd_line.md
+	echo '```'				>> docs/cmd_line.md
 	./smk version				>> docs/cmd_line.md
-	echo '```'					>> docs/cmd_line.md
-	echo ""						>> docs/cmd_line.md
+	echo '```'				>> docs/cmd_line.md
+	echo ""					>> docs/cmd_line.md
 
 doc: dashboard cmd_line.md
 	echo --- doc:
 
-	>  docs/fixme.md
-	grep -rni "Fixme" docs/*.md | sed "s/:/|/2"	>> /tmp/fixme.md
+	>  docs/dev/fixme_index.md
+	grep -rni "Fixme" docs/*.md docs/dev/*.md | sed "s/:/|/2"	>> /tmp/fixme.md
 
-	echo 'Fixme in current version:'		>  docs/fixme.md
-	echo '-------------------------'		>> docs/fixme.md
-	echo                            		>> docs/fixme.md
-	echo 'Location | Text'             		>> docs/fixme.md
-	echo '---------|-----'             		>> docs/fixme.md
-	cat /tmp/fixme.md                       >> docs/fixme.md
+	echo 'Fixme in current version:'		>  docs/dev/fixme_index.md
+	echo '-------------------------'		>> docs/dev/fixme_index.md
+	echo                           		>> docs/dev/fixme_index.md
+	echo 'Location | Text'            		>> docs/dev/fixme_index.md
+	echo '---------|-----'            		>> docs/dev/fixme_index.md
+	cat /tmp/fixme.md                       	>> docs/dev/fixme_index.md
 	rm /tmp/fixme.md
-	grep -rn "Fixme:" src/*           | sed "s/:/|/2"	>> docs/fixme.md
-	grep -rn "Fixme:" tests/sanity tests/unit_* docs/Features | sed "s/:/|/2"	>> docs/fixme.md
+	grep -rn "Fixme:" src/*           	| sed "s/:/|/2"	>> docs/dev/fixme_index.md
+	grep -rn "Fixme:" tests/sanity tests/unit_* docs/Features | sed "s/:/|/2"	>> docs/dev/fixme_index.md
 
 	echo OK
 	echo
@@ -186,6 +149,6 @@ doc: dashboard cmd_line.md
 clean:
 	echo --- clean:
 	- $(MAKE) --directory=tests clean
-	- ${RM} -rf obj/* docs/lcov/* tmp.txt *.lst *.dat cov_sum.txt gmon.out .smk.*
+	- ${RM} -rf obj/* tmp.txt *.lst *.dat gmon.out .smk.*
 	- alr clean
 	echo OK

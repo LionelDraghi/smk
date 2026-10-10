@@ -65,8 +65,7 @@ project Test_File_Utilities is
       -- M : Set maximum line length
       -- x : Check extra parentheses.
 
-     for Switches ("ada") use Common_Debug_Switches & "--coverage";
-      -- --coverage = -fprofile-arcs and -ftest-coverage
+     for Switches ("ada") use Common_Debug_Switches;
 
    end Compiler;
 

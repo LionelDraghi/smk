@@ -1,7 +1,7 @@
-# Contributing
+# Developer guide
 
 Table of contents:
-- [Contributing](#contributing)
+- [Developer guide](#developer-guide)
 - [submitting code / docs](#submitting-code--docs)
 - [Design Overview](#design-overview)
 - [Tests Overview](#tests-overview)
@@ -22,11 +22,7 @@ To propose some patch          | git command
  5. Push to the branch         | `git push origin my-new-feature`    
  6. Create new Pull Request    | on your GitHub fork, go to "Compare & pull request".
 
-The project policy is that code shall be 100% covered (except debug or error specific lines).
-
-Coverage is computed on each `make check`, and non covered code is easy to check with (for example) `chromium docs/lcov/index.html`.  
-
-> **NB : please note that code proposed with matching tests, doc and complete coverage is very appreciated!**  
+> **NB : please note that code proposed with matching tests and doc is very appreciated!**  
 
 # Design Overview
 
@@ -44,17 +40,16 @@ The global intent is to have tests documenting the software behavior. Test execu
 
 ## Tools required to run the tests
 
-Beside `make` and the Ada toolchain (see the [Download and build section](../README.md#downloading-and-building)), the test suite (`make check`) runs `smk` on various commands, and needs the following tools in the path:
+Beside `make` and the Ada toolchain (see the [Download and build section](../../README.md#downloading-and-building)), the test suite (`make check`) runs `smk` on various commands, and needs the following tools in the path:
 
 - `strace`, used by `smk` itself to trace files accesses;
 - a C compiler (`gcc`), used by the `hello.c` based tests;
 - `sox`, `id3v2` and `id3ren`, used by the audio conversion tests (test 12_);
-- `sed`, used to neutralize dates in expected outputs;
-- `lcov` (providing `genhtml`), used to build the coverage report.
+- `sed`, used to neutralize dates in expected outputs.
 
 On Debian family:
 
-> `apt install strace gcc sox id3v2 id3ren lcov`
+> `apt install strace gcc sox id3v2 id3ren`
 
 The tests are organized as follows:
 
@@ -80,6 +75,6 @@ A test typically documents (order may vary) :
 `make check` runs all the scenario files in a single bbt invocation,
 in a fresh `tests/run/` working directory, that records the execution and
 the assertions results in a single `results.md` file (the bbt `--index`
-option), moved in this documentation (see the [Tests](tests/results.md)
-page), together with a global count of passed/failed tests. The tutorial
+option), written directly in this documentation (see the [Tests](../tests/results.md)
+page), which ends with the bbt summary of passed/failed tests. The tutorial
 goes one step further: its scenario file is the tutorial itself.

@@ -73,20 +73,18 @@ project smk is
       case Smk_Config.Build_Profile is
          when "release" =>
             -- the release build is the one installed with make install:
-            -- no coverage instrumentation, and optimization
+            -- optimization
             for Switches ("ada") use Common_Switches & ("-O2");
 
          when others =>
-            -- the validation build is instrumented, and used by make check
-            -- to build the coverage report
+            -- the validation build is the one used by make check
             for Switches ("ada")
-            use Common_Debug_Switches & "--coverage" & "-gnatyM80";
-            -- --coverage = -fprofile-arcs and -ftest-coverage
+            use Common_Debug_Switches & "-gnatyM80";
             -- Style checking (-gnaty):
             -- M : Set maximum line length
 
             for Switches ("smk-main-put_help.adb")
-            use Common_Debug_Switches & "--coverage" & "-gnatyM100";
+            use Common_Debug_Switches & "-gnatyM100";
 
       end case;
 

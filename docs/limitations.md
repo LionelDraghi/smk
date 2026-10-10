@@ -24,7 +24,7 @@ Table of contents:
   This occurs when you build, "touch" a source and immediatly rebuild
   (this could happen if you run several `smk` from a Makefile, a shell,
   or when a smkfile is running `smk`!).
-  This problem is more precisely described [here](design_notes.md#on-file-systems-time-stamp).
+  This problem is more precisely described [here](dev/design_notes.md#on-file-systems-time-stamp).
 
 ## Fixed issues
 

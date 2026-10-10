@@ -1,11 +1,7 @@
 # Error handling
 
-
-
 Those features describe the behavior of smk when things
 go wrong: failing commands, and command line errors.
-
-
 
 _Table of Contents:_
 - Feature: Run errors

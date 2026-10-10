@@ -77,4 +77,4 @@
    - Expected Source file: "/home/lionel/.slocdata/old", OK
    - Expected Target file: "/home/lionel/.slocdata/new", OK
 
-All tests OK [Successful](tests_status.md#successful)
+All tests OK [Successful]

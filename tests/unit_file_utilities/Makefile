@@ -24,8 +24,6 @@ test_file_utilities:
 
 check: test_file_utilities
 	./test_file_utilities > results.md
-	@ echo
-	@ echo Tests [Successful]
 	
 doc:
 

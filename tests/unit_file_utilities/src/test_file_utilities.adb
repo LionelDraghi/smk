@@ -125,10 +125,10 @@ begin
    New_Line;
    if Failure_Count /= 0 then
       Put_Line (Natural'Image (Failure_Count)
-                & " tests fails [Failed](tests_status.md#failed)");
+                & " tests fails [Failed]");
       Ada.Command_Line.Set_Exit_Status (Ada.Command_Line.Failure);
    else
-      Put_Line ("All tests OK [Successful](tests_status.md#successful)");
+      Put_Line ("All tests OK [Successful]");
    end if;
 
 end Test_File_Utilities;

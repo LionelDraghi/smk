@@ -11,6 +11,11 @@ tags = ["build-tool", "make", "strace", "builder"]
 
 executables = ["smk"]
 
+# smk relies on strace, and is currently only tested on Linux:
+[available.'case(os)']
+linux = true
+'...' = false
+
 [configuration]
 output_dir = "src/Alire_config"
 generate_C = false

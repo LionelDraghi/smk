@@ -24,8 +24,6 @@ test_strace_analysis:
 
 check: test_strace_analysis
 	./test_strace_analysis > results.md
-	@ echo
-	@ echo Tests [Successful]
 
 doc:
 
