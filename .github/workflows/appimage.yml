@@ -1,0 +1,45 @@
+# Build using Alire and upload an AppImage to the GitHub releases section.
+name: Build and upload AppImage
+
+on:                    # Run the workflow for each of the following events:
+  push:                # - The main branch is pushed or updated.
+    branches:
+      - master
+    paths: &trigger_paths
+      - 'src/**'
+      - 'tests/**'
+      - 'docs/Features/**'
+      - 'docs/tutorial.md'
+      - 'Makefile'
+      - 'alire.toml'
+
+  pull_request:        # - A pull-request is opened or updated.
+    paths: *trigger_paths
+
+  workflow_dispatch:   # - A manual run of the workflow is requested from the GitHub web interface.
+
+  release:
+    types: [created]   # - A release is created.
+
+permissions: write-all
+
+jobs:
+  release:
+    name: Latest
+    runs-on: ubuntu-22.04 # Use the oldest supported ubuntu version for greater compatibility.
+    if: github.event_name != 'pull_request'
+    # The AppImage release upload is only meaningful on master pushes and
+    # releases: on a pull request, the release creation fails with an
+    # invalid tag_name / target_commitish (the merge ref is not a valid
+    # release target), and the check was reported as a PR failure.
+    steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+       - name: alr2appimage-action
+         uses: mgrojo/alr2appimage-action@main
+         with:
+             alireVersion: "nightly"
+             # The rolling release is named "latest", not "continuous",
+             # and is refreshed at each run:
+             tagName: "latest"
+             deleteExistent: true

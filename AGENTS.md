@@ -6,6 +6,10 @@ This file is the entry point for coding agents working on smk.
 
 - Never stage, commit or push without the owner's explicit approval:
   `git add` is as forbidden as `git commit` and `git push`.
+- Never tag, create a release or publish to Alire without the owner's
+  explicit approval. Before any publish, the crate must build and its
+  tests must pass on every platform declared available in alire.toml
+  (cf. `docs/dev/release_procedure.md`, section 1).
 - The go-ahead is a separate, explicit approval given by the owner AFTER
   reviewing the diffs; it may come in a later message. A request such as
   "on pousse sur GitHub" in the task is the goal, not the go-ahead.
@@ -22,6 +26,8 @@ This file is the entry point for coding agents working on smk.
 
 - Development work, bug fixes, doc updates, tests, cleanup, review:
   follow `docs/dev/development_workflow.md`.
+- Release versioning, tagging, GitHub release, Alire publication:
+  follow `docs/dev/release_procedure.md`.
 - Committing and pushing after the owner's go-ahead: same document,
   section 1.
 
@@ -30,9 +36,13 @@ This file is the entry point for coding agents working on smk.
 - `make build` builds smk in validation mode, `make release` in
   release mode, `make install` also copies the binary to `~/bin`.
 - `make check` runs the bbt scenario suites and the unit tests.
-- `make doc` regenerates the generated docs (cmd_line.md, dashboard,
-  tests badge, fixme index).
+- `make doc` regenerates the generated docs (cmd_line.md, tests badge,
+  fixme index).
 - `make clean` removes the build and test artifacts.
+- The GitHub Actions workflows (`.github/workflows/`) build and test
+  smk on Linux on each push, and upload an AppImage to the rolling
+  `latest` GitHub release. The tests results and badges are not
+  published by the CI: they are part of the repository state.
 - Run `make` with `LD_LIBRARY_PATH` unset (`env -u LD_LIBRARY_PATH make`)
   if your environment pollutes it, e.g. from a VSCode extension.
 
@@ -54,6 +64,7 @@ already tracked elsewhere.
 ## Useful references
 
 - `docs/dev/development_workflow.md`
+- `docs/dev/release_procedure.md`
 - `docs/dev/design_notes.md`
 - `docs/dev/design_discussions.md`
 - `docs/dev/developer_guide.md`

@@ -30,11 +30,9 @@ help:
 	echo "  release     : build smk in release mode"
 	echo "  install     : build in release mode, and copy smk to ~/bin"
 	echo "  check       : run the test suites (bbt scenarios, then unit tests)"
-	echo "  dashboard   : regenerate docs/dashboard.md"
-	echo "                 (requires a previous make check)"
 	echo "  cmd_line.md : regenerate docs/cmd_line.md"
 	echo "  doc         : regenerate the generated docs (cmd_line.md,"
-	echo "                 dashboard, fixme index)"
+	echo "                 fixme index)"
 	echo "  clean       : remove the build and test artifacts"
 	echo ""
 	echo "Refer to README.md and docs/dev/development_workflow.md for more details."
@@ -72,35 +70,6 @@ check: build
 	$(TESTS_COUNT)
 	echo
 
-.PHONY : dashboard
-dashboard: docs/tests/results.md
-
-	>  docs/dashboard.md
-	echo "Dashboard"				>> docs/dashboard.md
-	echo "========="				>> docs/dashboard.md
-	echo 					>> docs/dashboard.md
-	echo "Version"					>> docs/dashboard.md
-	echo "-------"					>> docs/dashboard.md
-	echo "> smk version"				>> docs/dashboard.md
-	echo 						>> docs/dashboard.md
-	echo '```' 					>> docs/dashboard.md
-	./smk version					>> docs/dashboard.md
-	echo '```' 					>> docs/dashboard.md
-	echo 						>> docs/dashboard.md
-	echo "> date -r ./smk --iso-8601=seconds" 	>> docs/dashboard.md
-	echo 						>> docs/dashboard.md
-	echo '```' 					>> docs/dashboard.md
-	date -r ./smk --iso-8601=seconds 		>> docs/dashboard.md
-	echo '```' 					>> docs/dashboard.md
-	echo 						>> docs/dashboard.md
-	echo "Test results"				>> docs/dashboard.md
-	echo "------------"				>> docs/dashboard.md
-	echo '```'					>> docs/dashboard.md
-	$(TESTS_COUNT)					>> docs/dashboard.md
-	echo '```'					>> docs/dashboard.md
-	echo 						>> docs/dashboard.md
-
-.PHONY : cmd_line.md
 cmd_line.md:
 	> docs/cmd_line.md
 	echo "smk command line"			>> docs/cmd_line.md
@@ -126,7 +95,7 @@ cmd_line.md:
 	echo '```'				>> docs/cmd_line.md
 	echo ""					>> docs/cmd_line.md
 
-doc: dashboard cmd_line.md
+doc: cmd_line.md
 	echo --- doc:
 
 	>  docs/dev/fixme_index.md

@@ -1,0 +1,84 @@
+name: Build and test
+
+on:                    # Run the workflow for each of the following events:
+  push:                # - The main branch is pushed or updated.
+    branches:
+      - master
+    paths: &trigger_paths
+      - 'src/**'
+      - 'tests/**'
+      - 'docs/Features/**'
+      - 'docs/tutorial.md'
+      - '.github/workflows/**'
+      - 'Makefile'
+      - 'alire.toml'
+
+  pull_request:        # - A pull-request is opened or updated.
+    paths: *trigger_paths
+
+  workflow_dispatch:   # - A manual run of the workflow is requested from the GitHub web interface.
+
+  release:
+    types: [created]   # - A release is created.
+
+concurrency:
+  # A new push cancels the run still in flight.
+  group: build-and-test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  main:
+    strategy:
+      fail-fast: false # Don't stop all the workflows when one of them fails.
+
+      # smk relies on strace, and is declared available on Linux only in
+      # the [available] section of alire.toml: only Linux is tested here.
+      # Never add a platform to this matrix before the build and the tests
+      # have been validated on it, and the [available] restriction updated
+      # accordingly (cf. docs/dev/release_procedure.md, section 1).
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      # Check-out the repository
+      - uses: actions/checkout@v4
+
+      # Install and setup Alire package manager
+      - uses: alire-project/setup-alire@v5
+        with:
+          # Same version as the local development environment.
+          version: 2.1.1
+
+      - name: Cache Alire dependencies
+        uses: actions/cache@v4
+        with:
+          # On Linux, alire data is in ~/.cache/alire and ~/.local/share/alire.
+          path: |
+            ~/.cache/alire
+            ~/.local/share/alire
+          key: ${{ runner.os }}-alire-${{ hashFiles('alire.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-alire-
+
+      - name: Install the test tools
+        # bbt comes from the Alire community index (>= 0.5.0 provides the
+        # --index and --generate_badge options used by tests/Makefile),
+        # and is installed in ~/.local/bin, already in the runner PATH.
+        # The other tools are required by the test suite
+        # (cf. docs/dev/developer_guide.md), and by smk itself (strace).
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y strace gcc sox id3v2 id3ren make
+          alr --non-interactive install bbt
+
+      - name: Run build and checks
+        run: make -k
+
+      - name: Save summary
+        if: always()
+        run: sed -n '/## Summary/,$p' docs/tests/results.md >> ${GITHUB_STEP_SUMMARY} || echo "no results available"
+
+      # Contrary to bbt, the tests results and badges are not published
+      # by the CI: they are part of the repository state, committed with
+      # the changes as described in docs/dev/development_workflow.md.

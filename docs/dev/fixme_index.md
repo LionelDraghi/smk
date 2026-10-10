@@ -9,8 +9,8 @@ docs/smkfile_format.md:81|Sections are labels in the file that specificaly desig
 docs/smkfile_format.md:158|   **Fixme: Not yet implemented, as of v0.0.4**
 docs/dev/developer_guide.md:35|Fixme: **TBC**
 docs/dev/development_workflow.md:31|docs/dev/fixme_index.md, updated fixtures...), commit, and push.
-docs/dev/development_workflow.md:139|- `Fixme:` comments in src/, docs/ and tests/ are indexed in
-docs/dev/development_workflow.md:140|  docs/dev/fixme_index.md by `make doc`: add one rather than leaving
-docs/dev/development_workflow.md:163|- to do list: docs/dev/fixme_index.md, docs/limitations.md
+docs/dev/development_workflow.md:138|- `Fixme:` comments in src/, docs/ and tests/ are indexed in
+docs/dev/development_workflow.md:139|  docs/dev/fixme_index.md by `make doc`: add one rather than leaving
+docs/dev/development_workflow.md:161|- to do list: docs/dev/fixme_index.md, docs/limitations.md
 src/smk-runfiles.adb:331|      -- Fixme: directories are erased after files to avoid a rmdir fail
 src/smk-runs-strace_analyzer.adb:39|   -- Fixme: processing of unfinished line not done (Issue #18)

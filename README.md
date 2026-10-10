@@ -189,7 +189,6 @@ And don't forget [`smk help`](docs/cmd_line.md).
   - [Developer guide](docs/dev/developer_guide.md)
 
 * Current Status:
-  - [Build Dashboard](docs/dashboard.md)
   - [Fixme index](docs/dev/fixme_index.md)
   - [Changelog](docs/changelog.md)
 

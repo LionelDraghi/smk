@@ -27,11 +27,10 @@ the owner AFTER reviewing the diffs; it may come in a later message;
 when in doubt, wait.
 
 Once the owner gives the go-ahead, `git add` the whole generated state
-(test results, docs/tests/, docs/dashboard.md, docs/cmd_line.md,
+(test results, docs/tests/, docs/cmd_line.md,
 docs/dev/fixme_index.md, updated fixtures...), commit, and push.
 Committing in the middle of the chain freezes inconsistent artifacts,
-such as a dashboard or a tests badge still referring to the previous
-version.
+such as a tests badge still referring to the previous version.
 
 After `make clean`, verify cleanliness on the file system, not only
 with git status: git ignored files (obj/, alire/, the
@@ -142,9 +141,8 @@ invisible.
 - the version is the Alire crate version, displayed through
   Smk_Config.Crate_Version: do not hard code a version in the sources
 - after a version change or a `smk -h` change, run `make doc` so that
-  docs/cmd_line.md and docs/dashboard.md match the new binary; the
-  README tests badge reads docs/tests/badge.svg, refreshed by the next
-  `make check`
+  docs/cmd_line.md matches the new binary; the README tests badge reads
+  docs/tests/badge.svg, refreshed by the next `make check`
 
 ## 5. Environment specificities
 
@@ -162,7 +160,8 @@ invisible.
   docs/dev/developer_guide.md
 - to do list: docs/dev/fixme_index.md, docs/limitations.md
 - version history: docs/changelog.md (Keep a Changelog; every released
-  version, i.e. every GitHub tag, must have its entry)
+  version, i.e. every GitHub tag, must have its entry); releases
+  follow docs/dev/release_procedure.md
 - the project URL is https://github.com/LionelDraghi/smk; the mkdocs
   web site and GitHub Pages have been removed, the README is the entry
   point and links into docs/
