@@ -64,7 +64,11 @@ jobs:
       - name: Install the test tools
         # The tools are required by the test suite
         # (cf. docs/dev/developer_guide.md), and by smk itself (strace).
+        # strace >= 6.9 is required for --always-show-pid option.
         run: |
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y ppa:strace/strace
           sudo apt-get update
           sudo apt-get install -y strace gcc sox id3v2 id3ren make
 
