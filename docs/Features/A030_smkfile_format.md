@@ -14,8 +14,8 @@ _Table of Contents:_
 Test the processing of multiline commands, with the backslash
 continuation, comments in the middle, and hill formatted files.
 
-The tests are run on smkfiles containing `ploticus` and `sloccount`
-multiline commands, and in a local `hello_c` directory, created by the
+The tests are run on smkfiles containing multiline commands with
+`gcc` and `wc`, and in a local `hello_c` directory, created by the
 background, and containing a tiny C program.
 
 
@@ -55,27 +55,27 @@ void Hello(void);
 ```
 - And the file `multiline_smkfile1.txt`
 ```makefile
-	ploticus -prefab pie 	\
-		data=out.sloccount labels=2 colors="blue red green orange"	\
+	gcc -E -P -xc /dev/null \
+		-o out.sloc.png \
 # comment in the middle should not get in the way
-		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
-		 -png -o out.sloc.png
+		-Wall \
+		 -O2
 ```
 - And the file `multiline_smkfile2.txt`
 ```makefile
 // multiline with command and pipes
-sloccount hello_c/* | 	\
-grep "ansic=" 			\
-|sed "s/ansic/C/"
+wc -l hello_c/*.c hello_c/*.h | \
+grep "hello" \
+|sed "s/hello/HELLO/"
 		-- comment at the end
 ```
 - And the file `hill_multiline_smkfile.txt`
 ```makefile
 # Hill formatted multiline command:
 
-	ploticus -prefab pie 	\
-		data=out.sloccount labels=2 colors="blue red green orange"	\
-		explode=0.1 values=1 title="Ada sloc `date +%x`"	\
+	gcc -E -P -xc /dev/null \
+		-o out.sloc.png \
+		-Wall \
 // the end of the command is missing
 
 -- Note that the comment immediatly following the command
@@ -85,27 +85,29 @@ grep "ansic=" 			\
 
 ## Scenario : multiline single command
 
-The multiline `ploticus` command, with a comment in the middle,
-is run as a single command. `out.sloccount` is the ploticus data file:
+The multiline `gcc` command, with a comment in the middle,
+is run as a single command:
 
 - Given I run `smk -q reset`
-- And I run `sh -c "sloccount hello_c/* | grep 'ansic=' > out.sloccount"`
+- And I run `touch out.sloccount`
 - When I run `smk multiline_smkfile1.txt`
 - Then I get
 ```
-ploticus -prefab pie data=out.sloccount labels=2 colors="blue red green orange" explode=0.1 values=1 title="Ada sloc `date +%x`" -png -o out.sloc.png
+gcc -E -P -xc /dev/null -o out.sloc.png -Wall -O2
 ```
 
 ## Scenario : multiline with more commands and pipes
 
-The multiline `sloccount` command, with pipes and a comment at the end:
+The multiline `wc` command, with pipes and a comment at the end:
 
 - Given I run `smk -q reset`
 - When I run `smk multiline_smkfile2.txt`
 - Then I get
 ```
-sloccount hello_c/* | grep "ansic=" |sed "s/ansic/C/"
-18      top_dir         C=18
+wc -l hello_c/*.c hello_c/*.h | grep "hello" |sed "s/hello/HELLO/"
+  7 hello_c/hello.c
+  9 hello_c/main.c
+  6 hello_c/hello.h
 ```
 
 ## Scenario : hill formatted multiline
