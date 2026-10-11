@@ -1,7 +1,10 @@
-pragma Ada_2005;
+pragma Ada_2012;
+
 pragma Style_Checks (Off);
+pragma Warnings (Off, "-gnatwu");
 
 with Interfaces.C; use Interfaces.C;
+with Interfaces.C.Extensions;
 with Interfaces.C.Strings;
 
 package asm_generic_posix_types_h is
@@ -48,13 +51,11 @@ package asm_generic_posix_types_h is
 
    subtype uu_kernel_ptrdiff_t is uu_kernel_long_t;  -- /usr/include/asm-generic/posix_types.h:74
 
-   type uu_kernel_fsid_t_val_array is array (0 .. 1) of aliased int;
+   type anon_array1094 is array (0 .. 1) of aliased int;
    type uu_kernel_fsid_t is record
-      val : aliased uu_kernel_fsid_t_val_array;  -- /usr/include/asm-generic/posix_types.h:80
-   end record;
-   pragma Convention (C_Pass_By_Copy, uu_kernel_fsid_t);  -- /usr/include/asm-generic/posix_types.h:81
-
-   --  skipped anonymous struct anon_1
+      val : aliased anon_array1094;  -- /usr/include/asm-generic/posix_types.h:80
+   end record
+   with Convention => C_Pass_By_Copy;  -- /usr/include/asm-generic/posix_types.h:81
 
   -- * anything below here should be completely generic
   --  
@@ -63,20 +64,27 @@ package asm_generic_posix_types_h is
 
    subtype uu_kernel_loff_t is Long_Long_Integer;  -- /usr/include/asm-generic/posix_types.h:88
 
-   subtype uu_kernel_time_t is uu_kernel_long_t;  -- /usr/include/asm-generic/posix_types.h:89
+   subtype uu_kernel_uoff_t is Extensions.unsigned_long_long;  -- /usr/include/asm-generic/posix_types.h:89
 
-   subtype uu_kernel_time64_t is Long_Long_Integer;  -- /usr/include/asm-generic/posix_types.h:90
+   subtype uu_kernel_old_time_t is uu_kernel_long_t;  -- /usr/include/asm-generic/posix_types.h:90
 
-   subtype uu_kernel_clock_t is uu_kernel_long_t;  -- /usr/include/asm-generic/posix_types.h:91
+   subtype uu_kernel_time_t is uu_kernel_long_t;  -- /usr/include/asm-generic/posix_types.h:91
 
-   subtype uu_kernel_timer_t is int;  -- /usr/include/asm-generic/posix_types.h:92
+   subtype uu_kernel_time64_t is Long_Long_Integer;  -- /usr/include/asm-generic/posix_types.h:92
 
-   subtype uu_kernel_clockid_t is int;  -- /usr/include/asm-generic/posix_types.h:93
+   subtype uu_kernel_clock_t is uu_kernel_long_t;  -- /usr/include/asm-generic/posix_types.h:93
 
-   type uu_kernel_caddr_t is new Interfaces.C.Strings.chars_ptr;  -- /usr/include/asm-generic/posix_types.h:94
+   subtype uu_kernel_timer_t is int;  -- /usr/include/asm-generic/posix_types.h:94
 
-   subtype uu_kernel_uid16_t is unsigned_short;  -- /usr/include/asm-generic/posix_types.h:95
+   subtype uu_kernel_clockid_t is int;  -- /usr/include/asm-generic/posix_types.h:95
 
-   subtype uu_kernel_gid16_t is unsigned_short;  -- /usr/include/asm-generic/posix_types.h:96
+   type uu_kernel_caddr_t is new Interfaces.C.Strings.chars_ptr;  -- /usr/include/asm-generic/posix_types.h:96
+
+   subtype uu_kernel_uid16_t is unsigned_short;  -- /usr/include/asm-generic/posix_types.h:97
+
+   subtype uu_kernel_gid16_t is unsigned_short;  -- /usr/include/asm-generic/posix_types.h:98
 
 end asm_generic_posix_types_h;
+
+pragma Style_Checks (On);
+pragma Warnings (On, "-gnatwu");

@@ -1,5 +1,7 @@
-pragma Ada_2005;
+pragma Ada_2012;
+
 pragma Style_Checks (Off);
+pragma Warnings (Off, "-gnatwu");
 
 with Interfaces.C; use Interfaces.C;
 
@@ -20,17 +22,15 @@ package linux_posix_types_h is
   -- * use the one here.
   --  
 
-   type uu_kernel_fd_set_fds_bits_array is array (0 .. 15) of aliased unsigned_long;
+   type anon_array1068 is array (0 .. 15) of aliased unsigned_long;
    type uu_kernel_fd_set is record
-      fds_bits : aliased uu_kernel_fd_set_fds_bits_array;  -- /usr/include/linux/posix_types.h:26
-   end record;
-   pragma Convention (C_Pass_By_Copy, uu_kernel_fd_set);  -- /usr/include/linux/posix_types.h:27
-
-   --  skipped anonymous struct anon_0
+      fds_bits : aliased anon_array1068;  -- /usr/include/linux/posix_types.h:26
+   end record
+   with Convention => C_Pass_By_Copy;  -- /usr/include/linux/posix_types.h:27
 
   -- Type of a signal handler.   
-   type uu_kernel_sighandler_t is access procedure (arg1 : int);
-   pragma Convention (C, uu_kernel_sighandler_t);  -- /usr/include/linux/posix_types.h:30
+   type uu_kernel_sighandler_t is access procedure (arg1 : int)
+   with Convention => C;  -- /usr/include/linux/posix_types.h:30
 
   -- Type of a SYSV IPC key.   
    subtype uu_kernel_key_t is int;  -- /usr/include/linux/posix_types.h:33
@@ -38,3 +38,6 @@ package linux_posix_types_h is
    subtype uu_kernel_mqd_t is int;  -- /usr/include/linux/posix_types.h:34
 
 end linux_posix_types_h;
+
+pragma Style_Checks (On);
+pragma Warnings (On, "-gnatwu");

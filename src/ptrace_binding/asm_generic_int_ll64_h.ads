@@ -1,5 +1,7 @@
-pragma Ada_2005;
+pragma Ada_2012;
+
 pragma Style_Checks (Off);
+pragma Warnings (Off, "-gnatwu");
 
 with Interfaces.C; use Interfaces.C;
 with Interfaces.C.Extensions;
@@ -34,3 +36,6 @@ package asm_generic_int_ll64_h is
    subtype uu_u64 is Extensions.unsigned_long_long;  -- /usr/include/asm-generic/int-ll64.h:31
 
 end asm_generic_int_ll64_h;
+
+pragma Style_Checks (On);
+pragma Warnings (On, "-gnatwu");
