@@ -226,7 +226,6 @@ procedure Analyze_Cmd_Line is
                    & Commands'Image (Current_Command));
       IO.Put_Line ("   Smkfile name      : " & Smkfile_Name);
       IO.Put_Line ("   Runfile name      : " & Runfile_Name);
-      IO.Put_Line ("   Strace out file   : " & Strace_Outfile_Name);
       IO.Put_Line ("   Section name      : " & Section_Name);
       IO.Put_Line ("   Cmd Line          : " & Command_Line);
       IO.Put_Line ("   Target name       : " & Target_Name);

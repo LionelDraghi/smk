@@ -43,7 +43,7 @@ platform where the crate is declared available**.
   test fails is published broken: this is how acc was once published
   with its three platform compilations failing.
 - smk is currently declared available on Linux only (the
-  `[available]` case in alire.toml), consistent with its strace
+  `[available]` case in alire.toml), consistent with its ptrace
   dependency: the local full `make` on Linux, and the Linux GitHub
   Actions checks, are the platform reference.
 - Never extend the `[available]` restriction to another platform

@@ -58,8 +58,8 @@ invisible.
     (grouped by family, several `# Feature` sections per file), and are
     part of the documentation; `docs/tutorial.md` is itself a scenario;
   - the sanity tests are in `tests/sanity/sanity.md`;
-  - the Ada unit tests are in `tests/unit_file_utilities/` and
-    `tests/unit_strace_analysis/`, driven by their own Makefile;
+  - the Ada unit tests are in `tests/unit_file_utilities/`,
+    driven by their own Makefile;
   - machine dependent goldens and binary inputs are in `tests/data/`
 - `make check` runs all the scenario files in a single bbt invocation,
   in a fresh `tests/run/` working dir recreated at each run (see
@@ -82,7 +82,7 @@ invisible.
   dir); when adding a feature, add it in the right place in the order,
   and start its first scenario with the needed cleanups (`rm -f`,
   `smk -q reset`)
-- the external tools required by the test suite (strace, gcc, sox,
+- the external tools required by the test suite (gcc, sox,
   id3v2, id3ren, sed...) are listed in the
   [Developer guide](developer_guide.md#tests-overview),
   with the Debian package names
@@ -113,7 +113,7 @@ invisible.
   through `sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g'` and
   `sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'`
   (wrapped in `sh -c`), so that the fixtures don't depend on the run time
-- when a tool message is checked (gcc, ld, strace...), set
+- when a tool message is checked (gcc, ld, sh...), set
   `- Given the environment variable \`LC_ALL\` is \`C\``, so that the
   message does not depend on the machine language settings
 - expected outputs that depend on the machine (system files, absolute
@@ -146,16 +146,18 @@ invisible.
 
 ## 5. Environment specificities
 
-- smk relies on strace to identify sources and targets (cf.
-  [Design notes](design_notes.md)): the strace output format is OS and
-  version dependent (PID width, localized messages), and the analyzer
-  (src/smk-runs-strace_analyzer.adb) must not assume a fixed layout
+- smk observes the commands through the Linux ptrace interface
+  (cf. [Design notes](design_notes.md) and
+  [Design discussions](design_discussions.md), D1): the observation
+  mechanism is isolated in Smk.Runs.Observers (the OS independent
+  abstraction) and Smk.Runs.Observers.Ptrace (the Linux backend);
+  the backend is x86_64 only for now, and requires Linux >= 5.3
 - smk is currently only tested on Debian x86_64
 
 ## Pointers
 
 - to understand smk: README.md, docs/tutorial.md, docs/cmd_line.md
-- design and strace output analysis: docs/dev/design_notes.md
+- design and file operations analysis: docs/dev/design_notes.md
 - components and tests overview, required tools:
   docs/dev/developer_guide.md
 - to do list: docs/dev/fixme_index.md, docs/limitations.md

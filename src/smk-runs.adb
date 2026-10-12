@@ -48,8 +48,8 @@ package body Smk.Runs is
                           Cmd_To_Run   :    out Boolean;
                           Error_In_Run :    out Boolean)
    is separate;
-   -- Run_Command is in charge of spawning the Cmd (using strace),
-   -- and analysing the strace log file.
+   -- Run_Command is in charge of running the Cmd, observing its file
+   -- accesses, and analyzing the observed operations.
    -- The_Run_List is updated with this run results
 
    -- --------------------------------------------------------------------------

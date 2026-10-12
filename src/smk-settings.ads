@@ -57,27 +57,10 @@ private package Smk.Settings is
 
    -- --------------------------------------------------------------------------
    Smk_File_Prefix       : constant String := ".smk.";
-   Strace_Outfile_Prefix : constant String := "/tmp/";
-   Strace_Outfile_Suffix : constant String := ".strace_output";
    Default_Smkfile_Name  : constant String := "default.smk";
    Shell_Cmd             : constant String := "/bin/sh";
-   Shell_Opt             : constant String := "-c "; -- no space before -c!
-   Strace_Cmd            : constant String
-     := "/usr/bin/strace -y -qq -f -s 100 -e trace=file"
-     &  " -e status=successful -o ";
-   -- -y  : print paths associated with file descriptor arguments (between <>)
-   -- -qq : suppress messages about attaching, detaching, etc.,
-   --       and about process exit status.
-   -- -f  : follow forks
-   -- -s  : maximum string size to print (the default is 32)
-   --       Filenames are not considered strings and are always printed in full.
-   -- Note: the -f and -o options combined already guarantee a PID prefix
-   --       on every line (strace >= 5.2), which the analyzer relies on;
-   --       it is nevertheless tolerant to lines without prefix.
-   -- -e trace=file : only syscalls taking a file name as argument
-   -- -e status=successful : only syscalls that returned without an error:
-   --       failed calls (ENOENT, EACCES, ...) are not even written in the
-   --       trace, so failed mkdir/rename cannot be recorded as a Write/Move.
+   -- The commands are run through this shell, and observed by
+   -- Smk.Runs.Observers.Ptrace.
 
    -- --------------------------------------------------------------------------
    function Initial_Directory return String;
@@ -117,7 +100,6 @@ private package Smk.Settings is
    -- Smkfile_Name returns "" if Smkfile has not been set
    function Is_Smkfile_Name_Set return Boolean;
    function Run_Dir_Name return String;
-   function Strace_Outfile_Name return String;
 
    -- --------------------------------------------------------------------------
    procedure Set_Runfile_Name (Name : in String);

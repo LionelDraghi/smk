@@ -214,7 +214,6 @@ Settings / Command line analysis:
    Command           : DUMP
    Smkfile name      : 
    Runfile name      : 
-   Strace out file   : 
    Section name      : 
    Cmd Line          : 
    Target name       : 

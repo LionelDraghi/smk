@@ -16,13 +16,28 @@ updated with a reference to its replacement.
 
 | Subject                                                                                          | Status           | References                                                       |
 |--------------------------------------------------------------------------------------------------|------------------|------------------------------------------------------------------|
-| [D1. Observing file accesses](#d1-observing-file-accesses-linking-to-an-api-instead-of-parsing-strace-text-output) | Under discussion | [design_notes.md](design_notes.md), [smk-runs-strace_analyzer.adb](../../src/smk-runs-strace_analyzer.adb) |
+| [D1. Observing file accesses](#d1-observing-file-accesses-linking-to-an-api-instead-of-parsing-strace-text-output) | Arbitrated | [design_notes.md](design_notes.md), [smk-runs-strace_analyzer.adb](../../src/smk-runs-strace_analyzer.adb) |
 
 The table is sorted by status: the entries under discussion first.
 
 ## D1. Observing file accesses: linking to an API instead of parsing strace text output
 
-Status: under discussion (October 2026)
+Status: arbitrated (October 2026)
+
+**Decision**: the option A is implemented (October 2026): smk is its
+own tracer, through the Linux `ptrace` interface, using
+`PTRACE_GET_SYSCALL_INFO` to read the syscall numbers, arguments and
+return values (no per-arch register decoding, Linux >= 5.3), and
+`PTRACE_O_TRACEFORK/CLONE/EXEC/VFORK` to follow all the children.
+The mechanism is isolated behind the `Smk.Runs.Observers` abstraction
+layer (the event model is OS independent), so that another backend
+may be added per OS.
+The seccomp filter, that traps only the file related syscalls and
+lets the others run at full speed, is a possible optimization,
+kept for a later stage (the ptrace tracer is already faster than
+the strace based mechanism on the test suite).
+This removes the strace dependency, its output format variations,
+and the text trace parsing.
 
 ### Goal
 

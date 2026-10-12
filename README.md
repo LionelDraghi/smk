@@ -70,7 +70,7 @@ to remain true.
 
 ## How is this possible? 
 
-`smk` uses [`strace`](https://en.wikipedia.org/wiki/Strace), to understand what is read and what is written by each command, and thus what is a source, and what is a target.  
+`smk` observes each command through the [`ptrace`](https://man7.org/linux/man-pages/man2/ptrace.2.html) interface, to understand what is read and what is written, and thus what is a source, and what is a target.  
 And this is why you don't have to manually give those information within a Makefile : **no more rules, recipes, dependencies, targets, etc.**
 
 ## `smk` vocabulary 
@@ -83,7 +83,7 @@ And this is why you don't have to manually give those information within a Makef
 The main differences are that smkfiles are simple : no cryptic syntax to describe rules or recipes, you don't need it. Both previous examples are valid smkfiles (yes, even the Makefile, `smk` can read very simple Makefile).  
 And above all, smkfiles are not mandatory to use `smk`! 
 
-- **Run** : a run is an execution of a command, or a list of command through an smkfile. This is what `smk` analyzes thanks to strace.
+- **Run** : a run is an execution of a command, or a list of command through an smkfile. This is what `smk` analyzes by observing the command and its children processes.
 
 - **runfile** : runfiles are the internal files created by `smk` to store information about the various run, that is mainly : executed commands, when, source and target files and related time stamps. 
 
@@ -150,17 +150,15 @@ And don't forget [`smk help`](docs/cmd_line.md).
    On Debian family:  
    >  `apt install alire make`
 
-4. Ensure you have `strace` version 5.2 or greater (2019),  
-   that `smk` uses to analyze what each command reads and writes  
-   On Debian family:  
-   >  `apt install strace`
+4. Ensure your Linux kernel is 5.3 or greater,  
+   that `smk` uses to observe what each command reads and writes.
 
 5. Build it:  
    > `alr build --release`
 
 6. Optionally, run the test suite:  
    > `make check`  
-   Note that some tests rely on additional tools (`strace`, `sox`, `id3v2`, `id3ren`, ...);  
+   Note that some tests rely on additional tools (`sox`, `id3v2`, `id3ren`, ...);  
    the full list is given in [Developer guide, Tests Overview](docs/dev/developer_guide.md#tests-overview).
 
 

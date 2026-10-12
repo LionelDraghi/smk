@@ -7,6 +7,11 @@ Table of contents:
 
 ## Limitations
 
+- smk observes the commands through the Linux `ptrace` interface: it
+  requires Linux kernel >= 5.3 (`PTRACE_GET_SYSCALL_INFO`), and the
+  syscall numbers used by the observer are x86_64 for now
+  (cf. [Design discussions](dev/design_discussions.md), D1).
+
 - there is currently no internal dependencies graph build stored. 
   After running all command that for which sources files have been
   updated, smk naively rescreen the whole list of command to check

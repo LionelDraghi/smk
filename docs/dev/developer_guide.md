@@ -42,14 +42,13 @@ The global intent is to have tests documenting the software behavior. Test execu
 
 Beside `make` and the Ada toolchain (see the [Download and build section](../../README.md#downloading-and-building)), the test suite (`make check`) runs `smk` on various commands, and needs the following tools in the path:
 
-- `strace`, used by `smk` itself to trace files accesses;
 - a C compiler (`gcc`), used by the `hello.c` based tests;
 - `sox`, `id3v2` and `id3ren`, used by the audio conversion tests (test 12_);
 - `sed`, used to neutralize dates in expected outputs.
 
 On Debian family:
 
-> `apt install strace gcc sox id3v2 id3ren`
+> `apt install gcc sox id3v2 id3ren`
 
 The tests are organized as follows:
 
@@ -58,8 +57,8 @@ The tests are organized as follows:
   its scenarios): they are part of the documentation;
 - the **tutorial** (`docs/tutorial.md`) is itself a bbt scenario file;
 - the **sanity tests** are in `tests/sanity/sanity.md`;
-- the two Ada **unit test** suites (`tests/unit_file_utilities/` and
-  `tests/unit_strace_analysis/`) are driven by their own Makefile;
+- the Ada **unit test** suite (`tests/unit_file_utilities/`) is driven
+  by its own Makefile;
 - machine dependent expected outputs and binary inputs (ogg files) are
   kept in `tests/data/`.
 

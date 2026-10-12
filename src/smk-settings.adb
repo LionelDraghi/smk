@@ -103,12 +103,6 @@ package body Smk.Settings is
    function Run_Dir_Name return String is
      (Ada.Directories.Containing_Directory (Smkfile_Name));
 
-   function Strace_Outfile_Name return String is
-     (if Is_Smkfile_Name_Set then
-         Strace_Outfile_Prefix & Ada.Directories.Simple_Name (Smkfile_Name) &
-        Strace_Outfile_Suffix
-      else "");
-
    -- --------------------------------------------------------------------------
    procedure Set_Runfile_Name (Name : in String) is
    begin

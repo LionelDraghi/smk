@@ -31,8 +31,9 @@ jobs:
     strategy:
       fail-fast: false # Don't stop all the workflows when one of them fails.
 
-      # smk relies on strace, and is declared available on Linux only in
-      # the [available] section of alire.toml: only Linux is tested here.
+      # smk uses the Linux ptrace interface to observe the commands,
+      # and is declared available on Linux only in the [available]
+      # section of alire.toml: only Linux is tested here.
       # Never add a platform to this matrix before the build and the tests
       # have been validated on it, and the [available] restriction updated
       # accordingly (cf. docs/dev/release_procedure.md, section 1).
@@ -63,10 +64,10 @@ jobs:
 
       - name: Install the test tools
         # The tools are required by the test suite
-        # (cf. docs/dev/developer_guide.md), and by smk itself (strace).
+        # (cf. docs/dev/developer_guide.md).
         run: |
           sudo apt-get update
-          sudo apt-get install -y strace gcc sox id3v2 id3ren make
+          sudo apt-get install -y gcc sox id3v2 id3ren make
 
       - name: Build bbt
         # The bbt on the Alire community index cannot be used: its latest

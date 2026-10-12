@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.1.0/), 
 Version numbering adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 - **[0.4.1-dev] - 2026-??-??**
+  - [Changed] `smk` no longer runs the `strace` utility and re-analyzes its text output: it observes each command directly through the Linux `ptrace` interface (`PTRACE_GET_SYSCALL_INFO`), which removes the dependency on `strace` (and its output format), speeds up the runs, and requires Linux kernel >= 5.3; the file operations of all descendant processes are followed
   - [Changed] the documentation is reorganized on the bbt model: the development docs (design notes, developer guide, development workflow, fixme index) now live in `docs/dev/`, and the contributing guide is renamed [Developer guide](dev/developer_guide.md)
   - [Changed] the Alire manifest now declares the crate as available on Linux only: `alr` will clearly report it as unavailable on other platforms, instead of attempting to build it
   - [Changed] the test suite no longer builds a code coverage report: `make check` is faster, and `lcov` is no more required
