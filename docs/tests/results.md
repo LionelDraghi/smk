@@ -502,7 +502,7 @@
 
    ### Scenario: [multiline single command](../Features/A030_smkfile_format.md): 
    - OK : Given I run `smk -q reset`  
-   - OK : And I run `sh -c "sloccount hello_c/* | grep 'ansic=' > out.sloccount"`  
+   - OK : And I run `touch out.sloccount`  
    - OK : When I run `smk multiline_smkfile1.txt`  
    - OK : Then I get  
    - [X] scenario   [multiline single command](../Features/A030_smkfile_format.md) pass  
