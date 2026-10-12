@@ -167,7 +167,7 @@ Error : Spawn failed for non_existing_command
 ```
 - And the error output is
 ```
-/usr/bin/strace: Cannot find executable 'non_existing_command'
+/bin/sh: 1: non_existing_command: not found
 ```
 - And I get error
 `default.smk` should nevertheless contains the failed command:

@@ -133,7 +133,7 @@ Command "mkdir dir2", last run [YYYY:MM:DD HH:MM:SS.SS]
 Command "mv dir1/f1 dir2", last run [YYYY:MM:DD HH:MM:SS.SS]
   Sources: (2)
   - dir2
-  - AT_FDCWD</home/lionel/prj/smk/tests/run/dir1/f1
+  - dir1/f1
   Targets: (1)
   - dir2/f1
 

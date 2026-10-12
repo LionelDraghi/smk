@@ -14,7 +14,7 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-with Smk.Runs.Strace_Analyzer;
+with Smk.Runs.Observers.Ptrace;
 
 package body Smk.Runs.Observers is
 
@@ -23,13 +23,10 @@ package body Smk.Runs.Observers is
                       Events  :    out Operation_Lists.List;
                       Success :    out Boolean) is
    begin
-      -- Linux backend (transitional): the command is spawned under
-      -- strace, and the strace output file is analyzed to produce the
-      -- events. This backend will be replaced by the direct ptrace
-      -- tracer (design discussion D1).
-      Strace_Analyzer.Observe (Cmd     => Cmd,
-                               Events  => Events,
-                               Success => Success);
+      -- Linux backend: a direct ptrace tracer (design discussion D1).
+      Ptrace.Observe (Cmd     => Cmd,
+                      Events  => Events,
+                      Success => Success);
    end Observe;
 
 end Smk.Runs.Observers;
