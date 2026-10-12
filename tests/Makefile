@@ -81,8 +81,10 @@ unit:
 
 # Benchmark targets: bbt execution times of the current smk, stored
 # as JUnit XML reports (the ptrace implementation since D1 M3).
-# The strace baseline (pre-D1) is frozen in benchmarks/strace_baseline/:
-# it was produced with the same protocol on the last strace based smk.
+# The full-suite strace baseline (pre-D1, 62 scenarios) is frozen in
+# benchmarks/strace_baseline/reference_full.xml: it was produced with
+# the same protocol, on the last strace based smk, in this directory
+# (the machine dependent goldens embed the run dir absolute path).
 # Usage:
 #   make benchmark-ptrace      # Run the benchmark with the current smk
 #   make benchmark-compare BENCHMARK_NEW=file.xml  # Compare with baseline
@@ -115,10 +117,10 @@ benchmark-compare:
 		exit 1; \
 	fi
 	@echo "--- Comparing benchmark results ---"
-	@echo "Baseline: $(BENCHMARK_DIR)/strace_baseline/reference.xml"
+	@echo "Baseline: $(BENCHMARK_DIR)/strace_baseline/reference_full.xml"
 	@echo "New:      $(BENCHMARK_NEW)"
 	@$(BENCHMARK_SCRIPTS)/compare_bbt_times.sh \
-		$(BENCHMARK_DIR)/strace_baseline/reference.xml \
+		$(BENCHMARK_DIR)/strace_baseline/reference_full.xml \
 		$(BENCHMARK_NEW) \
 		> $(BENCHMARK_DIR)/comparison_report_$$(date +%Y%m%d_%H%M%S).txt 2>&1
 	@cat $(BENCHMARK_DIR)/comparison_report_*.txt
