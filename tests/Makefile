@@ -14,7 +14,7 @@
 # limitations under the License.
 # ------------------------------------------------------------------------------
 
-.PHONY : all check sanity features tutorial unit doc clean benchmark benchmark-strace benchmark-compare
+.PHONY : all check sanity features tutorial unit doc clean benchmark benchmark-ptrace benchmark-compare
 
 all: check doc
 
@@ -76,46 +76,30 @@ tutorial: ../smk
 unit:
 	$(MAKE) check --directory=unit_file_utilities
 
-# Benchmark targets for performance comparison (strace vs ptrace API)
-# These targets generate JUnit XML reports with timing information
+# Benchmark targets: bbt execution times of the current smk, stored
+# as JUnit XML reports (the ptrace implementation since D1 M3).
+# The strace baseline (pre-D1) is frozen in benchmarks/strace_baseline/:
+# it was produced with the same protocol on the last strace based smk.
 # Usage:
-#   make benchmark-strace      # Run benchmark with current strace implementation
-#   make benchmark-compare BENCHMARK_NEW=file.xml  # Compare with new results
+#   make benchmark-ptrace      # Run the benchmark with the current smk
+#   make benchmark-compare BENCHMARK_NEW=file.xml  # Compare with baseline
 
-benchmark: benchmark-all
-	@echo "Benchmark complete. Results saved in $(BENCHMARK_DIR)/"
-	@echo "To compare with a future ptrace API implementation, run:"
-	@echo "  make benchmark-compare BENCHMARK_NEW=<path/to/new/results.xml>"
+benchmark: benchmark-ptrace
+	@echo "Benchmark complete. Results saved in $(BENCHMARK_DIR)/ptrace/"
+	@echo "To compare with the strace baseline, run:"
+	@echo "  make benchmark-compare BENCHMARK_NEW=<path/to/ptrace/results.xml>"
 
-benchmark-all: benchmark-strace
-
-benchmark-sanity: ../smk
-	@echo "--- Running sanity benchmark ---"
-	@mkdir -p $(BENCHMARK_DIR)/strace_baseline
+benchmark-ptrace: ../smk
+	@echo "--- Running benchmark with the current ptrace implementation ---"
+	@mkdir -p $(BENCHMARK_DIR)/ptrace
 	$(FRESH_RUN)
-	-cd run && PATH="$$PWD:$$PATH" bbt -k --yes --junit /tmp/bbt_sanity_$$(date +%Y%m%d_%H%M%S).xml ../../tests/sanity/sanity.md || true
-	@XML_FILE=$$(ls /tmp/bbt_sanity_*.xml 2>/dev/null | head -1); \
+	-cd run && PATH="$$PWD:$$PATH" bbt -k --yes --junit /tmp/bbt_ptrace_$$(date +%Y%m%d_%H%M%S).xml $(BBT_ALL) || true
+	@XML_FILE=$$(ls /tmp/bbt_ptrace_*.xml 2>/dev/null | head -1); \
 	if [ -n "$$XML_FILE" ] && [ -f "$$XML_FILE" ]; then \
-		cp $$XML_FILE $(BENCHMARK_DIR)/strace_baseline/sanity_$$(date +%Y%m%d_%H%M%S).xml; \
-		$(BENCHMARK_SCRIPTS)/extract_bbt_times.sh $$XML_FILE > $(BENCHMARK_DIR)/strace_baseline/sanity_report_$$(date +%Y%m%d_%H%M%S).txt; \
-		echo "Sanity benchmark results saved to $(BENCHMARK_DIR)/strace_baseline/"; \
-		ls -la $(BENCHMARK_DIR)/strace_baseline/; \
-	else \
-		echo "Error: No XML file generated"; \
-		exit 1; \
-	fi
-
-benchmark-strace: ../smk
-	@echo "--- Running benchmark with current strace implementation ---"
-	@mkdir -p $(BENCHMARK_DIR)/strace_baseline
-	$(FRESH_RUN)
-	-cd run && PATH="$$PWD:$$PATH" bbt -k --yes --junit /tmp/bbt_benchmark_$$(date +%Y%m%d_%H%M%S).xml $(BBT_ALL) || true
-	@XML_FILE=$$(ls /tmp/bbt_benchmark_*.xml 2>/dev/null | head -1); \
-	if [ -n "$$XML_FILE" ] && [ -f "$$XML_FILE" ]; then \
-		cp $$XML_FILE $(BENCHMARK_DIR)/strace_baseline/results_$$(date +%Y%m%d_%H%M%S).xml; \
-		$(BENCHMARK_SCRIPTS)/extract_bbt_times.sh $$XML_FILE > $(BENCHMARK_DIR)/strace_baseline/report_$$(date +%Y%m%d_%H%M%S).txt; \
-		echo "Benchmark results saved to $(BENCHMARK_DIR)/strace_baseline/"; \
-		ls -la $(BENCHMARK_DIR)/strace_baseline/; \
+		cp $$XML_FILE $(BENCHMARK_DIR)/ptrace/results_$$(date +%Y%m%d_%H%M%S).xml; \
+		$(BENCHMARK_SCRIPTS)/extract_bbt_times.sh $$XML_FILE > $(BENCHMARK_DIR)/ptrace/report_$$(date +%Y%m%d_%H%M%S).txt; \
+		echo "Benchmark results saved to $(BENCHMARK_DIR)/ptrace/"; \
+		ls -la $(BENCHMARK_DIR)/ptrace/; \
 	else \
 		echo "Error: No XML file generated"; \
 		exit 1; \
@@ -128,10 +112,10 @@ benchmark-compare:
 		exit 1; \
 	fi
 	@echo "--- Comparing benchmark results ---"
-	@echo "Baseline: $(BENCHMARK_DIR)/strace_baseline/results_*.xml"
+	@echo "Baseline: $(BENCHMARK_DIR)/strace_baseline/reference.xml"
 	@echo "New:      $(BENCHMARK_NEW)"
 	@$(BENCHMARK_SCRIPTS)/compare_bbt_times.sh \
-		$(BENCHMARK_DIR)/strace_baseline/results_*.xml \
+		$(BENCHMARK_DIR)/strace_baseline/reference.xml \
 		$(BENCHMARK_NEW) \
 		> $(BENCHMARK_DIR)/comparison_report_$$(date +%Y%m%d_%H%M%S).txt 2>&1
 	@cat $(BENCHMARK_DIR)/comparison_report_*.txt

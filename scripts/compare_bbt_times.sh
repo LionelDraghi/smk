@@ -87,7 +87,7 @@ echo "Scenario | Baseline (s) | New (s) | Diff (s) | Diff (%)"
 echo "--------|---------------|---------|----------|----------"
 
 # Get top 10 slowest scenarios from baseline
-grep 'testcase.*time=' "$BASELINE" | sed -E 's/.*name="([^"]+)".*time="([0-9.]+).*/\1|\2/' | sort -t'|' -k2 -nr | head -10 | while IFS='|' read -r scenario baseline_time; do
+grep '<testcase ' "$BASELINE" | sed -E 's/^[[:space:]]*<testcase name="([^"]+)".*time="([0-9.]+).*/\1|\2/' | sort -t'|' -k2 -nr | head -10 | while IFS='|' read -r scenario baseline_time; do
     # Get new time for this scenario
     # Find the testcase with the same name in new file
     new_time=$(grep "name=\"${scenario}\"" "$NEW" | grep -oP 'time="\K[0-9.]+' | head -1)
