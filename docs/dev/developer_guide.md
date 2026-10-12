@@ -2,16 +2,17 @@
 
 Table of contents:
 - [Developer guide](#developer-guide)
-- [submitting code / docs](#submitting-code--docs)
+- [Submitting code / docs](#submitting-code--docs)
 - [Design Overview](#design-overview)
 - [Tests Overview](#tests-overview)
+  - [Tools required to run the tests](#tools-required-to-run-the-tests)
 
 Comments and issues are welcome [here](https://github.com/LionelDraghi/smk/issues/new).  
 Feel free to suggest whatever improvement.
-I'm not a native english speaker. English improvements are welcome, in documentation as in the code.  
+
 Use cases or features suggestions are also welcome.  
 
-# submitting code / docs
+# Submitting code / docs
 
 To propose some patch          | git command
 -------------------------------|-------------------------------------
@@ -22,25 +23,25 @@ To propose some patch          | git command
  5. Push to the branch         | `git push origin my-new-feature`    
  6. Create new Pull Request    | on your GitHub fork, go to "Compare & pull request".
 
-> **NB : please note that code proposed with matching tests and doc is very appreciated!**  
+> **NB: please note that code proposed with matching tests and doc is much appreciated!**  
 
 # Design Overview
 
-Main Smk components are :
+Main Smk components are:
 
-- **Smk.Main** procedure is the controller, in charge (with separate units) of running operation according to the command line analysis;
+- **Smk.Main** procedure is the controller, in charge (with separate units) of running operations according to the command line analysis;
 
-- **Smk.Settings** defines various application wide constant, and stores various parameters set on command line;
+- **Smk.Settings** defines various application-wide constants, and stores various parameters set on the command line;
 
 Fixme: **TBC**
 
 # Tests Overview
 
-The global intent is to have tests documenting the software behavior. Test execution result in a global count of passed/failed/empty tests, and in a text output in Markdown format, integrated in this documentation.
+The global intent is to have tests documenting the software behavior. Test execution results in a global count of passed/failed/empty tests, and in a text output in Markdown format, integrated in this documentation.
 
 ## Tools required to run the tests
 
-Beside `make` and the Ada toolchain (see the [Download and build section](../../README.md#downloading-and-building)), the test suite (`make check`) runs `smk` on various commands, and needs the following tools in the path:
+Besides `make` and the Ada toolchain (see the [Download and build section](../../README.md#downloading-and-building)), the test suite (`make check`) runs `smk` on various commands, and needs the following tools in the path:
 
 - a C compiler (`gcc`), used by the `hello.c` based tests;
 - `sox`, `id3v2` and `id3ren`, used by the audio conversion tests (test 12_);
@@ -64,10 +65,10 @@ The tests are organized as follows:
 
 The scenarios are written in almost natural English (Given / When / Then),
 and are intended to be readable as a documentation of the smk behavior.
-A test typically documents (order may vary) :
+A test typically documents (order may vary):
 
 1. When running _this_ command,
-2. with _those_ sources files or situation (details are not always printed),
+2. with _those_ source files or situations (details are not always printed),
 3. I should have _this_ result (on standard output, but also on error
    output, and returned code)
 

@@ -1,17 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- smk, the smart make (https://github.com/LionelDraghi/smk)
--- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
--- SPDX-License-Identifier: APSL-2.0
--- -----------------------------------------------------------------------------
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
--- http://www.apache.org/licenses/LICENSE-2.0
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2018, 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 
 with Ada.Directories;
@@ -315,7 +305,7 @@ package body Smk.Runfiles is
                end if;
             end if;
          else
-            IO.Put_Line ("Target to delete not found : " & (+P.Name),
+            IO.Put_Line ("Target to delete not found: " & (+P.Name),
                          Level => Settings.Verbose);
          end if;
       end Delete;
@@ -328,9 +318,9 @@ package body Smk.Runfiles is
          end loop;
       end loop;
 
-      -- Fixme: directories are erased after files to avoid a rmdir fail
-      -- because of a file present in the dir, that will be erased after.
-      -- But this is still wrong as we dont erase dir in a smart order,
+      -- Fixme: directories are erased after files to avoid an rmdir failure
+      -- because of a file present in the dir, that would be erased later.
+      -- But this is still wrong as we do not erase dirs in a smart order,
       -- and we may try to delete dir1 before dir1/dir2.
       for R of The_Runfile.Run_List loop
          for P of R.Assertions loop

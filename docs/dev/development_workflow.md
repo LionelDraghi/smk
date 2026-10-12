@@ -137,8 +137,8 @@ invisible.
 
 - the tests are the specification (TDD first); the output formats
   (listings, explanations, error messages, `smk -h`) are stabilized by
-  the expected* fixtures: check tests/08_cmd_line_tests and the list
-  queries suites before changing any output format
+  the expected* fixtures: check the error handling and list queries
+  features suites (docs/Features/) before changing any output format
 - add a line in docs/changelog.md under the current -dev version,
   following the Keep a Changelog format with the
   [Added]/[Changed]/[Fixed] keywords, from a user perspective only

@@ -1,17 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- smk, the smart make (https://github.com/LionelDraghi/smk)
--- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
--- SPDX-License-Identifier: APSL-2.0
--- -----------------------------------------------------------------------------
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
--- http://www.apache.org/licenses/LICENSE-2.0
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 
 with Smk.Assertions;  use Smk.Assertions;
@@ -34,12 +24,12 @@ package body Smk.Runs is
    function Must_Be_Run (Command      : Command_Lines;
                          Previous_Run : in out Runfiles.Run_Lists.Map)
                          return Boolean is separate;
-   -- This function return True if one of the following condition is met:
+   -- This function returns True if one of the following conditions is met:
    --    1. the --always-make option is set;
    --    2. the provided Command is not found in the previous run;
-   --    3. one the files identified as Target during the previous run
+   --    3. one of the files identified as Target during the previous run
    --       is missing;
-   --    4. one the files identified as Source during the previous run
+   --    4. one of the files identified as Source during the previous run
    --       has been updated after the previous run.
 
    -- --------------------------------------------------------------------------
@@ -50,7 +40,7 @@ package body Smk.Runs is
    is separate;
    -- Run_Command is in charge of running the Cmd, observing its file
    -- accesses, and analyzing the observed operations.
-   -- The_Run_List is updated with this run results
+   -- The_Run_List is updated with the results of this run
 
    -- --------------------------------------------------------------------------
    procedure Run_All (The_Smkfile   : in out Smkfiles.Smkfile;
@@ -60,8 +50,8 @@ package body Smk.Runs is
                       Section_Found :    out Boolean;
                       Target_Found  :    out Boolean)
    is
-      -- Those booleans cumulate the result over the loop,
-      -- that will be put in the matching output parameters.
+      -- Those booleans cumulate the results over the loop,
+      -- and are then put in the matching output parameters.
       Some_Command_To_Run  : Boolean := False;
       Some_Error_In_Run    : Boolean := False;
 

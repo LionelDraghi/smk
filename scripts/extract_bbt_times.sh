@@ -1,4 +1,10 @@
 #!/bin/bash
+# ------------------------------------------------------------------------------
+# smk, the smart make (https://github.com/LionelDraghi/smk)
+# SPDX-FileCopyrightText: 2026 Lionel Draghi
+# SPDX-License-Identifier: Apache-2.0
+# ------------------------------------------------------------------------------
+
 # Script to extract and format timing information from bbt JUnit XML results
 # Usage: ./extract_bbt_times.sh [xml_file]
 # If no file provided, uses /tmp/bbt_full_results.xml by default

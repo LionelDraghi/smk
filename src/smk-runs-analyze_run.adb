@@ -1,17 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- smk, the smart make (https://github.com/LionelDraghi/smk)
--- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
--- SPDX-License-Identifier: APSL-2.0
--- -----------------------------------------------------------------------------
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
--- http://www.apache.org/licenses/LICENSE-2.0
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 
 with Smk.IO;                   use Smk.IO;
@@ -40,16 +30,16 @@ procedure Analyze_Run (Events     : in     Operation_Lists.List;
          begin
             if C = No_Element then
                Assertions.Append (Cond);
-               IO.Put (" : inserted", Level => IO.Debug);
+               IO.Put (": inserted", Level => IO.Debug);
 
             else
                if Override (Cond.Trigger, Element (C).Trigger) then
-                  IO.Put (" : trigger modified, was "
+                  IO.Put (": trigger modified, was "
                           & Trigger_Image (Element (C).Trigger),
                           Level => IO.Debug);
                   Assertions.Replace_Element (C, Cond);
                else
-                  IO.Put (" : already known", Level => IO.Debug);
+                  IO.Put (": already known", Level => IO.Debug);
                end if;
             end if;
          end;
@@ -91,11 +81,11 @@ begin
 
    end loop;
 
-   -- Add directories informations: if a directory was open, it may be
-   -- because the command is searching files in it. In this case, we will
-   -- take a picture of the dir (that is store all files even non accessed)
-   -- to be able to compare the picture during future run, and detect added
-   -- files in that dir.
+   -- Add directories information: if a directory was open, it may be
+   -- because the command is searching for files in it. In this case, we will
+   -- take a picture of the dir (that is, store all files, even non accessed
+   -- ones) to be able to compare the picture during future runs, and detect
+   -- added files in that dir.
    --
 --     declare
 --        Search   : Search_Type;

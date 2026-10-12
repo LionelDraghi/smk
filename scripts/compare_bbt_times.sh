@@ -1,4 +1,10 @@
 #!/bin/bash
+# ------------------------------------------------------------------------------
+# smk, the smart make (https://github.com/LionelDraghi/smk)
+# SPDX-FileCopyrightText: 2026 Lionel Draghi
+# SPDX-License-Identifier: Apache-2.0
+# ------------------------------------------------------------------------------
+
 # Script to compare bbt execution times between two XML result files
 # Usage: ./compare_bbt_times.sh baseline.xml new.xml [output_file]
 

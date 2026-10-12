@@ -1,11 +1,7 @@
 # Use cases
 
-
-
 Those features describe real use cases, exercising smk
 end to end on directory and audio file processing.
-
-
 
 _Table of Contents:_
 - Feature: Directory operations
@@ -22,13 +18,13 @@ _Table of Contents:_
   - [Scenario: adding a .ogg file in a subdir](#scenario-adding-a-ogg-file-in-a-subdir)
   - [Scenario: smk clean](#scenario-smk-clean)
 
-# Feature : Directory operations
+# Feature: Directory operations
 
 Those tests check the smk behavior on directories: creation, update,
 cleaning, access, and removal.
 
 
-## Scenario : mkdir dir1
+## Scenario: mkdir dir1
 
 - Given I run `rm -rf default.smk dir1 dir2`
 - And I run `smk -q reset`
@@ -57,7 +53,7 @@ There is no source, and `dir1` is a target:
 - When I run `smk wn`
 - Then I get `Nothing new`
 
-## Scenario : updating dir1
+## Scenario: updating dir1
 
 - When I run `sleep 1`
 - And I run `smk run touch dir1/f1`
@@ -103,10 +99,10 @@ Nothing to run, as the update was recorded during the run:
 - And I run `smk`
 - Then I get `Nothing to run`
 
-## Scenario : cleaning dir1
+## Scenario: cleaning dir1
 
 This test checks that smk correctly identifies target files, removes
-them with `clean`, and preserves "unused" files, even if those are in
+them with `clean`, and preserves "unused" files, even if they are in
 a target dir.
 
 - Given I run `rm -rf default.smk dir1 dir2`
@@ -174,7 +170,7 @@ Deleting dir dir1
 Deleting dir dir2
 ```
 
-## Scenario : accessing dir1 contents, write access
+## Scenario: accessing dir1 contents, write access
 
 - Given I run `rm -rf default.smk dir1 dir2`
 - And I run `smk -q reset`
@@ -209,7 +205,7 @@ command, but there is nothing to run:
 - When I run `smk`
 - Then I get `Nothing to run`
 
-## Scenario : accessing dir1 contents, read access
+## Scenario: accessing dir1 contents, read access
 
 Let's now add a command reading `dir1`:
 
@@ -240,7 +236,7 @@ f2
 f4
 ```
 
-## Scenario : removing dir1
+## Scenario: removing dir1
 
 - Given I run `rm -rf default.smk dir1 dir2`
 - And I run `smk -q reset`
@@ -274,14 +270,14 @@ run "mkdir dir1/dir2" because Target dir dir1/dir2 is missing
 mkdir dir1/dir2
 ```
 
-# Feature : mp3 conversions
+# Feature: mp3 conversions
 
 Those tests check the smk behavior on a real use case: the conversion of
 `ogg` files into `mp3`, run by the `ogg-to-mp3.sh` script, that finds all
 `*.ogg` files and converts each of them with `to-mp3.sh`.
 
 The `x.ogg` and `y.ogg` input files are binary: they are copied from
-`tests/data/ogg/` in the working directory. The scripts are given by the
+`tests/data/ogg/` into the working directory. The scripts are given by the
 background.
 
 
@@ -302,7 +298,7 @@ sox "$1" "${1%.*}.mp3"
 find -name "*.ogg" -exec ./to-mp3.sh '{}' \;
 ```
 
-## Scenario : start conversion
+## Scenario: start conversion
 
 - Given I run `sh -c "rm -f default.smk *.mp3 z.ogg"`
 - And I run `rm -rf dir1`
@@ -332,7 +328,7 @@ Command "./ogg-to-mp3.sh", last run [YYYY:MM:DD HH:MM:SS.SS]
   - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] y.mp3
 ```
 
-## Scenario : new ogg in dir
+## Scenario: new ogg in dir
 
 A new `z.ogg` file is added to the directory:
 
@@ -341,7 +337,7 @@ A new `z.ogg` file is added to the directory:
 - And I run `smk whatsnew`
 - Then I get `[Updated] [Source] ./`
 
-## Scenario : ogg-to-mp3 is modified
+## Scenario: ogg-to-mp3 is modified
 
 - Given I run `smk -q run ./ogg-to-mp3.sh`
 - When I run `touch ./ogg-to-mp3.sh`
@@ -352,7 +348,7 @@ run "./ogg-to-mp3.sh" because Source file ogg-to-mp3.sh has been updated (YYYY:M
 ./ogg-to-mp3.sh
 ```
 
-## Scenario : adding a .ogg file in a subdir
+## Scenario: adding a .ogg file in a subdir
 
 A new directory is created, and the conversion is re-run:
 
@@ -382,7 +378,7 @@ run "./ogg-to-mp3.sh" because Source dir dir1 has been updated (YYYY:MM:DD HH:MM
 ./ogg-to-mp3.sh
 ```
 
-## Scenario : smk clean
+## Scenario: smk clean
 
 - When I run `smk clean`
 - Then I get

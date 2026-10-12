@@ -16,7 +16,7 @@ _Table of Contents:_
   - [Scenario: ls, list-sources](#scenario-ls-list-sources)
   - [Scenario: list-sources, show all files](#scenario-list-sources-show-all-files)
 
-# Feature : Read queries
+# Feature: Read queries
 
 Those tests check the queries that read and display what `smk` knows:
 the content of a smkfile (`read-smkfile`), and the dump of the previous
@@ -87,7 +87,7 @@ main.o: main.c hello.h
 hello: hello.o main.o
 	gcc -o hello hello.o main.o
 
-# let's add some section that should not be run with the rest
+# let's add some sections that should not be run with the rest
 clean:
 	rm -rf *.o
 
@@ -95,14 +95,14 @@ mrproper: clean
 	rm -rf hello
 ```
 
-## Scenario : read-smkfile
+## Scenario: read-smkfile
 
-Read a smkfile and shows what is understud by smk:
+Reads a smkfile and shows what is understood by smk:
 
 - When I run `sh -c "smk read-smkfile hello_c/Makefile.3 | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
 - Then I get
 ```
-hello_c/Makefile.3 (YYYY:MM:DD HH:MM:SS.SS) :
+hello_c/Makefile.3 (YYYY:MM:DD HH:MM:SS.SS):
 4: [hello.o] gcc -o hello.o -c hello.c
 7: [main.o] gcc -o main.o -c main.c
 10: [hello] gcc -o hello hello.o main.o
@@ -110,9 +110,9 @@ hello_c/Makefile.3 (YYYY:MM:DD HH:MM:SS.SS) :
 17: [mrproper] rm -rf hello
 ```
 
-## Scenario : status
+## Scenario: status
 
-Read the previous run dump and shows sources and targets.
+Reads the previous run dump and shows sources and targets.
 Dates are neutralized to ease the comparison.
 
 - Given I run `rm -f hello_c/hello hello_c/hello.o hello_c/main.o`
@@ -142,9 +142,9 @@ Command "gcc -o main.o -c main.c" in section [main.o], last run [YYYY:MM:DD HH:M
   - hello_c/main.o
 ```
 
-## Scenario : status, long listing and system files
+## Scenario: status, long listing and system files
 
-Same as previously, with system files not ignored and long form.
+Same as before, with system files not ignored and long form.
 The expected listing contains many system files, and is machine dependent:
 it is compared to the `../data/expected_lpr1.txt` golden file.
 
@@ -153,23 +153,25 @@ it is compared to the `../data/expected_lpr1.txt` golden file.
 - When I run `sh -c "smk st -l -sa | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' | grep -v LC_CTYPE > out.lpr1.txt"`
 - Then the file `out.lpr1.txt` is equal to file `../data/expected_lpr1.txt`
 
-## Scenario : status, no previous run
+## Scenario: status, no previous run
 
 With a runfile for this smkfile, but no previous run:
 
 - Given I run `smk -q reset`
 - When I run `smk status hello_c/Makefile.2`
-- Then I get `Error : No previous run found.`
-- And I get error
-## Scenario : status, no smkfile
+- Then I get `Error: No previous run found.`
+- And I get an error
+
+## Scenario: status, no smkfile
 
 With no smkfile given, and no runfile in the current dir:
 
 - Given I run `smk -q reset`
 - When I run `smk status`
-- Then I get `Error : No smkfile given, and no existing runfile in dir`
-- And I get error
-# Feature : List queries
+- Then I get `Error: No smkfile given, and no existing runfile in dir`
+- And I get an error
+
+# Feature: List queries
 
 Those tests check the queries that list what `smk` knows:
 the previous runs (`list-runs`), the targets (`list-targets`),
@@ -240,7 +242,7 @@ main.o: main.c hello.h
 hello: hello.o main.o
 	gcc -o hello hello.o main.o
 
-# let's add some section that should not be run with the rest
+# let's add some sections that should not be run with the rest
 clean:
 	rm -rf *.o
 
@@ -248,9 +250,9 @@ mrproper: clean
 	rm -rf hello
 ```
 
-## Scenario : lr, list-runs
+## Scenario: lr, list-runs
 
-Test available previous runs. After a reset, there is no run file:
+Test the available previous runs. After a reset, there is no run file:
 
 - Given I run `smk -q reset`
 - When I run `smk lr`
@@ -267,7 +269,7 @@ Makefile.2
 Makefile.3
 ```
 
-## Scenario : lt, list-targets
+## Scenario: lt, list-targets
 
 Long form (dates are neutralized to ease the comparison):
 
@@ -289,7 +291,7 @@ hello_c/hello.o
 hello_c/main.o
 ```
 
-## Scenario : ls, list-sources
+## Scenario: ls, list-sources
 
 Without shortening file names (`-ds`), the paths are absolute, and machine
 dependent: the output is compared to the `expected_ls1.txt` golden file.
@@ -317,7 +319,7 @@ hello_c/hello.h
 hello_c/main.c
 ```
 
-## Scenario : list-sources, show all files
+## Scenario: list-sources, show all files
 
 With `--show-all-files`, system files are also listed, and the output is
 machine dependent: it is compared to the `../data/expected_las1.txt`

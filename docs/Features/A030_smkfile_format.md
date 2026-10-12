@@ -9,7 +9,7 @@ _Table of Contents:_
   - [Scenario: multiline with more commands and pipes](#scenario-multiline-with-more-commands-and-pipes)
   - [Scenario: hill formatted multiline](#scenario-hill-formatted-multiline)
 
-# Feature : Multiline commands
+# Feature: Multiline commands
 
 Test the processing of multiline commands, with the backslash
 continuation, comments in the middle, and hill formatted files.
@@ -78,12 +78,12 @@ grep "hello" \
 		-Wall \
 // the end of the command is missing
 
--- Note that the comment immediatly following the command
+-- Note that the comment immediately following the command
 -- should not be considered as the end of the command, neither
 -- should the following blank line or any of the following lines.
 ```
 
-## Scenario : multiline single command
+## Scenario: multiline single command
 
 The multiline `gcc` command, with a comment in the middle,
 is run as a single command:
@@ -96,7 +96,7 @@ is run as a single command:
 gcc -E -P -xc /dev/null -o out.sloc.png -Wall -O2
 ```
 
-## Scenario : multiline with more commands and pipes
+## Scenario: multiline with more commands and pipes
 
 The multiline `wc` command, with pipes and a comment at the end:
 
@@ -110,7 +110,7 @@ wc -l hello_c/*.c hello_c/*.h | grep "hello" |sed "s/hello/HELLO/"
   6 hello_c/hello.h
 ```
 
-## Scenario : hill formatted multiline
+## Scenario: hill formatted multiline
 
 A hill formatted multiline command, where the end of the command is
 missing: the last command is ignored.
@@ -119,7 +119,7 @@ missing: the last command is ignored.
 - When I run `smk hill_multiline_smkfile.txt`
 - Then I get
 ```
-Error : hill_multiline_smkfile.txt ends with incomplete multine, last command ignored
+Error: hill_multiline_smkfile.txt ends with an incomplete multiline command, last command ignored
 Nothing to run
 ```
-- And I get error
+- And I get an error

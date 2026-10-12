@@ -1,17 +1,6 @@
 -- -----------------------------------------------------------------------------
--- Copyright 2018 Lionel Draghi
---
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
---
---     http://www.apache.org/licenses/LICENSE-2.0
---
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2018, 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 -- This file is part of the List_Image project
 -- available at https://github.com/LionelDraghi/List_Image
@@ -25,14 +14,14 @@ package List_Image is
    -- This signature package defines the style of the String returned by the
    -- Image function.
    --
-   -- Prefix, Postfix and Separator parameters are self explaining.
+   -- Prefix, Postfix and Separator parameters are self-explanatory.
    -- If Prefix = '(', Postfix = ')', and Separator = ',', Image will be of
-   -- this kind : (A,B,C,D)
-   -- If all parameters are set to "", the image will be : ABCD
+   -- this kind: (A,B,C,D)
+   -- If all parameters are set to "", the image will be: ABCD
    --
-   -- Special Prefix and Postfix are possible for null list, and for list with
-   -- a single element.
-   -- This is useful when you want to want "[A,B,C]" as an image, but you don't
+   -- Special Prefix and Postfix are possible for null lists, and for lists
+   -- with a single element.
+   -- This is useful when you want "[A,B,C]" as an image, but you don't
    -- want "[]" when the list is empty.
    --
    -- A useful application of this feature is to have well written comments
@@ -41,13 +30,13 @@ package List_Image is
    -- just set Postfix to " items found", and Postfix_If_Single to
    -- " item found".
    -- And by the way, if you want the Image to be "No item found" when the
-   -- list is emtpy, Prefix_If_Empty and Postfix_If_Empty are here for you.
+   -- list is empty, Prefix_If_Empty and Postfix_If_Empty are here for you.
    --
-   -- Last_Separator allows to have this kind of output :
+   -- Last_Separator allows this kind of output:
    -- "A, B, C and D"
    --
-   -- Note that Separator may be whatever String. You may want to insert an End
-   -- of Line sequence to split the list on several line, the EOL String and
+   -- Note that Separator may be any String. You may want to insert an End
+   -- of Line sequence to split the list on several lines; the EOL String and
    -- parameters are provided for that purpose.
    -- --------------------------------------------------------------------------
 
@@ -71,20 +60,20 @@ package List_Image is
    -- --------------------------------------------------------------------------
    --
    -- Predefined **single line** styles (that are not relying on EOL
-   -- definition), and are not plateform specific, are proposed here after.
+   -- definition), and are not platform specific, are proposed hereafter.
    --
-   -- - Default_Style :
+   -- - Default_Style:
    --   > A, B, C
    --
-   -- - English_Style :
+   -- - English_Style:
    --   > A, B and C
    --
-   -- - Bracketed_List_Style :
+   -- - Bracketed_List_Style:
    --   > [A, B, C]
    --
-   -- - Markdown_Table_Style :
+   -- - Markdown_Table_Style:
    --   > | A | B | C |
-   --   Note : Markdown don't define tables, but it's a common extension,
+   --   Note: Markdown doesn't define tables, but it's a common extension,
    --          like in Github Flavored Markdown for example.
    --
    -- --------------------------------------------------------------------------
@@ -109,7 +98,7 @@ package List_Image is
    -- --------------------------------------------------------------------------
    --
    -- Predefined (platform dependent) **multi lines** styles
-   -- are proposed in the following child packages :
+   -- are proposed in the following child packages:
    -- - List_Image.Unix_Predefined_Styles
    -- - List_Image.Windows_Predefined_Styles
    --

@@ -1,17 +1,6 @@
 -- -----------------------------------------------------------------------------
--- Copyright 2018 Lionel Draghi
---
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
---
---     http://www.apache.org/licenses/LICENSE-2.0
---
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2018, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 -- This file is part of the List_Image project
 -- available at https://github.com/LionelDraghi/List_Image
@@ -44,19 +33,19 @@ package body List_Image is
               & Style.Postfix_If_Single;
 
          else
-            -- at least two item in the list
+            -- at least two items in the list
             Tmp := To_Unbounded_String (Style.Prefix);
             Append (Tmp, Image (C1));
             loop
                C1 := C2;
                C2 := Next (C2);
                if Has_Element (C2) then
-                  -- C1 do not yet point the last item
+                  -- C1 does not yet point to the last item
                   Append (Tmp, Style.Separator);
                   Append (Tmp, Image (C1));
 
                else
-                  -- C1 point the last item
+                  -- C1 points to the last item
                   Append (Tmp, Style.Last_Separator);
                   Append (Tmp, Image (C1));
                   exit;

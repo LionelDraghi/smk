@@ -1,3 +1,9 @@
+-- -----------------------------------------------------------------------------
+-- smk, the smart make (https://github.com/LionelDraghi/smk)
+-- SPDX-FileCopyrightText: 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
+-- -----------------------------------------------------------------------------
+
 with File_Utilities;
 
 with Ada.Command_Line;

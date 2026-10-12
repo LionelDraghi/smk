@@ -14,7 +14,7 @@ _Table of Contents:_
 - [Scenario: another smk run](#scenario-another-smk-run)
 
 
-## Scenario : create the sources for this test case
+## Scenario: create the sources for this test case
 
 Create the three C files, and a `MyBuild` file with your favorite editor
 containing just your commands:
@@ -57,7 +57,7 @@ gcc -o main.o -c main.c
 gcc -o hello hello.o main.o
 ```
 
-## Scenario : first run
+## Scenario: first run
 
 `smk MyBuild`
 (it's equivalent to `smk build MyBuild`)
@@ -108,14 +108,14 @@ Command "gcc -o main.o -c main.c", last run [YYYY:MM:DD HH:MM:SS.SS]
   - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] main.o
 ```
 
-## Scenario : what are those new files in the current dir?
+## Scenario: what are those new files in the current dir?
 
 Smk stores information in local hidden .smk.* files, one per smk file:
 
 - When I run `ls .smk.MyBuild`
 - Then I get `.smk.MyBuild`
 
-## Scenario : second smk run
+## Scenario: second smk run
 
 `smk MyBuild`, or just `smk`
 
@@ -124,7 +124,7 @@ Sources are unchanged, target is up to date, nothing to run:
 - When I run `smk`
 - Then I get `Nothing to run`
 
-## Scenario : let's remove a file
+## Scenario: let's remove a file
 
 `rm main.o`
 `smk`
@@ -160,7 +160,7 @@ Deleting file hello.o
 Deleting file main.o
 ```
 
-This option will not remove `smk` internal files. If you want to do that,
+This command will not remove `smk` internal files. If you want to do that,
 use `smk reset`, and check it with `smk lr`:
 
 - When I run `smk reset`
@@ -178,11 +178,11 @@ gcc -o main.o -c main.c
 gcc -o hello hello.o main.o
 ```
 
-## Scenario : let's modify a source
+## Scenario: let's modify a source
 
 `touch hello.c`
 
-To get more info on why are commands executed, just add the `--explain`
+To get more info on why commands are executed, just add the `--explain`
 option (short form: `-e`)
 
 Once more, only the two commands needed to get `hello` updated are run:
@@ -198,7 +198,7 @@ run "gcc -o hello hello.o main.o" because Source file hello.o has been updated (
 gcc -o hello hello.o main.o
 ```
 
-## Scenario : another smk run
+## Scenario: another smk run
 
 No file changes, nothing to run:
 
@@ -219,4 +219,4 @@ What have we seen in this tutorial?
 | Rebuild missing targets                    | `smk -mt`            |
 | Cleanup all targets                        | `smk clean`          |
 | Reset smk internal files                   | `smk reset`          |
-| Get the full picture of command line       | `smk -h`             |
+| Get the full picture of the command line   | `smk -h`             |

@@ -1,17 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- smk, the smart make (https://github.com/LionelDraghi/smk)
--- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
--- SPDX-License-Identifier: APSL-2.0
--- -----------------------------------------------------------------------------
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
--- http://www.apache.org/licenses/LICENSE-2.0
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2018, 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 
 with File_Utilities;
@@ -44,8 +34,8 @@ package body Smk.Files is
       use Ada.Directories;
    begin
       if Exists (File_Name) and then Kind (File_Name) /= Special_File
-      -- Trying to get Modification_Time of /dev/urandom
-      -- raise Name_Error
+      -- Trying to get the Modification_Time of /dev/urandom
+      -- raises Name_Error
       then
          return Ada.Directories.Modification_Time (File_Name);
       else
@@ -83,7 +73,7 @@ package body Smk.Files is
          return False;
 
       elsif Ada.Strings.Fixed.Tail (+Name, Target'Length) = Target then
-         IO.Put_Line ("File " & (+Name) & " match Target "
+         IO.Put_Line ("File " & (+Name) & " matches target "
                       & Target & ".", Level => IO.Verbose);
          return True;
       else

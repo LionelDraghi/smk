@@ -19,7 +19,7 @@ _Table of Contents:_
   - [Scenario: option given after a command](#scenario-option-given-after-a-command)
   - [Scenario: unknown smkfile](#scenario-unknown-smkfile)
 
-# Feature : Run errors
+# Feature: Run errors
 
 Test the `-k` (keep going) and `-i` (ignore errors) behavior when a run
 command fails.
@@ -35,7 +35,7 @@ on the machine language settings.
 ## Background:
 
 - Given the environment variable `LC_ALL` is `C`
-- And the directory `hello_c`
+- And the new directory `hello_c`
 - And the file `hello_c/hello.c`
 ```c
 #include <stdio.h>
@@ -74,7 +74,7 @@ gcc -o main.o -c main.c --WTF
 gcc -o hello hello.o main.o
 ```
 
-## Scenario : no option
+## Scenario: no option
 
 Without option, `smk` stops on the first command that fails, and returns
 an error code:
@@ -85,15 +85,15 @@ an error code:
 ```
 gcc -o hello.o -c hello.c
 gcc -o main.o -c main.c --WTF
-Error : Spawn failed for gcc -o main.o -c main.c --WTF
+Error: Spawn failed for gcc -o main.o -c main.c --WTF
 ```
 - And the error output is
 ```
 gcc: error: unrecognized command-line option '--WTF'
 ```
-- And I get error
+- And I get an error
 
-## Scenario : keep going
+## Scenario: keep going
 
 With `-k`, `smk` runs the other commands, and returns an error code:
 
@@ -103,16 +103,16 @@ With `-k`, `smk` runs the other commands, and returns an error code:
 ```
 gcc -o hello.o -c hello.c
 gcc -o main.o -c main.c --WTF
-Error : Spawn failed for gcc -o main.o -c main.c --WTF
+Error: Spawn failed for gcc -o main.o -c main.c --WTF
 gcc -o hello hello.o main.o
-Error : Spawn failed for gcc -o hello hello.o main.o
+Error: Spawn failed for gcc -o hello hello.o main.o
 ```
 - And the error output contains `gcc: error: unrecognized command-line option '--WTF'`
 - And the error output contains `cannot find main.o: No such file or directory`
 - And the error output contains `collect2: error: ld returned 1 exit status`
 - And I get an error
 
-## Scenario : ignore errors
+## Scenario: ignore errors
 
 Same as with `-k`, but without returning an error code:
 
@@ -122,7 +122,7 @@ Same as with `-k`, but without returning an error code:
 ```
 gcc -o hello.o -c hello.c
 gcc -o main.o -c main.c --WTF
-Error : Spawn failed for gcc -o main.o -c main.c --WTF
+Error: Spawn failed for gcc -o main.o -c main.c --WTF
 ```
 - And the error output is
 ```
@@ -130,7 +130,7 @@ gcc: error: unrecognized command-line option '--WTF'
 ```
 - And I get no error
 
-## Scenario : keep going and ignore errors
+## Scenario: keep going and ignore errors
 
 With both! Same as with `-k`, but without returning an error code:
 
@@ -140,16 +140,16 @@ With both! Same as with `-k`, but without returning an error code:
 ```
 gcc -o hello.o -c hello.c
 gcc -o main.o -c main.c --WTF
-Error : Spawn failed for gcc -o main.o -c main.c --WTF
+Error: Spawn failed for gcc -o main.o -c main.c --WTF
 gcc -o hello hello.o main.o
-Error : Spawn failed for gcc -o hello hello.o main.o
+Error: Spawn failed for gcc -o hello hello.o main.o
 ```
 - And the error output contains `gcc: error: unrecognized command-line option '--WTF'`
 - And the error output contains `cannot find main.o: No such file or directory` 
 - And the error output contains `collect2: error: ld returned 1 exit status`
 - And I get no error
 
-## Scenario : run command fails
+## Scenario: run command fails
 
 - Given I run `rm -f default.smk`
 - And I run `smk -q reset`
@@ -157,23 +157,23 @@ Error : Spawn failed for gcc -o hello hello.o main.o
 - Then I get
 ```
 non_existing_command
-Error : Spawn failed for non_existing_command
+Error: Spawn failed for non_existing_command
 ```
 - And the error output is
 ```
 /bin/sh: 1: non_existing_command: not found
 ```
-- And I get error
-`default.smk` should nevertheless contains the failed command:
+- And I get an error
+`default.smk` should nevertheless contain the failed command:
 
 - And the file `default.smk` contains `non_existing_command`
 
-## Scenario : other commands after a failed run
+## Scenario: other commands after a failed run
 
 - When I run `sh -c "smk read-smkfile | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
 - Then I get
 ```
-default.smk (YYYY:MM:DD HH:MM:SS.SS) :
+default.smk (YYYY:MM:DD HH:MM:SS.SS):
 1: [] non_existing_command
 ```
 
@@ -191,65 +191,11 @@ Other commands should return nothing, except `whatsnew`:
 - When I run `smk list-unused`
 - Then there is no output
 
-## Scenario : debug option
-
-The `-d` debug option dumps the settings, that contain machine dependent
-absolute paths: the output is compared to the `../data/expected.13` golden file.
-
-- Given I run `smk -q reset`
-- and the file `expected.13`
-~~~
-Error : No smkfile given, and no existing runfile in dir
-
-Settings / Command line analysis:
----------------------------------
-
-   Verbosity         : DEBUG
-   Command           : DUMP
-   Smkfile name      : 
-   Runfile name      : 
-   Section name      : 
-   Cmd Line          : 
-   Target name       : 
-   Unidentified Opt  : 
-   Initial directory : /home/lionel/prj/smk/tests/run
-
-   System Files      : 
-   - /usr/*
-   - /lib/*
-   - /etc/*
-   - /opt/*
-
-   Ignore list       : 
-   - /sys/*
-   - /proc/*
-   - /dev/*
-   - /tmp/*
-   - /etc/ld.so.cache
-
-   [ ] Build_Missing_Targets
-   [ ] Always_Make
-   [ ] Explain
-   [ ] Dry_Run
-   [ ] Keep_Going
-   [ ] Ignore_Errors
-   [ ] Long_Listing_Format
-   [ ] Warnings_As_Errors
-   [X] Shorten_File_Names
-   [X] Filter_Sytem_Files
-
----------------------------------
-~~~
-- And I run `rm -f default.smk`
-- When I run `sh -c "smk -d dump > out.13 2>&1"`
-- Then the file `out.13` is equal to file `expected.13`
-- And I get error
-
-# Feature : Command line errors
+# Feature: Command line errors
 
 Test the command line analysis: help, version, and error cases.
 
-## Scenario : help options
+## Scenario: help options
 
 Test that the `-h` and `help` outputs are the same:
 
@@ -257,7 +203,7 @@ Test that the `-h` and `help` outputs are the same:
 - And I run `sh -c "smk help > out.help2.txt"`
 - Then the file `out.help1.txt` is equal to file `out.help2.txt`
 
-## Scenario : version option
+## Scenario: version option
 
 Test that the version command displays the crate version, as defined
 in the Alire manifest:
@@ -266,25 +212,28 @@ in the Alire manifest:
 - When I run `smk version`
 - Then the output is equal to file `out.expected_version.txt`
 
-## Scenario : illegal command lines
+## Scenario: illegal command lines
 
 More than one command is an error. The full error message, including the
 usage and help, is compared to the `../data/expected_wrong_cmd_line1.txt` golden file:
 
 - When I run `sh -c "smk read-smkfile status > out.wrong_cmd_line1.txt 2>&1"`
 - Then the file `out.wrong_cmd_line1.txt` is equal to file `../data/expected_wrong_cmd_line1.txt`
-- And I get error
-## Scenario : option given after a command
+- And I get an error
+
+## Scenario: option given after a command
 
 An option given after the command is ignored:
 
+- Given I run `rm -f default.smk`
+- And I run `smk -q reset`
 - When I run `smk reset -l`
 - Then there is no output
 
-## Scenario : unknown smkfile
+## Scenario: unknown smkfile
 
 Test the error message if an unknown smkfile is given:
 
 - When I run `smk My_Makefile`
-- Then I get `Error : No smkfile given, and no existing runfile in dir`
-- And I get error
+- Then I get `Error: No smkfile given, and no existing runfile in dir`
+- And I get an error

@@ -1,17 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- smk, the smart make (https://github.com/LionelDraghi/smk)
--- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
--- SPDX-License-Identifier: APSL-2.0
--- -----------------------------------------------------------------------------
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
--- http://www.apache.org/licenses/LICENSE-2.0
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2018, 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 
 with Ada.Calendar;
@@ -62,8 +52,8 @@ private package Smk.Files is
    function Shorten (Name : String)    return String;
    function Shorten (Name : File_Name) return String;
    -- returns Name if Settings.Shorten_File_Names = False,
-   -- or a short path from current dir the the file.
-   -- NB : Name must be a Full_Name (a rooted path)
+   -- or a short path from the current dir to the file.
+   -- NB: Name must be a Full_Name (a rooted path)
 
    -- --------------------------------------------------------------------------
    type File_Type is private;
@@ -76,7 +66,7 @@ private package Smk.Files is
    function Time_Tag  (File : File_Type) return Ada.Calendar.Time;
    function Is_Dir    (File : File_Type) return Boolean;
    function Is_System (File : File_Type) return Boolean;
-   -- Is_System returns True if the File_Name starts with "/usr/, "/lib/", etc.
+   -- Is_System returns True if the File_Name starts with "/usr/", "/lib/", etc.
    function Role      (File : File_Type) return File_Role
      with Pre => not (Is_Source (File) and Is_Target (File)); -- can't be both
    function Status    (File : File_Type) return File_Status;
@@ -89,7 +79,7 @@ private package Smk.Files is
    function Has_Target (Name   : File_Name;
                         Target : String) return Boolean;
    -- File is a Full_Name
-   -- return True if Target match the right part of File
+   -- return True if Target matches the right part of File
 
    -- --------------------------------------------------------------------------
    function File_Image (Name   : File_Name;

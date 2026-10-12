@@ -1,17 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- smk, the smart make (https://github.com/LionelDraghi/smk)
--- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
--- SPDX-License-Identifier: APSL-2.0
--- -----------------------------------------------------------------------------
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
--- http://www.apache.org/licenses/LICENSE-2.0
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2018, 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 
 with Ada.Calendar.Formatting;
@@ -28,12 +18,12 @@ package body Smk.IO is
    -- Function: GNU_Prefix
    --
    -- Purpose:
-   --    This function return a source/line/column prefix to messages compatible
-   --    whith GNU Standard
+   --    This function returns a source/line/column prefix for messages,
+   --    compatible with the GNU standard
    --    (refer to <https://www.gnu.org/prep/standards/html_node/Errors.html>),
-   --    That is :
+   --    that is:
    --       > program:sourcefile:lineno: message
-   --    when there is an appropriate source file, or :
+   --    when there is an appropriate source file, or:
    --       > program: message
    --    otherwise.
    --
@@ -63,9 +53,9 @@ package body Smk.IO is
                           Line : in Integer := 0) is
    begin
       Warnings := Warnings + 1;
-      Put_Line ("Warning : " & Msg, File, Line);
+      Put_Line ("Warning: " & Msg, File, Line);
       -- use the local version of Put_Line, and not the Ada.Text_IO one,
-      -- so that Warning messages are also ignored when --quiet.
+      -- so that warning messages are also ignored when --quiet.
    end Put_Warning;
 
    Errors : Natural := 0;
@@ -76,8 +66,8 @@ package body Smk.IO is
                         Line : in Integer := 0) is
    begin
       Errors := Errors + 1;
-      Put_Line ("Error : " & Msg, File, Line, Level => Quiet);
-      -- Quiet because Error Msg should not be ignored
+      Put_Line ("Error: " & Msg, File, Line, Level => Quiet);
+      -- Quiet because error messages should not be ignored
    end Put_Error;
 
    -- --------------------------------------------------------------------------
@@ -86,7 +76,7 @@ package body Smk.IO is
                             Line : in Integer := 0) is
    begin
       Ada.Text_IO.Put_Line (Ada.Text_IO.Standard_Error,
-                            GNU_Prefix (File, Line) & "Exception : " & Msg);
+                            GNU_Prefix (File, Line) & "Exception: " & Msg);
    end Put_Exception;
 
    -- --------------------------------------------------------------------------

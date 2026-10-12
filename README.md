@@ -5,7 +5,7 @@
 
 **`smk` is a devastatingly simple and powerful make. So simple that you don't even have to write a Makefile.  
 Just run your commands once through `smk`, and then, all you'll have to type is `smk`!  
-`smk` will automatically check the modifications in the file system relevant for each command, and run only what have to!** 
+`smk` will automatically check the modifications in the file system relevant for each command, and run only what has to!** 
 
 ------------------------------------------------------------------------
 [![image](https://img.shields.io/badge/-inside-blue?logo=ada&logoColor=white&labelColor=grey&logoSize=auto)](https://ada-lang.io/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Version](https://img.shields.io/github/v/tag/LionelDraghi/smk)](https://github.com/LionelDraghi/smk/tags) [![Tests](docs/tests/badge.svg)](docs/tests/results.md) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/smk.json)](https://alire.ada.dev/crates/smk.html)
@@ -28,10 +28,10 @@ Table of contents
 
 ## Overview & main features
 
-`smk` is a make tools aiming at maximum simplicity. You don't need to learn a specific syntax to use it, and you don't even have to write a proper Makefile. Run the commands under `smk` once, just run `smk` to replay only the commands that need to.
+`smk` is a make tool aiming at maximum simplicity. You don't need to learn a specific syntax to use it, and you don't even have to write a proper Makefile. Run the commands under `smk` once, just run `smk` to replay only the commands that need to be run.
 `smk` :
-- stores the commands in simple text files. You don't need to manipulate it, but you also can edit those file. You can use simple existing script files or Makefiles;
-- don't need you to describe preconditions, sources, target, rules, etc. Quite the opposite, just run the command, and then ask `smk` what are the inputs and ouputs;
+- stores the commands in simple text files. You don't need to manipulate them, but you can also edit those files. You can use simple existing script files or Makefiles;
+- doesn't need you to describe preconditions, sources, target, rules, etc. Quite the opposite, just run the command, and then ask `smk` what the inputs and outputs are;
 - tracks for you unused files;
 - provides a whatsnew function, similar to git `status`;
 - provides an automatic clean function;
@@ -54,10 +54,10 @@ The result will be:
 
 And if you modify an involved file (`touch x.ogg`), the next `smk` will replay
 only the commands that need to.
-For more information on why is a command run, just give the `--explain`
+For more information on why a command is run, just add the `--explain`
 option (`-e` in short form).
 
-Note that this test case, yet simple, is already fairly representative:  
+Note that this test case, though simple, is already fairly representative:  
 - the first command is reading an input file and creating an output file,  
 - the second has the same file as input and output,  
 - and the third is "moving" a file, that is deleting the input file.  
@@ -71,21 +71,21 @@ to remain true.
 ## How is this possible? 
 
 `smk` observes each command through the [`ptrace`](https://man7.org/linux/man-pages/man2/ptrace.2.html) interface, to understand what is read and what is written, and thus what is a source, and what is a target.  
-And this is why you don't have to manually give those information within a Makefile : **no more rules, recipes, dependencies, targets, etc.**
+And this is why you don't have to manually give this information within a Makefile: **no more rules, recipes, dependencies, targets, etc.**
 
 ## `smk` vocabulary 
 
 `smk` vocabulary is simple:  
 
-- **Command** : commands are whatever can be run in the shell, from the simple `gcc` command above to script, or `make whatever`.
+- **Command**: commands are whatever can be run in the shell, from the simple `gcc` command above to scripts, or `make whatever`.
 
-- **smkfile** : an smkfile is text file containing commands. It's the closest thing in `smk` to Makefile.  
-The main differences are that smkfiles are simple : no cryptic syntax to describe rules or recipes, you don't need it. Both previous examples are valid smkfiles (yes, even the Makefile, `smk` can read very simple Makefile).  
+- **smkfile**: an smkfile is a text file containing commands. It's the closest thing in `smk` to the Makefile.  
+The main differences are that smkfiles are simple: no cryptic syntax to describe rules or recipes, you don't need one. Both previous examples are valid smkfiles (yes, even the Makefile, `smk` can read very simple Makefiles).  
 And above all, smkfiles are not mandatory to use `smk`! 
 
-- **Run** : a run is an execution of a command, or a list of command through an smkfile. This is what `smk` analyzes by observing the command and its children processes.
+- **Run**: a run is an execution of a command, or a list of commands through an smkfile. This is what `smk` analyzes by observing the command and its child processes.
 
-- **runfile** : runfiles are the internal files created by `smk` to store information about the various run, that is mainly : executed commands, when, source and target files and related time stamps. 
+- **runfile**: runfiles are the internal files created by `smk` to store information about the various runs, that is mainly: executed commands, when, source and target files and related time stamps. 
 
 ## A little more on usage
 
@@ -101,19 +101,19 @@ smk st -l
 
 (More on commands and options with the usual `smk -h`)
 
-Let's be back to the status:
+Let's go back to the status:
 > 2018-12-25 03:09:54.99 [] "sox x.mp3 x.ogg"  
 >  Sources (1) :  
 >  - 2018-12-25 02:06:10.00:/home/lionel/Proj/smk/tests/15_mp3_conversions/x.mp3  
 >  Targets (1) :  
 >  - 2018-12-25 03:09:59.00:/home/lionel/Proj/smk/tests/15_mp3_conversions/x.ogg  
 
-The first time stamp is the command run time, other time stamps are files modification time.  
+The first time stamp is the command run time, the other time stamps are the file's modification times.  
 (and yes, this example was written during christmas night!)
 
-> Note that `smk` output focus on useful files, system files are filtered by default.  
-> (On my system, 166 system files are read by ffmpeg during such a conversion, that you generally don't care!)  
-> Note that this is only an output filter. `smk` manage all dependencies, and if whatever lib.so changes in /usr/lib, the command will be re-run.  
+> Note that `smk` output focuses on useful files: system files are filtered by default.  
+> (On my system, 166 system files are read by ffmpeg during such a conversion, which you generally don't care about!)  
+> Note that this is only an output filter. `smk` manages all dependencies, and if any lib.so changes in /usr/lib, the command will be re-run.  
 > To see system files involved, add the `-sa` (`--show-all-files`) option. 
 
 And now:
@@ -137,7 +137,7 @@ And don't forget [`smk help`](docs/cmd_line.md).
 
 1. First, get the sources
    
-   - Either download it on [the GitHub project page](https://github.com/LionelDraghi/smk)  
+   - Either download it from [the GitHub project page](https://github.com/LionelDraghi/smk)  
 
    - or directly with `git`:  
      > `git clone https://github.com/LionelDraghi/smk.git`
@@ -151,7 +151,7 @@ And don't forget [`smk help`](docs/cmd_line.md).
    >  `apt install alire make`
 
 4. Ensure your Linux kernel is 5.3 or greater,  
-   that `smk` uses to observe what each command reads and writes.
+   which `smk` uses to observe what each command reads and writes.
 
 5. Build it:  
    > `alr build --release`
@@ -166,7 +166,7 @@ And don't forget [`smk help`](docs/cmd_line.md).
 
 * [More on the `smkfile` format](docs/smkfile_format.md)
 
-* [Not sure to understand what is the difference with `make`...](docs/compare_with_make.md)
+* [Not sure what the difference with `make` is...](docs/compare_with_make.md)
 
 * Documentation
   - [Tutorial](docs/tutorial.md) (executable: it is run and checked by the test suite)

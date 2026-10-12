@@ -1,8 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- smk, the smart make (https://github.com/LionelDraghi/smk)
--- Author : Lionel Draghi
--- SPDX-License-Identifier: APSL-2.0
--- SPDX-FileCopyrightText: 2024, Lionel Draghi
+-- SPDX-FileCopyrightText: 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 
 with Ada.Directories.Hierarchical_File_Names,
@@ -45,7 +44,7 @@ package body File_Utilities is
           or else Is_Current_Directory_Name (Dir)
       then
          return File;
-         -- This test is also the way to stop recursing until error
+         -- This test is also the way to stop recursing with an error
          -- when From_Dir and To_File have nothing in common.
       end if;
 
@@ -55,7 +54,7 @@ package body File_Utilities is
       if Dir (Dir'First .. Dir'First + 1) /= File (File'First .. File'First + 1)
       then return File; end if;
       -- Optimization for a frequent case: there is no common path between
-      -- Dir and File, so we return immediately File
+      -- Dir and File, so we return File immediately
 
       declare
          Length : constant Natural := Natural'Min (Dir'Length, File'Length);

@@ -28,7 +28,10 @@ Before starting the release procedure, verify that:
 - a complete local `make` (build, check, doc) has succeeded;
 - the latest GitHub Actions checks (`.github/workflows/build-test.yml`)
   have succeeded on Linux, the only platform where smk is declared
-  available.
+  available;
+- the copyright years in the file headers are refreshed
+  (`scripts/update_copyright.sh`, to run on a clean working tree),
+  and the result is committed with the release.
 
 ### Platform availability, and the Alire index tests
 

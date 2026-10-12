@@ -171,8 +171,8 @@
    ### Scenario: [status, no previous run](../Features/A010_queries.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk status hello_c/Makefile.2`  
-   - OK : Then I get `Error : No previous run found.`  
-   - OK : And I get error  
+   - OK : Then I get `Error: No previous run found.`  
+   - OK : And I get an error  
    - [X] scenario   [status, no previous run](../Features/A010_queries.md) pass  
 
    ### Background: [](../Features/A010_queries.md): 
@@ -187,8 +187,8 @@
    ### Scenario: [status, no smkfile](../Features/A010_queries.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk status`  
-   - OK : Then I get `Error : No smkfile given, and no existing runfile in dir`  
-   - OK : And I get error  
+   - OK : Then I get `Error: No smkfile given, and no existing runfile in dir`  
+   - OK : And I get an error  
    - [X] scenario   [status, no smkfile](../Features/A010_queries.md) pass  
 
   ## Feature: List queries  
@@ -344,8 +344,8 @@
    ### Scenario: [no run file in the directory](../Features/A020_build.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk`  
-   - OK : Then I get `Error : No smkfile given, and no existing runfile in dir`  
-   - OK : And I get error  
+   - OK : Then I get `Error: No smkfile given, and no existing runfile in dir`  
+   - OK : And I get an error  
    - [X] scenario   [no run file in the directory](../Features/A020_build.md) pass  
 
    ### Background: [](../Features/A020_build.md): 
@@ -377,8 +377,8 @@
    ### Scenario: [more than one run file](../Features/A020_build.md): 
    - OK : Given I run `smk -q hello_c/Makefile.3`  
    - OK : When I run `smk`  
-   - OK : Then I get `Error : No smkfile given, and more than one runfile in dir`  
-   - OK : And I get error  
+   - OK : Then I get `Error: No smkfile given, and more than one runfile in dir`  
+   - OK : And I get an error  
    - [X] scenario   [more than one run file](../Features/A020_build.md) pass  
 
   ## Feature: Sections  
@@ -446,7 +446,7 @@
    ### Scenario: [unknown smkfile with section](../Features/A020_build.md): 
    - OK : When I run `smk -a hello_c/Makezzzzzfile.4:mrproper`  
    - OK : Then I get  
-   - OK : And I get error  
+   - OK : And I get an error  
    - [X] scenario   [unknown smkfile with section](../Features/A020_build.md) pass  
 
   ## Feature: Add and run commands  
@@ -535,7 +535,7 @@
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk hill_multiline_smkfile.txt`  
    - OK : Then I get  
-   - OK : And I get error  
+   - OK : And I get an error  
    - [X] scenario   [hill formatted multiline](../Features/A030_smkfile_format.md) pass  
 
 
@@ -543,7 +543,7 @@
   ## Feature: Run errors  
    ### Background: [](../Features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
-   - OK : And the directory `hello_c`  
+   - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
@@ -555,12 +555,12 @@
    - OK : When I run `smk hello_c/Wrong_Makefile`  
    - OK : Then I get  
    - OK : And the error output is  
-   - OK : And I get error  
+   - OK : And I get an error  
    - [X] scenario   [no option](../Features/A040_errors.md) pass  
 
    ### Background: [](../Features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
-   - OK : And the directory `hello_c`  
+   - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
@@ -579,7 +579,7 @@
 
    ### Background: [](../Features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
-   - OK : And the directory `hello_c`  
+   - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
@@ -596,7 +596,7 @@
 
    ### Background: [](../Features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
-   - OK : And the directory `hello_c`  
+   - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
@@ -615,7 +615,7 @@
 
    ### Background: [](../Features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
-   - OK : And the directory `hello_c`  
+   - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
@@ -628,13 +628,13 @@
    - OK : When I run `smk run non_existing_command`  
    - OK : Then I get  
    - OK : And the error output is  
-   - OK : And I get error  
+   - OK : And I get an error  
    - OK : And the file `default.smk` contains `non_existing_command`  
    - [X] scenario   [run command fails](../Features/A040_errors.md) pass  
 
    ### Background: [](../Features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
-   - OK : And the directory `hello_c`  
+   - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
@@ -656,24 +656,6 @@
    - OK : Then there is no output  
    - [X] scenario   [other commands after a failed run](../Features/A040_errors.md) pass  
 
-   ### Background: [](../Features/A040_errors.md): 
-   - OK : Given the environment variable `LC_ALL` is `C`  
-   - OK : And the directory `hello_c`  
-   - OK : And the file `hello_c/hello.c`  
-   - OK : And the file `hello_c/main.c`  
-   - OK : And the file `hello_c/hello.h`  
-   - OK : And the file `hello_c/Wrong_Makefile`  
-   - [X] background [](../Features/A040_errors.md) pass  
-
-   ### Scenario: [debug option](../Features/A040_errors.md): 
-   - OK : Given I run `smk -q reset`  
-   - OK : and the file `expected.13`  
-   - OK : And I run `rm -f default.smk`  
-   - OK : When I run `sh -c "smk -d dump > out.13 2>&1"`  
-   - OK : Then the file `out.13` is equal to file `expected.13`  
-   - OK : And I get error  
-   - [X] scenario   [debug option](../Features/A040_errors.md) pass  
-
   ## Feature: Command line errors  
    ### Scenario: [help options](../Features/A040_errors.md): 
    - OK : When I run `sh -c "smk -h > out.help1.txt"`  
@@ -690,18 +672,20 @@
    ### Scenario: [illegal command lines](../Features/A040_errors.md): 
    - OK : When I run `sh -c "smk read-smkfile status > out.wrong_cmd_line1.txt 2>&1"`  
    - OK : Then the file `out.wrong_cmd_line1.txt` is equal to file `../data/expected_wrong_cmd_line1.txt`  
-   - OK : And I get error  
+   - OK : And I get an error  
    - [X] scenario   [illegal command lines](../Features/A040_errors.md) pass  
 
    ### Scenario: [option given after a command](../Features/A040_errors.md): 
+   - OK : Given I run `rm -f default.smk`  
+   - OK : And I run `smk -q reset`  
    - OK : When I run `smk reset -l`  
    - OK : Then there is no output  
    - [X] scenario   [option given after a command](../Features/A040_errors.md) pass  
 
    ### Scenario: [unknown smkfile](../Features/A040_errors.md): 
    - OK : When I run `smk My_Makefile`  
-   - OK : Then I get `Error : No smkfile given, and no existing runfile in dir`  
-   - OK : And I get error  
+   - OK : Then I get `Error: No smkfile given, and no existing runfile in dir`  
+   - OK : And I get an error  
    - [X] scenario   [unknown smkfile](../Features/A040_errors.md) pass  
 
 
@@ -939,12 +923,12 @@
    - [X] scenario   [another smk run](../tutorial.md) pass  
 
 
-## Summary : **Success**, 62 scenarios OK
+## Summary : **Success**, 61 scenarios OK
 
 | Status     | Count |
 |------------|-------|
 | Failed     | 0     |
-| Successful | 62    |
+| Successful | 61    |
 | Empty      | 0     |
 | Not Run    | 0     |
 

@@ -1,7 +1,7 @@
 # Sanity tests
 
 Those tests check the basic smk behavior: sources and targets identification,
-and the re-run or not of the commands. They are the non regression tests of
+and the re-run or not of the commands. They are the non-regression tests of
 the core algorithm.
 
 _Table of Contents:_
@@ -68,7 +68,7 @@ hello: hello.o main.o
 	gcc -o hello hello.o main.o
 ```
 
-## Scenario : First `smk`, after `make`, should run no command
+## Scenario: First `smk`, after `make`, should run no command
 
 Run `smk -q hello_c/Makefile.2` (all commands are run), then
 `smk -e hello_c/Makefile.2`: nothing should be left to do.
@@ -82,7 +82,7 @@ Run `smk -q hello_c/Makefile.2` (all commands are run), then
 Nothing to run
 ```
 
-## Scenario : Second `smk`, should not run any command
+## Scenario: Second `smk`, should not run any command
 
 - When I run `smk -e hello_c/Makefile.2`
 - Then I get
@@ -90,7 +90,7 @@ Nothing to run
 Nothing to run
 ```
 
-## Scenario : `smk reset`, no more history, should run all commands
+## Scenario: `smk reset`, no more history, should run all commands
 
 - When I run `smk reset --quiet`
 - And I run `smk -e hello_c/Makefile.2`
@@ -104,7 +104,7 @@ run "gcc -o hello hello.o main.o" because it was not run before
 gcc -o hello hello.o main.o
 ```
 
-## Scenario : `smk -a`, should run all commands even if not needed
+## Scenario: `smk -a`, should run all commands even if not needed
 
 - When I run `smk -e -a hello_c/Makefile.2`
 - Then I get
@@ -117,10 +117,10 @@ run "gcc -o hello hello.o main.o" because -a option is set
 gcc -o hello hello.o main.o
 ```
 
-## Scenario : `rm main.o` (missing file)
+## Scenario: `rm main.o` (missing file)
 
-A sleep is needed before this test because of close consecutive smk runs
-that disrupt the algorithm (time stamp resolution).
+A sleep is needed before this test because closely consecutive smk runs
+disrupt the algorithm (time stamp resolution).
 
 - When I run `sleep 1`
 - And I run `rm hello_c/main.o`
@@ -133,7 +133,7 @@ run "gcc -o hello hello.o main.o" because Source file hello_c/main.o has been up
 gcc -o hello hello.o main.o
 ```
 
-## Scenario : `touch hello.c` (updated file)
+## Scenario: `touch hello.c` (updated file)
 
 - When I run `sleep 1`
 - And I run `touch hello_c/hello.c`
@@ -146,7 +146,7 @@ run "gcc -o hello hello.o main.o" because Source file hello_c/hello.o has been u
 gcc -o hello hello.o main.o
 ```
 
-## Scenario : `touch hello.c` and dry run
+## Scenario: `touch hello.c` and dry run
 
 `whatsnew` lists the changes since the last run:
 
@@ -187,7 +187,7 @@ run "gcc -o hello hello.o main.o" because Source file hello_c/hello.o has been u
 gcc -o hello hello.o main.o
 ```
 
-And now `whatsnew` returns null:
+And now `whatsnew` returns nothing:
 
 - When I run `sh -c "smk wn | sed 's/[0-9]//g'"`
 - Then I get

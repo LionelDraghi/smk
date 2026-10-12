@@ -1,17 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- smk, the smart make (https://github.com/LionelDraghi/smk)
--- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
--- SPDX-License-Identifier: APSL-2.0
--- -----------------------------------------------------------------------------
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
--- http://www.apache.org/licenses/LICENSE-2.0
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2018, 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 
 with Smk.IO;
@@ -45,7 +35,7 @@ procedure Analyze_Cmd_Line is
       if Current_Command = None then
          Current_Command := New_Command;
       else
-         Put_Error ("More than one command on command line : "
+         Put_Error ("More than one command on the command line: "
                     & Commands'Image (New_Command)
                     & " and " & Commands'Image (Current_Command),
                     With_Help => True);
@@ -112,7 +102,7 @@ procedure Analyze_Cmd_Line is
          end;
 
       when List_Previous_Runs | Reset | Version | Help | None | Dump =>
-         -- no more argument expected
+         -- no more arguments expected
          Put_Error ("Unknown option " & To_String (Unidentified_Opt),
                     With_Help => True);
 
@@ -138,9 +128,9 @@ procedure Analyze_Cmd_Line is
          end;
 
          when Add | Settings.Run =>
-            -- the Add case is already process at the beginning of the if,
+            -- the Add case is already processed at the beginning of the if,
             -- this line can't be executed!
-            Put_Error ("Unknown error in command line on :" &
+            Put_Error ("Unknown error on the command line: " &
                          To_String (Unidentified_Opt));
 
       end case;
@@ -204,7 +194,7 @@ procedure Analyze_Cmd_Line is
          -- elsif Settings.Target_Name /= "" and Current_Command /= Build then
          --        -- Target_Name is meaningless unless building, so
          --        -- what we took for the target name was just a typo
-         --        Put_Error ("Unknown smkfile or unknow option "
+         --        Put_Error ("Unknown smkfile or unknown option "
          --                   & Settings.Target_Name, With_Help => False);
 
       end if;
@@ -220,25 +210,25 @@ procedure Analyze_Cmd_Line is
       IO.Put_Line ("Settings / Command line analysis:");
       IO.Put_Line ("---------------------------------");
       IO.New_Line;
-      IO.Put_Line ("   Verbosity         : "
+      IO.Put_Line ("   Verbosity          : "
                    & Print_Out_Level'Image (Verbosity));
-      IO.Put_Line ("   Command           : "
+      IO.Put_Line ("   Command            : "
                    & Commands'Image (Current_Command));
-      IO.Put_Line ("   Smkfile name      : " & Smkfile_Name);
-      IO.Put_Line ("   Runfile name      : " & Runfile_Name);
-      IO.Put_Line ("   Section name      : " & Section_Name);
-      IO.Put_Line ("   Cmd Line          : " & Command_Line);
-      IO.Put_Line ("   Target name       : " & Target_Name);
-      IO.Put_Line ("   Unidentified Opt  : " & To_String (Unidentified_Opt));
-      IO.Put_Line ("   Initial directory : " & Initial_Directory);
+      IO.Put_Line ("   Smkfile name       : " & Smkfile_Name);
+      IO.Put_Line ("   Runfile name       : " & Runfile_Name);
+      IO.Put_Line ("   Section name       : " & Section_Name);
+      IO.Put_Line ("   Cmd Line           : " & Command_Line);
+      IO.Put_Line ("   Target name        : " & Target_Name);
+      IO.Put_Line ("   Unidentified Opt   : " & To_String (Unidentified_Opt));
+      IO.Put_Line ("   Initial directory  : " & Initial_Directory);
       IO.New_Line;
 
-      IO.Put_Line ("   System Files      : ");
+      IO.Put_Line ("   System Files       : ");
       for F of System_Files loop
          IO.Put_Line ("   - " & F.all);
       end loop;
       IO.New_Line;
-      IO.Put_Line ("   Ignore list       : ");
+      IO.Put_Line ("   Ignore list        : ");
       for F of Ignore_List loop
          IO.Put_Line ("   - " & F.all);
       end loop;

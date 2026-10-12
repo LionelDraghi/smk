@@ -1,8 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- smk, the smart make (https://github.com/LionelDraghi/smk)
--- Author : Lionel Draghi
--- SPDX-License-Identifier: APSL-2.0
--- SPDX-FileCopyrightText: 2024, Lionel Draghi
+-- SPDX-FileCopyrightText: 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 
 with GNAT.Directory_Operations;
@@ -10,7 +9,7 @@ with GNAT.Directory_Operations;
 package File_Utilities is
 
    Separator : constant Character := GNAT.Directory_Operations.Dir_Separator;
-   -- To remove the dependency to GNAT, set it explicitly to '\' or '/'
+   -- To remove the dependency on GNAT, set it explicitly to '\' or '/'
 
    -- --------------------------------------------------------------------------
    function Short_Path (From_Dir : String;
@@ -29,9 +28,9 @@ package File_Utilities is
    -- - NOTE that if both dir & file are not absolute path, then we assume
    --   that both are rooted in the same directory.
    --
-   -- - From_Dir may ends with a Separator or not, meaning that
+   -- - From_Dir may end with a Separator or not, meaning that
    --   both "/usr" and "/usr/" are OK.
-   --   NB : Devices like "C:" in "C:\Users" are not permitted.
+   --   NB: devices like "C:" in "C:\Users" are not permitted.
    --
    -- - Prefix may be used if you want a specific current directory prefix.
    --   For instance, it may be set to '.' & Separator if you want a "./"
@@ -52,7 +51,7 @@ package File_Utilities is
 
    -- --------------------------------------------------------------------------
    function Escape (Text : in String) return String;
-   -- bash specific function that escape characters
+   -- Bash-specific function that escapes the characters
    -- ' '
    -- & '"' & '#' & '$'
    -- & '&' & ''' & '('

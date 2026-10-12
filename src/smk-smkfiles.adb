@@ -1,17 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- smk, the smart make (https://github.com/LionelDraghi/smk)
--- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
--- SPDX-License-Identifier: APSL-2.0
--- -----------------------------------------------------------------------------
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
--- http://www.apache.org/licenses/LICENSE-2.0
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2018, 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 
 with Smk.IO;
@@ -63,7 +53,7 @@ package body Smk.Smkfiles is
 
    -- --------------------------------------------------------------------------
    function Is_A_Section (Line : in String) return Boolean is
-      -- A section line starts with an identifier immediatly followed by
+      -- A section line starts with an identifier immediately followed by
       -- a semicolon, e.g. "mrproper:"
       -- Warning: this function updates the global Current_Section variable
       First : Positive;
@@ -75,7 +65,7 @@ package body Smk.Smkfiles is
                   First  => First,
                   Last   => Last);
       if Last = 0 then
-         -- The line don't start with an identifier, can't be a section
+         -- The line doesn't start with an identifier, can't be a section
          return False;
 
       elsif Last = Line'Last then
@@ -106,8 +96,8 @@ package body Smk.Smkfiles is
 
       Analysis : while not End_Of_File (Make_Fl) loop
          declare
-            -- Line = Get_Line, but heading blanks or tabs character are removed
-            -- If there is not heading blank, First_Non_Blank will be null,
+            -- Line = Get_Line, but heading blanks or tab characters are removed
+            -- If there is no heading blank, First_Non_Blank will be null,
             -- and Line will start at 1.
             Line : constant String := Trim (Get_Line (Make_Fl),
                                             Left  => Whitespace_Set,
@@ -147,7 +137,7 @@ package body Smk.Smkfiles is
                                  Test   => Outside,
                                  Going  => Backward);
                   begin
-                     -- we replace all all blanks and tab befor '\' with
+                     -- we replace all blanks and tabs before '\' with
                      -- a single blank
                      Multiline := Multiline
                        & Line (Line'First .. Last_Non_Blank_Before_Backslash)
@@ -200,7 +190,8 @@ package body Smk.Smkfiles is
 
       if In_A_Multiline then
          IO.Put_Error (Smkfile_Name
-                       & " ends with incomplete multine, last command ignored");
+                       & " ends with an incomplete multiline"
+                       & " command, last command ignored");
       end if;
 
       Close (Make_Fl);
@@ -220,7 +211,7 @@ package body Smk.Smkfiles is
       The_Smkfile : constant Smkfile := Load_Smkfile;
       Time_Tag    : constant String := IO.Image (The_Smkfile.Time_Tag);
    begin
-      IO.Put_Line (+The_Smkfile.Name & " (" & Time_Tag & ") :");
+      IO.Put_Line (+The_Smkfile.Name & " (" & Time_Tag & "):");
 
       for E of The_Smkfile.Entries loop
          IO.Put_Line (Trim (Positive'Image (E.Line), Left)

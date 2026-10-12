@@ -1,3 +1,8 @@
+/* ---------------------------------------------------------------------------
+ * smk, the smart make (https://github.com/LionelDraghi/smk)
+ * SPDX-FileCopyrightText: 2018, 2026 Lionel Draghi
+ * SPDX-License-Identifier: Apache-2.0
+ * -------------------------------------------------------------------------- */
 #define _POSIX_C_SOURCE 200112L
 
 /* C standard library */

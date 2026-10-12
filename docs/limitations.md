@@ -18,21 +18,21 @@ Table of contents:
   Also, non x86_64 programs run by `smk` are not observed: they run
   at full speed, but no dependency is recorded for them.
 
-- there is currently no internal dependencies graph build stored. 
-  After running all command that for which sources files have been
-  updated, smk naively rescreen the whole list of command to check
-  if one of those command has updated some sources file of 
-  another commands, and then re-run it.
+- there is currently no internal dependency graph stored.
+  After running all commands for which source files have been
+  updated, smk naively rescans the whole list of commands to check
+  if one of those commands has updated a source file of
+  another command, and then re-runs it.
   The consequence of this is that the `--dry-run` option can't
-  always show you the whole list of command that should be rerun,
-  as the command are not really run, and so all files that would 
+  always show you the whole list of commands that should be rerun,
+  as the commands are not really run, and so the files that would
   be updated are not.
 
 ## Known Bugs
 
-- some run may be missed due to poor precision (1 second granularity) 
+- some runs may be missed due to the poor precision (1 second granularity)
   of the Modification_Time function in the current GNAT implementation.
-  This occurs when you build, "touch" a source and immediatly rebuild
+  This occurs when you build, "touch" a source and immediately rebuild
   (this could happen if you run several `smk` from a Makefile, a shell,
   or when a smkfile is running `smk`!).
   This problem is more precisely described [here](dev/design_notes.md#on-file-systems-time-stamp).

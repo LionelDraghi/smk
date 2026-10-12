@@ -1,17 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- smk, the smart make (https://github.com/LionelDraghi/smk)
--- © 2018, 2019 Lionel Draghi <lionel.draghi@free.fr>
--- SPDX-License-Identifier: APSL-2.0
--- -----------------------------------------------------------------------------
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
--- http://www.apache.org/licenses/LICENSE-2.0
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
+-- SPDX-FileCopyrightText: 2018, 2019, 2026 Lionel Draghi
+-- SPDX-License-Identifier: Apache-2.0
 -- -----------------------------------------------------------------------------
 
 with Smk.Assertions;       use Smk.Assertions;
@@ -67,8 +57,8 @@ private package Smk.Runfiles is
    -- --------------------------------------------------------------------------
    function Has_Target (The_Run_List : Run_Lists.Map;
                         Target       : String) return Boolean;
-   -- Return true if Target match the right part of one of the target
-   -- file name
+   -- Return True if Target matches the right part of one of the target
+   -- file names
 
    -- --------------------------------------------------------------------------
    -- Listing operations
@@ -115,7 +105,7 @@ private package Smk.Runfiles is
 
    -- --------------------------------------------------------------------------
    function Get_File_List (The_Runfile : Runfile) return File_Lists.Map;
-   -- return the list of all files and dir known in the runfile
+   -- return the list of all files and dirs known in the runfile
 
    -- --------------------------------------------------------------------------
    function Get_Dir_List (From : File_Lists.Map) return File_Lists.Map;
