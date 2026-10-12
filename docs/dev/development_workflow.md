@@ -116,6 +116,14 @@ invisible.
 - when a tool message is checked (gcc, ld, sh...), set
   `- Given the environment variable \`LC_ALL\` is \`C\``, so that the
   message does not depend on the machine language settings
+- bbt does not run commands through a shell: pipes, redirections and
+  globs must be wrapped in an explicit `sh -c "..."`; an unquoted
+  metacharacter is passed verbatim to the command, and bbt raises a
+  warning about it. Real case, found in the mp3 scenarios: the cleanup
+  step `rm -f default.smk *.mp3 z.ogg` was passing the literal `*.mp3`
+  to rm, silently cleaning nothing: it now runs as
+  `sh -c "rm -f default.smk *.mp3 z.ogg"`, where the shell really
+  evaluates the glob
 - expected outputs that depend on the machine (system files, absolute
   paths) are compared to golden files (`expected_*`) with
   `- Then the file \`out\` is equal to file \`expected\``; never modify

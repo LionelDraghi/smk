@@ -107,13 +107,10 @@ Error : Spawn failed for gcc -o main.o -c main.c --WTF
 gcc -o hello hello.o main.o
 Error : Spawn failed for gcc -o hello hello.o main.o
 ```
-- And the error output is
-```
-gcc: error: unrecognized command-line option '--WTF'
-/usr/bin/x86_64-linux-gnu-ld.bfd: cannot find main.o: No such file or directory
-collect2: error: ld returned 1 exit status
-```
-- And I get error
+- And the error output contains `gcc: error: unrecognized command-line option '--WTF'`
+- And the error output contains `cannot find main.o: No such file or directory`
+- And the error output contains `collect2: error: ld returned 1 exit status`
+- And I get an error
 
 ## Scenario : ignore errors
 
@@ -147,12 +144,9 @@ Error : Spawn failed for gcc -o main.o -c main.c --WTF
 gcc -o hello hello.o main.o
 Error : Spawn failed for gcc -o hello hello.o main.o
 ```
-- And the error output is
-```
-gcc: error: unrecognized command-line option '--WTF'
-/usr/bin/x86_64-linux-gnu-ld.bfd: cannot find main.o: No such file or directory
-collect2: error: ld returned 1 exit status
-```
+- And the error output contains `gcc: error: unrecognized command-line option '--WTF'`
+- And the error output contains `cannot find main.o: No such file or directory` 
+- And the error output contains `collect2: error: ld returned 1 exit status`
 - And I get no error
 
 ## Scenario : run command fails

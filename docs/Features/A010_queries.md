@@ -1,11 +1,7 @@
 # Queries
 
-
-
 Those features describe the queries that display what
 smk knows: the content of a smkfile, the previous runs, the sources and targets.
-
-
 
 _Table of Contents:_
 - Feature: Read queries

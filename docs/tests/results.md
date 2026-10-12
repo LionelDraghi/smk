@@ -1,5 +1,3 @@
-../../docs/Features/A040_errors.md:271: Warning: the command contains a shell metacharacter ('>'), but commands are not run through a shell: a command shall not contain pipes, redirections, or command substitutions; '>' will be passed as an argument to the command
-../../docs/Features/A050_use_cases.md:307: Warning: the command contains a shell metacharacter ('*'), but commands are not run through a shell: a command shall not contain pipes, redirections, or command substitutions; '*' will be passed as an argument to the command
 
 # Document: [sanity.md](../../tests/sanity/sanity.md)  
    ### Background: [](../../tests/sanity/sanity.md): 
@@ -573,8 +571,10 @@
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk -k hello_c/Wrong_Makefile`  
    - OK : Then I get  
-   - OK : And the error output is  
-   - OK : And I get error  
+   - OK : And the error output contains `gcc: error: unrecognized command-line option '--WTF'`  
+   - OK : And the error output contains `cannot find main.o: No such file or directory`  
+   - OK : And the error output contains `collect2: error: ld returned 1 exit status`  
+   - OK : And I get an error  
    - [X] scenario   [keep going](../Features/A040_errors.md) pass  
 
    ### Background: [](../Features/A040_errors.md): 
@@ -607,7 +607,9 @@
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk --keep-going --ignore-errors hello_c/Wrong_Makefile`  
    - OK : Then I get  
-   - OK : And the error output is  
+   - OK : And the error output contains `gcc: error: unrecognized command-line option '--WTF'`  
+   - OK : And the error output contains `cannot find main.o: No such file or directory`   
+   - OK : And the error output contains `collect2: error: ld returned 1 exit status`  
    - OK : And I get no error  
    - [X] scenario   [keep going and ignore errors](../Features/A040_errors.md) pass  
 
@@ -817,7 +819,7 @@
    - [X] background [](../Features/A050_use_cases.md) pass  
 
    ### Scenario: [start conversion](../Features/A050_use_cases.md): 
-   - OK : Given I run `rm -f default.smk *.mp3 z.ogg`  
+   - OK : Given I run `sh -c "rm -f default.smk *.mp3 z.ogg"`  
    - OK : And I run `rm -rf dir1`  
    - OK : And I run `cp ../data/ogg/x.ogg x.ogg`  
    - OK : And I run `cp ../data/ogg/y.ogg y.ogg`  

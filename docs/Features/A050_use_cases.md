@@ -304,7 +304,7 @@ find -name "*.ogg" -exec ./to-mp3.sh '{}' \;
 
 ## Scenario : start conversion
 
-- Given I run `rm -f default.smk *.mp3 z.ogg`
+- Given I run `sh -c "rm -f default.smk *.mp3 z.ogg"`
 - And I run `rm -rf dir1`
 - And I run `cp ../data/ogg/x.ogg x.ogg`
 - And I run `cp ../data/ogg/y.ogg y.ogg`
