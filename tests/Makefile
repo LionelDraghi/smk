@@ -43,7 +43,10 @@ TUTORIAL = ../../docs/tutorial.md
 # current dir then moved at the end of the run: otherwise the relative
 # paths in the results file would be wrong.
 FRESH_RUN = rm -rf run && mkdir run && ln -s ../../smk run/smk
-BBT       = cd run && PATH="$$PWD:$$PATH" bbt -k --yes
+# bbt is run with LD_LIBRARY_PATH unset: a polluted one (e.g. from a
+# VSCode extension) leaks into the traced commands, and breaks the
+# tools they run (see the root Makefile help note).
+BBT       = cd run && PATH="$$PWD:$$PATH" env -u LD_LIBRARY_PATH bbt -k --yes
 
 # Benchmark directory and files
 BENCHMARK_DIR = ../benchmarks
@@ -93,8 +96,8 @@ benchmark-ptrace: ../smk
 	@echo "--- Running benchmark with the current ptrace implementation ---"
 	@mkdir -p $(BENCHMARK_DIR)/ptrace
 	$(FRESH_RUN)
-	-cd run && PATH="$$PWD:$$PATH" bbt -k --yes --junit /tmp/bbt_ptrace_$$(date +%Y%m%d_%H%M%S).xml $(BBT_ALL) || true
-	@XML_FILE=$$(ls /tmp/bbt_ptrace_*.xml 2>/dev/null | head -1); \
+	-cd run && PATH="$$PWD:$$PATH" env -u LD_LIBRARY_PATH bbt -k --yes --junit /tmp/bbt_ptrace_$$(date +%Y%m%d_%H%M%S).xml $(BBT_ALL) || true
+	@XML_FILE=$$(ls -t /tmp/bbt_ptrace_*.xml 2>/dev/null | head -1); \
 	if [ -n "$$XML_FILE" ] && [ -f "$$XML_FILE" ]; then \
 		cp $$XML_FILE $(BENCHMARK_DIR)/ptrace/results_$$(date +%Y%m%d_%H%M%S).xml; \
 		$(BENCHMARK_SCRIPTS)/extract_bbt_times.sh $$XML_FILE > $(BENCHMARK_DIR)/ptrace/report_$$(date +%Y%m%d_%H%M%S).txt; \
