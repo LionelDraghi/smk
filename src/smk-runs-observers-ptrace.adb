@@ -21,6 +21,7 @@ with Smk.Settings; use Smk.Settings;
 with Ada.Containers.Doubly_Linked_Lists;
 with Ada.Containers.Ordered_Maps;
 with Ada.Directories;
+with Ada.Text_IO;
 with Ada.Strings;
 with Ada.Strings.Fixed;
 with Ada.Strings.Maps;
@@ -84,6 +85,53 @@ package body Smk.Runs.Observers.Ptrace is
      return C.long;
    pragma Import (C, Sys_Process_Vm_Readv, "process_vm_readv");
 
+   -- prctl is variadic in C; it is called here with its five usual
+   -- arguments, which is valid on the x86_64 ABI.
+   function Sys_Prctl (Option                : C.int;
+                       Arg2, Arg3, Arg4, Arg5 : C.unsigned_long)
+     return C.int;
+   pragma Import (C, Sys_Prctl, "prctl");
+
+   -- Constants from sys/prctl.h, linux/seccomp.h, linux/filter.h and
+   -- linux/audit.h, used by the seccomp subscription filter below
+
+   PR_SET_NO_NEW_PRIVS : constant C.int := 38;
+   PR_SET_SECCOMP      : constant C.int := 22;
+   SECCOMP_MODE_FILTER : constant C.unsigned_long := 2;
+
+   Seccomp_Ret_Trace : constant C.unsigned := 16#7FF0_0000#;
+   Seccomp_Ret_Allow : constant C.unsigned := 16#7FFF_0000#;
+   -- Seccomp_Ret_Trace notifies the tracer at the syscall entry;
+   -- Seccomp_Ret_Allow lets the syscall run at full speed, with no
+   -- stop at all.
+
+   Audit_Arch_X86_64 : constant C.unsigned := 16#C000_003E#;
+
+   Bpf_Ld_W_Abs : constant C.unsigned_short := 16#20#;
+   -- BPF_LD | BPF_W | BPF_ABS: load a 32 bits word of seccomp_data
+   Bpf_Jeq_K    : constant C.unsigned_short := 16#15#;
+   -- BPF_JMP | BPF_JEQ | BPF_K: jump if the accumulator equals K
+   Bpf_Ret_K    : constant C.unsigned_short := 16#06#;
+   -- BPF_RET | BPF_K: return the action given in K
+
+   Seccomp_Data_Nr   : constant C.unsigned := 0;
+   Seccomp_Data_Arch : constant C.unsigned := 4;
+   -- offsets of the fields of struct seccomp_data
+
+   type Sock_Filter is record
+      Code : C.unsigned_short;
+      Jt   : C.unsigned_char;
+      Jf   : C.unsigned_char;
+      K    : C.unsigned;
+   end record;
+   pragma Convention (C, Sock_Filter);
+
+   type Sock_Fprog is record
+      Len    : C.unsigned_short;
+      Filter : System.Address;
+   end record;
+   pragma Convention (C, Sock_Fprog);
+
    function Addr_To_Long is new Ada.Unchecked_Conversion
      (System.Address, C.long);
    function Long_To_Addr is new Ada.Unchecked_Conversion
@@ -100,6 +148,7 @@ package body Smk.Runs.Observers.Ptrace is
      or C.unsigned_long (PTRACE_O_TRACEVFORK)
      or C.unsigned_long (PTRACE_O_TRACECLONE)
      or C.unsigned_long (PTRACE_O_TRACEEXEC)
+     or C.unsigned_long (PTRACE_O_TRACESECCOMP)
      or C.unsigned_long (PTRACE_O_EXITKILL);
 
    -- x86_64 syscall numbers (arch-specific, see the spec comment)
@@ -115,6 +164,31 @@ package body Smk.Runs.Observers.Ptrace is
    SC_Openat2   : constant C.long := 437;
 
    AT_FDCWD : constant C.long := -100;
+
+   -- The syscalls the observer subscribes to: only they stop the
+   -- traced processes, all the others run at full speed.
+   Subscribed_Syscalls : constant array (Positive range <>) of C.unsigned
+     := [C.unsigned (SC_Open),
+         C.unsigned (SC_Getcwd),
+         C.unsigned (SC_Chdir),
+         C.unsigned (SC_Rename),
+         C.unsigned (SC_Mkdir),
+         C.unsigned (SC_Creat),
+         C.unsigned (SC_Openat),
+         C.unsigned (SC_Renameat),
+         C.unsigned (SC_Renameat2),
+         C.unsigned (SC_Openat2)];
+
+   procedure Install_Seccomp_Filter;
+   -- Install in the child, before exec, the seccomp BPF filter that
+   -- subscribes to Subscribed_Syscalls only (design discussion D1):
+   -- without it, every syscall of the traced commands, and of all
+   -- their children, stops the process twice.
+   -- On prctl failure, or on a foreign architecture, the run simply
+   -- proceeds without filter: every syscall will stop, slower but
+   -- with the same observations. This procedure is silent: it runs
+   -- in the child, and printing there would duplicate the buffered
+   -- output inherited from the parent.
 
    O_Accmask : constant C.long := 16#4#;
    -- the modulus of the access mode bits (O_WRONLY or O_RDWR, that is
@@ -195,6 +269,12 @@ package body Smk.Runs.Observers.Ptrace is
    Live_Count  : Natural;
    Exit_Code   : C.int;
    Initial_Cwd : File_Name;
+   Filter_On   : Boolean := False;
+   -- True when the traced processes run with the seccomp filter:
+   -- the subscribed syscalls then come as seccomp stops, and the
+   -- others do not stop at all (the flag is read in /proc at the
+   -- first stop, and applies to all the descendants, that inherit
+   -- the filter and cannot remove it)
 
    -- -----------------------------------------------------------------------
 
@@ -319,6 +399,38 @@ package body Smk.Runs.Observers.Ptrace is
          return Fd_Path (Pid, Dirfd);
       end if;
    end Dir_Of;
+
+   -- -----------------------------------------------------------------------
+   function Seccomp_Filter_On (Pid : C_Pid) return Boolean is
+   -- True when the process runs with a seccomp filter installed:
+   -- its /proc status shows the seccomp mode 2 (filter)
+
+      Name : constant String := "/proc/" & Pid_Image (Pid) & "/status";
+      File : Ada.Text_IO.File_Type;
+
+   begin
+      begin
+         Ada.Text_IO.Open (File, Ada.Text_IO.In_File, Name);
+      exception
+         when others =>
+            return False;
+      end;
+      while not Ada.Text_IO.End_Of_File (File) loop
+         declare
+            Line : constant String := Ada.Text_IO.Get_Line (File);
+         begin
+            if Line'Length >= 10
+              and then Line (Line'First .. Line'First + 7) = "Seccomp:"
+              and then Line (Line'Last) = '2'
+            then
+               Ada.Text_IO.Close (File);
+               return True;
+            end if;
+         end;
+      end loop;
+      Ada.Text_IO.Close (File);
+      return False;
+   end Seccomp_Filter_On;
 
    -- -----------------------------------------------------------------------
    procedure Handle_Entry (Pid : C_Pid;
@@ -489,6 +601,45 @@ package body Smk.Runs.Observers.Ptrace is
    end Handle_Exit;
 
    -- -----------------------------------------------------------------------
+   procedure Resume_Syscall (Pid : C_Pid; Sig : C.long) is
+   -- Resume the process, stopping at the next syscall entry or exit
+
+      Result : constant C.long := Sys_Ptrace (PTRACE_SYSCALL, Pid, 0, Sig);
+
+   begin
+      if Result < 0 then
+         Put_Debug ("resume of " & Pid_Image (Pid) & " failed");
+      end if;
+   end Resume_Syscall;
+
+   -- -----------------------------------------------------------------------
+   procedure Resume_Cont (Pid : C_Pid; Sig : C.long) is
+   -- Resume the process without syscall tracing: when the seccomp
+   -- filter is on, the next subscribed syscall stops it anyway
+
+      Result : constant C.long := Sys_Ptrace (PTRACE_CONT, Pid, 0, Sig);
+
+   begin
+      if Result < 0 then
+         Put_Debug ("resume of " & Pid_Image (Pid) & " failed");
+      end if;
+   end Resume_Cont;
+
+   -- -----------------------------------------------------------------------
+   procedure Resume_Next (Pid : C_Pid; Sig : C.long) is
+   -- Resume the process up to the next observation point: with the
+   -- seccomp filter on, the subscribed syscalls trap on their own;
+   -- without it, the next syscall must be caught by PTRACE_SYSCALL
+
+   begin
+      if Filter_On then
+         Resume_Cont (Pid, Sig);
+      else
+         Resume_Syscall (Pid, Sig);
+      end if;
+   end Resume_Next;
+
+   -- -----------------------------------------------------------------------
    procedure Handle_Syscall_Stop (Pid : C_Pid) is
 
       Info   : aliased Syscall_Info_Buffer;
@@ -500,24 +651,30 @@ package body Smk.Runs.Observers.Ptrace is
       if Result < 0 then
          return;
       end if;
-      if Integer (Info (0) mod 256) = PTRACE_SYSCALL_INFO_ENTRY then
+      -- the entry comes either as a syscall stop (op ENTRY), or, when
+      -- the seccomp filter is installed, as a seccomp stop (op SECCOMP);
+      -- both give the syscall number and arguments
+      if Integer (Info (0) mod 256) = PTRACE_SYSCALL_INFO_ENTRY
+        or else Integer (Info (0) mod 256) = PTRACE_SYSCALL_INFO_SECCOMP
+      then
          Handle_Entry (Pid, Info);
+         -- run the syscall, stopping at its exit for the return value
+         Resume_Syscall (Pid, 0);
+
       else
          Handle_Exit (Pid, Info (3));
+         -- with the seccomp filter on, the next subscribed syscall
+         -- will trap on its own: resume without syscall tracing;
+         -- without it, chain PTRACE_SYSCALL to catch the next entry
+         if Filter_On then
+            Resume_Cont (Pid, 0);
+         else
+            Resume_Syscall (Pid, 0);
+         end if;
       end if;
    end Handle_Syscall_Stop;
 
-   -- -----------------------------------------------------------------------
-   procedure Resume (Pid : C_Pid; Sig : C.long) is
-   -- Resume the process, stopping at the next syscall
 
-      Result : constant C.long := Sys_Ptrace (PTRACE_SYSCALL, Pid, 0, Sig);
-
-   begin
-      if Result < 0 then
-         Put_Debug ("resume of " & Pid_Image (Pid) & " failed");
-      end if;
-   end Resume;
 
    -- -----------------------------------------------------------------------
    procedure Handle_Fork (Pid : C_Pid) is
@@ -585,36 +742,39 @@ package body Smk.Runs.Observers.Ptrace is
 
          if Sig = Sigtrap_Syscall then
             Handle_Syscall_Stop (Pid);
-            Resume (Pid, 0);
 
          elsif Sig = Sig_Trap and then Ev = PTRACE_EVENT_FORK then
             Handle_Fork (Pid);
-            Resume (Pid, 0);
+            Resume_Next (Pid, 0);
 
          elsif Sig = Sig_Trap and then Ev = PTRACE_EVENT_VFORK then
             Handle_Fork (Pid);
-            Resume (Pid, 0);
+            Resume_Next (Pid, 0);
 
          elsif Sig = Sig_Trap and then Ev = PTRACE_EVENT_CLONE then
             Handle_Fork (Pid);
-            Resume (Pid, 0);
+            Resume_Next (Pid, 0);
+
+         elsif Sig = Sig_Trap and then Ev = PTRACE_EVENT_SECCOMP then
+            -- entry of a subscribed syscall
+            Handle_Syscall_Stop (Pid);
 
          elsif Sig = Sig_Trap and then Ev = PTRACE_EVENT_EXEC then
-            Resume (Pid, 0);
+            Resume_Next (Pid, 0);
 
          elsif Sig = Sig_Trap and then Ev = PTRACE_EVENT_VFORK_DONE then
-            Resume (Pid, 0);
+            Resume_Next (Pid, 0);
 
          elsif Sig = Sig_Stop or else Sig = Sig_Tstp
            or else Sig = Sig_Ttin or else Sig = Sig_Ttou
          then
             -- the group stop and job control signals are never
             -- delivered back, to avoid infinite stop / deliver loops
-            Resume (Pid, 0);
+            Resume_Next (Pid, 0);
 
          else
             -- deliver the signal
-            Resume (Pid, C.long (Sig));
+            Resume_Next (Pid, C.long (Sig));
          end if;
 
       else
@@ -628,6 +788,71 @@ package body Smk.Runs.Observers.Ptrace is
          end if;
       end if;
    end Handle_Stop;
+
+   -- -----------------------------------------------------------------------
+   procedure Install_Seccomp_Filter is
+
+      -- the program layout is:
+      --   0 : load the architecture
+      --   1 : jump to the ALLOW instruction if not x86_64
+      --   2 : load the syscall number
+      --   3, 5, ... : one comparison per subscribed syscall, jumping
+      --               to the TRACE instruction that follows it
+      --   last : ALLOW
+      Program : array (0 .. 3 + 2 * Subscribed_Syscalls'Length)
+        of Sock_Filter;
+      Fprog : aliased Sock_Fprog;
+
+   begin
+      Program (0) := (Code => Bpf_Ld_W_Abs,
+                      Jt    => 0,
+                      Jf    => 0,
+                      K     => Seccomp_Data_Arch);
+      Program (1) := (Code => Bpf_Jeq_K,
+                      Jt    => 0,
+                      Jf    => C.unsigned_char
+                                 (1 + 2 * Subscribed_Syscalls'Length),
+                      K     => Audit_Arch_X86_64);
+      Program (2) := (Code => Bpf_Ld_W_Abs,
+                      Jt    => 0,
+                      Jf    => 0,
+                      K     => Seccomp_Data_Nr);
+      for I in Subscribed_Syscalls'Range loop
+         declare
+            Base : constant Integer
+              := 3 + 2 * (I - Subscribed_Syscalls'First);
+         begin
+            Program (Base) :=
+              (Code => Bpf_Jeq_K,
+               Jt   => 0,
+               Jf   => 1,
+               K    => Subscribed_Syscalls (I));
+            Program (Base + 1) :=
+              (Code => Bpf_Ret_K,
+               Jt   => 0,
+               Jf   => 0,
+               K    => Seccomp_Ret_Trace);
+         end;
+      end loop;
+      Program (Program'Last) := (Code => Bpf_Ret_K,
+                                 Jt    => 0,
+                                 Jf    => 0,
+                                 K     => Seccomp_Ret_Allow);
+
+      if Sys_Prctl (PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) < 0 then
+         return;
+      end if;
+      Fprog.Len    := C.unsigned_short (Program'Length);
+      Fprog.Filter := Program (Program'First)'Address;
+      if Sys_Prctl (PR_SET_SECCOMP, SECCOMP_MODE_FILTER,
+                    C.unsigned_long (Addr_To_Long (Fprog'Address)),
+                    0, 0) < 0
+      then
+         null;
+         -- the filter could not be installed (kernel < 3.5?):
+         -- proceed without it, every syscall will stop
+      end if;
+   end Install_Seccomp_Filter;
 
    -- -----------------------------------------------------------------------
    procedure Observe (Cmd     : in     Command_Lines;
@@ -646,6 +871,7 @@ package body Smk.Runs.Observers.Ptrace is
       Raw_Events.Clear;
       Exit_Code   := 1;
       Live_Count  := 0;
+      Filter_On   := False;
       Initial_Cwd := To_Unbounded_String
         (Ada.Directories.Full_Name (Settings.Run_Dir_Name));
 
@@ -661,10 +887,12 @@ package body Smk.Runs.Observers.Ptrace is
          Pid : constant C_Pid := Sys_Fork;
       begin
          if Pid = 0 then
-            -- the child: trace itself, then run the command
+            -- the child: trace itself, subscribe to the file
+            -- syscalls, then run the command
             if Sys_Ptrace (PTRACE_TRACEME, 0, 0, 0) < 0 then
                Sys_Exit (127);
             end if;
+            Install_Seccomp_Filter;
             Sys_Execvp (Shell_Ptr, Argv);
             Sys_Exit (127);
 
@@ -692,12 +920,17 @@ package body Smk.Runs.Observers.Ptrace is
                      IO.Put_Error (Msg => "ptrace setoptions failed");
 
                   else
+                     -- the child installed the seccomp filter before
+                     -- exec: check it here, at the first stop
+                     Filter_On := Seccomp_Filter_On (Main_Pid);
+                     Put_Debug (if Filter_On then "seccomp filter on"
+                                else "seccomp filter off");
                      Procs.Include
                        (Main_Pid,
                         (Cwd     => Initial_Cwd,
                          Pending => (others => <>)));
                      Live_Count := 1;
-                     Resume (Main_Pid, 0);
+                     Resume_Next (Main_Pid, 0);
 
                      while Live_Count > 0 loop
                         declare

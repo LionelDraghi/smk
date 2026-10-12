@@ -13,5 +13,5 @@ docs/dev/development_workflow.md:138|- `Fixme:` comments in src/, docs/ and test
 docs/dev/development_workflow.md:139|  docs/dev/fixme_index.md by `make doc`: add one rather than leaving
 docs/dev/development_workflow.md:163|- to do list: docs/dev/fixme_index.md, docs/limitations.md
 src/smk-runfiles.adb:331|      -- Fixme: directories are erased after files to avoid a rmdir fail
-src/smk-runs-observers-ptrace.adb:133|   -- Fixme: use PTRACE_LISTEN for a fully correct job control handling
-src/smk-runs-observers-ptrace.adb:581|            -- Fixme: inherit the state of its parent; the fork event
+src/smk-runs-observers-ptrace.adb:207|   -- Fixme: use PTRACE_LISTEN for a fully correct job control handling
+src/smk-runs-observers-ptrace.adb:738|            -- Fixme: inherit the state of its parent; the fork event

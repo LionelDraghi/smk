@@ -12,6 +12,12 @@ Table of contents:
   syscall numbers used by the observer are x86_64 for now
   (cf. [Design discussions](dev/design_discussions.md), D1).
 
+- the seccomp subscription filter is installed with
+  `PR_SET_NO_NEW_PRIVS`: commands run by `smk` (and their children)
+  cannot gain privileges through setuid or setgid binaries anymore.
+  Also, non x86_64 programs run by `smk` are not observed: they run
+  at full speed, but no dependency is recorded for them.
+
 - there is currently no internal dependencies graph build stored. 
   After running all command that for which sources files have been
   updated, smk naively rescreen the whole list of command to check

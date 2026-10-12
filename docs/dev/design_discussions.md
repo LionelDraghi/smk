@@ -32,10 +32,16 @@ return values (no per-arch register decoding, Linux >= 5.3), and
 The mechanism is isolated behind the `Smk.Runs.Observers` abstraction
 layer (the event model is OS independent), so that another backend
 may be added per OS.
-The seccomp filter, that traps only the file related syscalls and
-lets the others run at full speed, is a possible optimization,
-kept for a later stage (the ptrace tracer is already faster than
-the strace based mechanism on the test suite).
+The seccomp filter is part of the implementation: the traced
+processes install, before exec, a BPF filter that returns
+SECCOMP_RET_TRACE for the subscribed file syscalls only, and
+SECCOMP_RET_ALLOW for all the others, that then run at full speed
+without stopping at all. The tracer resumes with PTRACE_SYSCALL
+to get the return value of a trapped syscall, and with PTRACE_CONT
+up to the next one. Measured on the full test suite, this makes
+every feature faster than the strace based mechanism, including
+the file-walk-heavy use cases (A050), that were slower than
+strace without the filter.
 This removes the strace dependency, its output format variations,
 and the text trace parsing.
 
