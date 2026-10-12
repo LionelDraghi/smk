@@ -203,6 +203,8 @@ raw syscalls, setuid).
   are the reason strace is 40k lines.
 - **Option B - ktrace(2) backend for the BSDs**: low effort, high
   benefit, but only helps on BSDs; not available on Linux.
+  (Revised by [D1.5](#d15-the-2018-journal-proposals-reviewed-in-2026):
+  filemon(4), that D1.5 discovered, is an even better fit than ktrace.)
 - **Option C - keep strace as the default, add the new backends
   progressively** behind a common "run observer" abstraction, the
   analyzer working on a common event model instead of a text buffer.
@@ -220,3 +222,97 @@ Open questions:
 3. Benchmark protocol: compare strace, direct ptrace and ptrace +
    seccomp on the smk test cases (gcc, sox/mp3 use cases are
    representative: syscall-heavy commands).
+
+### D1.5 The 2018 journal proposals, reviewed in 2026
+
+The [2018 LinuxFr journal](https://linuxfr.org/users/3tus/journaux/smk-un-make-sans-makefile)
+presenting smk drew proposals in its comments: watching the disk with
+inotify, reusing the BSD build systems' observation mechanism (the
+bmake meta-mode, powered by the filemon kernel module), or
+interposing on the libc calls. This section reviews them
+(October 2026), both as a reference for the follow-up article, and
+because the review revises one of the D1 conclusions.
+
+#### Watching the disk is not observing a command
+
+inotify, and its modern sibling fanotify, answer *what changed on
+the disk*, not *what a given command did*:
+
+- inotify events carry no process id at all, the directories to watch
+  must be declared beforehand (there is no recursive watching), and
+  events are coalesced: there is no way to attribute a file access to
+  one command run, which is the core of smk's need (D1.1);
+- fanotify gained an unprivileged mode (the FID notification mode,
+  Linux 5.13, 2021), but the kernel explicitly refuses to give the
+  process id to unprivileged listeners: for a build tool tracing its
+  own children, the per-command attribution is unavailable.
+
+Both mechanisms are maintained and healthy, as change-notification
+mechanisms: they would serve a future `--watch` option of smk
+(re-run when the sources change), not the run observation.
+
+#### Linux: almost all proposed doors are closed
+
+- fsatrace (jacereda/fsatrace), the interposition tracer used by
+  Shake: still functional and cross-platform (LD_PRELOAD on Unix,
+  DLL injection on Windows), but quasi dormant (346 commits, issues
+  pending since 2022), with the intrinsic blind spots of injection
+  (static binaries, raw syscalls, setuid);
+- filemon-linux (trixirt), a port of the BSD filemon: abandoned
+  (3 commits, out-of-tree DKMS module, 2013);
+- eBPF: still out of reach, as `kernel.unprivileged_bpf_disabled` is
+  1 or 2 by default on current distros.
+
+What did open since 2018 is on the ptrace side:
+`PTRACE_GET_SYSCALL_INFO` (Linux 5.3, 2019) removed the per-arch
+register decoding, and the seccomp `SECCOMP_RET_TRACE` filter, that
+traps only the syscalls of interest, solved the performance
+objection. This is precisely the D1 implementation (the two doors
+that opened were not proposed in the journal comments).
+
+#### BSDs: filemon(4) is a better fit than ktrace(2)
+
+This review revises the D1 preference of ktrace(2) for the BSDs:
+[filemon(4)](https://man.freebsd.org/cgi/man.cgi?query=filemon),
+that powers the bmake meta-mode (used to build FreeBSD itself),
+is a kernel device *designed for make-style dependency tracking*:
+a process opens `/dev/filemon`, and the device collects the file
+operations of the process and of all its children - unprivileged,
+kernel-side (fast), with the process attribution built in.
+
+It is maintained (in the FreeBSD base since 9.1, man page dated
+April 2025, FreeBSD 15), and also available on NetBSD; OpenBSD has
+neither filemon nor an equivalent, where ktrace(2) remains the
+fallback. A FreeBSD or NetBSD backend of smk should thus target
+filemon first, and ktrace only for OpenBSD.
+
+#### macOS and Windows: unchanged or closed
+
+- Endpoint Security (macOS): still gated by the Apple-granted
+  entitlement, with reports of developers denied distribution access
+  even for internal corporate tools: confirmed out of reach for a
+  build tool;
+- Detours (Windows): the Microsoft Research project has reached its
+  conclusion (its pages are archived), but the GitHub repository
+  survives (last push October 2024, MIT license): quiescent, yet
+  still the only unprivileged route, as fsatrace uses it on Windows;
+- FSEvents (macOS) and ETW / USN Journal (Windows) are notification
+  or administration-gated mechanisms: they do not provide the
+  per-command attribution either.
+
+#### Consequences
+
+- the Linux backend (ptrace + seccomp, D1 option A) is confirmed:
+  no unprivileged, maintained, per-command attribution mechanism
+  emerged on Linux since 2018;
+- a FreeBSD or NetBSD port should target filemon(4) (option B,
+  revised), not ktrace(2);
+- interposition remains the last-resort fallback on macOS and
+  Windows, with its known blind spots;
+- for the follow-up article: since 2018, almost every door proposed
+  in the journal comments is either closed (filemon on Linux,
+  Endpoint Security, unprivileged eBPF, dormant fsatrace) or answers
+  a different question (inotify, fanotify, FSEvents, ETW); the two
+  doors that did open, `PTRACE_GET_SYSCALL_INFO` and seccomp
+  filtering, were not on the 2018 list, and they are the ones smk
+  now stands on.
