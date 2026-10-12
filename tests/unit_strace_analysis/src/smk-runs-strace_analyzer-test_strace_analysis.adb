@@ -17,6 +17,7 @@
 with Smk.Files;                          use Smk.Files;
 pragma Warnings (Off, "unnecessary with of ancestor");
 with Smk.Runs.Strace_Analyzer;           use Smk.Runs.Strace_Analyzer;
+with Smk.Runs.Observers;                 use Smk.Runs.Observers;
 
 with Ada.Command_Line;
 with Ada.Strings.Equal_Case_Insensitive;

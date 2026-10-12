@@ -14,8 +14,11 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
+with File_Utilities;
 with Smk.IO;
 with Smk.Settings;
+
+with GNAT.OS_Lib;
 
 with Ada.Containers.Ordered_Maps; use Ada.Containers;
 with Ada.Directories;
@@ -23,6 +26,7 @@ with Ada.Strings.Fixed;           use Ada.Strings.Fixed;
 with Ada.Strings.Maps.Constants;
 with Ada.Strings.Maps;
 with Ada.Strings;                 use Ada.Strings;
+with Ada.Text_IO;
 
 package body Smk.Runs.Strace_Analyzer is
 
@@ -484,5 +488,83 @@ package body Smk.Runs.Strace_Analyzer is
 -- --------------------------------------------------------------------------
 --     function Is_Ignored (Call : String) return Boolean is
 --       (for some C of Ignore_List => Call = C.all);
+
+   -- --------------------------------------------------------------------------
+   procedure Observe (Cmd     : in     Command_Lines;
+                      Events  :    out Operation_Lists.List;
+                      Success :    out Boolean) is
+
+      use GNAT.OS_Lib;
+
+      Debug       : constant Boolean := False;
+      Prefix      : constant String  := "";
+      Opt         : constant String  := Settings.Shell_Opt
+                      & File_Utilities.Escape (Settings.Strace_Cmd
+                                               & Settings.Strace_Outfile_Name
+                                               & " " & (+Cmd));
+      Initial_Dir : constant String := Ada.Directories.Current_Directory;
+      Spawn_Arg   : constant Argument_List_Access
+        := Argument_String_To_List (Opt);
+
+   begin
+      -- IO.Put_Line ("cd " & Settings.Run_Dir_Name, Level => Verbose);
+      Ada.Directories.Set_Directory (Settings.Run_Dir_Name);
+
+      IO.Put_Debug_Line
+        (Msg    => "Spawn " & Settings.Shell_Cmd & " " & (Opt) & "...",
+         Debug  => Debug,
+         Prefix => Prefix);
+      for A of Spawn_Arg.all loop
+         IO.Put_Debug_Line (">" & A.all & "<", Debug, Prefix);
+      end loop;
+
+      Spawn (Program_Name => Settings.Shell_Cmd,
+             Args         => Spawn_Arg.all,
+             Success      => Success);
+      if not Success then
+         IO.Put_Error (Msg => "Spawn failed for " & (+Cmd));
+      end if;
+
+      Ada.Directories.Set_Directory (Initial_Dir);
+      -- Fixme : ensure turning to Initial_Dir even in case of exception?
+
+      if not Success then
+         -- The command could not be run: nothing to analyze.
+         return;
+      end if;
+
+      -- Analyze the strace output file, and push one event per
+      -- successful file operation.
+      declare
+         Strace_Ouput : Ada.Text_IO.File_Type;
+
+      begin
+         Ada.Text_IO.Open (File => Strace_Ouput,
+                           Name => Settings.Strace_Outfile_Name,
+                           Mode => Ada.Text_IO.In_File);
+
+         while not Ada.Text_IO.End_Of_File (Strace_Ouput) loop
+            declare
+               Line      : constant String :=
+                 Ada.Text_IO.Get_Line (Strace_Ouput);
+               Operation : Operation_Type;
+
+            begin
+               Analyze_Line (Line, Operation);
+               if Operation.Kind /= None then
+                  Events.Append (Operation);
+               end if;
+            end;
+         end loop;
+
+         if Settings.Debug_Mode then
+            Ada.Text_IO.Close (Strace_Ouput);
+         else
+            Ada.Text_IO.Delete (Strace_Ouput);
+         end if;
+
+      end;
+
+   end Observe;
 
 end Smk.Runs.Strace_Analyzer;

@@ -14,7 +14,10 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-with Smk.Files; use Smk.Files;
+with Smk.Definitions; use Smk.Definitions;
+with Smk.Files;       use Smk.Files;
+
+with Smk.Runs.Observers; use Smk.Runs.Observers;
 
 private package Smk.Runs.Strace_Analyzer is
 
@@ -26,28 +29,14 @@ private package Smk.Runs.Strace_Analyzer is
                       Ignored);
 
    -- --------------------------------------------------------------------------
-   type Operation_Kind is (None,
-                           Read,
-                           Write,
-                           Delete,
-                           Move);
-
-   -- --------------------------------------------------------------------------
-   type Operation_Type (Kind : Operation_Kind := None) is record
-      case Kind is
-         when None => null;
-         when Read
-            | Write
-            | Delete =>
-            Name : File_Name;
-            File : File_Type;
-         when Move =>
-            Source_Name : File_Name;
-            Source      : File_Type;
-            Target_Name : File_Name;
-            Target      : File_Type;
-      end case;
-   end record;
+   procedure Observe (Cmd     : in     Command_Lines;
+                      Events  :    out Operation_Lists.List;
+                      Success :    out Boolean);
+   -- Spawn the Cmd under strace in the run directory, then analyze the
+   -- strace output file: one event is pushed in Events per successful
+   -- file operation.
+   -- Success is set to False if the command could not be run, or if it
+   -- terminated with a non-zero status.
 
    -- --------------------------------------------------------------------------
    procedure Analyze_Line (Line       : in     String;

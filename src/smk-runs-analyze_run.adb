@@ -16,19 +16,14 @@
 
 with Smk.IO;                   use Smk.IO;
 with Smk.Runfiles;
-with Smk.Runs.Strace_Analyzer;
+with Smk.Runs.Observers;       use Smk.Runs.Observers;
 with Smk.Settings;             use Smk.Settings;
-
-with Ada.Text_IO;
 
 separate (Smk.Runs)
 
 -- -----------------------------------------------------------------------------
-procedure Analyze_Run (Assertions : out Condition_Lists.List) is
-
-   Strace_Ouput : Ada.Text_IO.File_Type;
-
-   use Smk.Runs.Strace_Analyzer;
+procedure Analyze_Run (Events     : in     Operation_Lists.List;
+                       Assertions :    out Condition_Lists.List) is
 
    -- --------------------------------------------------------------------------
    procedure Add (Cond : in Condition) is
@@ -64,48 +59,35 @@ procedure Analyze_Run (Assertions : out Condition_Lists.List) is
 
 begin
    -- --------------------------------------------------------------------------
-   Open (File => Strace_Ouput,
-         Name => Strace_Outfile_Name,
-         Mode => In_File);
+   for Operation of Events loop
+      case Operation.Kind is
+         when None   =>
+            null;
 
-   while not End_Of_File (Strace_Ouput) loop
-      declare
-         Line      : constant String  := Get_Line (Strace_Ouput);
-         Operation : Operation_Type;
+         when Read   =>
+            Add ((Name    => Operation.Name,
+                  File    => Operation.File,
+                  Trigger => File_Update));
 
-      begin
-         Analyze_Line (Line, Operation);
+         when Write  =>
+            Add ((Name    => Operation.Name,
+                  File    => Operation.File,
+                  Trigger => File_Absence));
 
-         case Operation.Kind is
-            when None   =>
-               null;
+         when Delete =>
+            Add ((Name    => Operation.Name,
+                  File    => Operation.File,
+                  Trigger => File_Presence));
 
-            when Read   =>
-               Add ((Name    => Operation.Name,
-                     File    => Operation.File,
-                     Trigger => File_Update));
+         when Move   =>
+            Add ((Name    => Operation.Source_Name,
+                  File    => Operation.Source,
+                  Trigger => File_Presence));
+            Add ((Name    => Operation.Target_Name,
+                  File    => Operation.Target,
+                  Trigger => File_Absence));
 
-            when Write  =>
-               Add ((Name    => Operation.Name,
-                     File    => Operation.File,
-                     Trigger => File_Absence));
-
-            when Delete =>
-               Add ((Name    => Operation.Name,
-                     File    => Operation.File,
-                     Trigger => File_Presence));
-
-            when Move   =>
-               Add ((Name    => Operation.Source_Name,
-                     File    => Operation.Source,
-                     Trigger => File_Presence));
-               Add ((Name    => Operation.Target_Name,
-                     File    => Operation.Target,
-                     Trigger => File_Absence));
-
-         end case;
-
-      end;
+      end case;
 
    end loop;
 
@@ -176,11 +158,6 @@ begin
 --
 --     end;
 --
-
-   if Debug_Mode
-   then Close  (Strace_Ouput);
-   else Delete (Strace_Ouput);
-   end if;
 
    Name_Sorting.Sort (Assertions);
 

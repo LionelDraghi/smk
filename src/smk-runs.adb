@@ -18,21 +18,17 @@ with Smk.Assertions;  use Smk.Assertions;
 with Smk.Definitions; use Smk.Definitions;
 with Smk.Files;       use Smk.Files;
 with Smk.Settings;
+with Smk.Runs.Observers;
 
 with Ada.Directories; use Ada.Directories;
-with Ada.Text_IO;     use Ada.Text_IO;
 
 package body Smk.Runs is
 
    -- --------------------------------------------------------------------------
-   procedure Analyze_Run (Assertions : out Condition_Lists.List) is separate;
-   -- Based on the run log file (that is the strace output), and the run time,
-   -- it identifies Source and Target files.
-   -- Thanks to strace -y option, file names appears clearly between <>
-   -- in the strace output.
-   -- This output is filtered to keep only those file names, and pushed to
-   -- Source_Files list output parameter if the file's time tag is older than
-   -- the execution time, and to Target_Files list otherwise.
+   procedure Analyze_Run (Events     : in     Observers.Operation_Lists.List;
+                          Assertions :    out Condition_Lists.List) is separate;
+   -- Based on the file operations observed during the run, it identifies
+   -- the Source and Target files of the command.
 
    -- --------------------------------------------------------------------------
    function Must_Be_Run (Command      : Command_Lines;

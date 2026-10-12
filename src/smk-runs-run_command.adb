@@ -14,14 +14,11 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-with File_Utilities;
 with Smk.Assertions;
 with Smk.IO;
-
-with GNAT.OS_Lib;
+with Smk.Runs.Observers;       use Smk.Runs.Observers;
 
 with Ada.Calendar;
-with Ada.Directories;
 
 separate (Smk.Runs)
 
@@ -31,52 +28,11 @@ procedure Run_Command (E            : in out Smkfiles.Smkfile_Entry;
                        Cmd_To_Run   :    out Boolean;
                        Error_In_Run :    out Boolean)
 is
-   -- --------------------------------------------------------------------------
-   procedure Run (Cmd   : in     Command_Lines;
-                  OK    :    out Boolean) is
-      -- Spawn the Cmd under strace.
-      -- OK is set to True if the spawn did it well.
-
-      use GNAT.OS_Lib;
-      Debug       : constant Boolean := False;
-      Prefix      : constant String  := "";
-      Opt         : constant String  := Settings.Shell_Opt
-                      & File_Utilities.Escape (Settings.Strace_Cmd
-                                               & Settings.Strace_Outfile_Name
-                                               & " " & (+Cmd));
-      Initial_Dir : constant String  := Current_Directory;
-      Spawn_Arg   : constant Argument_List_Access
-        := Argument_String_To_List (Opt);
-
-   begin
-      -- IO.Put_Line ("cd " & Settings.Run_Dir_Name, Level => Verbose);
-      Set_Directory (Settings.Run_Dir_Name);
-
-      IO.Put_Debug_Line
-        (Msg    => "Spawn " & Settings.Shell_Cmd & " " & (Opt) & "...",
-         Debug  => Debug,
-         Prefix => Prefix);
-      for A of Spawn_Arg.all loop
-         IO.Put_Debug_Line (">" & A.all & "<", Debug, Prefix);
-      end loop;
-
-      IO.Put_Line ((+Cmd));
-      Spawn (Program_Name => Settings.Shell_Cmd,
-             Args         => Spawn_Arg.all,
-             Success      => OK);
-      if not OK then
-         IO.Put_Error (Msg => "Spawn failed for " & (+Cmd));
-      end if;
-
-      Set_Directory (Initial_Dir);
-      -- Fixme : ensure turning to Initial_Dir even in case of exception?
-
-   end Run;
-
    use Smk.Runfiles;
    OK           : Boolean;
    New_Run_Time : Ada.Calendar.Time;
    Assertions   : Condition_Lists.List;
+   Events       : Operation_Lists.List;
 
 begin
    -- --------------------------------------------------------------------------
@@ -91,10 +47,13 @@ begin
          Error_In_Run := False;
 
       else
-         -- 1. Run the command
+         -- 1. Run the command, and observe its file accesses
          New_Run_Time := Ada.Calendar.Clock;
 
-         Run (E.Command, OK);
+         IO.Put_Line ((+E.Command));
+         Observe (Cmd     => E.Command,
+                  Events  => Events,
+                  Success => OK);
 
          E.Was_Run    := OK;
          Error_In_Run := not OK;
@@ -104,8 +63,8 @@ begin
          end if;
 
          if OK then
-            -- 2. Analyze the run log
-            Analyze_Run (Assertions);
+            -- 2. Analyze the observed file operations
+            Analyze_Run (Events, Assertions);
 
             -- 3. Store the results
             Insert_Or_Update
