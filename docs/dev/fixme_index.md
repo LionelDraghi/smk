@@ -9,9 +9,9 @@ docs/smkfile_format.md:81|Sections are labels in the file that specifically desi
 docs/smkfile_format.md:158|   **Fixme: Not yet implemented, as of v0.0.4**
 docs/dev/developer_guide.md:36|Fixme: **TBC**
 docs/dev/development_workflow.md:31|docs/dev/fixme_index.md, updated fixtures...), commit, and push.
-docs/dev/development_workflow.md:152|- `Fixme:` comments in src/, docs/ and tests/ are indexed in
-docs/dev/development_workflow.md:153|  docs/dev/fixme_index.md by `make doc`: add one rather than leaving
-docs/dev/development_workflow.md:177|- to do list: docs/dev/fixme_index.md, docs/limitations.md
+docs/dev/development_workflow.md:164|- `Fixme:` comments in src/, docs/ and tests/ are indexed in
+docs/dev/development_workflow.md:165|  docs/dev/fixme_index.md by `make doc`: add one rather than leaving
+docs/dev/development_workflow.md:189|- to do list: docs/dev/fixme_index.md, docs/limitations.md
 src/smk-runfiles.adb:321|      -- Fixme: directories are erased after files to avoid an rmdir failure
 src/smk-runs-observers-ptrace.adb:197|   -- Fixme: use PTRACE_LISTEN for a fully correct job control handling
 src/smk-runs-observers-ptrace.adb:728|            -- Fixme: inherit the state of its parent; the fork event

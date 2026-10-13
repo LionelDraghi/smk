@@ -5,9 +5,9 @@ end to end on directory and audio file processing.
 
 _Table of Contents:_
 - Feature: Directory operations
-  - [Scenario: mkdir dir1](#scenario-mkdir-dir1)
-  - [Scenario: updating dir1](#scenario-updating-dir1)
-  - [Scenario: cleaning dir1](#scenario-cleaning-dir1)
+  - [Scenario: mkdir dir1](#scenario-mkdir-dir1-machine-dependent)
+  - [Scenario: updating dir1](#scenario-updating-dir1-machine-dependent)
+  - [Scenario: cleaning dir1](#scenario-cleaning-dir1-machine-dependent)
   - [Scenario: accessing dir1 contents, write access](#scenario-accessing-dir1-contents-write-access)
   - [Scenario: accessing dir1 contents, read access](#scenario-accessing-dir1-contents-read-access)
   - [Scenario: removing dir1](#scenario-removing-dir1)
@@ -24,7 +24,7 @@ Those tests check the smk behavior on directories: creation, update,
 cleaning, access, and removal.
 
 
-## Scenario: mkdir dir1
+## Scenario: mkdir dir1 @machine-dependent
 
 - Given I run `rm -rf default.smk dir1 dir2`
 - And I run `smk -q reset`
@@ -53,7 +53,7 @@ There is no source, and `dir1` is a target:
 - When I run `smk wn`
 - Then I get `Nothing new`
 
-## Scenario: updating dir1
+## Scenario: updating dir1 @machine-dependent
 
 - When I run `sleep 1`
 - And I run `smk run touch dir1/f1`
@@ -99,7 +99,7 @@ Nothing to run, as the update was recorded during the run:
 - And I run `smk`
 - Then I get `Nothing to run`
 
-## Scenario: cleaning dir1
+## Scenario: cleaning dir1 @machine-dependent
 
 This test checks that smk correctly identifies target files, removes
 them with `clean`, and preserves "unused" files, even if they are in

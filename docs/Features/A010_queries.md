@@ -7,14 +7,14 @@ _Table of Contents:_
 - Feature: Read queries
   - [Scenario: read-smkfile](#scenario-read-smkfile)
   - [Scenario: status](#scenario-status)
-  - [Scenario: status, long listing and system files](#scenario-status-long-listing-and-system-files)
+  - [Scenario: status, long listing and system files](#scenario-status-long-listing-and-system-files-machine-dependent)
   - [Scenario: status, no previous run](#scenario-status-no-previous-run)
   - [Scenario: status, no smkfile](#scenario-status-no-smkfile)
 - Feature: List queries
   - [Scenario: lr, list-runs](#scenario-lr-list-runs)
   - [Scenario: lt, list-targets](#scenario-lt-list-targets)
   - [Scenario: ls, list-sources](#scenario-ls-list-sources)
-  - [Scenario: list-sources, show all files](#scenario-list-sources-show-all-files)
+  - [Scenario: list-sources, show all files](#scenario-list-sources-show-all-files-machine-dependent)
 
 # Feature: Read queries
 
@@ -142,16 +142,18 @@ Command "gcc -o main.o -c main.c" in section [main.o], last run [2026-10-13 12:3
   - hello_c/main.o
 ```
 
-## Scenario: status, long listing and system files
+## Scenario: status, long listing and system files @machine-dependent
 
 Same as before, with system files not ignored and long form.
 The expected listing contains many system files, and is machine dependent:
-it is compared to the `../data/expected_lpr1.txt` golden file.
+it is compared to the `../data/expected_lpr1.txt` golden file, the
+locale-dependent `LC_CTYPE` file name being neutralized by the
+ignoring clause.
 
 - Given I run `smk -q reset`
 - And I run `smk -q build hello_c/Makefile.2`
-- When I run `sh -c "smk st -l -sa | grep -v LC_CTYPE > out.lpr1.txt"`
-- Then the file `out.lpr1.txt` is equal to file `../data/expected_lpr1.txt` (ignoring time)
+- When I run `smk st -l -sa`
+- Then the output is equal to file `../data/expected_lpr1.txt` (ignoring time and [^/]*/LC_CTYPE)
 
 ## Scenario: status, no previous run
 
@@ -294,18 +296,19 @@ hello_c/main.o
 ## Scenario: ls, list-sources
 
 Without shortening file names (`-ds`), the paths are absolute, and machine
-dependent: the output is compared to the `expected_ls1.txt` golden file.
+dependent: the directory parts are neutralized by the `ignoring dir`
+clause of the comparison step, that leaves the file names checked, and
+lets the expected listing keep the short form paths.
 
-- Given the file `expected_ls1.txt`
-~~~
-/home/lionel/prj/smk/tests/run/hello_c/hello.o
-/home/lionel/prj/smk/tests/run/hello_c/main.o
-/home/lionel/prj/smk/tests/run/hello_c/hello.c
-/home/lionel/prj/smk/tests/run/hello_c/hello.h
-/home/lionel/prj/smk/tests/run/hello_c/main.c
-~~~
-- When I run `sh -c "smk ls -ds hello_c/Makefile.2 > out.ls1.txt"`
-- Then the file `out.ls1.txt` is equal to file `expected_ls1.txt`
+- When I run `smk ls -ds hello_c/Makefile.2`
+- Then I get (ignoring dir)
+```
+hello_c/hello.o
+hello_c/main.o
+hello_c/hello.c
+hello_c/hello.h
+hello_c/main.c
+```
 
 Short form:
 
@@ -319,19 +322,20 @@ hello_c/hello.h
 hello_c/main.c
 ```
 
-## Scenario: list-sources, show all files
+## Scenario: list-sources, show all files @machine-dependent
 
 With `--show-all-files`, system files are also listed, and the output is
 machine dependent: it is compared to the `../data/expected_las1.txt`
-and `../data/expected_las2.txt` golden files.
+and `../data/expected_las2.txt` golden files, the locale-dependent
+`LC_CTYPE` file name being neutralized by the ignoring clause.
 
 Short form:
 
-- When I run `sh -c "smk list-sources --show-all-files hello_c/Makefile.2 | grep -v LC_CTYPE > out.las1.txt"`
-- Then the file `out.las1.txt` is equal to file `../data/expected_las1.txt`
+- When I run `smk list-sources --show-all-files hello_c/Makefile.2`
+- Then the output is equal to file `../data/expected_las1.txt` (ignoring [^/]*/LC_CTYPE)
 
 Long form (the output order is not stable, and is ignored in the
 comparison):
 
-- When I run `sh -c "smk -l ls -sa hello_c/Makefile.2 | grep -v LC_CTYPE > out.las2.txt"`
-- Then the file `out.las2.txt` is equal to file `../data/expected_las2.txt` (unordered) (ignoring time)
+- When I run `smk -l ls -sa hello_c/Makefile.2`
+- Then the output is equal to file `../data/expected_las2.txt` (ignoring time, order and [^/]*/LC_CTYPE)

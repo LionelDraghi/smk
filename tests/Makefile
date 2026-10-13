@@ -36,7 +36,14 @@ FRESH_RUN = rm -rf run && mkdir run && ln -s ../../smk run/smk
 # bbt is run with LD_LIBRARY_PATH unset: a polluted one (e.g. from a
 # VSCode extension) leaks into the traced commands, and breaks the
 # tools they run (see the root Makefile help note).
-BBT       = cd run && PATH="$$PWD:$$PATH" env -u LD_LIBRARY_PATH bbt -k --yes
+# BBT_EXCLUDE is passed to bbt --exclude when set: the CI runs
+# make BBT_EXCLUDE='@machine-dependent' to skip the scenarios tagged
+# @machine-dependent in their title, whose expected outputs embed the
+# reference machine state (goldens, locale files): they are checked by
+# the local full run only (cf. docs/dev/development_workflow.md).
+BBT_EXCLUDE ?=
+BBT       = cd run && PATH="$$PWD:$$PATH" env -u LD_LIBRARY_PATH \
+            bbt -k --yes $(if $(BBT_EXCLUDE),--exclude $(BBT_EXCLUDE))
 
 # Benchmark directory and files
 BENCHMARK_DIR = ../benchmarks

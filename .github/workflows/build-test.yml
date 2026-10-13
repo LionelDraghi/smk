@@ -65,9 +65,11 @@ jobs:
       - name: Install the test tools
         # The tools are required by the test suite
         # (cf. docs/dev/developer_guide.md).
+        # libsox-fmt-mp3: on Ubuntu, sox does not handle the mp3
+        # format without it, and the audio conversion scenarios fail.
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc sox id3v2 id3ren make
+          sudo apt-get install -y gcc sox libsox-fmt-mp3 id3v2 id3ren make
 
       - name: Build bbt
         # The bbt on the Alire community index cannot be used: its latest
@@ -75,15 +77,23 @@ jobs:
         # used by tests/Makefile, and when that version cannot be
         # selected (gnat >= 15 constraint), the resolution falls back to
         # ancient versions that do not build with a current GNAT. Build
-        # bbt from the repository, at a pinned tag, and put it on the
-        # PATH ($GITHUB_PATH is the binary dir: bbt builds at its root).
+        # bbt from the repository, and put it on the PATH ($GITHUB_PATH
+        # is the binary dir: bbt builds at its root).
+        # NB: the branch is pinned to main until the 0.5.1 release,
+        # that provides the (ignoring ...) clause used by the scenarios:
+        # the 0.5.0 tag predates the feature.
         run: |
-          git clone --depth 1 --branch 0.5.0 https://github.com/LionelDraghi/bbt /tmp/bbt
+          git clone --depth 1 --branch main https://github.com/LionelDraghi/bbt /tmp/bbt
           cd /tmp/bbt && alr --non-interactive build --release
           echo "/tmp/bbt" >> $GITHUB_PATH
 
       - name: Run build and checks
-        run: make -k
+        # The scenarios tagged @machine-dependent in their title embed
+        # the reference machine state in their expected outputs
+        # (goldens, locale files): exclude them here, the full suite
+        # being run on the reference Debian
+        # (cf. docs/dev/development_workflow.md).
+        run: make -k BBT_EXCLUDE='@machine-dependent'
 
       - name: Save summary
         if: always()

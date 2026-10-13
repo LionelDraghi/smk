@@ -45,11 +45,18 @@ Besides `make` and the Ada toolchain (see the [Download and build section](../..
 
 - a C compiler (`gcc`), used by the `hello.c` based tests;
 - `sox`, `id3v2` and `id3ren`, used by the audio conversion tests (test 12_);
-- `sed`, used to neutralize dates in expected outputs.
+- `sed`, used in the multiline commands tested by the smkfile format tests.
 
 On Debian family:
 
 > `apt install gcc sox id3v2 id3ren`
+
+On Ubuntu, sox does not handle the mp3 format out of the box, and the
+audio conversion scenarios fail with
+`sox FAIL formats: no handler for file extension 'mp3'`; also install
+the format handler:
+
+> `apt install libsox-fmt-mp3`
 
 The tests are organized as follows:
 

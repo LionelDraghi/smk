@@ -217,8 +217,8 @@ in the Alire manifest:
 More than one command is an error. The full error message, including the
 usage and help, is compared to the `../data/expected_wrong_cmd_line1.txt` golden file:
 
-- When I run `sh -c "smk read-smkfile status > out.wrong_cmd_line1.txt 2>&1"`
-- Then the file `out.wrong_cmd_line1.txt` is equal to file `../data/expected_wrong_cmd_line1.txt`
+- When I run `smk read-smkfile status`
+- Then the output is equal to file `../data/expected_wrong_cmd_line1.txt`
 - And I get an error
 
 ## Scenario: option given after a command

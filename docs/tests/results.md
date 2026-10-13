@@ -152,12 +152,12 @@
    - OK : And the file `hello_c/Makefile.3`  
    - [X] background [](../Features/A010_queries.md) pass  
 
-   ### Scenario: [status, long listing and system files](../Features/A010_queries.md): 
+   ### Scenario: [status, long listing and system files @machine-dependent](../Features/A010_queries.md): 
    - OK : Given I run `smk -q reset`  
    - OK : And I run `smk -q build hello_c/Makefile.2`  
-   - OK : When I run `sh -c "smk st -l -sa | grep -v LC_CTYPE > out.lpr1.txt"`  
-   - OK : Then the file `out.lpr1.txt` is equal to file `../data/expected_lpr1.txt` (ignoring time)  
-   - [X] scenario   [status, long listing and system files](../Features/A010_queries.md) pass  
+   - OK : When I run `smk st -l -sa`  
+   - OK : Then the output is equal to file `../data/expected_lpr1.txt` (ignoring time and [^/]*/LC_CTYPE)  
+   - [X] scenario   [status, long listing and system files @machine-dependent](../Features/A010_queries.md) pass  
 
    ### Background: [](../Features/A010_queries.md): 
    - OK : Given the directory `hello_c`  
@@ -237,9 +237,8 @@
    - [X] background [](../Features/A010_queries.md) pass  
 
    ### Scenario: [ls, list-sources](../Features/A010_queries.md): 
-   - OK : Given the file `expected_ls1.txt`  
-   - OK : When I run `sh -c "smk ls -ds hello_c/Makefile.2 > out.ls1.txt"`  
-   - OK : Then the file `out.ls1.txt` is equal to file `expected_ls1.txt`  
+   - OK : When I run `smk ls -ds hello_c/Makefile.2`  
+   - OK : Then I get (ignoring dir)  
    - OK : When I run `smk list-sources hello_c/Makefile.2`  
    - OK : Then I get  
    - [X] scenario   [ls, list-sources](../Features/A010_queries.md) pass  
@@ -253,12 +252,12 @@
    - OK : And the file `hello_c/Makefile.3`  
    - [X] background [](../Features/A010_queries.md) pass  
 
-   ### Scenario: [list-sources, show all files](../Features/A010_queries.md): 
-   - OK : When I run `sh -c "smk list-sources --show-all-files hello_c/Makefile.2 | grep -v LC_CTYPE > out.las1.txt"`  
-   - OK : Then the file `out.las1.txt` is equal to file `../data/expected_las1.txt`  
-   - OK : When I run `sh -c "smk -l ls -sa hello_c/Makefile.2 | grep -v LC_CTYPE > out.las2.txt"`  
-   - OK : Then the file `out.las2.txt` is equal to file `../data/expected_las2.txt` (unordered) (ignoring time)  
-   - [X] scenario   [list-sources, show all files](../Features/A010_queries.md) pass  
+   ### Scenario: [list-sources, show all files @machine-dependent](../Features/A010_queries.md): 
+   - OK : When I run `smk list-sources --show-all-files hello_c/Makefile.2`  
+   - OK : Then the output is equal to file `../data/expected_las1.txt` (ignoring [^/]*/LC_CTYPE)  
+   - OK : When I run `smk -l ls -sa hello_c/Makefile.2`  
+   - OK : Then the output is equal to file `../data/expected_las2.txt` (ignoring time, order and [^/]*/LC_CTYPE)  
+   - [X] scenario   [list-sources, show all files @machine-dependent](../Features/A010_queries.md) pass  
 
 
 # Document: [A020_build.md](../Features/A020_build.md)  
@@ -670,8 +669,8 @@
    - [X] scenario   [version option](../Features/A040_errors.md) pass  
 
    ### Scenario: [illegal command lines](../Features/A040_errors.md): 
-   - OK : When I run `sh -c "smk read-smkfile status > out.wrong_cmd_line1.txt 2>&1"`  
-   - OK : Then the file `out.wrong_cmd_line1.txt` is equal to file `../data/expected_wrong_cmd_line1.txt`  
+   - OK : When I run `smk read-smkfile status`  
+   - OK : Then the output is equal to file `../data/expected_wrong_cmd_line1.txt`  
    - OK : And I get an error  
    - [X] scenario   [illegal command lines](../Features/A040_errors.md) pass  
 
@@ -691,7 +690,7 @@
 
 # Document: [A050_use_cases.md](../Features/A050_use_cases.md)  
   ## Feature: Directory operations  
-   ### Scenario: [mkdir dir1](../Features/A050_use_cases.md): 
+   ### Scenario: [mkdir dir1 @machine-dependent](../Features/A050_use_cases.md): 
    - OK : Given I run `rm -rf default.smk dir1 dir2`  
    - OK : And I run `smk -q reset`  
    - OK : When I run `smk run mkdir dir1`  
@@ -706,9 +705,9 @@
    - OK : Then I get `/usr/lib/locale/fr_FR.utf8/LC_MESSAGES/SYS_LC_MESSAGES`  
    - OK : When I run `smk wn`  
    - OK : Then I get `Nothing new`  
-   - [X] scenario   [mkdir dir1](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [mkdir dir1 @machine-dependent](../Features/A050_use_cases.md) pass  
 
-   ### Scenario: [updating dir1](../Features/A050_use_cases.md): 
+   ### Scenario: [updating dir1 @machine-dependent](../Features/A050_use_cases.md): 
    - OK : When I run `sleep 1`  
    - OK : And I run `smk run touch dir1/f1`  
    - OK : Then I get `touch dir1/f1`  
@@ -727,9 +726,9 @@
    - OK : When I run `touch dir1`  
    - OK : And I run `smk`  
    - OK : Then I get `Nothing to run`  
-   - [X] scenario   [updating dir1](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [updating dir1 @machine-dependent](../Features/A050_use_cases.md) pass  
 
-   ### Scenario: [cleaning dir1](../Features/A050_use_cases.md): 
+   ### Scenario: [cleaning dir1 @machine-dependent](../Features/A050_use_cases.md): 
    - OK : Given I run `rm -rf default.smk dir1 dir2`  
    - OK : And I run `smk -q reset`  
    - OK : And I run `smk -q run mkdir dir1`  
@@ -747,7 +746,7 @@
    - OK : Then I get  
    - OK : When I run `smk clean`  
    - OK : Then I get  
-   - [X] scenario   [cleaning dir1](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [cleaning dir1 @machine-dependent](../Features/A050_use_cases.md) pass  
 
    ### Scenario: [accessing dir1 contents, write access](../Features/A050_use_cases.md): 
    - OK : Given I run `rm -rf default.smk dir1 dir2`  

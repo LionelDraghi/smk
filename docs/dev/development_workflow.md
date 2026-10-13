@@ -117,8 +117,12 @@ invisible.
   depend on the run time, and the clause also applies to the
   `file ... is equal to file ...` family
 - when the output order is unstable, replace the `sort` pipe with the
-  bbt `unordered` modifier on the comparison step:
-  `- Then the file \`out\` is equal to file \`expected\` (unordered)`
+  `order` pattern of the bbt ignoring clause, combined with the other
+  volatile patterns: `- Then the file \`out\` is equal to file \`expected\` (ignoring time, order)`
+- a volatile segment inside otherwise checked lines is neutralized with
+  a custom regexp pattern in the clause, masking the matching
+  substrings on both sides: the locale-dependent `LC_CTYPE` file name,
+  for instance, is ignored with `(ignoring [^/]*/LC_CTYPE)`
 - when a tool message is checked (gcc, ld, sh...), set
   `- Given the environment variable \`LC_ALL\` is \`C\``, so that the
   message does not depend on the machine language settings
@@ -136,6 +140,14 @@ invisible.
   a golden file without the owner's agreement; before updating one,
   make sure the difference comes from the environment and not from an
   smk regression, and justify the update in the report to the owner
+- the scenarios whose expected outputs embed the reference machine
+  state (the `expected_lpr*` and `expected_las*` goldens, the locale
+  files listed by `lu`) are tagged `@machine-dependent` in their
+  title: the CI skips them (`make BBT_EXCLUDE='@machine-dependent'`,
+  cf. tests/Makefile and `.github/workflows/build-test.yml`), while
+  the local full run keeps checking them; a scenario excluded on the
+  CI must leave a state usable by the following scenarios, that
+  re-create their own inputs
 - some `sleep 1` steps compensate the file system time stamp resolution
   (cf. [Design notes](design_notes.md)): do not remove them
 
