@@ -99,10 +99,10 @@ mrproper: clean
 
 Reads a smkfile and shows what is understood by smk:
 
-- When I run `sh -c "smk read-smkfile hello_c/Makefile.3 | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- When I run `smk read-smkfile hello_c/Makefile.3`
+- Then I get (ignoring time)
 ```
-hello_c/Makefile.3 (YYYY:MM:DD HH:MM:SS.SS):
+hello_c/Makefile.3 (2026-10-13 12:34:56.78):
 4: [hello.o] gcc -o hello.o -c hello.c
 7: [main.o] gcc -o main.o -c main.c
 10: [hello] gcc -o hello hello.o main.o
@@ -118,23 +118,23 @@ Dates are neutralized to ease the comparison.
 - Given I run `rm -f hello_c/hello hello_c/hello.o hello_c/main.o`
 - And I run `smk -q reset`
 - When I run `smk -q build hello_c/Makefile.2`
-- And I run `sh -c "smk status | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- And I run `smk status`
+- Then I get (ignoring time)
 ```
-Command "gcc -o hello hello.o main.o" in section [hello], last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "gcc -o hello hello.o main.o" in section [hello], last run [2026-10-13 12:34:56.78]
   Sources: (2)
   - hello_c/hello.o
   - hello_c/main.o
   Targets: (1)
   - hello_c/hello
 
-Command "gcc -o hello.o -c hello.c" in section [hello.o], last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "gcc -o hello.o -c hello.c" in section [hello.o], last run [2026-10-13 12:34:56.78]
   Sources: (1)
   - hello_c/hello.c
   Targets: (1)
   - hello_c/hello.o
 
-Command "gcc -o main.o -c main.c" in section [main.o], last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "gcc -o main.o -c main.c" in section [main.o], last run [2026-10-13 12:34:56.78]
   Sources: (2)
   - hello_c/hello.h
   - hello_c/main.c
@@ -150,8 +150,8 @@ it is compared to the `../data/expected_lpr1.txt` golden file.
 
 - Given I run `smk -q reset`
 - And I run `smk -q build hello_c/Makefile.2`
-- When I run `sh -c "smk st -l -sa | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' | grep -v LC_CTYPE > out.lpr1.txt"`
-- Then the file `out.lpr1.txt` is equal to file `../data/expected_lpr1.txt`
+- When I run `sh -c "smk st -l -sa | grep -v LC_CTYPE > out.lpr1.txt"`
+- Then the file `out.lpr1.txt` is equal to file `../data/expected_lpr1.txt` (ignoring time)
 
 ## Scenario: status, no previous run
 
@@ -273,12 +273,12 @@ Makefile.3
 
 Long form (dates are neutralized to ease the comparison):
 
-- When I run `sh -c "smk list-targets --long-listing hello_c/Makefile.2 | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- When I run `smk list-targets --long-listing hello_c/Makefile.2`
+- Then I get (ignoring time)
 ```
-"gcc -o hello hello.o main.o" [hello] [If absence ] [Fil] [Normal] [Target] [New    ] [YYYY:MM:DD HH:MM:SS.SS] hello_c/hello
-"gcc -o hello.o -c hello.c" [hello.o] [If absence ] [Fil] [Normal] [Target] [New    ] [YYYY:MM:DD HH:MM:SS.SS] hello_c/hello.o
-"gcc -o main.o -c main.c" [main.o] [If absence ] [Fil] [Normal] [Target] [New    ] [YYYY:MM:DD HH:MM:SS.SS] hello_c/main.o
+"gcc -o hello hello.o main.o" [hello] [If absence ] [Fil] [Normal] [Target] [New    ] [2026-10-13 12:34:56.78] hello_c/hello
+"gcc -o hello.o -c hello.c" [hello.o] [If absence ] [Fil] [Normal] [Target] [New    ] [2026-10-13 12:34:56.78] hello_c/hello.o
+"gcc -o main.o -c main.c" [main.o] [If absence ] [Fil] [Normal] [Target] [New    ] [2026-10-13 12:34:56.78] hello_c/main.o
 ```
 
 Short form:
@@ -330,7 +330,8 @@ Short form:
 - When I run `sh -c "smk list-sources --show-all-files hello_c/Makefile.2 | grep -v LC_CTYPE > out.las1.txt"`
 - Then the file `out.las1.txt` is equal to file `../data/expected_las1.txt`
 
-Long form, sorted:
+Long form (the output order is not stable, and is ignored in the
+comparison):
 
-- When I run `sh -c "smk -l ls -sa hello_c/Makefile.2 | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' | grep -v LC_CTYPE | sort > out.las2.txt"`
-- Then the file `out.las2.txt` is equal to file `../data/expected_las2.txt`
+- When I run `sh -c "smk -l ls -sa hello_c/Makefile.2 | grep -v LC_CTYPE > out.las2.txt"`
+- Then the file `out.las2.txt` is equal to file `../data/expected_las2.txt` (unordered) (ignoring time)

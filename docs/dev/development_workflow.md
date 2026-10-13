@@ -109,10 +109,16 @@ invisible.
   and the timestamp change perturbs the run analysis
 - `- Given there is no \`x\` file` prompts before deleting: use
   `- Given I run \`rm -f x\`` instead, or run bbt with `--yes`
-- dates in expected outputs are neutralized by piping the command
-  through `sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g'` and
-  `sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'`
-  (wrapped in `sh -c`), so that the fixtures don't depend on the run time
+- time tags in expected outputs are neutralized with the bbt ignoring
+  clause: `- Then I get (ignoring time)`, followed by the expected
+  output keeping a sample time tag (any value matching the date and
+  clock formats, for instance `2026-10-13 12:34:56.78`); bbt masks
+  the time tags on both sides before comparing, so the fixtures don't
+  depend on the run time, and the clause also applies to the
+  `file ... is equal to file ...` family
+- when the output order is unstable, replace the `sort` pipe with the
+  bbt `unordered` modifier on the comparison step:
+  `- Then the file \`out\` is equal to file \`expected\` (unordered)`
 - when a tool message is checked (gcc, ld, sh...), set
   `- Given the environment variable \`LC_ALL\` is \`C\``, so that the
   message does not depend on the machine language settings

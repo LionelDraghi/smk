@@ -84,28 +84,28 @@ is equivalent to `smk MyBuild`. Note that by default `smk` does not
 display system files (for example `/usr/include/stdio.h`), otherwise the
 output would be flooded!
 
-- When I run `sh -c "smk status -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- When I run `smk status -l`
+- Then I get (ignoring time)
 ```
-Command "gcc -o hello hello.o main.o", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "gcc -o hello hello.o main.o", last run [2026-10-13 12:34:56.78]
   Sources: (2)
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.o
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] main.o
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [2026-10-13 12:34:56.78] hello.o
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [2026-10-13 12:34:56.78] main.o
   Targets: (1)
-  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello
+  - [If absence ] [Fil] [Normal] [Target] [Identic] [2026-10-13 12:34:56.78] hello
 
-Command "gcc -o hello.o -c hello.c", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "gcc -o hello.o -c hello.c", last run [2026-10-13 12:34:56.78]
   Sources: (1)
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.c
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [2026-10-13 12:34:56.78] hello.c
   Targets: (1)
-  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.o
+  - [If absence ] [Fil] [Normal] [Target] [Identic] [2026-10-13 12:34:56.78] hello.o
 
-Command "gcc -o main.o -c main.c", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "gcc -o main.o -c main.c", last run [2026-10-13 12:34:56.78]
   Sources: (2)
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello.h
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] main.c
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [2026-10-13 12:34:56.78] hello.h
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [2026-10-13 12:34:56.78] main.c
   Targets: (1)
-  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] main.o
+  - [If absence ] [Fil] [Normal] [Target] [Identic] [2026-10-13 12:34:56.78] main.o
 ```
 
 ## Scenario: what are those new files in the current dir?
@@ -139,12 +139,12 @@ it is missing, only because a source is updated:
 Unless you use the `-mt` / `--missing-targets` option:
 
 - When I run `sleep 1`
-- And I run `sh -c "smk -mt -e | sed 's/[0-9]//g'"`
-- Then I get
+- And I run `smk -mt -e`
+- Then I get (ignoring time)
 ```
 run "gcc -o main.o -c main.c" because Target file main.o is missing
 gcc -o main.o -c main.c
-run "gcc -o hello hello.o main.o" because Source file main.o has been updated (-- ::.)
+run "gcc -o hello hello.o main.o" because Source file main.o has been updated (2026-10-13 12:34:56.78)
 gcc -o hello hello.o main.o
 ```
 
@@ -189,12 +189,12 @@ Once more, only the two commands needed to get `hello` updated are run:
 
 - When I run `sleep 1`
 - And I run `touch hello.c`
-- And I run `sh -c "smk -e | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- And I run `smk -e`
+- Then I get (ignoring time)
 ```
-run "gcc -o hello.o -c hello.c" because Source file hello.c has been updated (YYYY:MM:DD HH:MM:SS.SS)
+run "gcc -o hello.o -c hello.c" because Source file hello.c has been updated (2026-10-13 12:34:56.78)
 gcc -o hello.o -c hello.c
-run "gcc -o hello hello.o main.o" because Source file hello.o has been updated (YYYY:MM:DD HH:MM:SS.SS)
+run "gcc -o hello hello.o main.o" because Source file hello.o has been updated (2026-10-13 12:34:56.78)
 gcc -o hello hello.o main.o
 ```
 

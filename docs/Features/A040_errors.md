@@ -170,10 +170,10 @@ Error: Spawn failed for non_existing_command
 
 ## Scenario: other commands after a failed run
 
-- When I run `sh -c "smk read-smkfile | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- When I run `smk read-smkfile`
+- Then I get (ignoring time)
 ```
-default.smk (YYYY:MM:DD HH:MM:SS.SS):
+default.smk (2026-10-13 12:34:56.78):
 1: [] non_existing_command
 ```
 

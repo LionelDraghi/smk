@@ -33,13 +33,13 @@ cleaning, access, and removal.
 
 The status shows the new directory as a target:
 
-- When I run `sh -c "smk st -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- When I run `smk st -l`
+- Then I get (ignoring time)
 ```
-Command "mkdir dir1", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "mkdir dir1", last run [2026-10-13 12:34:56.78]
   Sources: (0)
   Targets: (1)
-  - [If absence ] [Dir] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] dir1
+  - [If absence ] [Dir] [Normal] [Target] [Identic] [2026-10-13 12:34:56.78] dir1
 ```
 
 There is no source, and `dir1` is a target:
@@ -61,18 +61,18 @@ There is no source, and `dir1` is a target:
 
 `dir1` was modified by the command, and is thus reported as updated:
 
-- When I run `sh -c "smk st -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- When I run `smk st -l`
+- Then I get (ignoring time)
 ```
-Command "mkdir dir1", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "mkdir dir1", last run [2026-10-13 12:34:56.78]
   Sources: (0)
   Targets: (1)
-  - [If absence ] [Dir] [Normal] [Target] [Updated] [YYYY:MM:DD HH:MM:SS.SS] dir1
+  - [If absence ] [Dir] [Normal] [Target] [Updated] [2026-10-13 12:34:56.78] dir1
 
-Command "touch dir1/f1", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "touch dir1/f1", last run [2026-10-13 12:34:56.78]
   Sources: (0)
   Targets: (1)
-  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] dir1/f1
+  - [If absence ] [Fil] [Normal] [Target] [Identic] [2026-10-13 12:34:56.78] dir1/f1
 ```
 
 - When I run `smk ls`
@@ -113,27 +113,27 @@ a target dir.
 - And I run `smk -q run mv dir1/f1 dir2`
 - And I run `touch dir1/f5`
 - And I run `mkdir dir2/dir3`
-- When I run `sh -c "smk st | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- When I run `smk st`
+- Then I get (ignoring time)
 ```
-Command "mkdir dir1", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "mkdir dir1", last run [2026-10-13 12:34:56.78]
   Sources: (0)
   Targets: (1)
   - dir1
 
-Command "mkdir dir2", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "mkdir dir2", last run [2026-10-13 12:34:56.78]
   Sources: (0)
   Targets: (1)
   - dir2
 
-Command "mv dir1/f1 dir2", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "mv dir1/f1 dir2", last run [2026-10-13 12:34:56.78]
   Sources: (2)
   - dir2
   - dir1/f1
   Targets: (1)
   - dir2/f1
 
-Command "touch dir1/f1", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "touch dir1/f1", last run [2026-10-13 12:34:56.78]
   Sources: (0)
   Targets: (1)
   - dir1/f1
@@ -142,19 +142,19 @@ Command "touch dir1/f1", last run [YYYY:MM:DD HH:MM:SS.SS]
 `smk lt -l`: files that should be erased when cleaning:
 
 - When I run `sleep 1`
-- And I run `sh -c "smk lt -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- And I run `smk lt -l`
+- Then I get (ignoring time)
 ```
-"mkdir dir1" [] [If absence ] [Dir] [Normal] [Target] [Updated] [YYYY:MM:DD HH:MM:SS.SS] dir1
-"mkdir dir2" [] [If absence ] [Dir] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] dir2
-"mv dir1/f1 dir2" [] [If absence ] [Fil] [Normal] [Target] [New    ] [YYYY:MM:DD HH:MM:SS.SS] dir2/f1
-"touch dir1/f1" [] [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] dir1/f1
+"mkdir dir1" [] [If absence ] [Dir] [Normal] [Target] [Updated] [2026-10-13 12:34:56.78] dir1
+"mkdir dir2" [] [If absence ] [Dir] [Normal] [Target] [Identic] [2026-10-13 12:34:56.78] dir2
+"mv dir1/f1 dir2" [] [If absence ] [Fil] [Normal] [Target] [New    ] [2026-10-13 12:34:56.78] dir2/f1
+"touch dir1/f1" [] [If absence ] [Fil] [Normal] [Target] [Identic] [2026-10-13 12:34:56.78] dir1/f1
 ```
 
 `smk lu -l`: files that should not be erased when cleaning
 (note that `dir1/f5` and `dir2/dir3` are preserved):
 
-- When I run `sh -c "smk lu -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
+- When I run `smk lu -l`
 - Then I get
 ```
 /home/lionel/prj/smk/tests/run/dir1/f5
@@ -176,13 +176,13 @@ Deleting dir dir2
 - And I run `smk -q reset`
 - And I run `mkdir -p dir1`
 - When I run `smk -q run mkdir dir1/dir2`
-- And I run `sh -c "smk st -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- And I run `smk st -l`
+- Then I get (ignoring time)
 ```
-Command "mkdir dir1/dir2", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "mkdir dir1/dir2", last run [2026-10-13 12:34:56.78]
   Sources: (0)
   Targets: (1)
-  - [If absence ] [Dir] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] dir1/dir2
+  - [If absence ] [Dir] [Normal] [Target] [Identic] [2026-10-13 12:34:56.78] dir1/dir2
 ```
 
 - When I run `smk wn`
@@ -226,10 +226,10 @@ But if we add a file in `dir1`, `ls` should re-run:
 
 - When I run `sleep 1`
 - And I run `touch dir1/f4`
-- And I run `sh -c "smk -e | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- And I run `smk -e`
+- Then I get (ignoring time)
 ```
-run "ls -1 dir1" because Source dir dir1 has been updated (YYYY:MM:DD HH:MM:SS.SS)
+run "ls -1 dir1" because Source dir dir1 has been updated (2026-10-13 12:34:56.78)
 ls -1 dir1
 dir2
 f2
@@ -312,20 +312,20 @@ The status shows the sources (including the directories) and the targets.
 Note that the working dir is shared with the previously run features:
 the `find` command also reports `hello_c` as a source dir:
 
-- When I run `sh -c "smk st -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- When I run `smk st -l`
+- Then I get (ignoring time)
 ```
-Command "./ogg-to-mp3.sh", last run [YYYY:MM:DD HH:MM:SS.SS]
+Command "./ogg-to-mp3.sh", last run [2026-10-13 12:34:56.78]
   Sources: (6)
-  - [If update  ] [Dir] [Normal] [Source] [Updated] [YYYY:MM:DD HH:MM:SS.SS] ./
-  - [If update  ] [Dir] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] hello_c
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] ogg-to-mp3.sh
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] to-mp3.sh
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.ogg
-  - [If update  ] [Fil] [Normal] [Source] [Identic] [YYYY:MM:DD HH:MM:SS.SS] y.ogg
+  - [If update  ] [Dir] [Normal] [Source] [Updated] [2026-10-13 12:34:56.78] ./
+  - [If update  ] [Dir] [Normal] [Source] [Identic] [2026-10-13 12:34:56.78] hello_c
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [2026-10-13 12:34:56.78] ogg-to-mp3.sh
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [2026-10-13 12:34:56.78] to-mp3.sh
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [2026-10-13 12:34:56.78] x.ogg
+  - [If update  ] [Fil] [Normal] [Source] [Identic] [2026-10-13 12:34:56.78] y.ogg
   Targets: (2)
-  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] x.mp3
-  - [If absence ] [Fil] [Normal] [Target] [Identic] [YYYY:MM:DD HH:MM:SS.SS] y.mp3
+  - [If absence ] [Fil] [Normal] [Target] [Identic] [2026-10-13 12:34:56.78] x.mp3
+  - [If absence ] [Fil] [Normal] [Target] [Identic] [2026-10-13 12:34:56.78] y.mp3
 ```
 
 ## Scenario: new ogg in dir
@@ -341,10 +341,10 @@ A new `z.ogg` file is added to the directory:
 
 - Given I run `smk -q run ./ogg-to-mp3.sh`
 - When I run `touch ./ogg-to-mp3.sh`
-- And I run `sh -c "smk -e | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- And I run `smk -e`
+- Then I get (ignoring time)
 ```
-run "./ogg-to-mp3.sh" because Source file ogg-to-mp3.sh has been updated (YYYY:MM:DD HH:MM:SS.SS)
+run "./ogg-to-mp3.sh" because Source file ogg-to-mp3.sh has been updated (2026-10-13 12:34:56.78)
 ./ogg-to-mp3.sh
 ```
 
@@ -354,16 +354,16 @@ A new directory is created, and the conversion is re-run:
 
 - Given I run `mkdir dir1`
 - When I run `sleep 1`
-- And I run `sh -c "smk wn -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- And I run `smk wn -l`
+- Then I get (ignoring time)
 ```
-[Dir] [Normal] [Source] [Updated] [YYYY:MM:DD HH:MM:SS.SS] ./
+[Dir] [Normal] [Source] [Updated] [2026-10-13 12:34:56.78] ./
 ```
 
-- When I run `sh -c "smk -e run ./ogg-to-mp3.sh | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- When I run `smk -e run ./ogg-to-mp3.sh`
+- Then I get (ignoring time)
 ```
-run "./ogg-to-mp3.sh" because Source dir ./ has been updated (YYYY:MM:DD HH:MM:SS.SS)
+run "./ogg-to-mp3.sh" because Source dir ./ has been updated (2026-10-13 12:34:56.78)
 ./ogg-to-mp3.sh
 ```
 
@@ -371,10 +371,10 @@ An ogg file is copied in the subdir, and the conversion is re-run
 (the command is implicit, from `default.smk`):
 
 - Given I run `cp x.ogg dir1/t.ogg`
-- When I run `sh -c "smk -e run | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`
-- Then I get
+- When I run `smk -e run`
+- Then I get (ignoring time)
 ```
-run "./ogg-to-mp3.sh" because Source dir dir1 has been updated (YYYY:MM:DD HH:MM:SS.SS)
+run "./ogg-to-mp3.sh" because Source dir dir1 has been updated (2026-10-13 12:34:56.78)
 ./ogg-to-mp3.sh
 ```
 

@@ -124,12 +124,12 @@ disrupt the algorithm (time stamp resolution).
 
 - When I run `sleep 1`
 - And I run `rm hello_c/main.o`
-- And I run `sh -c "smk -e --missing-targets hello_c/Makefile.2 | sed 's/[0-9]//g'"`
-- Then I get
+- And I run `smk -e --missing-targets hello_c/Makefile.2`
+- Then I get (ignoring time)
 ```
 run "gcc -o main.o -c main.c" because Target file hello_c/main.o is missing
 gcc -o main.o -c main.c
-run "gcc -o hello hello.o main.o" because Source file hello_c/main.o has been updated (-- ::.)
+run "gcc -o hello hello.o main.o" because Source file hello_c/main.o has been updated (2026-10-13 12:34:56.78)
 gcc -o hello hello.o main.o
 ```
 
@@ -137,12 +137,12 @@ gcc -o hello hello.o main.o
 
 - When I run `sleep 1`
 - And I run `touch hello_c/hello.c`
-- And I run `sh -c "smk -e hello_c/Makefile.2 | sed 's/[0-9]//g'"`
-- Then I get
+- And I run `smk -e hello_c/Makefile.2`
+- Then I get (ignoring time)
 ```
-run "gcc -o hello.o -c hello.c" because Source file hello_c/hello.c has been updated (-- ::.)
+run "gcc -o hello.o -c hello.c" because Source file hello_c/hello.c has been updated (2026-10-13 12:34:56.78)
 gcc -o hello.o -c hello.c
-run "gcc -o hello hello.o main.o" because Source file hello_c/hello.o has been updated (-- ::.)
+run "gcc -o hello hello.o main.o" because Source file hello_c/hello.o has been updated (2026-10-13 12:34:56.78)
 gcc -o hello hello.o main.o
 ```
 
@@ -160,17 +160,17 @@ gcc -o hello hello.o main.o
 
 `smk -e -n` is a dry run: the commands are printed, but not executed:
 
-- When I run `sh -c "smk -e -n | sed 's/[0-9]//g'"`
-- Then I get
+- When I run `smk -e -n`
+- Then I get (ignoring time)
 ```
-run "gcc -o hello.o -c hello.c" because Source file hello_c/hello.c has been updated (-- ::.)
+run "gcc -o hello.o -c hello.c" because Source file hello_c/hello.c has been updated (2026-10-13 12:34:56.78)
 > gcc -o hello.o -c hello.c
 ```
 
 `whatsnew` should still return the same, as nothing was changed by the
 previous run with `-n`:
 
-- When I run `sh -c "smk wn | sed 's/[0-9]//g'"`
+- When I run `smk wn`
 - Then I get
 ```
 [Updated] [Source] hello_c/hello.c
@@ -178,18 +178,18 @@ previous run with `-n`:
 
 Run the same without `-n`:
 
-- When I run `sh -c "smk -e hello_c/Makefile.2 | sed 's/[0-9]//g'"`
-- Then I get
+- When I run `smk -e hello_c/Makefile.2`
+- Then I get (ignoring time)
 ```
-run "gcc -o hello.o -c hello.c" because Source file hello_c/hello.c has been updated (-- ::.)
+run "gcc -o hello.o -c hello.c" because Source file hello_c/hello.c has been updated (2026-10-13 12:34:56.78)
 gcc -o hello.o -c hello.c
-run "gcc -o hello hello.o main.o" because Source file hello_c/hello.o has been updated (-- ::.)
+run "gcc -o hello hello.o main.o" because Source file hello_c/hello.o has been updated (2026-10-13 12:34:56.78)
 gcc -o hello hello.o main.o
 ```
 
 And now `whatsnew` returns nothing:
 
-- When I run `sh -c "smk wn | sed 's/[0-9]//g'"`
+- When I run `smk wn`
 - Then I get
 ```
 Nothing new

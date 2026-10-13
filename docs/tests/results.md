@@ -67,8 +67,8 @@
    ### Scenario: [`rm main.o` (missing file)](../../tests/sanity/sanity.md): 
    - OK : When I run `sleep 1`  
    - OK : And I run `rm hello_c/main.o`  
-   - OK : And I run `sh -c "smk -e --missing-targets hello_c/Makefile.2 | sed 's/[0-9]//g'"`  
-   - OK : Then I get  
+   - OK : And I run `smk -e --missing-targets hello_c/Makefile.2`  
+   - OK : Then I get (ignoring time)  
    - [X] scenario   [`rm main.o` (missing file)](../../tests/sanity/sanity.md) pass  
 
    ### Background: [](../../tests/sanity/sanity.md): 
@@ -82,8 +82,8 @@
    ### Scenario: [`touch hello.c` (updated file)](../../tests/sanity/sanity.md): 
    - OK : When I run `sleep 1`  
    - OK : And I run `touch hello_c/hello.c`  
-   - OK : And I run `sh -c "smk -e hello_c/Makefile.2 | sed 's/[0-9]//g'"`  
-   - OK : Then I get  
+   - OK : And I run `smk -e hello_c/Makefile.2`  
+   - OK : Then I get (ignoring time)  
    - [X] scenario   [`touch hello.c` (updated file)](../../tests/sanity/sanity.md) pass  
 
    ### Background: [](../../tests/sanity/sanity.md): 
@@ -99,13 +99,13 @@
    - OK : And I run `touch hello_c/hello.c`  
    - OK : And I run `smk whatsnew hello_c/Makefile.2`  
    - OK : Then I get  
-   - OK : When I run `sh -c "smk -e -n | sed 's/[0-9]//g'"`  
+   - OK : When I run `smk -e -n`  
+   - OK : Then I get (ignoring time)  
+   - OK : When I run `smk wn`  
    - OK : Then I get  
-   - OK : When I run `sh -c "smk wn | sed 's/[0-9]//g'"`  
-   - OK : Then I get  
-   - OK : When I run `sh -c "smk -e hello_c/Makefile.2 | sed 's/[0-9]//g'"`  
-   - OK : Then I get  
-   - OK : When I run `sh -c "smk wn | sed 's/[0-9]//g'"`  
+   - OK : When I run `smk -e hello_c/Makefile.2`  
+   - OK : Then I get (ignoring time)  
+   - OK : When I run `smk wn`  
    - OK : Then I get  
    - [X] scenario   [`touch hello.c` and dry run](../../tests/sanity/sanity.md) pass  
 
@@ -122,8 +122,8 @@
    - [X] background [](../Features/A010_queries.md) pass  
 
    ### Scenario: [read-smkfile](../Features/A010_queries.md): 
-   - OK : When I run `sh -c "smk read-smkfile hello_c/Makefile.3 | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : When I run `smk read-smkfile hello_c/Makefile.3`  
+   - OK : Then I get (ignoring time)  
    - [X] scenario   [read-smkfile](../Features/A010_queries.md) pass  
 
    ### Background: [](../Features/A010_queries.md): 
@@ -139,8 +139,8 @@
    - OK : Given I run `rm -f hello_c/hello hello_c/hello.o hello_c/main.o`  
    - OK : And I run `smk -q reset`  
    - OK : When I run `smk -q build hello_c/Makefile.2`  
-   - OK : And I run `sh -c "smk status | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : And I run `smk status`  
+   - OK : Then I get (ignoring time)  
    - [X] scenario   [status](../Features/A010_queries.md) pass  
 
    ### Background: [](../Features/A010_queries.md): 
@@ -155,8 +155,8 @@
    ### Scenario: [status, long listing and system files](../Features/A010_queries.md): 
    - OK : Given I run `smk -q reset`  
    - OK : And I run `smk -q build hello_c/Makefile.2`  
-   - OK : When I run `sh -c "smk st -l -sa | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' | grep -v LC_CTYPE > out.lpr1.txt"`  
-   - OK : Then the file `out.lpr1.txt` is equal to file `../data/expected_lpr1.txt`  
+   - OK : When I run `sh -c "smk st -l -sa | grep -v LC_CTYPE > out.lpr1.txt"`  
+   - OK : Then the file `out.lpr1.txt` is equal to file `../data/expected_lpr1.txt` (ignoring time)  
    - [X] scenario   [status, long listing and system files](../Features/A010_queries.md) pass  
 
    ### Background: [](../Features/A010_queries.md): 
@@ -221,8 +221,8 @@
    - [X] background [](../Features/A010_queries.md) pass  
 
    ### Scenario: [lt, list-targets](../Features/A010_queries.md): 
-   - OK : When I run `sh -c "smk list-targets --long-listing hello_c/Makefile.2 | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : When I run `smk list-targets --long-listing hello_c/Makefile.2`  
+   - OK : Then I get (ignoring time)  
    - OK : When I run `smk lt hello_c/Makefile.2`  
    - OK : Then I get  
    - [X] scenario   [lt, list-targets](../Features/A010_queries.md) pass  
@@ -256,8 +256,8 @@
    ### Scenario: [list-sources, show all files](../Features/A010_queries.md): 
    - OK : When I run `sh -c "smk list-sources --show-all-files hello_c/Makefile.2 | grep -v LC_CTYPE > out.las1.txt"`  
    - OK : Then the file `out.las1.txt` is equal to file `../data/expected_las1.txt`  
-   - OK : When I run `sh -c "smk -l ls -sa hello_c/Makefile.2 | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g' | grep -v LC_CTYPE | sort > out.las2.txt"`  
-   - OK : Then the file `out.las2.txt` is equal to file `../data/expected_las2.txt`  
+   - OK : When I run `sh -c "smk -l ls -sa hello_c/Makefile.2 | grep -v LC_CTYPE > out.las2.txt"`  
+   - OK : Then the file `out.las2.txt` is equal to file `../data/expected_las2.txt` (unordered) (ignoring time)  
    - [X] scenario   [list-sources, show all files](../Features/A010_queries.md) pass  
 
 
@@ -642,8 +642,8 @@
    - [X] background [](../Features/A040_errors.md) pass  
 
    ### Scenario: [other commands after a failed run](../Features/A040_errors.md): 
-   - OK : When I run `sh -c "smk read-smkfile | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : When I run `smk read-smkfile`  
+   - OK : Then I get (ignoring time)  
    - OK : When I run `smk status`  
    - OK : Then I get `No recorded run`  
    - OK : When I run `smk whatsnew`  
@@ -696,8 +696,8 @@
    - OK : And I run `smk -q reset`  
    - OK : When I run `smk run mkdir dir1`  
    - OK : Then I get `mkdir dir1`  
-   - OK : When I run `sh -c "smk st -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : When I run `smk st -l`  
+   - OK : Then I get (ignoring time)  
    - OK : When I run `smk ls`  
    - OK : Then there is no output  
    - OK : When I run `smk lt`  
@@ -712,8 +712,8 @@
    - OK : When I run `sleep 1`  
    - OK : And I run `smk run touch dir1/f1`  
    - OK : Then I get `touch dir1/f1`  
-   - OK : When I run `sh -c "smk st -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : When I run `smk st -l`  
+   - OK : Then I get (ignoring time)  
    - OK : When I run `smk ls`  
    - OK : Then there is no output  
    - OK : When I run `smk lt`  
@@ -738,12 +738,12 @@
    - OK : And I run `smk -q run mv dir1/f1 dir2`  
    - OK : And I run `touch dir1/f5`  
    - OK : And I run `mkdir dir2/dir3`  
-   - OK : When I run `sh -c "smk st | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : When I run `smk st`  
+   - OK : Then I get (ignoring time)  
    - OK : When I run `sleep 1`  
-   - OK : And I run `sh -c "smk lt -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
-   - OK : When I run `sh -c "smk lu -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
+   - OK : And I run `smk lt -l`  
+   - OK : Then I get (ignoring time)  
+   - OK : When I run `smk lu -l`  
    - OK : Then I get  
    - OK : When I run `smk clean`  
    - OK : Then I get  
@@ -754,8 +754,8 @@
    - OK : And I run `smk -q reset`  
    - OK : And I run `mkdir -p dir1`  
    - OK : When I run `smk -q run mkdir dir1/dir2`  
-   - OK : And I run `sh -c "smk st -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : And I run `smk st -l`  
+   - OK : Then I get (ignoring time)  
    - OK : When I run `smk wn`  
    - OK : Then I get `Nothing new`  
    - OK : When I run `smk`  
@@ -777,8 +777,8 @@
    - OK : Then I get `Nothing to run`  
    - OK : When I run `sleep 1`  
    - OK : And I run `touch dir1/f4`  
-   - OK : And I run `sh -c "smk -e | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : And I run `smk -e`  
+   - OK : Then I get (ignoring time)  
    - [X] scenario   [accessing dir1 contents, read access](../Features/A050_use_cases.md) pass  
 
    ### Scenario: [removing dir1](../Features/A050_use_cases.md): 
@@ -810,8 +810,8 @@
    - OK : And I run `smk -q reset`  
    - OK : When I run `smk run ./ogg-to-mp3.sh`  
    - OK : Then I get `./ogg-to-mp3.sh`  
-   - OK : When I run `sh -c "smk st -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : When I run `smk st -l`  
+   - OK : Then I get (ignoring time)  
    - [X] scenario   [start conversion](../Features/A050_use_cases.md) pass  
 
    ### Background: [](../Features/A050_use_cases.md): 
@@ -834,8 +834,8 @@
    ### Scenario: [ogg-to-mp3 is modified](../Features/A050_use_cases.md): 
    - OK : Given I run `smk -q run ./ogg-to-mp3.sh`  
    - OK : When I run `touch ./ogg-to-mp3.sh`  
-   - OK : And I run `sh -c "smk -e | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : And I run `smk -e`  
+   - OK : Then I get (ignoring time)  
    - [X] scenario   [ogg-to-mp3 is modified](../Features/A050_use_cases.md) pass  
 
    ### Background: [](../Features/A050_use_cases.md): 
@@ -846,13 +846,13 @@
    ### Scenario: [adding a .ogg file in a subdir](../Features/A050_use_cases.md): 
    - OK : Given I run `mkdir dir1`  
    - OK : When I run `sleep 1`  
-   - OK : And I run `sh -c "smk wn -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
-   - OK : When I run `sh -c "smk -e run ./ogg-to-mp3.sh | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : And I run `smk wn -l`  
+   - OK : Then I get (ignoring time)  
+   - OK : When I run `smk -e run ./ogg-to-mp3.sh`  
+   - OK : Then I get (ignoring time)  
    - OK : Given I run `cp x.ogg dir1/t.ogg`  
-   - OK : When I run `sh -c "smk -e run | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : When I run `smk -e run`  
+   - OK : Then I get (ignoring time)  
    - [X] scenario   [adding a .ogg file in a subdir](../Features/A050_use_cases.md) pass  
 
    ### Background: [](../Features/A050_use_cases.md): 
@@ -879,8 +879,8 @@
    - OK : And I run `smk -q reset`  
    - OK : When I run `smk MyBuild`  
    - OK : Then I get  
-   - OK : When I run `sh -c "smk status -l | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : When I run `smk status -l`  
+   - OK : Then I get (ignoring time)  
    - [X] scenario   [first run](../tutorial.md) pass  
 
    ### Scenario: [what are those new files in the current dir?](../tutorial.md): 
@@ -898,8 +898,8 @@
    - OK : And I run `smk`  
    - OK : Then I get `Nothing to run`  
    - OK : When I run `sleep 1`  
-   - OK : And I run `sh -c "smk -mt -e | sed 's/[0-9]//g'"`  
-   - OK : Then I get  
+   - OK : And I run `smk -mt -e`  
+   - OK : Then I get (ignoring time)  
    - OK : When I run `smk clean`  
    - OK : Then I get  
    - OK : When I run `smk reset`  
@@ -913,8 +913,8 @@
    ### Scenario: [let's modify a source](../tutorial.md): 
    - OK : When I run `sleep 1`  
    - OK : And I run `touch hello.c`  
-   - OK : And I run `sh -c "smk -e | sed 's/[0-9][0-9]*-[0-9][0-9]-[0-9][0-9]/YYYY:MM:DD/g' | sed 's/[0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]/HH:MM:SS.SS/g'"`  
-   - OK : Then I get  
+   - OK : And I run `smk -e`  
+   - OK : Then I get (ignoring time)  
    - [X] scenario   [let's modify a source](../tutorial.md) pass  
 
    ### Scenario: [another smk run](../tutorial.md): 
