@@ -27,7 +27,7 @@ the owner AFTER reviewing the diffs; it may come in a later message;
 when in doubt, wait.
 
 Once the owner gives the go-ahead, `git add` the whole generated state
-(test results, docs/tests/, docs/cmd_line.md,
+(test results, docs/tests_results/, docs/cmd_line.md,
 docs/dev/fixme_index.md, updated fixtures...), commit, and push.
 Committing in the middle of the chain freezes inconsistent artifacts,
 such as a tests badge still referring to the previous version.
@@ -73,7 +73,7 @@ invisible.
   its scenarios with anchors, as in the bbt features files
   (https://github.com/LionelDraghi/bbt/tree/main/docs/features)
 - the single bbt `--index results.md` output is written directly in
-  docs/tests/results.md: no results files concatenation nor move;
+  docs/tests_results/results.md: no results files concatenation nor move;
   the unit tests results are appended at its end, and bbt also
   generates the tests badge (`--generate_badge`, fetched by `make doc`)
 - the features run in a shared working dir, in the order given in
@@ -168,7 +168,7 @@ invisible.
   Smk_Config.Crate_Version: do not hard code a version in the sources
 - after a version change or a `smk -h` change, run `make doc` so that
   docs/cmd_line.md matches the new binary; the README tests badge reads
-  docs/tests/badge.svg, refreshed by the next `make check`
+  docs/tests_results/badge.svg, refreshed by the next `make check`
 
 ## 5. Environment specificities
 

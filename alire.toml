@@ -26,3 +26,6 @@ smk = "validation"
 [[actions]]
 type = "test"
 command = ["make", "check"]
+
+[[depends-on]]
+bbt = ">=0.6.0"  # because of the use of --cleanup=full in the Makefile

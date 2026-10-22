@@ -8,7 +8,7 @@ Just run your commands once through `smk`, and then, all you'll have to type is 
 `smk` will automatically check the modifications in the file system relevant for each command, and run only what has to!** 
 
 ------------------------------------------------------------------------
-[![image](https://img.shields.io/badge/-inside-blue?logo=ada&logoColor=white&labelColor=grey&logoSize=auto)](https://ada-lang.io/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Version](https://img.shields.io/github/v/tag/LionelDraghi/smk)](https://github.com/LionelDraghi/smk/tags) [![Tests](docs/tests/badge.svg)](docs/tests/results.md) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/smk.json)](https://alire.ada.dev/crates/smk.html)
+[![image](https://img.shields.io/badge/-inside-blue?logo=ada&logoColor=white&labelColor=grey&logoSize=auto)](https://ada-lang.io/) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Version](https://img.shields.io/github/v/tag/LionelDraghi/smk)](https://github.com/LionelDraghi/smk/tags) [![Tests](docs/tests_results/badge.svg)](docs/tests_results/results.md) [![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/smk.json)](https://alire.ada.dev/crates/smk.html)
 
 
 Table of contents  
@@ -177,7 +177,7 @@ And don't forget [`smk help`](docs/cmd_line.md).
     [Error handling](docs/Features/A040_errors.md),
     [Use cases](docs/Features/A050_use_cases.md)
   - [Command line](docs/cmd_line.md)
-  - [Tests](docs/tests/results.md)
+  - [Tests](docs/tests_results/results.md)
   - [Limitations and bugs](docs/limitations.md)
 
 * Development:

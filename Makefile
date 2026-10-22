@@ -8,7 +8,7 @@
 all: build check doc
 
 # Tests counts, extracted from the bbt results summary table
-TESTS_COUNT = grep -E '^\| (Successful|Failed) ' docs/tests/results.md | sed 's/|//g;s/^ *//;s/ *$$//;s/  */ /g'
+TESTS_COUNT = grep -E '^\| (Successful|Failed) ' docs/tests_results/results.md | sed 's/|//g;s/^ *//;s/ *$$//;s/  */ /g'
 
 .PHONY : help
 help:

@@ -97,7 +97,7 @@ jobs:
 
       - name: Save summary
         if: always()
-        run: sed -n '/## Summary/,$p' docs/tests/results.md >> ${GITHUB_STEP_SUMMARY} || echo "no results available"
+        run: sed -n '/## Summary/,$p' docs/tests_results/results.md >> ${GITHUB_STEP_SUMMARY} || echo "no results available"
 
       # Contrary to bbt, the tests results and badges are not published
       # by the CI: they are part of the repository state, committed with
