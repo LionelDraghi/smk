@@ -110,98 +110,98 @@
    - [X] scenario   [`touch hello.c` and dry run](../../tests/sanity/sanity.md) pass  
 
 
-# Document: [A010_queries.md](../Features/A010_queries.md)  
+# Document: [A010_queries.md](../features/A010_queries.md)  
   ## Feature: Read queries  
-   ### Background: [](../Features/A010_queries.md): 
+   ### Background: [](../features/A010_queries.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A010_queries.md) pass  
+   - [X] background [](../features/A010_queries.md) pass  
 
-   ### Scenario: [read-smkfile](../Features/A010_queries.md): 
+   ### Scenario: [read-smkfile](../features/A010_queries.md): 
    - OK : When I run `smk read-smkfile hello_c/Makefile.3`  
    - OK : Then I get (ignoring time)  
-   - [X] scenario   [read-smkfile](../Features/A010_queries.md) pass  
+   - [X] scenario   [read-smkfile](../features/A010_queries.md) pass  
 
-   ### Background: [](../Features/A010_queries.md): 
+   ### Background: [](../features/A010_queries.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A010_queries.md) pass  
+   - [X] background [](../features/A010_queries.md) pass  
 
-   ### Scenario: [status](../Features/A010_queries.md): 
+   ### Scenario: [status](../features/A010_queries.md): 
    - OK : Given I run `rm -f hello_c/hello hello_c/hello.o hello_c/main.o`  
    - OK : And I run `smk -q reset`  
    - OK : When I run `smk -q build hello_c/Makefile.2`  
    - OK : And I run `smk status`  
    - OK : Then I get (ignoring time)  
-   - [X] scenario   [status](../Features/A010_queries.md) pass  
+   - [X] scenario   [status](../features/A010_queries.md) pass  
 
-   ### Background: [](../Features/A010_queries.md): 
+   ### Background: [](../features/A010_queries.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A010_queries.md) pass  
+   - [X] background [](../features/A010_queries.md) pass  
 
-   ### Scenario: [status, long listing and system files @machine-dependent](../Features/A010_queries.md): 
+   ### Scenario: [status, long listing and system files @machine-dependent](../features/A010_queries.md): 
    - OK : Given I run `smk -q reset`  
    - OK : And I run `smk -q build hello_c/Makefile.2`  
    - OK : When I run `smk st -l -sa`  
    - OK : Then the output is equal to file `../data/expected_lpr1.txt` (ignoring time and [^/]*/LC_CTYPE)  
-   - [X] scenario   [status, long listing and system files @machine-dependent](../Features/A010_queries.md) pass  
+   - [X] scenario   [status, long listing and system files @machine-dependent](../features/A010_queries.md) pass  
 
-   ### Background: [](../Features/A010_queries.md): 
+   ### Background: [](../features/A010_queries.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A010_queries.md) pass  
+   - [X] background [](../features/A010_queries.md) pass  
 
-   ### Scenario: [status, no previous run](../Features/A010_queries.md): 
+   ### Scenario: [status, no previous run](../features/A010_queries.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk status hello_c/Makefile.2`  
    - OK : Then I get `Error: No previous run found.`  
    - OK : And I get an error  
-   - [X] scenario   [status, no previous run](../Features/A010_queries.md) pass  
+   - [X] scenario   [status, no previous run](../features/A010_queries.md) pass  
 
-   ### Background: [](../Features/A010_queries.md): 
+   ### Background: [](../features/A010_queries.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A010_queries.md) pass  
+   - [X] background [](../features/A010_queries.md) pass  
 
-   ### Scenario: [status, no smkfile](../Features/A010_queries.md): 
+   ### Scenario: [status, no smkfile](../features/A010_queries.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk status`  
    - OK : Then I get `Error: No smkfile given, and no existing runfile in dir`  
    - OK : And I get an error  
-   - [X] scenario   [status, no smkfile](../Features/A010_queries.md) pass  
+   - [X] scenario   [status, no smkfile](../features/A010_queries.md) pass  
 
   ## Feature: List queries  
-   ### Background: [](../Features/A010_queries.md): 
+   ### Background: [](../features/A010_queries.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A010_queries.md) pass  
+   - [X] background [](../features/A010_queries.md) pass  
 
-   ### Scenario: [lr, list-runs](../Features/A010_queries.md): 
+   ### Scenario: [lr, list-runs](../features/A010_queries.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk lr`  
    - OK : Then I get `No run file`  
@@ -209,103 +209,103 @@
    - OK : And I run `smk -q build hello_c/Makefile.3`  
    - OK : When I run `smk list-runs`  
    - OK : Then I get  
-   - [X] scenario   [lr, list-runs](../Features/A010_queries.md) pass  
+   - [X] scenario   [lr, list-runs](../features/A010_queries.md) pass  
 
-   ### Background: [](../Features/A010_queries.md): 
+   ### Background: [](../features/A010_queries.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A010_queries.md) pass  
+   - [X] background [](../features/A010_queries.md) pass  
 
-   ### Scenario: [lt, list-targets](../Features/A010_queries.md): 
+   ### Scenario: [lt, list-targets](../features/A010_queries.md): 
    - OK : When I run `smk list-targets --long-listing hello_c/Makefile.2`  
    - OK : Then I get (ignoring time)  
    - OK : When I run `smk lt hello_c/Makefile.2`  
    - OK : Then I get  
-   - [X] scenario   [lt, list-targets](../Features/A010_queries.md) pass  
+   - [X] scenario   [lt, list-targets](../features/A010_queries.md) pass  
 
-   ### Background: [](../Features/A010_queries.md): 
+   ### Background: [](../features/A010_queries.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A010_queries.md) pass  
+   - [X] background [](../features/A010_queries.md) pass  
 
-   ### Scenario: [ls, list-sources](../Features/A010_queries.md): 
+   ### Scenario: [ls, list-sources](../features/A010_queries.md): 
    - OK : When I run `smk ls -ds hello_c/Makefile.2`  
    - OK : Then I get (ignoring dir)  
    - OK : When I run `smk list-sources hello_c/Makefile.2`  
    - OK : Then I get  
-   - [X] scenario   [ls, list-sources](../Features/A010_queries.md) pass  
+   - [X] scenario   [ls, list-sources](../features/A010_queries.md) pass  
 
-   ### Background: [](../Features/A010_queries.md): 
+   ### Background: [](../features/A010_queries.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A010_queries.md) pass  
+   - [X] background [](../features/A010_queries.md) pass  
 
-   ### Scenario: [list-sources, show all files @machine-dependent](../Features/A010_queries.md): 
+   ### Scenario: [list-sources, show all files @machine-dependent](../features/A010_queries.md): 
    - OK : When I run `smk list-sources --show-all-files hello_c/Makefile.2`  
    - OK : Then the output is equal to file `../data/expected_las1.txt` (ignoring [^/]*/LC_CTYPE)  
    - OK : When I run `smk -l ls -sa hello_c/Makefile.2`  
    - OK : Then the output is equal to file `../data/expected_las2.txt` (ignoring time, order and [^/]*/LC_CTYPE)  
-   - [X] scenario   [list-sources, show all files @machine-dependent](../Features/A010_queries.md) pass  
+   - [X] scenario   [list-sources, show all files @machine-dependent](../features/A010_queries.md) pass  
 
 
-# Document: [A020_build.md](../Features/A020_build.md)  
+# Document: [A020_build.md](../features/A020_build.md)  
   ## Feature: Targets  
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.1`  
    - OK : And the file `hello_c/Makefile.2`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [dry-run clean](../Features/A020_build.md): 
+   ### Scenario: [dry-run clean](../features/A020_build.md): 
    - OK : Given I run `smk -q reset`  
    - OK : And I run `smk -q build hello_c/Makefile.2`  
    - OK : When I run `smk clean --dry-run`  
    - OK : Then I get  
    - OK : When I run `smk --explain`  
    - OK : Then I get `Nothing to run`  
-   - [X] scenario   [dry-run clean](../Features/A020_build.md) pass  
+   - [X] scenario   [dry-run clean](../features/A020_build.md) pass  
 
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.1`  
    - OK : And the file `hello_c/Makefile.2`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [real clean](../Features/A020_build.md): 
+   ### Scenario: [real clean](../features/A020_build.md): 
    - OK : When I run `smk clean`  
    - OK : Then I get  
    - OK : When I run `smk -e -mt`  
    - OK : Then I get  
-   - [X] scenario   [real clean](../Features/A020_build.md) pass  
+   - [X] scenario   [real clean](../features/A020_build.md) pass  
 
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.1`  
    - OK : And the file `hello_c/Makefile.2`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [build selected target](../Features/A020_build.md): 
+   ### Scenario: [build selected target](../features/A020_build.md): 
    - OK : Given I run `smk -q reset`  
    - OK : And I run `smk -q hello_c/Makefile.1`  
    - OK : When I run `smk build main.o`  
@@ -314,83 +314,83 @@
    - OK : And I run `touch hello_c/main.c`  
    - OK : And I run `smk build main.o`  
    - OK : Then I get  
-   - [X] scenario   [build selected target](../Features/A020_build.md) pass  
+   - [X] scenario   [build selected target](../features/A020_build.md) pass  
 
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.1`  
    - OK : And the file `hello_c/Makefile.2`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [build unknown target](../Features/A020_build.md): 
+   ### Scenario: [build unknown target](../features/A020_build.md): 
    - OK : When I run `smk build mainzzzzz.o`  
    - OK : Then I get  
-   - [X] scenario   [build unknown target](../Features/A020_build.md) pass  
+   - [X] scenario   [build unknown target](../features/A020_build.md) pass  
 
   ## Feature: Implicit smkfile naming  
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [no run file in the directory](../Features/A020_build.md): 
+   ### Scenario: [no run file in the directory](../features/A020_build.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk`  
    - OK : Then I get `Error: No smkfile given, and no existing runfile in dir`  
    - OK : And I get an error  
-   - [X] scenario   [no run file in the directory](../Features/A020_build.md) pass  
+   - [X] scenario   [no run file in the directory](../features/A020_build.md) pass  
 
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [one run file, implicit run](../Features/A020_build.md): 
+   ### Scenario: [one run file, implicit run](../features/A020_build.md): 
    - OK : Given I run `smk -q hello_c/Makefile.2`  
    - OK : When I run `sleep 1`  
    - OK : And I run `touch hello_c/hello.c`  
    - OK : And I run `smk`  
    - OK : Then I get  
-   - [X] scenario   [one run file, implicit run](../Features/A020_build.md) pass  
+   - [X] scenario   [one run file, implicit run](../features/A020_build.md) pass  
 
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.3`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [more than one run file](../Features/A020_build.md): 
+   ### Scenario: [more than one run file](../features/A020_build.md): 
    - OK : Given I run `smk -q hello_c/Makefile.3`  
    - OK : When I run `smk`  
    - OK : Then I get `Error: No smkfile given, and more than one runfile in dir`  
    - OK : And I get an error  
-   - [X] scenario   [more than one run file](../Features/A020_build.md) pass  
+   - [X] scenario   [more than one run file](../features/A020_build.md) pass  
 
   ## Feature: Sections  
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.4`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [specific section building](../Features/A020_build.md): 
+   ### Scenario: [specific section building](../features/A020_build.md): 
    - OK : Given I run `smk -q reset`  
    - OK : And I run `smk build -q hello_c/Makefile.2`  
    - OK : When I run `smk :main.o`  
@@ -399,64 +399,64 @@
    - OK : And I run `touch hello_c/main.c`  
    - OK : And I run `smk :main.o`  
    - OK : Then I get  
-   - [X] scenario   [specific section building](../Features/A020_build.md) pass  
+   - [X] scenario   [specific section building](../features/A020_build.md) pass  
 
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.4`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [unknown section](../Features/A020_build.md): 
+   ### Scenario: [unknown section](../features/A020_build.md): 
    - OK : When I run `smk :qzdsqdq.o`  
    - OK : Then I get `No section "qzdsqdq.o" in hello_c/Makefile.2`  
-   - [X] scenario   [unknown section](../Features/A020_build.md) pass  
+   - [X] scenario   [unknown section](../features/A020_build.md) pass  
 
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.4`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [smkfile,section notation](../Features/A020_build.md): 
+   ### Scenario: [smkfile,section notation](../features/A020_build.md): 
    - OK : Given I run `smk build -q hello_c/Makefile.4`  
    - OK : When I run `touch hello_c/hello.c`  
    - OK : And I run `smk hello_c/Makefile.4:hello.o`  
    - OK : Then I get  
    - OK : When I run `smk -a hello_c/Makefile.4:mrproper`  
    - OK : Then I get  
-   - [X] scenario   [smkfile,section notation](../Features/A020_build.md) pass  
+   - [X] scenario   [smkfile,section notation](../features/A020_build.md) pass  
 
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Makefile.2`  
    - OK : And the file `hello_c/Makefile.4`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [unknown smkfile with section](../Features/A020_build.md): 
+   ### Scenario: [unknown smkfile with section](../features/A020_build.md): 
    - OK : When I run `smk -a hello_c/Makezzzzzfile.4:mrproper`  
    - OK : Then I get  
    - OK : And I get an error  
-   - [X] scenario   [unknown smkfile with section](../Features/A020_build.md) pass  
+   - [X] scenario   [unknown smkfile with section](../features/A020_build.md) pass  
 
   ## Feature: Add and run commands  
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [add and build](../Features/A020_build.md): 
+   ### Scenario: [add and build](../features/A020_build.md): 
    - OK : Given I run `rm -f hello.o main.o hello default.smk`  
    - OK : And I run `smk -q reset`  
    - OK : And I run `smk add gcc -c hello_c/main.c`  
@@ -464,16 +464,16 @@
    - OK : And I run `smk add gcc -o hello hello.o main.o`  
    - OK : When I run `smk build`  
    - OK : Then I get  
-   - [X] scenario   [add and build](../Features/A020_build.md) pass  
+   - [X] scenario   [add and build](../features/A020_build.md) pass  
 
-   ### Background: [](../Features/A020_build.md): 
+   ### Background: [](../features/A020_build.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
-   - [X] background [](../Features/A020_build.md) pass  
+   - [X] background [](../features/A020_build.md) pass  
 
-   ### Scenario: [run](../Features/A020_build.md): 
+   ### Scenario: [run](../features/A020_build.md): 
    - OK : Given I run `rm -f hello.o main.o hello default.smk`  
    - OK : And I run `smk -q reset`  
    - OK : When I run `smk run gcc -c hello_c/main.c`  
@@ -482,12 +482,12 @@
    - OK : Then I get `gcc -c hello_c/hello.c`  
    - OK : When I run `smk run gcc -o hello hello.o main.o`  
    - OK : Then I get `gcc -o hello hello.o main.o`  
-   - [X] scenario   [run](../Features/A020_build.md) pass  
+   - [X] scenario   [run](../features/A020_build.md) pass  
 
 
-# Document: [A030_smkfile_format.md](../Features/A030_smkfile_format.md)  
+# Document: [A030_smkfile_format.md](../features/A030_smkfile_format.md)  
   ## Feature: Multiline commands  
-   ### Background: [](../Features/A030_smkfile_format.md): 
+   ### Background: [](../features/A030_smkfile_format.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
@@ -495,16 +495,16 @@
    - OK : And the file `multiline_smkfile1.txt`  
    - OK : And the file `multiline_smkfile2.txt`  
    - OK : And the file `hill_multiline_smkfile.txt`  
-   - [X] background [](../Features/A030_smkfile_format.md) pass  
+   - [X] background [](../features/A030_smkfile_format.md) pass  
 
-   ### Scenario: [multiline single command](../Features/A030_smkfile_format.md): 
+   ### Scenario: [multiline single command](../features/A030_smkfile_format.md): 
    - OK : Given I run `smk -q reset`  
    - OK : And I run `touch out.sloccount`  
    - OK : When I run `smk multiline_smkfile1.txt`  
    - OK : Then I get  
-   - [X] scenario   [multiline single command](../Features/A030_smkfile_format.md) pass  
+   - [X] scenario   [multiline single command](../features/A030_smkfile_format.md) pass  
 
-   ### Background: [](../Features/A030_smkfile_format.md): 
+   ### Background: [](../features/A030_smkfile_format.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
@@ -512,15 +512,15 @@
    - OK : And the file `multiline_smkfile1.txt`  
    - OK : And the file `multiline_smkfile2.txt`  
    - OK : And the file `hill_multiline_smkfile.txt`  
-   - [X] background [](../Features/A030_smkfile_format.md) pass  
+   - [X] background [](../features/A030_smkfile_format.md) pass  
 
-   ### Scenario: [multiline with more commands and pipes](../Features/A030_smkfile_format.md): 
+   ### Scenario: [multiline with more commands and pipes](../features/A030_smkfile_format.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk multiline_smkfile2.txt`  
    - OK : Then I get  
-   - [X] scenario   [multiline with more commands and pipes](../Features/A030_smkfile_format.md) pass  
+   - [X] scenario   [multiline with more commands and pipes](../features/A030_smkfile_format.md) pass  
 
-   ### Background: [](../Features/A030_smkfile_format.md): 
+   ### Background: [](../features/A030_smkfile_format.md): 
    - OK : Given the directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
@@ -528,45 +528,45 @@
    - OK : And the file `multiline_smkfile1.txt`  
    - OK : And the file `multiline_smkfile2.txt`  
    - OK : And the file `hill_multiline_smkfile.txt`  
-   - [X] background [](../Features/A030_smkfile_format.md) pass  
+   - [X] background [](../features/A030_smkfile_format.md) pass  
 
-   ### Scenario: [hill formatted multiline](../Features/A030_smkfile_format.md): 
+   ### Scenario: [hill formatted multiline](../features/A030_smkfile_format.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk hill_multiline_smkfile.txt`  
    - OK : Then I get  
    - OK : And I get an error  
-   - [X] scenario   [hill formatted multiline](../Features/A030_smkfile_format.md) pass  
+   - [X] scenario   [hill formatted multiline](../features/A030_smkfile_format.md) pass  
 
 
-# Document: [A040_errors.md](../Features/A040_errors.md)  
+# Document: [A040_errors.md](../features/A040_errors.md)  
   ## Feature: Run errors  
-   ### Background: [](../Features/A040_errors.md): 
+   ### Background: [](../features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
    - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Wrong_Makefile`  
-   - [X] background [](../Features/A040_errors.md) pass  
+   - [X] background [](../features/A040_errors.md) pass  
 
-   ### Scenario: [no option](../Features/A040_errors.md): 
+   ### Scenario: [no option](../features/A040_errors.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk hello_c/Wrong_Makefile`  
    - OK : Then I get  
    - OK : And the error output is  
    - OK : And I get an error  
-   - [X] scenario   [no option](../Features/A040_errors.md) pass  
+   - [X] scenario   [no option](../features/A040_errors.md) pass  
 
-   ### Background: [](../Features/A040_errors.md): 
+   ### Background: [](../features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
    - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Wrong_Makefile`  
-   - [X] background [](../Features/A040_errors.md) pass  
+   - [X] background [](../features/A040_errors.md) pass  
 
-   ### Scenario: [keep going](../Features/A040_errors.md): 
+   ### Scenario: [keep going](../features/A040_errors.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk -k hello_c/Wrong_Makefile`  
    - OK : Then I get  
@@ -574,35 +574,35 @@
    - OK : And the error output contains `cannot find main.o: No such file or directory`  
    - OK : And the error output contains `collect2: error: ld returned 1 exit status`  
    - OK : And I get an error  
-   - [X] scenario   [keep going](../Features/A040_errors.md) pass  
+   - [X] scenario   [keep going](../features/A040_errors.md) pass  
 
-   ### Background: [](../Features/A040_errors.md): 
+   ### Background: [](../features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
    - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Wrong_Makefile`  
-   - [X] background [](../Features/A040_errors.md) pass  
+   - [X] background [](../features/A040_errors.md) pass  
 
-   ### Scenario: [ignore errors](../Features/A040_errors.md): 
+   ### Scenario: [ignore errors](../features/A040_errors.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk -i hello_c/Wrong_Makefile`  
    - OK : Then I get  
    - OK : And the error output is  
    - OK : And I get no error  
-   - [X] scenario   [ignore errors](../Features/A040_errors.md) pass  
+   - [X] scenario   [ignore errors](../features/A040_errors.md) pass  
 
-   ### Background: [](../Features/A040_errors.md): 
+   ### Background: [](../features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
    - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Wrong_Makefile`  
-   - [X] background [](../Features/A040_errors.md) pass  
+   - [X] background [](../features/A040_errors.md) pass  
 
-   ### Scenario: [keep going and ignore errors](../Features/A040_errors.md): 
+   ### Scenario: [keep going and ignore errors](../features/A040_errors.md): 
    - OK : Given I run `smk -q reset`  
    - OK : When I run `smk --keep-going --ignore-errors hello_c/Wrong_Makefile`  
    - OK : Then I get  
@@ -610,18 +610,18 @@
    - OK : And the error output contains `cannot find main.o: No such file or directory`   
    - OK : And the error output contains `collect2: error: ld returned 1 exit status`  
    - OK : And I get no error  
-   - [X] scenario   [keep going and ignore errors](../Features/A040_errors.md) pass  
+   - [X] scenario   [keep going and ignore errors](../features/A040_errors.md) pass  
 
-   ### Background: [](../Features/A040_errors.md): 
+   ### Background: [](../features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
    - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Wrong_Makefile`  
-   - [X] background [](../Features/A040_errors.md) pass  
+   - [X] background [](../features/A040_errors.md) pass  
 
-   ### Scenario: [run command fails](../Features/A040_errors.md): 
+   ### Scenario: [run command fails](../features/A040_errors.md): 
    - OK : Given I run `rm -f default.smk`  
    - OK : And I run `smk -q reset`  
    - OK : When I run `smk run non_existing_command`  
@@ -629,18 +629,18 @@
    - OK : And the error output is  
    - OK : And I get an error  
    - OK : And the file `default.smk` contains `non_existing_command`  
-   - [X] scenario   [run command fails](../Features/A040_errors.md) pass  
+   - [X] scenario   [run command fails](../features/A040_errors.md) pass  
 
-   ### Background: [](../Features/A040_errors.md): 
+   ### Background: [](../features/A040_errors.md): 
    - OK : Given the environment variable `LC_ALL` is `C`  
    - OK : And the new directory `hello_c`  
    - OK : And the file `hello_c/hello.c`  
    - OK : And the file `hello_c/main.c`  
    - OK : And the file `hello_c/hello.h`  
    - OK : And the file `hello_c/Wrong_Makefile`  
-   - [X] background [](../Features/A040_errors.md) pass  
+   - [X] background [](../features/A040_errors.md) pass  
 
-   ### Scenario: [other commands after a failed run](../Features/A040_errors.md): 
+   ### Scenario: [other commands after a failed run](../features/A040_errors.md): 
    - OK : When I run `smk read-smkfile`  
    - OK : Then I get (ignoring time)  
    - OK : When I run `smk status`  
@@ -653,44 +653,44 @@
    - OK : Then there is no output  
    - OK : When I run `smk list-unused`  
    - OK : Then there is no output  
-   - [X] scenario   [other commands after a failed run](../Features/A040_errors.md) pass  
+   - [X] scenario   [other commands after a failed run](../features/A040_errors.md) pass  
 
   ## Feature: Command line errors  
-   ### Scenario: [help options](../Features/A040_errors.md): 
+   ### Scenario: [help options](../features/A040_errors.md): 
    - OK : When I run `sh -c "smk -h > out.help1.txt"`  
    - OK : And I run `sh -c "smk help > out.help2.txt"`  
    - OK : Then the file `out.help1.txt` is equal to file `out.help2.txt`  
-   - [X] scenario   [help options](../Features/A040_errors.md) pass  
+   - [X] scenario   [help options](../features/A040_errors.md) pass  
 
-   ### Scenario: [version option](../Features/A040_errors.md): 
+   ### Scenario: [version option](../features/A040_errors.md): 
    - OK : Given I run `sh -c "grep ^version ../../alire.toml | cut -d'\"' -f2 > out.expected_version.txt"`  
    - OK : When I run `smk version`  
    - OK : Then the output is equal to file `out.expected_version.txt`  
-   - [X] scenario   [version option](../Features/A040_errors.md) pass  
+   - [X] scenario   [version option](../features/A040_errors.md) pass  
 
-   ### Scenario: [illegal command lines](../Features/A040_errors.md): 
+   ### Scenario: [illegal command lines](../features/A040_errors.md): 
    - OK : When I run `smk read-smkfile status`  
    - OK : Then the output is equal to file `../data/expected_wrong_cmd_line1.txt`  
    - OK : And I get an error  
-   - [X] scenario   [illegal command lines](../Features/A040_errors.md) pass  
+   - [X] scenario   [illegal command lines](../features/A040_errors.md) pass  
 
-   ### Scenario: [option given after a command](../Features/A040_errors.md): 
+   ### Scenario: [option given after a command](../features/A040_errors.md): 
    - OK : Given I run `rm -f default.smk`  
    - OK : And I run `smk -q reset`  
    - OK : When I run `smk reset -l`  
    - OK : Then there is no output  
-   - [X] scenario   [option given after a command](../Features/A040_errors.md) pass  
+   - [X] scenario   [option given after a command](../features/A040_errors.md) pass  
 
-   ### Scenario: [unknown smkfile](../Features/A040_errors.md): 
+   ### Scenario: [unknown smkfile](../features/A040_errors.md): 
    - OK : When I run `smk My_Makefile`  
    - OK : Then I get `Error: No smkfile given, and no existing runfile in dir`  
    - OK : And I get an error  
-   - [X] scenario   [unknown smkfile](../Features/A040_errors.md) pass  
+   - [X] scenario   [unknown smkfile](../features/A040_errors.md) pass  
 
 
-# Document: [A050_use_cases.md](../Features/A050_use_cases.md)  
+# Document: [A050_use_cases.md](../features/A050_use_cases.md)  
   ## Feature: Directory operations  
-   ### Scenario: [mkdir dir1 @machine-dependent](../Features/A050_use_cases.md): 
+   ### Scenario: [mkdir dir1 @machine-dependent](../features/A050_use_cases.md): 
    - OK : Given I run `rm -rf default.smk dir1 dir2`  
    - OK : And I run `smk -q reset`  
    - OK : When I run `smk run mkdir dir1`  
@@ -705,9 +705,9 @@
    - OK : Then I get `/usr/lib/locale/fr_FR.utf8/LC_MESSAGES/SYS_LC_MESSAGES`  
    - OK : When I run `smk wn`  
    - OK : Then I get `Nothing new`  
-   - [X] scenario   [mkdir dir1 @machine-dependent](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [mkdir dir1 @machine-dependent](../features/A050_use_cases.md) pass  
 
-   ### Scenario: [updating dir1 @machine-dependent](../Features/A050_use_cases.md): 
+   ### Scenario: [updating dir1 @machine-dependent](../features/A050_use_cases.md): 
    - OK : When I run `sleep 1`  
    - OK : And I run `smk run touch dir1/f1`  
    - OK : Then I get `touch dir1/f1`  
@@ -726,9 +726,9 @@
    - OK : When I run `touch dir1`  
    - OK : And I run `smk`  
    - OK : Then I get `Nothing to run`  
-   - [X] scenario   [updating dir1 @machine-dependent](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [updating dir1 @machine-dependent](../features/A050_use_cases.md) pass  
 
-   ### Scenario: [cleaning dir1 @machine-dependent](../Features/A050_use_cases.md): 
+   ### Scenario: [cleaning dir1 @machine-dependent](../features/A050_use_cases.md): 
    - OK : Given I run `rm -rf default.smk dir1 dir2`  
    - OK : And I run `smk -q reset`  
    - OK : And I run `smk -q run mkdir dir1`  
@@ -746,9 +746,9 @@
    - OK : Then I get  
    - OK : When I run `smk clean`  
    - OK : Then I get  
-   - [X] scenario   [cleaning dir1 @machine-dependent](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [cleaning dir1 @machine-dependent](../features/A050_use_cases.md) pass  
 
-   ### Scenario: [accessing dir1 contents, write access](../Features/A050_use_cases.md): 
+   ### Scenario: [accessing dir1 contents, write access](../features/A050_use_cases.md): 
    - OK : Given I run `rm -rf default.smk dir1 dir2`  
    - OK : And I run `smk -q reset`  
    - OK : And I run `mkdir -p dir1`  
@@ -767,9 +767,9 @@
    - OK : Then I get `[Updated] [Target] dir1/dir2`  
    - OK : When I run `smk`  
    - OK : Then I get `Nothing to run`  
-   - [X] scenario   [accessing dir1 contents, write access](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [accessing dir1 contents, write access](../features/A050_use_cases.md) pass  
 
-   ### Scenario: [accessing dir1 contents, read access](../Features/A050_use_cases.md): 
+   ### Scenario: [accessing dir1 contents, read access](../features/A050_use_cases.md): 
    - OK : When I run `smk run ls -1 dir1`  
    - OK : Then I get  
    - OK : When I run `smk`  
@@ -778,9 +778,9 @@
    - OK : And I run `touch dir1/f4`  
    - OK : And I run `smk -e`  
    - OK : Then I get (ignoring time)  
-   - [X] scenario   [accessing dir1 contents, read access](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [accessing dir1 contents, read access](../features/A050_use_cases.md) pass  
 
-   ### Scenario: [removing dir1](../Features/A050_use_cases.md): 
+   ### Scenario: [removing dir1](../features/A050_use_cases.md): 
    - OK : Given I run `rm -rf default.smk dir1 dir2`  
    - OK : And I run `smk -q reset`  
    - OK : And I run `smk -q run mkdir dir1`  
@@ -793,15 +793,15 @@
    - OK : Then I get `Nothing to run`  
    - OK : When I run `smk -e -mt`  
    - OK : Then I get  
-   - [X] scenario   [removing dir1](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [removing dir1](../features/A050_use_cases.md) pass  
 
   ## Feature: mp3 conversions  
-   ### Background: [](../Features/A050_use_cases.md): 
+   ### Background: [](../features/A050_use_cases.md): 
    - OK : Given the executable file `to-mp3.sh`  
    - OK : And the executable file `ogg-to-mp3.sh`  
-   - [X] background [](../Features/A050_use_cases.md) pass  
+   - [X] background [](../features/A050_use_cases.md) pass  
 
-   ### Scenario: [start conversion](../Features/A050_use_cases.md): 
+   ### Scenario: [start conversion](../features/A050_use_cases.md): 
    - OK : Given I run `sh -c "rm -f default.smk *.mp3 z.ogg"`  
    - OK : And I run `rm -rf dir1`  
    - OK : And I run `cp ../data/ogg/x.ogg x.ogg`  
@@ -811,38 +811,38 @@
    - OK : Then I get `./ogg-to-mp3.sh`  
    - OK : When I run `smk st -l`  
    - OK : Then I get (ignoring time)  
-   - [X] scenario   [start conversion](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [start conversion](../features/A050_use_cases.md) pass  
 
-   ### Background: [](../Features/A050_use_cases.md): 
+   ### Background: [](../features/A050_use_cases.md): 
    - OK : Given the executable file `to-mp3.sh`  
    - OK : And the executable file `ogg-to-mp3.sh`  
-   - [X] background [](../Features/A050_use_cases.md) pass  
+   - [X] background [](../features/A050_use_cases.md) pass  
 
-   ### Scenario: [new ogg in dir](../Features/A050_use_cases.md): 
+   ### Scenario: [new ogg in dir](../features/A050_use_cases.md): 
    - OK : When I run `sleep 1`  
    - OK : And I run `cp x.ogg z.ogg`  
    - OK : And I run `smk whatsnew`  
    - OK : Then I get `[Updated] [Source] ./`  
-   - [X] scenario   [new ogg in dir](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [new ogg in dir](../features/A050_use_cases.md) pass  
 
-   ### Background: [](../Features/A050_use_cases.md): 
+   ### Background: [](../features/A050_use_cases.md): 
    - OK : Given the executable file `to-mp3.sh`  
    - OK : And the executable file `ogg-to-mp3.sh`  
-   - [X] background [](../Features/A050_use_cases.md) pass  
+   - [X] background [](../features/A050_use_cases.md) pass  
 
-   ### Scenario: [ogg-to-mp3 is modified](../Features/A050_use_cases.md): 
+   ### Scenario: [ogg-to-mp3 is modified](../features/A050_use_cases.md): 
    - OK : Given I run `smk -q run ./ogg-to-mp3.sh`  
    - OK : When I run `touch ./ogg-to-mp3.sh`  
    - OK : And I run `smk -e`  
    - OK : Then I get (ignoring time)  
-   - [X] scenario   [ogg-to-mp3 is modified](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [ogg-to-mp3 is modified](../features/A050_use_cases.md) pass  
 
-   ### Background: [](../Features/A050_use_cases.md): 
+   ### Background: [](../features/A050_use_cases.md): 
    - OK : Given the executable file `to-mp3.sh`  
    - OK : And the executable file `ogg-to-mp3.sh`  
-   - [X] background [](../Features/A050_use_cases.md) pass  
+   - [X] background [](../features/A050_use_cases.md) pass  
 
-   ### Scenario: [adding a .ogg file in a subdir](../Features/A050_use_cases.md): 
+   ### Scenario: [adding a .ogg file in a subdir](../features/A050_use_cases.md): 
    - OK : Given I run `mkdir dir1`  
    - OK : When I run `sleep 1`  
    - OK : And I run `smk wn -l`  
@@ -852,17 +852,17 @@
    - OK : Given I run `cp x.ogg dir1/t.ogg`  
    - OK : When I run `smk -e run`  
    - OK : Then I get (ignoring time)  
-   - [X] scenario   [adding a .ogg file in a subdir](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [adding a .ogg file in a subdir](../features/A050_use_cases.md) pass  
 
-   ### Background: [](../Features/A050_use_cases.md): 
+   ### Background: [](../features/A050_use_cases.md): 
    - OK : Given the executable file `to-mp3.sh`  
    - OK : And the executable file `ogg-to-mp3.sh`  
-   - [X] background [](../Features/A050_use_cases.md) pass  
+   - [X] background [](../features/A050_use_cases.md) pass  
 
-   ### Scenario: [smk clean](../Features/A050_use_cases.md): 
+   ### Scenario: [smk clean](../features/A050_use_cases.md): 
    - OK : When I run `smk clean`  
    - OK : Then I get  
-   - [X] scenario   [smk clean](../Features/A050_use_cases.md) pass  
+   - [X] scenario   [smk clean](../features/A050_use_cases.md) pass  
 
 
 # Document: [tutorial.md](../tutorial.md)  

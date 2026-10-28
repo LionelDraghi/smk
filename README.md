@@ -62,7 +62,7 @@ Note that this test case, though simple, is already fairly representative:
 - the second has the same file as input and output,  
 - and the third is "moving" a file, that is deleting the input file.  
 
-This example is the [mp3 conversions use case](docs/Features/A050_use_cases.md),
+This example is the [mp3 conversions use case](docs/features/A050_use_cases.md),
 and the highly recommended [Tutorial](docs/tutorial.md) is the best way to
 start: both are executable parts of the test suite, so they are guaranteed
 to remain true.
@@ -170,12 +170,12 @@ And don't forget [`smk help`](docs/cmd_line.md).
 
 * Documentation
   - [Tutorial](docs/tutorial.md) (executable: it is run and checked by the test suite)
-  - [Features](docs/Features/A010_queries.md), described by executable scenarios:
-    [Queries](docs/Features/A010_queries.md),
-    [Build](docs/Features/A020_build.md),
-    [Smkfile format](docs/Features/A030_smkfile_format.md),
-    [Error handling](docs/Features/A040_errors.md),
-    [Use cases](docs/Features/A050_use_cases.md)
+  - [Features](docs/features/A010_queries.md), described by executable scenarios:
+    [Queries](docs/features/A010_queries.md),
+    [Build](docs/features/A020_build.md),
+    [Smkfile format](docs/features/A030_smkfile_format.md),
+    [Error handling](docs/features/A040_errors.md),
+    [Use cases](docs/features/A050_use_cases.md)
   - [Command line](docs/cmd_line.md)
   - [Tests](docs/tests_results/results.md)
   - [Limitations and bugs](docs/limitations.md)

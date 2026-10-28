@@ -32,11 +32,11 @@ help:
 # and the features are run in a single bbt invocation, so that each
 # target below can be run alone.
 SANITY   = ../../tests/sanity/sanity.md
-FEATURES = ../../docs/Features/A010_queries.md \
-           ../../docs/Features/A020_build.md \
-           ../../docs/Features/A030_smkfile_format.md \
-           ../../docs/Features/A040_errors.md \
-           ../../docs/Features/A050_use_cases.md
+FEATURES = ../../docs/features/A010_queries.md \
+           ../../docs/features/A020_build.md \
+           ../../docs/features/A030_smkfile_format.md \
+           ../../docs/features/A040_errors.md \
+           ../../docs/features/A050_use_cases.md
 TUTORIAL = ../../docs/tutorial.md
 
 # The scenarios are run in a fresh run dir, recreated by each target,
@@ -66,17 +66,17 @@ BBT       = cd run && PATH="$$PWD:$$PATH" env -u LD_LIBRARY_PATH \
 BENCHMARK_DIR = ../benchmarks
 BENCHMARK_SCRIPTS = ../scripts
 BBT_ALL = ../../tests/sanity/sanity.md \
-         ../../docs/Features/A010_queries.md \
-         ../../docs/Features/A020_build.md \
-         ../../docs/Features/A030_smkfile_format.md \
-         ../../docs/Features/A040_errors.md \
-         ../../docs/Features/A050_use_cases.md \
+         ../../docs/features/A010_queries.md \
+         ../../docs/features/A020_build.md \
+         ../../docs/features/A030_smkfile_format.md \
+         ../../docs/features/A040_errors.md \
+         ../../docs/features/A050_use_cases.md \
          ../../docs/tutorial.md
-BBT_FEATURES = ../../docs/Features/A010_queries.md \
-               ../../docs/Features/A020_build.md \
-               ../../docs/Features/A030_smkfile_format.md \
-               ../../docs/Features/A040_errors.md \
-               ../../docs/Features/A050_use_cases.md
+BBT_FEATURES = ../../docs/features/A010_queries.md \
+               ../../docs/features/A020_build.md \
+               ../../docs/features/A030_smkfile_format.md \
+               ../../docs/features/A040_errors.md \
+               ../../docs/features/A050_use_cases.md
 
 sanity: ../smk
 	$(FRESH_RUN)

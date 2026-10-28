@@ -7,7 +7,7 @@ on:                    # Run the workflow for each of the following events:
     paths: &trigger_paths
       - 'src/**'
       - 'tests/**'
-      - 'docs/Features/**'
+      - 'docs/features/**'
       - 'docs/tutorial.md'
       - '.github/workflows/**'
       - 'Makefile'

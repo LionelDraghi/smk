@@ -60,7 +60,7 @@ the format handler:
 
 The tests are organized as follows:
 
-- the **features** are described by bbt scenario files in `docs/Features/`
+- the **features** are described by bbt scenario files in `docs/features/`
   (one file per family, grouping several `# Feature` sections, each with
   its scenarios): they are part of the documentation;
 - the **tutorial** (`docs/tutorial.md`) is itself a bbt scenario file;

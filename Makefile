@@ -99,7 +99,7 @@ doc: cmd_line.md
 	cat /tmp/fixme.md                       	>> docs/dev/fixme_index.md
 	rm /tmp/fixme.md
 	grep -rn "Fixme:" src/*           	| sed "s/:/|/2"	>> docs/dev/fixme_index.md
-	grep -rn "Fixme:" tests/sanity tests/unit_* docs/Features | sed "s/:/|/2"	>> docs/dev/fixme_index.md
+	grep -rn "Fixme:" tests/sanity tests/unit_* docs/features | sed "s/:/|/2"	>> docs/dev/fixme_index.md
 
 	echo OK
 	echo

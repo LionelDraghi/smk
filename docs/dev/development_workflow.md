@@ -54,7 +54,7 @@ invisible.
 ## 3. Test procedure
 
 - tests are [bbt](https://github.com/LionelDraghi/bbt) scenarios:
-  - the features are described by the scenario files in `docs/Features/`
+  - the features are described by the scenario files in `docs/features/`
     (grouped by family, several `# Feature` sections per file), and are
     part of the documentation; `docs/tutorial.md` is itself a scenario;
   - the sanity tests are in `tests/sanity/sanity.md`;
@@ -156,7 +156,7 @@ invisible.
 - the tests are the specification (TDD first); the output formats
   (listings, explanations, error messages, `smk -h`) are stabilized by
   the expected* fixtures: check the error handling and list queries
-  features suites (docs/Features/) before changing any output format
+  features suites (docs/features/) before changing any output format
 - add a line in docs/changelog.md under the current -dev version,
   following the Keep a Changelog format with the
   [Added]/[Changed]/[Fixed] keywords, from a user perspective only
